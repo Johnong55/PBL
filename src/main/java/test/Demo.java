@@ -28,7 +28,7 @@ public class Demo {
 			Transaction tr = session.beginTransaction();
 			tr.commit();
 			session.close();
-			System.out.println("Tri ngu");
+			System.out.println("Tri Ngu");
 			
 		}
 		
