@@ -21,14 +21,11 @@ import util.HibernateUtil;
 
 public class Demo {
 	public static void main(String[] args) {
-		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
-		if(sessionFactory!=null)
+		Gv_dao gv = new Gv_dao();
+		List<Gv> gv1=  gv.selectall();
+		for(Gv i  :gv1)
 		{
-			Session session  = sessionFactory.openSession();
-			Transaction tr = session.beginTransaction();
-			tr.commit();
-			session.close();
+			System.out.println(i);
 		}
-		
 	}
 }
