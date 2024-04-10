@@ -22,12 +22,21 @@ import util.HibernateUtil;
 public class Demo {
 	public static void main(String[] args) {
 		Gv_dao gv = new Gv_dao();
-		List<Gv> gv1=  gv.selectall();
-		for(Gv i  :gv1)
-		{
-
-			System.out.println(i);
-			System.out.println("Tri, Vinh ngu");
-		}
+		Gv gv1 = new Gv();
+		Class cl1 = new Class();
+		cl1.setIdclass("dt2");
+		truonghoc truong = new truonghoc();
+		truong.setId("Nguyen Hong Anh");
+		cl1.setIdclass("dt2");
+		gv1.setMaGv("15");
+		gv1.setTen("JOHNQto");
+		gv1.setTruong(truong);
+		Giangday gd = new Giangday();
+		gd.setId("5");
+		gd.setMaGv(gv1);
+		gd.setMalop(cl1);
+		Giangday_dao giangday_dao = new Giangday_dao();
+		giangday_dao.insert(gd);
+		
 	}
 }
