@@ -53,6 +53,12 @@ public class Gv{
 	public void setTruong(truonghoc truong) {
 		this.truong = truong;
 	}
+	@Override
+	public String toString() {
+		return "Gv [maGv=" + maGv + ", ten=" + ten + ", danhsachlop=" + danhsachlop + ", truong=" + truong.getId() + ", NH="
+				+ NH + "]";
+	}
+
 	public void setMaGv(String maGv) {
 		this.maGv = maGv;
 	}

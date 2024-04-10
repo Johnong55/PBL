@@ -21,6 +21,7 @@ import util.HibernateUtil;
 
 public class Demo {
 	public static void main(String[] args) {
+
 		Gv_dao gv = new Gv_dao();
 		Gv gv1 = new Gv();
 		Class cl1 = new Class();
@@ -37,6 +38,6 @@ public class Demo {
 		gd.setMalop(cl1);
 		Giangday_dao giangday_dao = new Giangday_dao();
 		giangday_dao.insert(gd);
-		
+
 	}
 }
