@@ -49,32 +49,8 @@ public class truonghoc_dao implements DAO_Interface<truonghoc> {
 
 	@Override
 	public truonghoc selectbyid(truonghoc t) {
-		List<truonghoc> result = new ArrayList<truonghoc>();
-		try {
-			Connection con  = JDBCUtil.getConnection();
-			String sql = "select * from truonghoc "
-					+ " where id = ?";
-			
-			PreparedStatement a;
-
-				a = con.prepareStatement(sql);
-				a.setString(1, t.getId());
-				ResultSet kq = a.executeQuery();
-				while(kq.next())
-				{
-					String id = kq.getString("id");
-					String ten = kq.getString("tentruong");
-					
-					
-					truonghoc u = new truonghoc(id,ten, null, null);
-					result.add(u);
-				}
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return result.get(0);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

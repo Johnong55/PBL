@@ -35,16 +35,11 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				{
 					String id = kq.getString("maGv");
 					String ten = kq.getString("ten");
-					String idtruong= kq.getString("truong");
-					truonghoc truong = new truonghoc();
-					truong.setId(idtruong);
-					truonghoc_dao tr = new truonghoc_dao();
-					Gv u = new Gv();
-					u.setMaGv(id);
-					u.setTen(ten);
-					u.setTruong(tr.selectbyid(truong));
-					System.out.println(idtruong);
-					System.out.println(tr.selectbyid(truong).getTentruong());
+					String truong= kq.getString("truong");
+					truonghoc truong1 = new truonghoc();
+					truong1.setId(truong);
+					
+					Gv u = new Gv(id,ten,truong1);
 					result.add(u);
 				}
 				con.close();
@@ -72,13 +67,11 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				{
 					String id = kq.getString("maGv");
 					String ten = kq.getString("ten");
-					String idtruong= kq.getString("truong");
-					truonghoc truong = new truonghoc();
-					truong.setId(idtruong);
-					truonghoc_dao tr = new truonghoc_dao();
+					String truong= kq.getString("truong");
+					truonghoc truong1 = new truonghoc();
+					truong1.setId(truong);
 					
-					
-					Gv u = new Gv(id,ten,tr.selectbyid(truong));
+					Gv u = new Gv(id,ten,truong1);
 				
 				return u;
 				}
