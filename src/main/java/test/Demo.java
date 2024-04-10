@@ -22,14 +22,12 @@ import util.HibernateUtil;
 public class Demo {
 	public static void main(String[] args) {
 		
-		
-		
-		/*
-		 * Gv_dao gv = new Gv_dao();
-		 * 
-		 * List<Gv> gv1= gv.selectall(); for(Gv i :gv1) {
-		 * 
-		 * System.out.println(i); System.out.println("Tri ngu"); }
-		 */
+		  
+		  Gv_dao gv = new Gv_dao();
+		  
+		  List<Gv> gv1= gv.selectall(); for(Gv i :gv1) {
+		  
+		  System.out.println(i); System.out.println("Tri ngu"); }
+		 
 	}
 }
