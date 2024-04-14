@@ -1,5 +1,6 @@
 package test;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,7 @@ import DAO.Account_dao;
 import DAO.Class_dao;
 import DAO.Giangday_dao;
 import DAO.Gv_dao;
+import DAO.KiThi_dao;
 import DAO.NganhangDao;	
 import DAO.Sv_dao;
 import DAO.truonghoc_dao;
@@ -20,6 +22,7 @@ import model.Account;
 import model.Class;
 import model.Giangday;
 import model.Gv;
+import model.KiThi;
 import model.Sv;
 import model.truonghoc;
 import util.HibernateUtil;
@@ -33,6 +36,8 @@ public class Demo {
 		Class_dao cl = new Class_dao();
 		Giangday_dao gd = new Giangday_dao();
 		NganhangDao nh = new NganhangDao();
+		KiThi_dao kt = new KiThi_dao();
+		////////////////////////
 		truonghoc truong1 = new truonghoc();
 		truong1.setId("01");
 		truong1.setTentruong("THPT HOA VANG");
@@ -107,12 +112,35 @@ public class Demo {
 		sv1.setIdclass(cl1);
 		sv3.setIdclass(cl2);
 		sv5.setIdclass(cl3);
-	
-		List<Gv> show = new ArrayList<Gv>();
-		show= 	cl.selectGvinClass(cl1);
-		for( Gv i : show)
-		{
-			System.out.println(i);
-		}
+		KiThi kithi = new KiThi();
+		kithi.setId("02");
+		kithi.setLop(cl2);
+		kithi.setGv(gv1);
+		kithi.setThoigianlambai(45);
+		kithi.setDate(new Date(2024+1900, 12, 1));
+		kithi.setMota("Van");
+		kithi.setSl(12);
+
+		KiThi kithi1 = new KiThi();
+		kithi1.setId("03");
+		kithi1.setLop(cl2);
+		kithi1.setGv(gv2);
+		kithi1.setThoigianlambai(45);
+		kithi1.setDate(new Date(2024+1900, 12, 1));
+		kithi1.setMota("Dia");
+		kithi1.setSl(12);
+
+		KiThi kithi2 = new KiThi();
+		kithi2.setId("04");
+		kithi2.setLop(cl2);
+		kithi2.setGv(gv2);
+		kithi2.setThoigianlambai(45);
+		kithi2.setDate(new Date(2024+1900, 12, 1));
+		kithi2.setMota("SU");
+		kithi2.setSl(12);
+		kt.insert(kithi);
+		kt.insert(kithi1);
+		kt.insert(kithi2);
+		
 	}
 }
