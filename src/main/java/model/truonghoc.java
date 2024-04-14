@@ -7,6 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 @Entity
 public class truonghoc {
+	@Override
+	public String toString() {
+		return "truonghoc [id=" + id + ", tentruong=" + tentruong + "]";
+	}
 	@Id
 	String id;
 	String tentruong;

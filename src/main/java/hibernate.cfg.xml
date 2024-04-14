@@ -12,11 +12,13 @@
 <property name="hibernate.hbm2ddl.auto"> update</property> <!-- cap nhat nhung thong tin moi --> 
 <property name="show_sql">true</property> <!-- hien thi caua len console -->
 <!-- mapping -->
+<mapping class = "model.Account"/>
 <mapping class = "model.truonghoc"/>
 <mapping class = "model.Class"/>
 <mapping class= "model.Sv"/>
 <mapping class = "model.Gv"/>
 <mapping class = "model.Giangday"/>
+<mapping class = "model.KiThi"/>
 <mapping class = "model.Nganhangcauhoi"/>
 
 </session-factory>

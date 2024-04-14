@@ -33,7 +33,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				ResultSet kq = a.executeQuery();
 				while(kq.next())
 				{
-					String id = kq.getString("maGv");
+					String id = kq.getString("id");
 					String ten = kq.getString("ten");
 					String idtruong= kq.getString("truong");
 					truonghoc truong = new truonghoc();
@@ -43,8 +43,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setMaGv(id);
 					u.setTen(ten);
 					u.setTruong(tr.selectbyid(truong));
-					System.out.println(idtruong);
-					System.out.println(tr.selectbyid(truong).getTentruong());
+					
 					result.add(u);
 				}
 				con.close();
@@ -61,7 +60,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 		try {
 			Connection con  = JDBCUtil.getConnection();
 			String sql = "select * from Gv "
-					+ "where maGv = ?";
+					+ "where id = ?";
 			
 			PreparedStatement a;
 
@@ -70,14 +69,12 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				ResultSet kq = a.executeQuery();
 				while(kq.next())
 				{
-					String id = kq.getString("maGv");
+					String id = kq.getString("id");
 					String ten = kq.getString("ten");
 					String idtruong= kq.getString("truong");
 					truonghoc truong = new truonghoc();
 					truong.setId(idtruong);
 					truonghoc_dao tr = new truonghoc_dao();
-					
-					
 					Gv u = new Gv(id,ten,tr.selectbyid(truong));
 				
 				return u;
@@ -144,7 +141,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 			String sql = "select * from class \r\n"
 					+ "inner join giangday on class.idclass = giangday.lop\r\n"
 					+ "where giangday.giaoviendunglop = (select maGv from gv"
-					+ " where maGv = ?)";
+					+ " where id = ?)";
 			
 			PreparedStatement a;
 			

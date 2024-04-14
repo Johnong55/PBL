@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,19 +10,29 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Gv{		
-	@Id
-	private String maGv;
+public class Gv extends Account{		
+	
 	private String ten;
 	@OneToMany(mappedBy = "maGv", cascade = CascadeType.ALL)
-	private List<Giangday> danhsachlop;
+	private List<Giangday> danhsachlop ;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "truong")
 	private truonghoc truong;
 	@OneToMany(mappedBy = "giaovienquanli", cascade = CascadeType.ALL)
 	private List<Nganhangcauhoi> NH;
+	@OneToMany(mappedBy = "gv", cascade = CascadeType.ALL)
+	private List<KiThi> kithi;
+	public List<KiThi> getKithi() {
+		return kithi;
+	}
+
+	public void setKithi(List<KiThi> kithi) {
+		this.kithi = kithi;
+	}
+
 	public List<Nganhangcauhoi> getNH() {
 		return NH;
 	}
@@ -31,7 +42,7 @@ public class Gv{
 	}
 
 	public String getMaGv() {
-		return maGv;
+		return id;
 	}
 	
 	/**
@@ -42,7 +53,7 @@ public class Gv{
 	 */
 	public Gv(String maGv, String ten, List<Giangday> danhsachlop, truonghoc truong) {
 		super();
-		this.maGv = maGv;
+		this.id = maGv;
 		this.ten = ten;
 		this.danhsachlop = danhsachlop;
 		this.truong = truong;
@@ -55,12 +66,12 @@ public class Gv{
 	}
 	@Override
 	public String toString() {
-		return "Gv [maGv=" + maGv + ", ten=" + ten + ", danhsachlop=" + danhsachlop + ", truong=" + truong.getId() + ", NH="
+		return "Gv [maGv=" + id + ", ten=" + ten + ", danhsachlop=" + danhsachlop + ", truong=" + truong.getId() + ", NH="
 				+ NH + "]";
 	}
 
 	public void setMaGv(String maGv) {
-		this.maGv = maGv;
+		this.id = maGv;
 	}
 	public String getTen() {
 		return ten;
@@ -78,9 +89,15 @@ public class Gv{
 	public Gv() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.danhsachlop  =new ArrayList<Giangday>();
 	}
 	public Gv(String id, String ten2, truonghoc truong1) {
 		// TODO Auto-generated constructor stub
+	}
+	public void addclass(Class t)
+	{
+		
+		danhsachlop.add(new Giangday(this,t));
 	}
 	
 }
