@@ -1,11 +1,9 @@
 /META-INF/
 <<<<<<< HEAD
-/DAO/
-/test/
-/model/
-=======
 /View/
 /model/
 /test/
->>>>>>> branch_Vinh
+=======
+>>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
 /Controller/
+/DAO/
