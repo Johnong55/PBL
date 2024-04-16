@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,11 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class KiThi {
+	@Override
+	public String toString() {
+		return "KiThi [id=" + id + ", lop=" + lop + ", thoigianlambai=" + thoigianlambai + ", mota=" + mota + ", date="
+				+ date + ", gv=" + gv.id + ", sl=" + sl + "]";
+	}
 	@Id
 	private String id;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -23,6 +29,14 @@ public class KiThi {
 	@JoinColumn(name = "nguoitao")
 	private Gv gv;
 	private int sl;
+	@OneToMany(mappedBy = "kithi")
+	private List<DeThi> listdethi;
+	public List<DeThi> getListdethi() {
+		return listdethi;
+	}
+	public void setListdethi(List<DeThi> listdethi) {
+		this.listdethi = listdethi;
+	}
 	public String getId() {
 		return id;
 	}
@@ -87,6 +101,10 @@ public class KiThi {
 	/**
 	 * 
 	 */
+	public void add_dethi(DeThi t)
+	{
+		this.listdethi.add(t);
+	}
 	public KiThi() {
 		super();
 		// TODO Auto-generated constructor stub

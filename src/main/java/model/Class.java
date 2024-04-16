@@ -96,5 +96,8 @@ public class Class {
 	public void setKithi(List<KiThi> kithi) {
 		this.kithi = kithi;
 	}
-	
+	public void addGv(Gv t)
+	{
+		this.danhsachgiaovien.add(new Giangday(t,this));
+	}
 }

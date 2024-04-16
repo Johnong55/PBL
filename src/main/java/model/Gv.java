@@ -66,7 +66,7 @@ public class Gv extends Account{
 	}
 	@Override
 	public String toString() {
-		return "Gv [maGv=" + id + ", ten=" + ten + ", danhsachlop=" + danhsachlop + ", truong=" + truong.getId() + ", NH="
+		return "Gv [maGv=" + id + ", ten=" + ten + ", danhsachlop=" + danhsachlop + ", truong=" + truong + ", NH="
 				+ NH + "]";
 	}
 

@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 
 import DAO.Account_dao;
 import DAO.Class_dao;
+import DAO.DeThi_dao;
 import DAO.Giangday_dao;
 import DAO.Gv_dao;
 import DAO.KiThi_dao;
@@ -20,6 +21,7 @@ import DAO.Sv_dao;
 import DAO.truonghoc_dao;
 import model.Account;
 import model.Class;
+import model.DeThi;
 import model.Giangday;
 import model.Gv;
 import model.KiThi;
@@ -37,6 +39,7 @@ public class Demo {
 		Giangday_dao gd = new Giangday_dao();
 		NganhangDao nh = new NganhangDao();
 		KiThi_dao kt = new KiThi_dao();
+		DeThi_dao dt = new DeThi_dao();
 		////////////////////////
 		truonghoc truong1 = new truonghoc();
 		truong1.setId("01");
@@ -138,9 +141,19 @@ public class Demo {
 		kithi2.setDate(new Date(2024+1900, 12, 1));
 		kithi2.setMota("SU");
 		kithi2.setSl(12);
-		kt.insert(kithi);
-		kt.insert(kithi1);
-		kt.insert(kithi2);
+		
+		DeThi dt1  = new DeThi("01",kithi2);
+		DeThi dt2  = new DeThi("02",kithi1);
+		DeThi dt3  = new DeThi("03",kithi2);
+		DeThi dt4 = new DeThi("04",kithi1);
+	List<KiThi> result = new ArrayList<KiThi>();
+	result =cl.selectKithiByclass(cl2);
+		for(KiThi i  : result)
+		{
+			System.out.println(i);
+		}
+		
+
 		
 	}
 }

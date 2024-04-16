@@ -75,7 +75,9 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					truonghoc truong = new truonghoc();
 					truong.setId(idtruong);
 					truonghoc_dao tr = new truonghoc_dao();
-					Gv u = new Gv(id,ten,tr.selectbyid(truong));
+					truonghoc b = new truonghoc();
+					b = tr.selectbyid(truong);
+					Gv u = new Gv(id,ten,b);
 				
 				return u;
 				}
