@@ -11,8 +11,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Giangday {
 	@Id
-
-	private String id;
+	@GeneratedValue
+	private int id;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "giaoviendunglop")
 	Gv maGv;
@@ -21,11 +21,11 @@ public class Giangday {
 	@JoinColumn(name = "lop")
 	Class  malop;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -45,9 +45,8 @@ public class Giangday {
 		this.malop = malop;
 	}
 
-	public Giangday(String id, Gv maGv, Class malop) {
+	public Giangday(Gv maGv, Class malop) {
 		super();
-		this.id = id;
 		this.maGv = maGv;
 		this.malop = malop;
 	}

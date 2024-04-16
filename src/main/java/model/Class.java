@@ -15,6 +15,8 @@ public class Class {
 	@Id
 	private String idclass;
 	private String tenlop;
+	@OneToMany(mappedBy = "lop",cascade = CascadeType.ALL)
+	private List<KiThi> kithi;
 	@OneToMany(mappedBy = "idclass", cascade = CascadeType.ALL)
 	private List<Sv> Svs;
 	@OneToMany(mappedBy = "malop", cascade = CascadeType.ALL)
@@ -22,6 +24,7 @@ public class Class {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "truong")
 	private truonghoc truong;
+	
 	/**
 	 * @param idclass
 	 * @param tenlop
@@ -87,6 +90,14 @@ public class Class {
 	public Class() {
 	super();
 	}
-
-	
+	public List<KiThi> getKithi() {
+		return kithi;
+	}
+	public void setKithi(List<KiThi> kithi) {
+		this.kithi = kithi;
+	}
+	public void addGv(Gv t)
+	{
+		this.danhsachgiaovien.add(new Giangday(t,this));
+	}
 }

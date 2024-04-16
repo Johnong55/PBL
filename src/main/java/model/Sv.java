@@ -5,11 +5,11 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Sv {
-	@Id
-	private String idSv;
+public class Sv extends Account{
+
 	private String ten;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "lop")
@@ -20,19 +20,19 @@ public class Sv {
 	}
 	@Override
 	public String toString() {
-		return "Sv [idSv=" + idSv + ", ten=" + ten + ", idclass=" + idclass + "]";
+		return "Sv [idSv=" + this.id+ ", ten=" + ten + ", idclass=" + idclass + "]";
 	}
 	public Sv(String idSv, String ten, Class idclass) {
 		super();
-		this.idSv = idSv;
+		this.id = idSv;
 		this.ten = ten;
 		this.idclass = idclass;
 	}
 	public String getIdSv() {
-		return idSv;
+		return id;
 	}
 	public void setIdSv(String idSv) {
-		this.idSv = idSv;
+		this.id = idSv;
 	}
 	public String getTen() {
 		return ten;

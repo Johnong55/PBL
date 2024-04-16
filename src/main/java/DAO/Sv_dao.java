@@ -33,13 +33,15 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				ResultSet kq = a.executeQuery();
 				while(kq.next())
 				{
-					String id = kq.getString("idSv");
+					String id = kq.getString("id");
 					String ten = kq.getString("ten");
 					String lop= kq.getString("lop");
 			Class lop1 = new Class();
 			lop1.setIdclass(lop);
-					
-					Sv u = new Sv(id,ten,lop1);
+					Class_dao c = new Class_dao();
+					Class Lresult = new Class();
+					Lresult = c.selectbyid(lop1);
+					Sv u = new Sv(id,ten,Lresult);
 					result.add(u);
 				}
 				con.close();
@@ -55,7 +57,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		try {
 			Connection con  = JDBCUtil.getConnection();
 			String sql = "select * from Sv "
-					+ " where idSv = ?";
+					+ " where id = ?";
 			
 			PreparedStatement a;
 
@@ -64,7 +66,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				ResultSet kq = a.executeQuery();
 				while(kq.next())
 				{
-					String id = kq.getString("idSv");
+					String id = kq.getString("id");
 					String ten = kq.getString("ten");
 					String lop= kq.getString("lop");
 						Class lop1 = new Class();
@@ -164,4 +166,5 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		
 		return result;
 	}
+	
 }

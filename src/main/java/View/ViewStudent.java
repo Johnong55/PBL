@@ -22,14 +22,20 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-public class ViewStudent extends JFrame {
+import Controller.Controller_Student;
 
+public class ViewStudent extends JFrame {
+	
+	Controller_Student cl = new Controller_Student(this);
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	Color Blue=  new Color(17, 49, 123);
 	Color Gray = new Color(122, 122, 129);
 	Color Green = new Color(44, 173, 167);
-	JPanel panel_4 = new JPanel();
+	public JPanel panel_4 = new JPanel();
+	public MyButton BtnHome, btnTests,btnProfile;
+
+	PanelRound panel_1;
 	private JTextField textField;
 	private JTable table;
 
@@ -200,6 +206,7 @@ public class ViewStudent extends JFrame {
 		panel_4.add(panel_3);
 	}
 	
+	
 	public ViewStudent() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -216,7 +223,7 @@ public class ViewStudent extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		MyButton BtnHome =    new MyButton("Home");
+		BtnHome =    new MyButton("Home");
 		BtnHome.setForeground(Color.WHITE);
 		BtnHome.setColorOver(new Color(88, 141, 220));
 		BtnHome.setColorClick(new Color(150, 207, 250));
@@ -226,25 +233,14 @@ public class ViewStudent extends JFrame {
 		BtnHome.setFont(new Font("Tahoma", Font.BOLD, 15));
 		BtnHome.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/home.png"))));
-		BtnHome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				/*
-				 * view_home(); panel_4.setBounds(171, 0, 713, 661);
-				 */
-				
-			}
-		});
-		
+		BtnHome.addMouseListener(cl);
+		System.out.println("oke");
 		
 		BtnHome.setBounds(10, 90, 137, 37);
 		panel.add(BtnHome);
 		
-		MyButton btnTests = new MyButton("Tests");
-		btnTests.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+		btnTests = new MyButton("Tests");
+	
 		btnTests.setForeground(Color.WHITE);
 		btnTests.setBackground(new Color(0, 0, 0));
 		btnTests.setColorOver(new Color(88, 141, 220));
@@ -257,7 +253,7 @@ public class ViewStudent extends JFrame {
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/test.png"))));
 		panel.add(btnTests);
 		
-		MyButton btnProfile = new MyButton("Profile");
+		btnProfile = new MyButton("Profile");
 		btnProfile.setForeground(Color.WHITE);
 		btnProfile.setBackground(new Color(0, 0, 0));
 		btnProfile.setColorOver(new Color(88, 141, 220));
@@ -269,53 +265,53 @@ public class ViewStudent extends JFrame {
 		btnProfile.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/profile.png"))));
 		panel.add(btnProfile);
-		panel_4.setBounds(171, 0, 713, 661);
-		panel_4.setLayout(null);
-		
-		JLabel lblNewLabel_7 = new JLabel("Bài kiểm tra");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblNewLabel_7.setBounds(10, 11, 134, 40);
-		panel_4.add(lblNewLabel_7);
-		
-		textField = new JTextField();
-		textField.setBounds(10, 75, 340, 40);
-		panel_4.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblNewLabel_8 = new JLabel("Kết quả tìm kiếm:");
-		lblNewLabel_8.setFont(new Font("Times New Roman", Font.PLAIN, 17));
-		lblNewLabel_8.setForeground(Gray);
-		lblNewLabel_8.setBounds(471, 90, 127, 30);
-		panel_4.add(lblNewLabel_8);
-		
-		JLabel lblNewLabel_9 = new JLabel("ALL");
-		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_9.setBounds(625, 95, 56, 20);
-		panel_4.add(lblNewLabel_9);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 126, 693, 535);
-		panel_4.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblNewLabel_10 = new JLabel("Chi tiết bài kiểm tra");
-		lblNewLabel_10.setBounds(0, 11, 166, 30);
-		panel_1.add(lblNewLabel_10);
-		lblNewLabel_10.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 57, 693, 467);
-		panel_1.add(scrollPane);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"T\u00EAn k\u00EC thi", "Ng\u00E0y thi", "Th\u1EDDi gian", "C\u00E2u \u0111\u00FAng", "C\u00E2u sai", "\u0110i\u1EC3m"
-			}
-		));
-		table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		scrollPane.setViewportView(table);
+//		panel_4.setBounds(171, 0, 713, 661);
+//		panel_4.setLayout(null);
+//		
+//		JLabel lblNewLabel_7 = new JLabel("Bài kiểm tra");
+//		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 22));
+//		lblNewLabel_7.setBounds(10, 11, 134, 40);
+//		panel_4.add(lblNewLabel_7);
+//		
+//		textField = new JTextField();
+//		textField.setBounds(10, 75, 340, 40);
+//		panel_4.add(textField);
+//		textField.setColumns(10);
+//		
+//		JLabel lblNewLabel_8 = new JLabel("Kết quả tìm kiếm:");
+//		lblNewLabel_8.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+//		lblNewLabel_8.setForeground(Gray);
+//		lblNewLabel_8.setBounds(471, 90, 127, 30);
+//		panel_4.add(lblNewLabel_8);
+//		
+//		JLabel lblNewLabel_9 = new JLabel("ALL");
+//		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
+//		lblNewLabel_9.setBounds(625, 95, 56, 20);
+//		panel_4.add(lblNewLabel_9);
+//		
+//		JPanel panel_1 = new JPanel();
+//		panel_1.setBounds(10, 126, 693, 535);
+//		panel_4.add(panel_1);
+//		panel_1.setLayout(null);
+//		
+//		JLabel lblNewLabel_10 = new JLabel("Chi tiết bài kiểm tra");
+//		lblNewLabel_10.setBounds(0, 11, 166, 30);
+//		panel_1.add(lblNewLabel_10);
+//		lblNewLabel_10.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+//		
+//		JScrollPane scrollPane = new JScrollPane();
+//		scrollPane.setBounds(0, 57, 693, 467);
+//		panel_1.add(scrollPane);
+//		
+//		table = new JTable();
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//			},
+//			new String[] {
+//				"T\u00EAn k\u00EC thi", "Ng\u00E0y thi", "Th\u1EDDi gian", "C\u00E2u \u0111\u00FAng", "C\u00E2u sai", "\u0110i\u1EC3m"
+//			}
+//		));
+//		table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+//		scrollPane.setViewportView(table);
 }
 }

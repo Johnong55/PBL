@@ -33,7 +33,7 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 				ResultSet kq = a.executeQuery();
 				while(kq.next())
 				{
-					String id = kq.getString("id");
+					
 					String gv = kq.getString("giaoviendunglop");
 					String lop= kq.getString("lop");
 					Gv  gv1 = new Gv();
@@ -41,7 +41,7 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 					Class cl = new Class();
 					cl.setIdclass(lop);
 					
-					Giangday u = new Giangday(id,gv1,cl );
+					Giangday u = new Giangday(gv1,cl );
 					result.add(u);
 				}
 				con.close();
@@ -63,11 +63,11 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 			PreparedStatement a;
 
 				a = con.prepareStatement(sql);
-				a.setString(0, t.getId());
+				a.setString(0, t.getMaGv().getId());
 				ResultSet kq = a.executeQuery();
 				while(kq.next())
 				{
-					String id = kq.getString("id");
+					
 					String gv = kq.getString("giaoviendunglop");
 					String lop= kq.getString("lop");
 					Gv  gv1 = new Gv();
@@ -75,7 +75,7 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 					Class cl = new Class();
 					cl.setIdclass(lop);
 					
-					Giangday u = new Giangday(id,gv1,cl );
+					Giangday u = new Giangday(gv1,cl );
 				return u;
 				}
 				con.close();
