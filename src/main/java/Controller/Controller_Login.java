@@ -11,6 +11,8 @@ import javax.swing.border.MatteBorder;
 import View.viewLogin;
 public class Controller_Login implements MouseListener{
 	private viewLogin v ;
+	MatteBorder border1 = new MatteBorder(0,0,2,0,Color.BLUE);
+	MatteBorder border2 =new MatteBorder(0,0,1,0,Color.BLACK);
 	public Controller_Login(viewLogin v) {
 		super();
 		this.v = v;
@@ -21,14 +23,12 @@ public class Controller_Login implements MouseListener{
 		// TODO Auto-generated method stub
 		if(e.getSource() == v.textField) 
 		{
-			MatteBorder border = new MatteBorder(0,0,2,0,Color.BLUE);
-			v.textField_1.setBorder(new MatteBorder(0,0,1,0,Color.BLACK));
-			v.textField.setBorder(border);
+			v.textField_1.setBorder(border2);
+			v.textField.setBorder(border1);
 		} else if(e.getSource() == v.textField_1) 
 		{
-			MatteBorder border = new MatteBorder(0,0,2,0,Color.BLUE);
-			v.textField.setBorder(new MatteBorder(0,0,1,0,Color.BLACK));
-			v.textField_1.setBorder(border);
+			v.textField.setBorder(border2);
+			v.textField_1.setBorder(border1);
 		}
 	}
 	@Override

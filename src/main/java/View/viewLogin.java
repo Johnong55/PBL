@@ -116,10 +116,13 @@ public class viewLogin extends JFrame {
 
 		textField = new JTextField();
 		textField.setFont(new Font("Arial", Font.PLAIN, 15));
-		textField.setBounds(52, 2, 308, 40);
+		textField.setBounds(52, 11, 308, 31);
 		textField.setBorder(border);
 		textField.setColumns(10);
 		textField.addMouseListener(lg);
+		MatteBorder border1 = new MatteBorder(0,0,2,0,Color.BLUE);
+		textField.setBorder(border1);
+		
 		Panel_email.add(textField);
 
 		PanelRound panel_password = new PanelRound(20);
@@ -139,10 +142,11 @@ public class viewLogin extends JFrame {
 
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		textField_1.setBounds(52, 2, 308, 40);
+		textField_1.setBounds(52, 11, 308, 31);
 		textField_1.addMouseListener(lg);
 		textField_1.setBorder(border);
 		textField_1.setColumns(10);
+		textField_1.requestFocus(false);
 
 		panel_password.add(textField_1);
 		
