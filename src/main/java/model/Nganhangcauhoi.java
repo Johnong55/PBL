@@ -1,9 +1,12 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Nganhangcauhoi {
@@ -13,6 +16,18 @@ public class Nganhangcauhoi {
 	@ManyToOne
 	@JoinColumn(name = "giaovienquanli")
 	private Gv giaovienquanli;
+	@OneToMany(mappedBy = "NH")
+	private List<Cauhoi> listcauhoi;
+	public List<Cauhoi> getListcauhoi() {
+		return listcauhoi;
+	}
+	public void setListcauhoi(List<Cauhoi> listcauhoi) {
+		this.listcauhoi = listcauhoi;
+	}
+	public void addcauhoi(Cauhoi c)
+	{
+		this.listcauhoi.add(c);
+	}
 	/**
 	 * 
 	 */

@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import model.Class;
 import model.Giangday;
 import model.Gv;
 import model.Nganhangcauhoi;
+import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class NganhangDao implements DAO_Interface<Nganhangcauhoi> {
@@ -51,19 +56,46 @@ public class NganhangDao implements DAO_Interface<Nganhangcauhoi> {
 
 	@Override
 	public boolean insert(Nganhangcauhoi t) {
-		// TODO Auto-generated method stub
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if(sessionFactory!=null)
+		{
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+			session.save(t);
+			tr.commit();
+			session.close();
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean update(Nganhangcauhoi t) {
-		// TODO Auto-generated method stub
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if(sessionFactory!=null)
+		{
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+			session.update(t);
+			tr.commit();
+			session.close();
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean deletebyid(Nganhangcauhoi t) {
-		// TODO Auto-generated method stub
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if(sessionFactory!=null)
+		{
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+			session.delete(t);
+			tr.commit();
+			session.close();
+			return true;
+		}
 		return false;
 	}
 	

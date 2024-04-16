@@ -17,7 +17,7 @@ public class Cauhoi {
 	private int mucdo;
 	private int dapan;
 	@ManyToOne
-	@JoinColumn(name = "Ngan Hang")	
+	@JoinColumn(name = "NganHang")	
 	private Nganhangcauhoi NH;
 	public String getId() {
 		return id;
