@@ -157,7 +157,6 @@ public class Demo {
 		Nganhangcauhoi nh1 = new Nganhangcauhoi();
 		nh1.setIdNganHang("su");
 		nh1.setGiaovienquanli(gv1);
-		nhdao.insert(nh1);
 		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 2, 1, nh1);
 		Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain", 1, 1, nh);
 		Cauhoi q3 = new Cauhoi("q3", "What is the chemical symbol for water?", "H2O", "CO2", "O2", "NaCl", 1, 1, nh);
@@ -168,17 +167,8 @@ public class Demo {
 		Cauhoi q8 = new Cauhoi("q8", "Who invented the telephone?", "Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Guglielmo Marconi", 1, 1, nh);
 		Cauhoi q9 = new Cauhoi("q9", "What is the currency of Japan?", "Yen", "Euro", "Dollar", "Pound", 1, 1, nh1);
 		Cauhoi q10 = new Cauhoi("q10", "Who is the author of 'To Kill a Mockingbird'?", "Harper Lee", "J.K. Rowling", "Stephen King", "Ernest Hemingway", 1, 1, nh1);
-		CHdao.update(q10);
-		CHdao.update(q9);
-		CHdao.update(q8);
-		CHdao.update(q7);
-		CHdao.update(q6);
-		CHdao.update(q5);
-		CHdao.update(q4);
-		CHdao.update(q3);
-		CHdao.update(q2);
-		CHdao.update(q1);
-
+		
+		
 		
 	}
 }
