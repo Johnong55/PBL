@@ -234,8 +234,8 @@ public class ViewStudent extends JFrame {
 		BtnHome.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/home.png"))));
 		BtnHome.addMouseListener(cl);
-		System.out.println("oke");
 		
+		System.out.println("cac");
 		BtnHome.setBounds(10, 90, 137, 37);
 		panel.add(BtnHome);
 		
