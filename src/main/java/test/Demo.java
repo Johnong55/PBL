@@ -167,16 +167,12 @@ public class Demo {
 		Cauhoi q8 = new Cauhoi("q8", "Who invented the telephone?", "Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Guglielmo Marconi", 1, 1, nh);
 		Cauhoi q9 = new Cauhoi("q9", "What is the currency of Japan?", "Yen", "Euro", "Dollar", "Pound", 1, 1, nh1);
 		Cauhoi q10 = new Cauhoi("q10", "Who is the author of 'To Kill a Mockingbird'?", "Harper Lee", "J.K. Rowling", "Stephen King", "Ernest Hemingway", 1, 1, nh1);
-		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
-		if(sessionFactory!=null)
+		List<KiThi> ki = new ArrayList<KiThi>();
+		ki=	sv.selectKithiBySV(sv2);
+		for(KiThi i   : ki)
 		{
-			Session session = sessionFactory.openSession();
-			Transaction trans  = session.beginTransaction();
-			
-			trans.commit();
-			session.close();
+			System.out.println(i);
 		}
-		
 		
 	}
 }
