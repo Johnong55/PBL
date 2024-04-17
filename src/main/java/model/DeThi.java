@@ -1,9 +1,12 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class DeThi {
@@ -13,6 +16,8 @@ public class DeThi {
 	@JoinColumn(name = "kithi")	
 	private KiThi kithi;
 	private String mota;
+	@OneToMany(mappedBy = "deThi")
+	private List<Cauhoi_DeThi> list;
 	public String getId() {
 		return id;
 	}
@@ -40,6 +45,10 @@ public class DeThi {
 	public DeThi() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public void addCauhoi(Cauhoi t)
+	{
+		this.list.add(new Cauhoi_DeThi(t, this));
 	}
 	
 }
