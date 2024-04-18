@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 
 import View.ChangePassword;
+import View.GoingTest;
 import View.ViewStudent;
 
 public class Controller_Student implements ActionListener  {
@@ -46,7 +47,14 @@ public class Controller_Student implements ActionListener  {
 			setPanel_4();
 			s.view_profile();
 		}
-			
+		
+		else if(e.getSource() == s.mbtnBtuLm)
+		{
+			GoingTest frame = new GoingTest();
+			frame.setVisible(true);
+			s.dispose();
+
+		}
 		else if(e.getSource() == s.btnChangePer)
 		{
 			

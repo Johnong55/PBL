@@ -202,6 +202,7 @@ public class ViewStudent extends JFrame {
 		mbtnBtuLm.setColor(new Color(44, 173, 167));
 		mbtnBtuLm.setBorderColor(new Color(44, 173, 167));
 		mbtnBtuLm.setBounds(345, 136, 195, 37);
+		mbtnBtuLm.addActionListener(cl);
 		panel_3.add(mbtnBtuLm);
 		
 		
