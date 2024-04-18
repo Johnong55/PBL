@@ -199,7 +199,6 @@ public class Demo {
 		 kt.insert(kithi1);
 		 kt.insert(kithi);
 		 dt.insert(dethi1);
-		
-		
+				
 	}
 }
