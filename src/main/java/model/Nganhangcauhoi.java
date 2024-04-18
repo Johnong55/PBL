@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Nganhangcauhoi {
@@ -16,11 +17,21 @@ public class Nganhangcauhoi {
 	@ManyToOne
 	@JoinColumn(name = "giaovienquanli")
 	private Gv giaovienquanli;
+	@OneToMany(mappedBy = "nganhangcauhoi")
+	private List<KiThi> kithi;
+	public List<KiThi> getKithi() {
+		return kithi;
+	}
+
+	public void setKithi(List<KiThi> kithi) {
+		this.kithi = kithi;
+	}
 	@OneToMany(mappedBy = "NH")
 	private List<Cauhoi> listcauhoi;
 	public List<Cauhoi> getListcauhoi() {
 		return listcauhoi;
 	}
+	
 	public void setListcauhoi(List<Cauhoi> listcauhoi) {
 		this.listcauhoi = listcauhoi;
 	}
@@ -64,7 +75,10 @@ public class Nganhangcauhoi {
 	public void setGiaovienquanli(Gv giaovienquanli) {
 		this.giaovienquanli = giaovienquanli;
 	}
-
+	public void addkithi(KiThi t)
+	{
+		this.kithi.add(t);
+	}
 
 
 

@@ -1,14 +1,19 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class DeThi {
 	@Id
 	private String id;
@@ -16,7 +21,7 @@ public class DeThi {
 	@JoinColumn(name = "kithi")	
 	private KiThi kithi;
 	private String mota;
-	@OneToMany(mappedBy = "deThi")
+	@OneToMany(mappedBy = "deThi",cascade = CascadeType.ALL)
 	private List<Cauhoi_DeThi> list;
 	public String getId() {
 		return id;
@@ -38,17 +43,36 @@ public class DeThi {
 		super();
 		this.id = id;
 		this.kithi = kithi;
+		
+	}
+	public String getMota() {
+		return mota;
+	}
+	public void setMota(String mota) {
+		this.mota = mota;
+	}
+	public List<Cauhoi_DeThi> getList() {
+		return list;
+	}
+	public void setList(List<Cauhoi_DeThi> list) {
+		this.list = list;
 	}
 	/**
 	 * 
 	 */
 	public DeThi() {
 		super();
+		list= new ArrayList<Cauhoi_DeThi>();
 		// TODO Auto-generated constructor stub
 	}
 	public void addCauhoi(Cauhoi t)
 	{
+		
 		this.list.add(new Cauhoi_DeThi(t, this));
+	}
+	@Override
+	public String toString() {
+		return "DeThi [id=" + id + ", kithi=" + kithi + ", mota=" + mota + ", list=" + list + "]";
 	}
 	
 }

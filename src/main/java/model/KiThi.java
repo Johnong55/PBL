@@ -3,12 +3,14 @@ package model;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class KiThi {
@@ -31,6 +33,39 @@ public class KiThi {
 	private int sl;
 	@OneToMany(mappedBy = "kithi")
 	private List<DeThi> listdethi;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "nganhangcauhoi")
+	private Nganhangcauhoi nganhangcauhoi;
+	/**
+	 * @param id
+	 * @param lop
+	 * @param thoigianlambai
+	 * @param mota
+	 * @param date
+	 * @param gv
+	 * @param sl
+	 * @param listdethi
+	 * @param nganhangcauhoi
+	 */
+	public KiThi(String id, Class lop, int thoigianlambai, String mota, Date date, Gv gv, int sl, List<DeThi> listdethi,
+			Nganhangcauhoi nganhangcauhoi) {
+		super();
+		this.id = id;
+		this.lop = lop;
+		this.thoigianlambai = thoigianlambai;
+		this.mota = mota;
+		this.date = date;
+		this.gv = gv;
+		this.sl = sl;
+		this.listdethi = listdethi;
+		this.nganhangcauhoi = nganhangcauhoi;
+	}
+	public Nganhangcauhoi getNganhangcauhoi() {
+		return nganhangcauhoi;
+	}
+	public void setNganhangcauhoi(Nganhangcauhoi nganhangcauhoi) {
+		this.nganhangcauhoi = nganhangcauhoi;
+	}
 	public List<DeThi> getListdethi() {
 		return listdethi;
 	}
