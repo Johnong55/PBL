@@ -11,19 +11,20 @@ import javax.persistence.ManyToOne;
 public class Cauhoi_DeThi {
 	@Id
 	@GeneratedValue
-	private double id;
-	public double getId() {
-		return id;
-	}
-	public void setId(double id) {
-		this.id = id;
-	}
+	private int id;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "Cauhoi")
 	private Cauhoi cauhoi;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "DeThi")
 	private DeThi deThi;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 
 	public Cauhoi getCauhoi() {
 		return cauhoi;

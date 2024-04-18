@@ -6,13 +6,18 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import Controller.Controller_Login;
+import DAO.Account_dao;
+import DAO.Sv_dao;
+import model.Account;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -28,7 +33,7 @@ public class viewLogin extends JFrame {
 
 	private JPanel contentPane;
 	public JTextField textField;
-	public JTextField textField_1;
+	public JPasswordField textField_1;
 	private Controller_Login lg = new Controller_Login(this);
 
 	/**
@@ -140,7 +145,7 @@ public class viewLogin extends JFrame {
 				.getScaledInstance(lblNewLabel_3_1.getWidth(), lblNewLabel_3_1.getHeight(), Image.SCALE_SMOOTH)));
 		panel_password.add(lblNewLabel_3_1);
 
-		textField_1 = new JTextField();
+		textField_1 = new JPasswordField();
 		textField_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		textField_1.setBounds(52, 11, 308, 31);
 		textField_1.addMouseListener(lg);
@@ -194,6 +199,30 @@ public class viewLogin extends JFrame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				String user = textField.getText(); 
+				char[] k = textField_1.getPassword();
+				String pass = new String(k);
+
+				if( user.isEmpty()  ||  pass.isEmpty()) 
+					JOptionPane.showMessageDialog(null, "Nhập thêm thông tin !.", "Thông báo", JOptionPane.ERROR_MESSAGE);
+				else {
+				for(Account q : Account_dao.Instance().selectall())
+				{
+					if(q.username.equals(user) && q.password.equals(pass))
+					{
+						if(q.username.charAt(0) == '1') {
+							
+							ViewStudent v = new ViewStudent(Sv_dao.Instance().selectbyid(q));
+							//System.out.println(Sv_dao.Instance().selectbyid(q).getTen());
+							
+							dispose();
+						}
+						return;
+					}
+				}
+				
+				JOptionPane.showMessageDialog(null, "Thông tin nhập không chính xác ! Vui lòng thử lại.", "Thông báo", JOptionPane.ERROR_MESSAGE);
+				}
 				// TODO Auto-generated method stub
 				
 			}

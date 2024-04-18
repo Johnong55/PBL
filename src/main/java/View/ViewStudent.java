@@ -25,8 +25,11 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.Controller_Student;
+import model.Account;
+import model.Sv;
 
 public class ViewStudent extends JFrame {
+	
 	
 	Controller_Student cl = new Controller_Student(this);
 	private static final long serialVersionUID = 1L;
@@ -41,23 +44,32 @@ public class ViewStudent extends JFrame {
 	PanelRound panel_1;
 	public JTextField textField;
 	public JTable table;
-
+	
+	public Sv v ;
+	public ViewStudent(Sv sv) {
+		System.out.println("co");
+		this.v = sv;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(500, 150, 900, 700);
+		ViewStudent1();
+		setVisible(true);
+	}
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewStudent frame = new ViewStudent();
-					frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ViewStudent frame = new ViewStudent();
+//					frame.setVisible(true);
+//					
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -73,6 +85,12 @@ public class ViewStudent extends JFrame {
 		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 22));
 		lblNewLabel.setBounds(10, 11, 96, 26);
 		panel_1.add(lblNewLabel);
+		
+		JLabel lblNewLabel_13 = new JLabel("User");
+		lblNewLabel_13.setFont(new Font("Times New Roman", Font.BOLD, 21));
+		lblNewLabel_13.setBounds(20, 45, 345, 26);
+		lblNewLabel_13.setText(v.getTen());
+		panel_1.add(lblNewLabel_13);
 		
 		JLabel lblNewLabel_1 = new JLabel("Hôm nay,");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -211,10 +229,7 @@ public class ViewStudent extends JFrame {
 		panel_4.setLayout(null);
 		panel_4.add(panel_1);		
 		
-		JLabel lblNewLabel_13 = new JLabel("User");
-		lblNewLabel_13.setFont(new Font("Times New Roman", Font.BOLD, 21));
-		lblNewLabel_13.setBounds(20, 45, 85, 26);
-		panel_1.add(lblNewLabel_13);panel_4.add(panel_2);
+		panel_4.add(panel_2);
 		panel_4.add(panel_3);
 	}
 	
@@ -357,10 +372,9 @@ public class ViewStudent extends JFrame {
 		btnChangePer.setRadius(15);
 	
 	}
-	public ViewStudent() {
+	public void ViewStudent1() {
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 150, 900, 700);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(235, 235, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

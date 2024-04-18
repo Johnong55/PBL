@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import model.Account;
 import model.Class;
 import model.Gv;
 import model.KiThi;
@@ -21,7 +22,14 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class Sv_dao implements DAO_Interface<Sv> {
-
+	private static Sv_dao _instance;
+	public static  Sv_dao Instance() {
+		if(_instance == null) {
+			_instance  = new Sv_dao();
+		}
+		return _instance;
+		
+	}
 	@Override
 	public List<Sv> selectall() {
 		List<Sv> result = new ArrayList<Sv>();
@@ -85,7 +93,37 @@ public class Sv_dao implements DAO_Interface<Sv> {
 			}
 		return null;
 	}
+	public Sv selectbyid(Account t) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Sv "
+					+ " where id = ?";
+			
+			PreparedStatement a;
 
+				a = con.prepareStatement(sql);
+				a.setString(1, t.getId() );
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					
+					String id = kq.getString("id");
+					String ten = kq.getString("ten");
+					String lop= kq.getString("lop");
+					Class lop1 = new Class();
+					lop1.setIdclass(lop);
+					
+				Sv u = new Sv(id, ten, lop1);
+				
+				return u;
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	}
 	@Override
 	public boolean insert(Sv t) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
