@@ -49,7 +49,7 @@ public class Demo {
 		truonghoc truong1 = new truonghoc();
 		truong1.setId("01");
 		truong1.setTentruong("THPT HOA VANG");
-		
+		tr.insert(truong1);
 		Class cl1 = new Class();
 		cl1.setIdclass("01");
 		cl1.setTenlop("10A");
@@ -62,6 +62,9 @@ public class Demo {
 		cl3.setIdclass("03");
 		cl3.setTenlop("10C");
 		cl3.setTruong(truong1);
+		cl.insert(cl3);
+		cl.insert(cl2);
+		cl.insert(cl1);
 		List<Class> a = new ArrayList<Class>();
 		a.add(cl1);
 		a.add(cl2);
@@ -84,6 +87,8 @@ public class Demo {
 		gv2.setPassword("123456");
 		gv2.addclass(cl1);
 		gv2.addclass(cl2);
+		gv.insert(gv2);
+		gv.insert(gv1);
 		Sv sv1 = new Sv();
 		sv1.setId("102220088");
 		sv1.setUsername(sv1.getId());
@@ -120,6 +125,11 @@ public class Demo {
 		sv1.setIdclass(cl1);
 		sv3.setIdclass(cl2);
 		sv5.setIdclass(cl3);
+		sv.insert(sv5);
+		sv.insert(sv4);
+		sv.insert(sv3);
+		sv.insert(sv2);
+		sv.insert(sv1);
 		KiThi kithi = new KiThi();
 		kithi.setId("02");
 		kithi.setLop(cl2);
@@ -157,6 +167,8 @@ public class Demo {
 		Nganhangcauhoi nh1 = new Nganhangcauhoi();
 		nh1.setIdNganHang("su");
 		nh1.setGiaovienquanli(gv1);
+		nhdao.insert(nh1);
+		nhdao.insert(nh);
 		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 2, 1, nh1);
 		Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain", 1, 1, nh);
 		Cauhoi q3 = new Cauhoi("q3", "What is the chemical symbol for water?", "H2O", "CO2", "O2", "NaCl", 1, 1, nh);
@@ -167,12 +179,27 @@ public class Demo {
 		Cauhoi q8 = new Cauhoi("q8", "Who invented the telephone?", "Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Guglielmo Marconi", 1, 1, nh);
 		Cauhoi q9 = new Cauhoi("q9", "What is the currency of Japan?", "Yen", "Euro", "Dollar", "Pound", 1, 1, nh1);
 		Cauhoi q10 = new Cauhoi("q10", "Who is the author of 'To Kill a Mockingbird'?", "Harper Lee", "J.K. Rowling", "Stephen King", "Ernest Hemingway", 1, 1, nh1);
-		
+		 CHdao.insert(q10);
+		 CHdao.insert(q1);
+		 CHdao.insert(q2);
+		 CHdao.insert(q3);
+		 CHdao.insert(q4);
+		 CHdao.insert(q5);
+		 CHdao.insert(q6);
+		 CHdao.insert(q7);
+		 CHdao.insert(q8);
+		 CHdao.insert(q9);
 		  DeThi dethi1 = new DeThi(); dethi1.addCauhoi(q10); dethi1.addCauhoi(q2);
 		 dethi1.addCauhoi(q3); dethi1.setId("05"); dethi1.setKithi(kithi2);
+		
 		 kithi.setNganhangcauhoi(nh1);
 		 kithi1.setNganhangcauhoi(nh1);
 		 kithi2.setNganhangcauhoi(nh);
 		 kt.insert(kithi2);
+		 kt.insert(kithi1);
+		 kt.insert(kithi);
+		 dt.insert(dethi1);
+		
+		
 	}
 }
