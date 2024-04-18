@@ -24,7 +24,7 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 		List<DeThi> result = new ArrayList<DeThi>();
 		try {
 			Connection con = JDBCUtil.getConnection();
-			String sql = "select * from Account";
+			String sql = "select * from dethi";
 
 			PreparedStatement a;
 
@@ -37,7 +37,8 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 				KiThi_dao kt = new KiThi_dao();
 				KiThi x  = new KiThi();
 				x.setId(kithi);
-				DeThi  u  = new DeThi(id,x);
+				KiThi_dao kithiDao = new KiThi_dao();
+				DeThi  u  = new DeThi(id,kithiDao.selectbyid(x));
 				result.add(u);
 			}
 			con.close();

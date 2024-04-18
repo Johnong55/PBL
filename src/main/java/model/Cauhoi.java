@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,7 +23,7 @@ public class Cauhoi {
 	@ManyToOne
 	@JoinColumn(name = "NganHang")	
 	private Nganhangcauhoi NH;
-	@OneToMany(mappedBy = "cauhoi")
+	@OneToMany(mappedBy = "cauhoi",cascade = CascadeType.ALL)
 	private List<Cauhoi_DeThi> CD;
 	public List<Cauhoi_DeThi> getCD() {
 		return CD;

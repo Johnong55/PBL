@@ -1,10 +1,15 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -14,8 +19,11 @@ public class Sv extends Account{
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "lop")
 	private Class idclass; 
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<BaiLam> list;
 	public Sv() {
 		super();
+		list = new ArrayList<BaiLam>();;
 		// TODO Auto-generated constructor stub
 	}
 	@Override
@@ -46,4 +54,14 @@ public class Sv extends Account{
 	public void setIdclass(Class idclass) {
 		this.idclass = idclass;
 	} 
+	public void addKetqua(BaiLam t)
+	{
+		this.list.add(t);
+	}
+	public List<BaiLam> getList() {
+		return list;
+	}
+	public void setList(List<BaiLam> list) {
+		this.list = list;
+	}
 }

@@ -124,7 +124,17 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 
 	@Override
 	public boolean update(KiThi t) {
-		// TODO Auto-generated method stub
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if (sessionFactory != null) {
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+
+			session.update(t);
+			tr.commit();
+			session.close();
+			return true;
+		}
+
 		return false;
 	}
 
