@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Vn.john.hibernate01.AppTest" time="0.036" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Vn.john.hibernate01.AppTest" time="0.031" tests="1" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="java.specification.version" value="20"/>
+    <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
-    <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="T:\jdbc\hibernate4\target\test-classes;T:\jdbc\hibernate4\target\classes;C:\Users\ASUS\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\ASUS\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\ASUS\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\ASUS\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;C:\Users\ASUS\.m2\repository\org\hibernate\hibernate-core\5.6.14.Final\hibernate-core-5.6.14.Final.jar;C:\Users\ASUS\.m2\repository\org\jboss\logging\jboss-logging\3.4.3.Final\jboss-logging-3.4.3.Final.jar;C:\Users\ASUS\.m2\repository\javax\persistence\javax.persistence-api\2.2\javax.persistence-api-2.2.jar;C:\Users\ASUS\.m2\repository\net\bytebuddy\byte-buddy\1.12.18\byte-buddy-1.12.18.jar;C:\Users\ASUS\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar;C:\Users\ASUS\.m2\repository\org\jboss\spec\javax\transaction\jboss-transaction-api_1.2_spec\1.1.1.Final\jboss-transaction-api_1.2_spec-1.1.1.Final.jar;C:\Users\ASUS\.m2\repository\org\jboss\jandex\2.4.2.Final\jandex-2.4.2.Final.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\classmate\1.5.1\classmate-1.5.1.jar;C:\Users\ASUS\.m2\repository\javax\activation\javax.activation-api\1.2.0\javax.activation-api-1.2.0.jar;C:\Users\ASUS\.m2\repository\org\hibernate\common\hibernate-commons-annotations\5.1.2.Final\hibernate-commons-annotations-5.1.2.Final.jar;C:\Users\ASUS\.m2\repository\javax\xml\bind\jaxb-api\2.3.1\jaxb-api-2.3.1.jar;C:\Users\ASUS\.m2\repository\org\glassfish\jaxb\jaxb-runtime\2.3.1\jaxb-runtime-2.3.1.jar;C:\Users\ASUS\.m2\repository\org\glassfish\jaxb\txw2\2.3.1\txw2-2.3.1.jar;C:\Users\ASUS\.m2\repository\com\sun\istack\istack-commons-runtime\3.0.7\istack-commons-runtime-3.0.7.jar;C:\Users\ASUS\.m2\repository\org\jvnet\staxex\stax-ex\1.8\stax-ex-1.8.jar;C:\Users\ASUS\.m2\repository\com\sun\xml\fastinfoset\FastInfoset\1.2.15\FastInfoset-1.2.15.jar;C:\Users\ASUS\.m2\repository\org\hibernate\hibernate-entitymanager\5.6.15.Final\hibernate-entitymanager-5.6.15.Final.jar;"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="D:\study\PBL\target\test-classes;D:\study\PBL\target\classes;C:\Users\ASUS\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\ASUS\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\ASUS\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\ASUS\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;C:\Users\ASUS\.m2\repository\org\hibernate\hibernate-core\5.6.14.Final\hibernate-core-5.6.14.Final.jar;C:\Users\ASUS\.m2\repository\org\jboss\logging\jboss-logging\3.4.3.Final\jboss-logging-3.4.3.Final.jar;C:\Users\ASUS\.m2\repository\javax\persistence\javax.persistence-api\2.2\javax.persistence-api-2.2.jar;C:\Users\ASUS\.m2\repository\net\bytebuddy\byte-buddy\1.12.18\byte-buddy-1.12.18.jar;C:\Users\ASUS\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar;C:\Users\ASUS\.m2\repository\org\jboss\spec\javax\transaction\jboss-transaction-api_1.2_spec\1.1.1.Final\jboss-transaction-api_1.2_spec-1.1.1.Final.jar;C:\Users\ASUS\.m2\repository\org\jboss\jandex\2.4.2.Final\jandex-2.4.2.Final.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\classmate\1.5.1\classmate-1.5.1.jar;C:\Users\ASUS\.m2\repository\javax\activation\javax.activation-api\1.2.0\javax.activation-api-1.2.0.jar;C:\Users\ASUS\.m2\repository\org\hibernate\common\hibernate-commons-annotations\5.1.2.Final\hibernate-commons-annotations-5.1.2.Final.jar;C:\Users\ASUS\.m2\repository\javax\xml\bind\jaxb-api\2.3.1\jaxb-api-2.3.1.jar;C:\Users\ASUS\.m2\repository\org\glassfish\jaxb\jaxb-runtime\2.3.1\jaxb-runtime-2.3.1.jar;C:\Users\ASUS\.m2\repository\org\glassfish\jaxb\txw2\2.3.1\txw2-2.3.1.jar;C:\Users\ASUS\.m2\repository\com\sun\istack\istack-commons-runtime\3.0.7\istack-commons-runtime-3.0.7.jar;C:\Users\ASUS\.m2\repository\org\jvnet\staxex\stax-ex\1.8\stax-ex-1.8.jar;C:\Users\ASUS\.m2\repository\com\sun\xml\fastinfoset\FastInfoset\1.2.15\FastInfoset-1.2.15.jar;C:\Users\ASUS\.m2\repository\org\hibernate\hibernate-entitymanager\5.6.15.Final\hibernate-entitymanager-5.6.15.Final.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
-    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
     <property name="user.timezone" value="Asia/Saigon"/>
     <property name="os.name" value="Windows 11"/>
-    <property name="java.vm.specification.version" value="20"/>
+    <property name="java.vm.specification.version" value="17"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="user.country" value="US"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-20\bin"/>
-    <property name="sun.java.command" value="C:\Users\ASUS\AppData\Local\Temp\surefire16300463260546515137\surefirebooter15057293211299793153.jar C:\Users\ASUS\AppData\Local\Temp\surefire16300463260546515137 2024-03-23T09-03-51_866-jvmRun1 surefire4224430150879051360tmp surefire_012496977541913011956tmp"/>
+    <property name="user.country" value="VN"/>
+    <property name="sun.boot.library.path" value="C:\Java\bin"/>
+    <property name="sun.java.command" value="C:\Users\ASUS\AppData\Local\Temp\surefire17293514612196470273\surefirebooter11721894905777223643.jar C:\Users\ASUS\AppData\Local\Temp\surefire17293514612196470273 2024-04-13T09-21-05_757-jvmRun1 surefire9375390030877857482tmp surefire_01637174723689515208tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="T:\jdbc\hibernate4\target\test-classes;T:\jdbc\hibernate4\target\classes;C:\Users\ASUS\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\ASUS\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\ASUS\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\ASUS\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;C:\Users\ASUS\.m2\repository\org\hibernate\hibernate-core\5.6.14.Final\hibernate-core-5.6.14.Final.jar;C:\Users\ASUS\.m2\repository\org\jboss\logging\jboss-logging\3.4.3.Final\jboss-logging-3.4.3.Final.jar;C:\Users\ASUS\.m2\repository\javax\persistence\javax.persistence-api\2.2\javax.persistence-api-2.2.jar;C:\Users\ASUS\.m2\repository\net\bytebuddy\byte-buddy\1.12.18\byte-buddy-1.12.18.jar;C:\Users\ASUS\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar;C:\Users\ASUS\.m2\repository\org\jboss\spec\javax\transaction\jboss-transaction-api_1.2_spec\1.1.1.Final\jboss-transaction-api_1.2_spec-1.1.1.Final.jar;C:\Users\ASUS\.m2\repository\org\jboss\jandex\2.4.2.Final\jandex-2.4.2.Final.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\classmate\1.5.1\classmate-1.5.1.jar;C:\Users\ASUS\.m2\repository\javax\activation\javax.activation-api\1.2.0\javax.activation-api-1.2.0.jar;C:\Users\ASUS\.m2\repository\org\hibernate\common\hibernate-commons-annotations\5.1.2.Final\hibernate-commons-annotations-5.1.2.Final.jar;C:\Users\ASUS\.m2\repository\javax\xml\bind\jaxb-api\2.3.1\jaxb-api-2.3.1.jar;C:\Users\ASUS\.m2\repository\org\glassfish\jaxb\jaxb-runtime\2.3.1\jaxb-runtime-2.3.1.jar;C:\Users\ASUS\.m2\repository\org\glassfish\jaxb\txw2\2.3.1\txw2-2.3.1.jar;C:\Users\ASUS\.m2\repository\com\sun\istack\istack-commons-runtime\3.0.7\istack-commons-runtime-3.0.7.jar;C:\Users\ASUS\.m2\repository\org\jvnet\staxex\stax-ex\1.8\stax-ex-1.8.jar;C:\Users\ASUS\.m2\repository\com\sun\xml\fastinfoset\FastInfoset\1.2.15\FastInfoset-1.2.15.jar;C:\Users\ASUS\.m2\repository\org\hibernate\hibernate-entitymanager\5.6.15.Final\hibernate-entitymanager-5.6.15.Final.jar;"/>
+    <property name="surefire.test.class.path" value="D:\study\PBL\target\test-classes;D:\study\PBL\target\classes;C:\Users\ASUS\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\ASUS\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\ASUS\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\ASUS\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;C:\Users\ASUS\.m2\repository\org\hibernate\hibernate-core\5.6.14.Final\hibernate-core-5.6.14.Final.jar;C:\Users\ASUS\.m2\repository\org\jboss\logging\jboss-logging\3.4.3.Final\jboss-logging-3.4.3.Final.jar;C:\Users\ASUS\.m2\repository\javax\persistence\javax.persistence-api\2.2\javax.persistence-api-2.2.jar;C:\Users\ASUS\.m2\repository\net\bytebuddy\byte-buddy\1.12.18\byte-buddy-1.12.18.jar;C:\Users\ASUS\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar;C:\Users\ASUS\.m2\repository\org\jboss\spec\javax\transaction\jboss-transaction-api_1.2_spec\1.1.1.Final\jboss-transaction-api_1.2_spec-1.1.1.Final.jar;C:\Users\ASUS\.m2\repository\org\jboss\jandex\2.4.2.Final\jandex-2.4.2.Final.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\classmate\1.5.1\classmate-1.5.1.jar;C:\Users\ASUS\.m2\repository\javax\activation\javax.activation-api\1.2.0\javax.activation-api-1.2.0.jar;C:\Users\ASUS\.m2\repository\org\hibernate\common\hibernate-commons-annotations\5.1.2.Final\hibernate-commons-annotations-5.1.2.Final.jar;C:\Users\ASUS\.m2\repository\javax\xml\bind\jaxb-api\2.3.1\jaxb-api-2.3.1.jar;C:\Users\ASUS\.m2\repository\org\glassfish\jaxb\jaxb-runtime\2.3.1\jaxb-runtime-2.3.1.jar;C:\Users\ASUS\.m2\repository\org\glassfish\jaxb\txw2\2.3.1\txw2-2.3.1.jar;C:\Users\ASUS\.m2\repository\com\sun\istack\istack-commons-runtime\3.0.7\istack-commons-runtime-3.0.7.jar;C:\Users\ASUS\.m2\repository\org\jvnet\staxex\stax-ex\1.8\stax-ex-1.8.jar;C:\Users\ASUS\.m2\repository\com\sun\xml\fastinfoset\FastInfoset\1.2.15\FastInfoset-1.2.15.jar;C:\Users\ASUS\.m2\repository\org\hibernate\hibernate-entitymanager\5.6.15.Final\hibernate-entitymanager-5.6.15.Final.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\ASUS"/>
-    <property name="user.language" value="en"/>
+    <property name="user.language" value="vi"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2023-04-18"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk-20"/>
+    <property name="java.version.date" value="2023-01-17"/>
+    <property name="java.home" value="C:\Java"/>
     <property name="file.separator" value="\"/>
-    <property name="basedir" value="T:\jdbc\hibernate4"/>
     <property name="style.color" value="always"/>
+    <property name="basedir" value="D:\study\PBL"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\ASUS\AppData\Local\Temp\surefire16300463260546515137\surefirebooter15057293211299793153.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ASUS\AppData\Local\Temp\surefire17293514612196470273\surefirebooter11721894905777223643.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="20.0.1+9-29"/>
+    <property name="java.runtime.version" value="17.0.6+10"/>
     <property name="user.name" value="ASUS"/>
-    <property name="stdout.encoding" value="UTF-8"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
-    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
-    <property name="file.encoding" value="UTF-8"/>
-    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-17.0.6+10"/>
     <property name="localRepository" value="C:\Users\ASUS\.m2\repository"/>
-    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
     <property name="java.io.tmpdir" value="C:\Users\ASUS\AppData\Local\Temp\"/>
-    <property name="java.version" value="20.0.1"/>
-    <property name="user.dir" value="T:\jdbc\hibernate4"/>
+    <property name="java.version" value="17.0.6"/>
+    <property name="user.dir" value="D:\study\PBL"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="native.encoding" value="UTF-8"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-20\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk-20/bin/server;C:/Program Files/Java/jdk-20/bin;C:\Program Files\Java\jdk-17\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\ASUS\AppData\Roaming\.dotnet;C:\Users\ASUS\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\ASUS\AppData\Local\Programs\Python\Python311\;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;C:\Program Files\CodeBlocks\MinGW\bin;C:\Program Files\Azure Data Studio\bin;C:\Users\ASUS\.dotnet\tools;C:\Program Files\Java\jdk-17\bin;C:\Users\ASUS\AppData\Local\Programs\Microsoft VS Code\bin;C:\Windows\System32;;C:\WINDOWS\System32;;."/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Java\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Java/bin/server;C:/Java/bin;C:\Program Files\Microsoft MPI\Bin\;C:\Java\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Java\bin\;C:\Program Files (x86)\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files\Azure Data Studio\bin;C:\Program Files\nodejs\;D:\C++\codeblock tdm-cc\bin;C:\msys64\mingw64\bin;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\java web\apache-maven-3.6.0\bin;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;C:\Users\ASUS\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Azure Data Studio\bin;C:\Users\ASUS\AppData\Local\Programs\Azure Data Studio\bin;C:\Users\ASUS\AppData\Roaming\npm;C:\Program Files (x86)\Dev-Cpp\MinGW64\bin\g++.exe;D:\sdl2\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\lib\x64;D:\sdl2\SDL2-devel-2.28.4-VC\SDL2-2.28.4\lib\x64;C:\Users\ASUS\.dotnet\tools;C:\Windows\System32;;."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
-    <property name="stderr.encoding" value="UTF-8"/>
-    <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="20.0.1+9-29"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="17.0.6+10"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="64.0"/>
+    <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="Vn.john.hibernate01.AppTest" time="0.004"/>
+  <testcase name="shouldAnswerWithTrue" classname="Vn.john.hibernate01.AppTest" time="0.002"/>
 </testsuite>
