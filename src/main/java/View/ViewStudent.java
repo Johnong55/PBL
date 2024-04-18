@@ -323,8 +323,13 @@ public class ViewStudent extends JFrame {
 		panel_2_1.add(lblNewLabel_14);
 		
 		BtnChangeImagePer = new MyButton("Thay đổi hình ảnh");
+		BtnChangeImagePer.setColor(Green);
+		BtnChangeImagePer.setBorderColor(Green);
+		BtnChangeImagePer.setColorOver(Blue);
+		BtnChangeImagePer.setForeground(new Color(255,255,255));
 		BtnChangeImagePer.setBounds(34, 148, 119, 23);
 		BtnChangeImagePer.addActionListener(cl);
+		BtnChangeImagePer.setRadius(15);
 		panel_2_1.add(BtnChangeImagePer);
 		
 		PanelRound panel_2_2_1 = new PanelRound(15);
