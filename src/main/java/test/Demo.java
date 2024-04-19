@@ -135,7 +135,7 @@ public class Demo {
 		kithi.setLop(cl2);
 		kithi.setGv(gv1);
 		kithi.setThoigianlambai(45);
-		kithi.setDate(new Date(2024+1900, 12, 1));
+		kithi.setDate(new Date(2024, 12,02));
 		kithi.setMota("Van");
 		kithi.setSl(12);
 
@@ -144,7 +144,7 @@ public class Demo {
 		kithi1.setLop(cl2);
 		kithi1.setGv(gv2);
 		kithi1.setThoigianlambai(45);
-		kithi1.setDate(new Date(2024+1900, 12, 1));
+		kithi1.setDate(new Date(2024, 8,20));
 		kithi1.setMota("Dia");
 		kithi1.setSl(12);
 
@@ -153,7 +153,7 @@ public class Demo {
 		kithi2.setLop(cl2);
 		kithi2.setGv(gv2);
 		kithi2.setThoigianlambai(45);
-		kithi2.setDate(new Date(2024+1900, 12, 1));
+		kithi2.setDate(new Date(2024, 2, 10));
 		kithi2.setMota("SU");
 		kithi2.setSl(12);
 		

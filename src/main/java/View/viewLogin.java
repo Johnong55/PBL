@@ -210,7 +210,7 @@ public class viewLogin extends JFrame {
 				{
 					if(q.username.equals(user) && q.password.equals(pass))
 					{
-						if(q.username.charAt(0) == '1') {
+						if(q.getMaquyen() == 2) {
 							
 							ViewStudent v = new ViewStudent(Sv_dao.Instance().selectbyid(q));
 							//System.out.println(Sv_dao.Instance().selectbyid(q).getTen());

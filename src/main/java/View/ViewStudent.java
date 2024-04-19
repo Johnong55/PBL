@@ -12,6 +12,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
@@ -25,7 +26,10 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.Controller_Student;
+import DAO.KiThi_dao;
+import DAO.Sv_dao;
 import model.Account;
+import model.KiThi;
 import model.Sv;
 
 public class ViewStudent extends JFrame {
@@ -45,10 +49,13 @@ public class ViewStudent extends JFrame {
 	public JTextField textField;
 	public JTable table;
 	
-	public Sv v ;
+	public Sv v ; public KiThi ktsoon , ktOngoing;
+	
 	public ViewStudent(Sv sv) {
-		System.out.println("co");
 		this.v = sv;
+		this.ktsoon = Sv_dao.Instance().findKithiSoon(v);
+		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
+//		System.out.println(kt.getDate());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
 		ViewStudent1();
@@ -145,21 +152,28 @@ public class ViewStudent extends JFrame {
 		panel_2.add(lblNewLabel_5_2);
 		
 		//----- can thon tin thoi gian cb thi
-		JLabel lblNewLabel_6 = new JLabel("Name");
+		JLabel lblNewLabel_6 = new JLabel("Không có !");
 		lblNewLabel_6.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblNewLabel_6.setBounds(433, 62, 158, 20);
 		panel_2.add(lblNewLabel_6);
 		
-		JLabel lblNewLabel_6_1 = new JLabel("Name");
+		JLabel lblNewLabel_6_1 = new JLabel("Không có !");
 		lblNewLabel_6_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblNewLabel_6_1.setBounds(433, 104, 158, 20);
 		panel_2.add(lblNewLabel_6_1);
 		
-		JLabel lblNewLabel_6_2 = new JLabel("Name");
+		JLabel lblNewLabel_6_2 = new JLabel("Không có");
 		lblNewLabel_6_2.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblNewLabel_6_2.setBounds(433, 151, 158, 20);
 		panel_2.add(lblNewLabel_6_2);
 		
+		if(ktsoon != null) {
+			lblNewLabel_6.setText(ktsoon.getMota());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
+			lblNewLabel_6_1.setText(sdf.format(ktsoon.getDate()).toString());
+			lblNewLabel_6_2.setText(ktsoon.getThoigianbatdau().toString());
+			
+		}
 		//--------------
 		
 		mbtnSetReminder = new MyButton("");
@@ -189,27 +203,31 @@ public class ViewStudent extends JFrame {
 		JLabel lblNewLabel_3_1 = new JLabel("Bài kiểm tra đang diễn ra !");
 		lblNewLabel_3_1.setForeground(new Color(17, 49, 123));
 		lblNewLabel_3_1.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		lblNewLabel_3_1.setBounds(286, 11, 254, 35);
+		lblNewLabel_3_1.setBounds(286, 11, 306, 35);
 		panel_3.add(lblNewLabel_3_1);
 		
 		JLabel lblNewLabel_6_3 = new JLabel("Name");
-		lblNewLabel_6_3.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lblNewLabel_6_3.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		lblNewLabel_6_3.setForeground(Gray);
-		lblNewLabel_6_3.setBounds(286, 57, 158, 20);
-		panel_3.add(lblNewLabel_6_3);
 		
 		JLabel lblNewLabel_6_4 = new JLabel("Name");
 		lblNewLabel_6_4.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblNewLabel_6_4.setForeground(Gray);
-		lblNewLabel_6_4.setBounds(357, 88, 158, 20);
+		lblNewLabel_6_4.setBounds(286, 57, 158, 20);
 		panel_3.add(lblNewLabel_6_4);
 		
 		JLabel lblNewLabel_6_5 = new JLabel("Name");
 		lblNewLabel_6_5.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblNewLabel_6_5.setForeground(Gray);
-		lblNewLabel_6_5.setBounds(511, 57, 158, 20);
+		lblNewLabel_6_5.setBounds(501, 57, 158, 20);
 		panel_3.add(lblNewLabel_6_5);
 		
+		if(ktOngoing != null) {
+			lblNewLabel_6_3.setText(ktOngoing.getMota());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
+			lblNewLabel_6_4.setText(sdf.format(ktOngoing.getDate()).toString());
+			lblNewLabel_6_5.setText(ktOngoing.getThoigianbatdau().toString());
+		}
 		mbtnBtuLm = new MyButton("");
 		mbtnBtuLm.setText("Bắt đầu làm bài");
 		mbtnBtuLm.setRadius(15);
@@ -231,6 +249,15 @@ public class ViewStudent extends JFrame {
 		
 		panel_4.add(panel_2);
 		panel_4.add(panel_3);
+		
+		JPanel panelName = new JPanel();
+		panelName.setBackground(new Color(255, 255, 255));
+		panelName.setBounds(286, 87, 276, 35);
+		panelName.add(lblNewLabel_6_3);
+		panel_3.add(panelName);
+		
+		//----can thong tin
+		
 	}
 	
 	
