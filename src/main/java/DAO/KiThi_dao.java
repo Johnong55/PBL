@@ -21,7 +21,15 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class KiThi_dao implements DAO_Interface<KiThi> {
-
+	public static KiThi_dao _instance;
+	public static KiThi_dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new KiThi_dao();
+		
+		}
+			return _instance;
+	}
 	@Override
 	public List<KiThi> selectall() {
 		List<KiThi> result = new ArrayList<KiThi>();

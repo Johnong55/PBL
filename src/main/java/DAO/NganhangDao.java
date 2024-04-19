@@ -19,7 +19,15 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class NganhangDao implements DAO_Interface<Nganhangcauhoi> {
-
+	public static NganhangDao _instance;
+	public static NganhangDao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new NganhangDao();
+		
+		}
+			return _instance;
+	}
 	@Override
 	public List<Nganhangcauhoi> selectall() {
 		List<Nganhangcauhoi> result =  new ArrayList<Nganhangcauhoi>();	

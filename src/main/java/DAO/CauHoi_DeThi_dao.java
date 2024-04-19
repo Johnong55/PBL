@@ -10,7 +10,15 @@ import model.Cauhoi_DeThi;
 import util.HibernateUtil;
 
 public class CauHoi_DeThi_dao implements DAO_Interface<Cauhoi_DeThi> {
-
+	public static CauHoi_DeThi_dao _instance;
+	public static CauHoi_DeThi_dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new CauHoi_DeThi_dao();
+		
+		}
+			return _instance;
+	}
 	@Override
 	public List<Cauhoi_DeThi> selectall() {
 		// TODO Auto-generated method stub

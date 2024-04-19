@@ -18,7 +18,15 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class truonghoc_dao implements DAO_Interface<truonghoc> {
-
+	public static truonghoc_dao _instance;
+	public static truonghoc_dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new truonghoc_dao();
+		
+		}
+			return _instance;
+	}
 	@Override
 	public List<truonghoc> selectall() {
 		List<truonghoc> result = new ArrayList<truonghoc>();
