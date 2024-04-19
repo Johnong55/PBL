@@ -19,8 +19,11 @@
 <mapping class = "model.Gv"/>
 <mapping class = "model.Giangday"/>
 <mapping class = "model.KiThi"/>
+<mapping class= "model.Cauhoi_DeThi"/>
+<mapping class = "model.BaiLam"/>
 <mapping class = "model.DeThi"/>
 <mapping  class = "model.Cauhoi"/>
+
 <mapping class = "model.Nganhangcauhoi"/>
 
 </session-factory>

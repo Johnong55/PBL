@@ -1,9 +1,13 @@
 package model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cauhoi {
@@ -19,6 +23,14 @@ public class Cauhoi {
 	@ManyToOne
 	@JoinColumn(name = "NganHang")	
 	private Nganhangcauhoi NH;
+	@OneToMany(mappedBy = "cauhoi",cascade = CascadeType.ALL)
+	private List<Cauhoi_DeThi> CD;
+	public List<Cauhoi_DeThi> getCD() {
+		return CD;
+	}
+	public void setCD(List<Cauhoi_DeThi> cD) {
+		CD = cD;
+	}
 	public String getId() {
 		return id;
 	}
@@ -103,5 +115,9 @@ public class Cauhoi {
 		this.mucdo = mucdo;
 		this.dapan = dapan;
 		NH = nH;
+	}
+	public void addVaoDeThi(DeThi T)
+	{
+		this.CD.add(new Cauhoi_DeThi(this, T));
 	}
 }
