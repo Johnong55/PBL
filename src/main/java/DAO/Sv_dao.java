@@ -33,13 +33,12 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		
 	}
 	public KiThi findKithiSoon(Sv t) {
-		KiThi k = new KiThi(null,null,null,0,null,null,null,0);
+		KiThi k = new KiThi(null,null,null,0,null,new Date(0),null,0);
 		try {
 			Connection con = JDBCUtil.getConnection();
 			String sql = "select kithi.* from kithi "
-					+ "INNER JOIN class on kithi.lop = class.idclass "
-					+ "INNER JOIN sv ON sv.lop = class.idclass "
-					+ "  where date >= ? and thoigianbatdau >= ? and sv.id = ? "
+					+ "INNER JOIN sv ON sv.lop = kithi.lop "
+					+ "  where date > ? or (date = ? and thoigianbatdau >= ?) and sv.id = ? "
 					+ "order by date,thoigianbatdau limit 1;" ;
 			PreparedStatement a;
 			LocalTime time =  LocalTime.now();
@@ -47,8 +46,9 @@ public class Sv_dao implements DAO_Interface<Sv> {
 			Date d = new  Date(currentTimeMillis);
 			a = con.prepareStatement(sql);
 			a.setString(1, d.toString());
-			a.setString(2, time.toString());
-			a.setString(3, t.getId());
+			a.setString(2, d.toString());
+			a.setString(3, time.toString());
+			a.setString(4, t.getId());
 			ResultSet kq = a.executeQuery();
 			while (kq.next()) {
 				String id = kq.getString("id");
@@ -81,12 +81,11 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		return k;
 	}
 	public KiThi findKithiOnl(Sv t) {
-		KiThi k = new KiThi(null,null,null,0,null,null,null,0);
+		KiThi k = new KiThi(null,null,null,0,null,new Date(0),null,0);
 		try {
 			Connection con = JDBCUtil.getConnection();
 			String sql = "select kithi.* from kithi "
-					+ "INNER JOIN class on kithi.lop = class.idclass "
-					+ "INNER JOIN sv ON sv.lop = class.idclass "
+					+ "INNER JOIN sv on kithi.lop = sv.lop "
 					+ "  where date = ? and thoigianbatdau <= ?"
 					+" and ADDTIME(thoigianbatdau , SEC_TO_TIME(thoigianlambai * 60)) >= ?"
 					+ " and sv.id = ? "
