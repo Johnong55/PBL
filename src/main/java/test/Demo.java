@@ -1,6 +1,7 @@
 package test;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -134,8 +135,9 @@ public class Demo {
 		kithi.setId("02");
 		kithi.setLop(cl2);
 		kithi.setGv(gv1);
+		kithi.setThoigianbatdau(new Time(9,30,0));
 		kithi.setThoigianlambai(45);
-		kithi.setDate(new Date(2024, 12,02));
+		kithi.setDate(new Date(2024-1900, 04,20));
 		kithi.setMota("Van");
 		kithi.setSl(12);
 
@@ -144,7 +146,8 @@ public class Demo {
 		kithi1.setLop(cl2);
 		kithi1.setGv(gv2);
 		kithi1.setThoigianlambai(45);
-		kithi1.setDate(new Date(2024, 8,20));
+		kithi1.setThoigianbatdau(new Time(17,30,0));
+		kithi1.setDate(new Date(2024-1900, 8,20));
 		kithi1.setMota("Dia");
 		kithi1.setSl(12);
 
@@ -152,8 +155,9 @@ public class Demo {
 		kithi2.setId("04");
 		kithi2.setLop(cl2);
 		kithi2.setGv(gv2);
+		kithi2.setThoigianbatdau(new Time(8,0,0));
 		kithi2.setThoigianlambai(45);
-		kithi2.setDate(new Date(2024, 2, 10));
+		kithi2.setDate(new Date(2024-1900, 6, 20));
 		kithi2.setMota("SU");
 		kithi2.setSl(12);
 		
