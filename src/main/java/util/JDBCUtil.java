@@ -12,7 +12,7 @@ public class JDBCUtil {
 		Connection C = null;
 		try {
 			/// đăng kí mysql driver với drivermanager
-			DriverManager.registerDriver( new com.mysql.jdbc.Driver());
+			DriverManager.registerDriver( new com.mysql.cj.jdbc.Driver());
 			String url = "jdbc:mySQL://localhost:3306/demo";
 			String username = "root";
 			String password = "";

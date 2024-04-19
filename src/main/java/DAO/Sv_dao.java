@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import model.Account;
 import model.Class;
 import model.Gv;
 import model.KiThi;
@@ -21,7 +24,113 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class Sv_dao implements DAO_Interface<Sv> {
-
+	private static Sv_dao _instance;
+	public static  Sv_dao Instance() {
+		if(_instance == null) {
+			_instance  = new Sv_dao();
+		}
+		return _instance;
+		
+	}
+	public KiThi findKithiSoon(Sv t) {
+		KiThi k = new KiThi(null,null,null,0,null,null,null,0);
+		try {
+			Connection con = JDBCUtil.getConnection();
+			String sql = "select kithi.* from kithi "
+					+ "INNER JOIN class on kithi.lop = class.idclass "
+					+ "INNER JOIN sv ON sv.lop = class.idclass "
+					+ "  where date >= ? and thoigianbatdau >= ? and sv.id = ? "
+					+ "order by date,thoigianbatdau limit 1;" ;
+			PreparedStatement a;
+			LocalTime time =  LocalTime.now();
+	        long currentTimeMillis = System.currentTimeMillis();
+			Date d = new  Date(currentTimeMillis);
+			a = con.prepareStatement(sql);
+			a.setString(1, d.toString());
+			a.setString(2, time.toString());
+			a.setString(3, t.getId());
+			ResultSet kq = a.executeQuery();
+			while (kq.next()) {
+				String id = kq.getString("id");
+				String mota = kq.getString("mota");
+				String lop = kq.getString("lop");
+				String nguoitao = kq.getString("nguoitao");
+				Time startTime = kq.getTime("thoigianbatdau");
+				int tg = kq.getInt("thoigianlambai");
+				int sl = kq.getInt("sl");
+				Date date = kq.getDate("date");
+				Class_dao c = new Class_dao();
+				Gv_dao gvdao = new Gv_dao();
+				Class lop1 = new Class();
+				lop1.setIdclass(lop);
+				Class Lresult = new Class();
+				Gv gv = new Gv();
+				Gv gresult = new Gv();
+				gv.setId(nguoitao);
+				gresult = gvdao.selectbyid(gv);
+				Lresult = c.selectbyid(lop1);
+		
+				k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl);
+				return k;
+			}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return k;
+	}
+	public KiThi findKithiOnl(Sv t) {
+		KiThi k = new KiThi(null,null,null,0,null,null,null,0);
+		try {
+			Connection con = JDBCUtil.getConnection();
+			String sql = "select kithi.* from kithi "
+					+ "INNER JOIN class on kithi.lop = class.idclass "
+					+ "INNER JOIN sv ON sv.lop = class.idclass "
+					+ "  where date = ? and thoigianbatdau <= ?"
+					+" and ADDTIME(thoigianbatdau , SEC_TO_TIME(thoigianlambai * 60)) >= ?"
+					+ " and sv.id = ? "
+					+ "order by date,thoigianbatdau limit 1;" ;
+			PreparedStatement a;
+			LocalTime time =  LocalTime.now();
+	        long currentTimeMillis = System.currentTimeMillis();
+			Date d = new  Date(currentTimeMillis);
+			a = con.prepareStatement(sql);
+			a.setString(1, d.toString());
+			a.setString(2, time.toString());
+			a.setString(3, time.toString());
+			a.setString(4, t.getId());
+			ResultSet kq = a.executeQuery();
+			while (kq.next()) {
+				String id = kq.getString("id");
+				String mota = kq.getString("mota");
+				String lop = kq.getString("lop");
+				String nguoitao = kq.getString("nguoitao");
+				Time startTime = kq.getTime("thoigianbatdau");
+				int tg = kq.getInt("thoigianlambai");
+				int sl = kq.getInt("sl");
+				Date date = kq.getDate("date");
+				Class_dao c = new Class_dao();
+				Gv_dao gvdao = new Gv_dao();
+				Class lop1 = new Class();
+				lop1.setIdclass(lop);
+				Class Lresult = new Class();
+				Gv gv = new Gv();
+				Gv gresult = new Gv();
+				gv.setId(nguoitao);
+				gresult = gvdao.selectbyid(gv);
+				Lresult = c.selectbyid(lop1);
+		
+				k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl);
+				return k;
+			}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return k;
+	}
 	@Override
 	public List<Sv> selectall() {
 		List<Sv> result = new ArrayList<Sv>();
@@ -85,7 +194,37 @@ public class Sv_dao implements DAO_Interface<Sv> {
 			}
 		return null;
 	}
+	public Sv selectbyid(Account t) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Sv "
+					+ " where id = ?";
+			
+			PreparedStatement a;
 
+				a = con.prepareStatement(sql);
+				a.setString(1, t.getId() );
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					
+					String id = kq.getString("id");
+					String ten = kq.getString("ten");
+					String lop= kq.getString("lop");
+					Class lop1 = new Class();
+					lop1.setIdclass(lop);
+					
+				Sv u = new Sv(id, ten, lop1);
+				
+				return u;
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	}
 	@Override
 	public boolean insert(Sv t) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
@@ -189,6 +328,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					String mota = kq.getString("mota");
 					String lop = kq.getString("lop");
 					String nguoitao = kq.getString("nguoitao");
+					Time startTime = kq.getTime("thoigianbatdau");
 					int tg = kq.getInt("thoigianlambai");
 					int sl = kq.getInt("sl");
 					Date date = kq.getDate("date");
@@ -203,7 +343,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					gresult = gvdao.selectbyid(gv);
 					Lresult = c.selectbyid(lop1);
 			
-					KiThi kt = new KiThi(id, Lresult, tg, mota, date, gv, sl);
+					KiThi kt = new KiThi(id, Lresult,startTime, tg, mota, date, gv, sl);
 					
 					result.add(kt);
 					

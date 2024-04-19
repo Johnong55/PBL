@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -229,6 +230,7 @@ public class Class_dao implements DAO_Interface<Class> {
 					String mota = kq.getString("mota");
 					String lop = kq.getString("lop");
 					String nguoitao = kq.getString("nguoitao");
+					Time startTime = kq.getTime("thoigianbatdau");
 					int tg = kq.getInt("thoigianlambai");
 					int sl = kq.getInt("sl");
 					Date date = kq.getDate("date");
@@ -243,7 +245,7 @@ public class Class_dao implements DAO_Interface<Class> {
 					gresult = gvdao.selectbyid(gv);
 					Lresult = c.selectbyid(lop1);
 			
-					KiThi kt = new KiThi(id, Lresult, tg, mota, date, gv, sl);
+					KiThi kt = new KiThi(id, Lresult,startTime, tg, mota, date, gv, sl);
 					
 					result.add(kt);
 					

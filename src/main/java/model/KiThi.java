@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,8 @@ import javax.persistence.OneToOne;
 public class KiThi {
 	@Override
 	public String toString() {
-		return "KiThi [id=" + id + ", lop=" + lop + ", thoigianlambai=" + thoigianlambai + ", mota=" + mota + ", date="
+		return "KiThi [id=" + id + ", lop=" + lop +",thoi gian bat dau = " + thoigianbatdau
+				+ ", thoigianlambai=" + thoigianlambai + ", mota=" + mota + ", date="
 				+ date + ", gv=" + gv.id + ", sl=" + sl + "]";
 	}
 	@Id
@@ -24,6 +26,7 @@ public class KiThi {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "lop")
 	private	Class lop; 
+	private Time thoigianbatdau;
 	private int thoigianlambai;
 	private String mota;
 	private Date date;
@@ -47,11 +50,12 @@ public class KiThi {
 	 * @param listdethi
 	 * @param nganhangcauhoi
 	 */
-	public KiThi(String id, Class lop, int thoigianlambai, String mota, Date date, Gv gv, int sl, List<DeThi> listdethi,
+	public KiThi(String id, Class lop,Time thoigianbatdau, int thoigianlambai, String mota, Date date, Gv gv, int sl, List<DeThi> listdethi,
 			Nganhangcauhoi nganhangcauhoi) {
 		super();
 		this.id = id;
 		this.lop = lop;
+		this.thoigianbatdau = thoigianbatdau;
 		this.thoigianlambai = thoigianlambai;
 		this.mota = mota;
 		this.date = date;
@@ -59,6 +63,12 @@ public class KiThi {
 		this.sl = sl;
 		this.listdethi = listdethi;
 		this.nganhangcauhoi = nganhangcauhoi;
+	}
+	public Time getThoigianbatdau() {
+		return thoigianbatdau;
+	}
+	public void setThoigianbatdau(Time thoigianbatdau) {
+		this.thoigianbatdau = thoigianbatdau;
 	}
 	public Nganhangcauhoi getNganhangcauhoi() {
 		return nganhangcauhoi;
@@ -123,10 +133,11 @@ public class KiThi {
 	 * @param gv
 	 * @param sl
 	 */
-	public KiThi(String id, Class lop, int thoigianlambai, String mota, Date date, Gv gv, int sl) {
+	public KiThi(String id, Class lop,Time thoigianbatdau , int thoigianlambai, String mota, Date date, Gv gv, int sl) {
 		super();
 		this.id = id;
 		this.lop = lop;
+		this.thoigianbatdau = thoigianbatdau;
 		this.thoigianlambai = thoigianlambai;
 		this.mota = mota;
 		this.date = date;
