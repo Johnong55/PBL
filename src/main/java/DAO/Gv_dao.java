@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import model.Account;
 import model.Class;
 import model.Giangday;
 import model.Gv;
@@ -19,6 +20,13 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class Gv_dao implements DAO_Interface<Gv> {
+	private static Gv_dao _instance;
+	public static Gv_dao Instance() {
+		if(_instance == null) {
+			_instance = new Gv_dao();
+		}
+		return _instance;
+	}
 
 	@Override
 	public List<Gv> selectall() {
@@ -66,6 +74,39 @@ public class Gv_dao implements DAO_Interface<Gv> {
 
 				a = con.prepareStatement(sql);
 				a.setString(1, t.getMaGv());
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					String id = kq.getString("id");
+					String ten = kq.getString("ten");
+					String idtruong= kq.getString("truong");
+					truonghoc truong = new truonghoc();
+					truong.setId(idtruong);
+					truonghoc_dao tr = new truonghoc_dao();
+					truonghoc b = new truonghoc();
+					b = tr.selectbyid(truong);
+					Gv u = new Gv(id,ten,b);
+				
+				return u;
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	
+	}
+	public Gv selectbyid(Account t) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Gv "
+					+ "where id = ?";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, t.getId());
 				ResultSet kq = a.executeQuery();
 				while(kq.next())
 				{
