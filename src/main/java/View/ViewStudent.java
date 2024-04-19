@@ -401,7 +401,7 @@ public class ViewStudent extends JFrame {
 	}
 	public void ViewStudent1() {
 		
-		
+		panel_4.setLayout(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(235, 235, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -458,7 +458,8 @@ public class ViewStudent extends JFrame {
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/profile.png"))));
 		panel.add(btnProfile);
 		panel_4.setBounds(171, 0, 713, 661); 
-		view_home();
+		
+		view_test();
 		//-----------------------------------
 		
 		//------------
