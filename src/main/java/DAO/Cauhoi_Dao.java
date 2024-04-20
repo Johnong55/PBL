@@ -66,8 +66,35 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 
 	@Override
 	public Cauhoi selectbyid(Cauhoi t) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from cauhoi";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				ResultSet kq = a.executeQuery();
+				
+				while(kq.next())
+				{
+					String id  = kq.getString("id");
+					String	noidung  =  kq.getString("Noidung");
+					String dapAnA = kq.getString("dapAnA");
+					String dapAnB = kq.getString("dapAnB");
+					String dapAnC = kq.getString("dapAnC");
+					String dapAnD = kq.getString("dapAnD");
+					int dapAn = kq.getInt("dapan");
+					int mucdo = kq.getInt("mucdo");
+					String Nganhang = kq.getString("NganHang");
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					return u;
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
 	}
 
 	@Override
