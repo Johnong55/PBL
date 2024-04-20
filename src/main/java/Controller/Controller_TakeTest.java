@@ -24,7 +24,23 @@ public class Controller_TakeTest implements ActionListener{
 			vt.vitriCauhoi++;
 			Cauhoi c = vt.listCauhoi.get(vt.vitriCauhoi);
 			vt.btnDapAn_A.setText(c.getDapAnA());
-			
+			vt.btnDapAn_B.setText(c.getDapAnB());
+			vt.btnDapAn_C.setText(c.getDapAnC());
+			vt.btnDapAn_D.setText(c.getDapAnD());
+			vt.Cauhoi.setText(c.getNoidung());
+			vt.dapan = c.getDapan();
+		}
+		
+		if(e.getSource() == vt.mbtnCuTrc) 
+		{
+			vt.vitriCauhoi--;
+			Cauhoi c = vt.listCauhoi.get(vt.vitriCauhoi);
+			vt.btnDapAn_A.setText(c.getDapAnA());
+			vt.btnDapAn_B.setText(c.getDapAnB());
+			vt.btnDapAn_C.setText(c.getDapAnC());
+			vt.btnDapAn_D.setText(c.getDapAnD());
+			vt.Cauhoi.setText(c.getNoidung());
+			vt.dapan = c.getDapan();
 		}
 		
 	}

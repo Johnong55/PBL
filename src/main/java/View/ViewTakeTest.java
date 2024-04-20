@@ -61,14 +61,14 @@ public class ViewTakeTest extends JFrame {
 	Color BgBlack = new Color(227, 227, 227);
 	Color Purple = new Color(249, 87, 139);
 	Color BgPurple = new Color(253, 219, 230);
-	JTextArea Cauhoi;
+	public JTextArea Cauhoi;
 
 	public PanelRound panel_1;
 	public MyButton btnCau1, btnExit, btnNext, mbtnCuTrc;
 	public JLabel lblNewLabel_1;
 	public ButtonGroup group = new ButtonGroup();
 	public RadioButtonCustom btnDapAn_D, btnDapAn_A, btnDapAn_B, btnDapAn_C;
-	public String cauhoi,dapanA,dapanB,dapanC,dapanD; int dapan;
+	public String cauhoi,dapanA,dapanB,dapanC,dapanD; public int dapan;
 
 	
 
