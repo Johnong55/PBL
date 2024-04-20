@@ -92,7 +92,9 @@ public class Gv extends Account{
 		this.danhsachlop  =new ArrayList<Giangday>();
 	}
 	public Gv(String id, String ten2, truonghoc truong1) {
-		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.ten = ten2;
+		this.truong = truong1;
 	}
 	public void addclass(Class t)
 	{

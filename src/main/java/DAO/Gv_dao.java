@@ -110,6 +110,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				a = con.prepareStatement(sql);
 				a.setString(1, t.getId());
 				ResultSet kq = a.executeQuery();
+				System.out.println(a);
 				while(kq.next())
 				{
 					String id = kq.getString("id");
@@ -121,8 +122,8 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					truonghoc b = new truonghoc();
 					b = tr.selectbyid(truong);
 					Gv u = new Gv(id,ten,b);
-				
-				return u;
+					System.out.println(ten);
+					return u;
 				}
 				con.close();
 			} catch (SQLException e) {
@@ -130,6 +131,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				e.printStackTrace();
 			}
 		return null;
+		
 	
 	}
 
