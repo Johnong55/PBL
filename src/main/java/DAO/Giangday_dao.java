@@ -19,7 +19,15 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class Giangday_dao implements DAO_Interface<Giangday> {
-
+	public static Giangday_dao _instance;
+	public static Giangday_dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new Giangday_dao();
+		
+		}
+			return _instance;
+	}
 	@Override
 	public List<Giangday> selectall() {
 		List<Giangday> result =  new ArrayList<Giangday>();	

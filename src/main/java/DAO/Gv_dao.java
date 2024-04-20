@@ -20,14 +20,16 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class Gv_dao implements DAO_Interface<Gv> {
-	private static Gv_dao _instance;
-	public static Gv_dao Instance() {
-		if(_instance == null) {
-			_instance = new Gv_dao();
-		}
-		return _instance;
-	}
 
+	public static Gv_dao _instance;
+	public static Gv_dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new Gv_dao();
+		
+		}
+			return _instance;
+	}
 	@Override
 	public List<Gv> selectall() {
 		List<Gv> result = new ArrayList<Gv>();

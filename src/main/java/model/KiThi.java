@@ -153,6 +153,8 @@ public class KiThi {
 	}
 	public KiThi() {
 		super();
+		long now  = System.currentTimeMillis();
+		thoigianbatdau = new Time(now);
 		// TODO Auto-generated constructor stub
 	}
 	

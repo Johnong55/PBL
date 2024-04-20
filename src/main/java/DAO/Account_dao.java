@@ -17,10 +17,12 @@ import model.Account;
 import model.Class;
 import model.Sv;
 import model.truonghoc;
+import net.bytebuddy.utility.dispatcher.JavaDispatcher.Instance;
 import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class Account_dao implements DAO_Interface<Account> {
+
 	private static Account_dao _instance;
 	public static  Account_dao Instance() {
 		if(_instance == null) {

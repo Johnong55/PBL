@@ -25,7 +25,15 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class Class_dao implements DAO_Interface<Class> {
-
+	public static Class_dao _instance;
+	public static Class_dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new Class_dao();
+		
+		}
+			return _instance;
+	}
 	@Override
 	public List<Class> selectall() {
 		List<Class> result =  new ArrayList<Class>();	

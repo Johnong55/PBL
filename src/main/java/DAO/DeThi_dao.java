@@ -18,7 +18,15 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class DeThi_dao implements DAO_Interface<DeThi>{
-
+	public static DeThi_dao _instance;
+	public static DeThi_dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new DeThi_dao();
+		
+		}
+			return _instance;
+	}
 	@Override
 	public List<DeThi> selectall() {
 		List<DeThi> result = new ArrayList<DeThi>();

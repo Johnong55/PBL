@@ -23,6 +23,14 @@ public class DeThi {
 	private String mota;
 	@OneToMany(mappedBy = "deThi",cascade = CascadeType.ALL)
 	private List<Cauhoi_DeThi> list;
+	@OneToMany(mappedBy = "dethi",cascade = CascadeType.ALL)
+	private List<BaiLam> bailam;
+	public List<BaiLam> getBailam() {
+		return bailam;
+	}
+	public void setBailam(List<BaiLam> bailam) {
+		this.bailam = bailam;
+	}
 	public String getId() {
 		return id;
 	}
@@ -67,12 +75,15 @@ public class DeThi {
 	}
 	public void addCauhoi(Cauhoi t)
 	{
-		
 		this.list.add(new Cauhoi_DeThi(t, this));
 	}
 	@Override
 	public String toString() {
 		return "DeThi [id=" + id + ", kithi=" + kithi + ", mota=" + mota + ", list=" + list + "]";
+	}
+	public void addBailam(BaiLam t)
+	{
+		this.bailam.add(t);
 	}
 	
 }

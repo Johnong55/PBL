@@ -20,7 +20,15 @@ import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
-
+	public static Cauhoi_Dao _instance;
+	public static Cauhoi_Dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new Cauhoi_Dao();
+		
+		}
+			return _instance;
+	}
 	@Override
 	public List<Cauhoi> selectall() {
 		List<Cauhoi> result =  new ArrayList<Cauhoi>();	
