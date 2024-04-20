@@ -95,20 +95,7 @@ public class Gv extends Account{
 		// TODO Auto-generated constructor stub
 		this.danhsachlop  =new ArrayList<Giangday>();
 	}
-	
-	/**
-	 * @param id
-	 * @param username
-	 * @param password
-	 * @param maquyen
-	 * @param linkAnh
-	 * @param ten
-	 * @param danhsachlop
-	 * @param truong
-	 * @param nH
-	 * @param kithi
-	 */
-	
+
 	public void addclass(Class t)
 	{
 		
