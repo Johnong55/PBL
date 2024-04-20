@@ -7,11 +7,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DAO.Sv_dao;
+import model.KiThi;
+import model.Sv;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GoingTest extends JFrame {
 
@@ -22,6 +29,15 @@ public class GoingTest extends JFrame {
 	Color Green = new Color(44, 173, 167);
 	Color purple = new Color(221, 0, 221);
 	MyButton btnNewButton;
+	public Sv v ; public KiThi  ktOngoing;
+	public GoingTest(Sv sv, KiThi onl) {
+		this.v = sv;
+		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(400, 150, 1000, 700);
+		GoingTest1();
+		setVisible(true);
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -41,9 +57,8 @@ public class GoingTest extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GoingTest() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(400, 150, 1000, 700);
+	public void GoingTest1() {
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -57,12 +72,17 @@ public class GoingTest extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Tên bài kiểm tra");
+		lblNewLabel.setText(ktOngoing.getMota());
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setBounds(37, 68, 275, 43);
 		panel.add(lblNewLabel);
 		
 		JLabel lblH = new JLabel("1 tiếng 46 phút");
+		int hour = ktOngoing.getThoigianlambai() / 60;
+		int minute = ktOngoing.getThoigianlambai() % 60;
+		if(hour != 0) lblH.setText(String.valueOf(hour) + " tiếng " + String.valueOf(minute) + " phút") ;
+		else lblH.setText(String.valueOf(minute) + " phút");
 		lblH.setForeground(Color.WHITE);
 		lblH.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblH.setBounds(730, 68, 227, 43);
@@ -82,6 +102,13 @@ public class GoingTest extends JFrame {
 		contentPane.add(lblBtuLm);
 		
 		btnNewButton = new MyButton("Bắt Đầu");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewTakeTest frame = new ViewTakeTest(v,ktOngoing);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setColorOver(purple);
 		btnNewButton.setBorderColor(Blue);
