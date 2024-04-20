@@ -117,6 +117,48 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 		}
 		return null;
 	}
+	public KiThi selectbyid(String t) {
+		try {
+			Connection con = JDBCUtil.getConnection();
+			String sql = "select * from KiThi "
+					+ " where id = ?";
+
+			PreparedStatement a;
+
+			a = con.prepareStatement(sql);
+			a.setString(1, t);
+			ResultSet kq = a.executeQuery();
+			while (kq.next()) {
+				String id = kq.getString("id");
+				String mota = kq.getString("mota");
+				String lop = kq.getString("lop");
+				String nguoitao = kq.getString("nguoitao");
+				Time startTime = kq.getTime("thoigianbatdau");
+				int tg = kq.getInt("thoigianlambai");
+				int sl = kq.getInt("sl");
+				Date date = kq.getDate("date");
+				Class_dao c = new Class_dao();
+				Gv_dao gvdao = new Gv_dao();
+				Class lop1 = new Class();
+				lop1.setIdclass(lop);
+				Class Lresult = new Class();
+				Gv gv = new Gv();
+				Gv gresult = new Gv();
+				gv.setId(nguoitao);
+				gresult = gvdao.selectbyid(gv);
+				Lresult = c.selectbyid(lop1);
+		
+				KiThi kt = new KiThi(id, Lresult,startTime, tg, mota, date, gv, sl);
+				
+				return kt;
+			}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public boolean insert(KiThi t) {

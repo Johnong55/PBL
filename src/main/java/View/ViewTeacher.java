@@ -239,7 +239,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		pView.add(panel_2);
 		
-		JLabel lblNewLabel = new JLabel("Hi " + "\n" + g.getTen());
+		JLabel lblNewLabel = new JLabel("Hi cậu =)) ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 0,(int) size.getWidth()+1,(int) size.getHeight()+1);
@@ -308,10 +308,10 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.removeAll();
 		pView.repaint();
 		pView.revalidate();
-		JLabel lblNewLabel = new JLabel("Classes");
+		JLabel lblNewLabel = new JLabel("CLASSES");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
-		lblNewLabel.setBounds(10, 11, (int) size.getWidth()+1 , (int) size.getHeight()+1);
+		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
 		
 		pView.add(lblNewLabel);
 		
@@ -330,7 +330,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.add(btnNewButton_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 89, 695, 561);
+		scrollPane.setBounds(0, 89, 695, 561);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		
 		pView.add(scrollPane);
@@ -340,27 +340,140 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		table.getTableHeader().setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null},
 			},
 			new String[] {
-				"Title", "Students"
+				"Name class", "Students"
 			}
 		));
 		scrollPane.setViewportView(table);
+	}
+	public void ViewResult() {
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+		
+		JLabel lblNewLabel = new JLabel("RESULTS");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Dimension size = lblNewLabel.getPreferredSize();
+		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
+		
+		pView.add(lblNewLabel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 41, 714, 620);
+		pView.add(scrollPane);
+		
+		table = new JTable();
+		table.setBorder(null);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Name exam", "Exam day", "Students attended", "Starting time"
+			}
+		));
+		scrollPane.setViewportView(table);
+	}
+	
+	public void ViewProfile() {
+		
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+		
+		JLabel lblNewLabel = new JLabel("PROFILE");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Dimension size = lblNewLabel.getPreferredSize();
+		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
+		pView.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Personal details");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		Dimension size_1 = lblNewLabel_1.getPreferredSize();
+		lblNewLabel_1.setBounds(10, 60, (int) size_1.getWidth()+1 , (int) size_1.getHeight()+1);
+		pView.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Student ID:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Dimension size_2 = lblNewLabel_1.getPreferredSize();
+		lblNewLabel_2.setBounds(10, 100, (int) size_2.getWidth()+1 , (int) size_2.getHeight()+1);
+		pView.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("Name: ");
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Dimension size_2_1 = lblNewLabel_1.getPreferredSize();
+		lblNewLabel_2_1.setBounds(10, 140, (int) size_2_1.getWidth()+1 , (int) size_2_1.getHeight()+1);
+		pView.add(lblNewLabel_2_1);
+		
+		JLabel lblNewLabel_2_1_1 = new JLabel("Password");
+		lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Dimension size_2_1_1 = lblNewLabel_1.getPreferredSize();
+		lblNewLabel_2_1_1.setBounds(10, 180, (int) size_2_1_1.getWidth()+1 , (int) size_2_1_1.getHeight()+1);
+		pView.add(lblNewLabel_2_1_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("ẢNH");
+		lblNewLabel_3.setBackground(new Color(255, 255, 168));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(558, 60, 80, 100);
+		lblNewLabel_3.setOpaque(true);
+		
+		pView.add(lblNewLabel_3);
+		
+		MyButton btnNewButton_1_1 = new MyButton("Change password");
+		btnNewButton_1_1.setRadius(10);
+		btnNewButton_1_1.setForeground(Color.WHITE);
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
+		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
+		btnNewButton_1_1.setColor(new Color(50, 185, 185));
+		btnNewButton_1_1.setBorderColor(Color.WHITE);
+		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
+		btnNewButton_1_1.setBounds(10, 220, 150, 30);
+		
+		pView.add(btnNewButton_1_1);
+		
+		MyButton btnNewButton_1_1_1 = new MyButton("Change image");
+		btnNewButton_1_1_1.setRadius(10);
+		btnNewButton_1_1_1.setForeground(Color.WHITE);
+		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1_1.setColorOver(new Color(100, 241, 241));
+		btnNewButton_1_1_1.setColorClick(new Color(50, 185, 185));
+		btnNewButton_1_1_1.setColor(new Color(50, 185, 185));
+		btnNewButton_1_1_1.setBorderColor(Color.WHITE);
+		btnNewButton_1_1_1.setBackground(new Color(50, 185, 185));
+		btnNewButton_1_1_1.setBounds(524, 220, 150, 30);
+		pView.add(btnNewButton_1_1_1);
+		
+		JLabel lblNewLabel_4 = new JLabel("XXX");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Dimension size_4 = lblNewLabel_4.getPreferredSize();
+		lblNewLabel_4.setBounds(130, 100, (int) size_4.getWidth()+1 , (int) size_4.getHeight()+1);
+		pView.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_4_1 = new JLabel("Mr.XYZ");
+		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Dimension size_4_1 = lblNewLabel_4_1.getPreferredSize();
+		lblNewLabel_4_1.setBounds(130, 140, (int) size_4_1.getWidth()+1 , (int) size_4_1.getHeight()+1);
+		pView.add(lblNewLabel_4_1);
+		
+		JLabel lblNewLabel_4_2 = new JLabel("XXXXXXXX");
+		lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Dimension size_4_2 = lblNewLabel_4_2.getPreferredSize();
+		lblNewLabel_4_2.setBounds(130, 180, (int) size_4_2.getWidth()+1 , (int) size_4_2.getHeight()+1);
+		pView.add(lblNewLabel_4_2);
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnNewButton1) {
-		//	pView.removeAll();
 			ViewClass();
-			System.out.println("cc \n");
-			
 		}else if(e.getSource() == btnNewButton ) {
-		//	pView.removeAll();
 			ViewHome();
-			System.out.println("cc \n");
+		}else if(e.getSource()==btnNewButton2) {
+			ViewResult();
+		}else if(e.getSource()==btnNewButton3) {
+			ViewProfile();
 		}
 		
 	}

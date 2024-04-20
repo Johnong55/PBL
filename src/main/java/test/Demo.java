@@ -37,6 +37,7 @@ import util.HibernateUtil;
 
 public class Demo {
 	public static void main(String[] args) {
+
 		Account_dao ac_dao = new Account_dao();
 		Gv_dao gv = new Gv_dao();
 		Sv_dao sv = new Sv_dao();
@@ -47,8 +48,6 @@ public class Demo {
 		KiThi_dao kt = new KiThi_dao();
 		DeThi_dao dt = new DeThi_dao();
 		Cauhoi_Dao CHdao = new Cauhoi_Dao();
-		////////////////////////
-
 		truonghoc truong1 = new truonghoc();
 		truong1.setId("01");
 		truong1.setTentruong("THPT HOA VANG");
@@ -242,6 +241,7 @@ public class Demo {
 		dt.Xaydungdethi(2, 3, 4, dethimoi);
 		for(Cauhoi i : dethimoi.getList())
 		{
+
 			System.out.println(i);
 		}
 		gv.update(gv1);
