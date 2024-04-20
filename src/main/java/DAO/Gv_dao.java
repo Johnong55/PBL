@@ -80,15 +80,15 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				while(kq.next())
 				{
 					String id = kq.getString("id");
-					String ten = kq.getString("ten");
+					String ten = kq.getString("ten");	
 					String idtruong= kq.getString("truong");
 					truonghoc truong = new truonghoc();
 					truong.setId(idtruong);
 					truonghoc_dao tr = new truonghoc_dao();
 					truonghoc b = new truonghoc();
 					b = tr.selectbyid(truong);
-					Gv u = new Gv(id,ten,b);
-				
+					Gv u = new Gv(idtruong, ten, truong);
+					u.setDanhsachlop(selectclassbyid(u));
 				return u;
 				}
 				con.close();
@@ -120,7 +120,8 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					truonghoc_dao tr = new truonghoc_dao();
 					truonghoc b = new truonghoc();
 					b = tr.selectbyid(truong);
-					Gv u = new Gv(id,ten,b);
+					Gv u = new Gv(idtruong, ten, truong);
+					u.setDanhsachlop(selectclassbyid(u));
 				
 				return u;
 				}
@@ -185,7 +186,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 			Connection con  = JDBCUtil.getConnection();
 			String sql = "select * from class \r\n"
 					+ "inner join giangday on class.idclass = giangday.lop\r\n"
-					+ "where giangday.giaoviendunglop = (select maGv from gv"
+					+ "where giangday.giaoviendunglop = (select id from gv"
 					+ " where id = ?)";
 			
 			PreparedStatement a;
