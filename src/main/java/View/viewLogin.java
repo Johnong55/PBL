@@ -12,6 +12,7 @@ import javax.swing.border.MatteBorder;
 
 import Controller.Controller_Login;
 import DAO.Account_dao;
+import DAO.Gv_dao;
 import DAO.Sv_dao;
 import model.Account;
 
@@ -51,7 +52,6 @@ public class viewLogin extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -215,6 +215,9 @@ public class viewLogin extends JFrame {
 							ViewStudent v = new ViewStudent(Sv_dao.Instance().selectbyid(q));
 							//System.out.println(Sv_dao.Instance().selectbyid(q).getTen());
 							
+							dispose();
+						}if(q.getMaquyen() == 1) {
+							ViewTeacher v = new ViewTeacher(Gv_dao.Instance().selectbyid(q));
 							dispose();
 						}
 						return;

@@ -10,14 +10,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JInternalFrame;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.text.View;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
@@ -25,34 +31,32 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.dial.DialPointer;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
-public class ViewTeacher extends JFrame {
+import model.Gv;
+
+public class ViewTeacher extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewTeacher frame = new ViewTeacher();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	MyButton btnNewButton1;
+	public Gv g;
+	
+	public ViewTeacher(Gv gv) {
+		this.g = gv;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(500, 150, 900, 700);
+		ViewTeacher1();
+		setVisible(true);
 	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public ViewTeacher() {
+	public void ViewTeacher1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 700);
 		setLocationRelativeTo(null);
@@ -83,7 +87,7 @@ public class ViewTeacher extends JFrame {
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-home-20.png"))));
 		panel.add(btnNewButton);
 
-		MyButton btnNewButton1 = new MyButton("Classes");
+		btnNewButton1 = new MyButton("Classes");
 		btnNewButton1.setForeground(new Color(255, 255, 255));
 		btnNewButton1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -95,6 +99,7 @@ public class ViewTeacher extends JFrame {
 		btnNewButton1.setBorderColor(new Color(50, 185, 185));
 		btnNewButton1.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-class-20.png"))));
+		btnNewButton1.addActionListener(this);
 		panel.add(btnNewButton1);
 
 		MyButton btnNewButton2 = new MyButton("Results");
@@ -143,7 +148,7 @@ public class ViewTeacher extends JFrame {
 		panel_1.setBackground(new Color(221, 221, 221));
 		panel_1.setBorderColor(getBackground());
 		panel_1.setBounds(178, 80, 440, 280);
-		panel_1.setBground(getBackground());
+		panel_1.setBground(Color.WHITE);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -151,7 +156,7 @@ public class ViewTeacher extends JFrame {
 		panel_2.setBackground(new Color(221, 221, 221));
 		panel_2.setBounds(625, 95, 255, 255);
 		panel_2.setBorderColor(getBackground());
-		panel_2.setBground(getBackground());
+		panel_2.setBground(Color.WHITE);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
@@ -167,7 +172,7 @@ public class ViewTeacher extends JFrame {
 		btnNewButton_1.setBackground(new Color(50, 185, 185));
 		btnNewButton_1.setRadius(10);
 		btnNewButton_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1.setBorderColor(new Color(240, 240, 240));
+		btnNewButton_1.setBorderColor(Color.WHITE);
 		btnNewButton_1.setColorOver(new Color(100, 241, 241));
 		btnNewButton_1.setColorClick(new Color(50, 185, 185));
 		panel_2.add(btnNewButton_1);
@@ -180,15 +185,16 @@ public class ViewTeacher extends JFrame {
 		
 		panel_2.add(lblNewLabel_3);
 
-		JLabel lblNewLabel = new JLabel("Xin chào Đức đẹp trai");
+		JLabel lblNewLabel = new JLabel("Hi " + "\n" + g.getTen());
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(180, 0, 160, 24);
+		Dimension size = lblNewLabel.getPreferredSize();
+		lblNewLabel.setBounds(180, 0,(int) size.getWidth()+1,(int) size.getHeight()+1);
 		contentPane.add(lblNewLabel);
 		
 		PanelRound panel_2_1 = new PanelRound(15);
 		panel_2_1.setLayout(null);
 		panel_2_1.setBorderColor(UIManager.getColor("Button.background"));
-		panel_2_1.setBground(UIManager.getColor("Button.background"));
+		panel_2_1.setBground(Color.WHITE);
 		panel_2_1.setBackground(new Color(221, 221, 221));
 		panel_2_1.setBounds(625, 371, 255, 255);
 		contentPane.add(panel_2_1);
@@ -198,15 +204,14 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1_1.setBounds(10, 11, 116, 14);
 		panel_2_1.add(lblNewLabel_1_1);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Create test");
-		btnNewButton_1_1.setText("Set another");
+		MyButton btnNewButton_1_1 = new MyButton("Set another");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
 		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
 		btnNewButton_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1.setBorderColor(UIManager.getColor("Button.background"));
+		btnNewButton_1_1.setBorderColor(Color.WHITE);
 		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
 		btnNewButton_1_1.setBounds(37, 200, 181, 40);
 		panel_2_1.add(btnNewButton_1_1);
@@ -230,7 +235,7 @@ public class ViewTeacher extends JFrame {
 		PanelRound panel_1_1 = new PanelRound(15);
 		panel_1_1.setLayout(null);
 		panel_1_1.setBorderColor(UIManager.getColor("Button.background"));
-		panel_1_1.setBground(UIManager.getColor("Button.background"));
+		panel_1_1.setBground(Color.WHITE);
 		panel_1_1.setBackground(new Color(221, 221, 221));
 		panel_1_1.setBounds(178, 360, 440, 280);
 		contentPane.add(panel_1_1);
@@ -258,6 +263,15 @@ public class ViewTeacher extends JFrame {
         
         panel_1.add(chartPanel);
         
-        
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnNewButton1) {
+			ViewClassFromTeacher vlt = new ViewClassFromTeacher();
+			dispose();
+		}
+		
 	}
 }

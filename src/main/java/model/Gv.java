@@ -51,11 +51,12 @@ public class Gv extends Account{
 	 * @param danhsachlop
 	 * @param truong
 	 */
-	public Gv(String maGv, String ten, List<Giangday> danhsachlop, truonghoc truong) {
+	public Gv(String maGv, String ten, truonghoc truong) {
 		super();
 		this.id = maGv;
 		this.ten = ten;
-		this.danhsachlop = danhsachlop;
+		this.danhsachlop =  new ArrayList<Giangday>();
+		
 		this.truong = truong;
 	}
 	public truonghoc getTruong() {
@@ -83,17 +84,18 @@ public class Gv extends Account{
 	public List<Giangday> getDanhsachlop() {
 		return danhsachlop;
 	}
-	public void setDanhsachlop(List<Giangday> danhsachlop) {
-		this.danhsachlop = danhsachlop;
+	public void setDanhsachlop(List<Class> danhsachlop) {
+		for(Class i : danhsachlop)
+		{
+			this.danhsachlop.add(new Giangday(this,i));
+		}
 	}
 	public Gv() {
 		super();
 		// TODO Auto-generated constructor stub
 		this.danhsachlop  =new ArrayList<Giangday>();
 	}
-	public Gv(String id, String ten2, truonghoc truong1) {
-		// TODO Auto-generated constructor stub
-	}
+
 	public void addclass(Class t)
 	{
 		
