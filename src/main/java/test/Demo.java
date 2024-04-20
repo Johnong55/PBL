@@ -78,7 +78,7 @@ public class Demo {
 		gv1.setTruong(truong1);
 		gv1.setMaquyen(1);
 		gv1.setUsername(gv1.getId());
-		gv1.setPassword("123456");
+		gv1.setPassword("1");
 		gv1.addclass(cl1);
 		gv1.addclass(cl3);
 		Gv gv2 = new Gv();
@@ -244,5 +244,6 @@ public class Demo {
 		{
 			System.out.println(i);
 		}
+		gv.update(gv1);
 	}	
 }
