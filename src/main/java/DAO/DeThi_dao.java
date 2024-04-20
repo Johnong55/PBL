@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +113,31 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 		}
 		return false;
 	}
-	
+	public DeThi getDethi() {
+		DeThi a;
+		String id= "" , mota,kithi="";
+		try {
+			Connection con = JDBCUtil.getConnection();
+			String sql = "select * from dethi "
+						+ "inner join kithi on dethi.kithi = kithi.id "
+						+ "order by RAND() LIMIT 1;";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()) 
+			{
+				 id  = rs.getString("id");
+				 mota = rs.getString("mota");
+				 kithi = rs.getString("kithi");
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		a= new DeThi(id,KiThi_dao.Instance().selectbyid(kithi));
+		return a;
+		
+	}
 	public List<Cauhoi> Hienthicauhoi(DeThi t)
 	{
 		List<Cauhoi> result =  new ArrayList<Cauhoi>();	

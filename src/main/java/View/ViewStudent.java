@@ -50,7 +50,6 @@ public class ViewStudent extends JFrame {
 	public JTable table;
 	
 	public Sv v ; public KiThi ktsoon , ktOngoing;
-	
 	public ViewStudent(Sv sv) {
 		this.v = sv;
 		this.ktsoon = Sv_dao.Instance().findKithiSoon(v);
@@ -125,7 +124,7 @@ public class ViewStudent extends JFrame {
 		
 		JLabel lblNewLabel_3 = new JLabel("Bài kiểm tra sắp diễn ra !!");
 		lblNewLabel_3.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		lblNewLabel_3.setBounds(361, 11, 263, 41);
+		lblNewLabel_3.setBounds(341, 12, 263, 41);
 		lblNewLabel_3.setForeground(Blue);
 		panel_2.add(lblNewLabel_3);
 		
@@ -185,12 +184,12 @@ public class ViewStudent extends JFrame {
 		mbtnSetReminder.setColorClick(new Color(150, 207, 250));
 		mbtnSetReminder.setColor(Green);
 		mbtnSetReminder.setBorderColor(Green);
-		mbtnSetReminder.setBounds(396, 208, 195, 37);
+		mbtnSetReminder.setBounds(390, 208, 195, 37);
 		panel_2.add(mbtnSetReminder);
 		
 		PanelRound panel_3 = new PanelRound(15);
 		panel_3.setBorderColor(Gray);
-		panel_3.setBounds(10, 445, 694, 184);
+		panel_3.setBounds(10, 422, 694, 229);
 		panel_3.setLayout(null);
 		
 		JLabel clock_image_1 = new JLabel("");
@@ -203,7 +202,7 @@ public class ViewStudent extends JFrame {
 		JLabel lblNewLabel_3_1 = new JLabel("Bài kiểm tra đang diễn ra !");
 		lblNewLabel_3_1.setForeground(new Color(17, 49, 123));
 		lblNewLabel_3_1.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		lblNewLabel_3_1.setBounds(286, 11, 306, 35);
+		lblNewLabel_3_1.setBounds(341, 11, 306, 35);
 		panel_3.add(lblNewLabel_3_1);
 		
 		JLabel lblNewLabel_6_3 = new JLabel("Không có kì thi đang diễn ra !");
@@ -213,13 +212,13 @@ public class ViewStudent extends JFrame {
 		JLabel lblNewLabel_6_4 = new JLabel("");
 		lblNewLabel_6_4.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblNewLabel_6_4.setForeground(Gray);
-		lblNewLabel_6_4.setBounds(286, 57, 158, 20);
+		lblNewLabel_6_4.setBounds(318, 57, 158, 20);
 		panel_3.add(lblNewLabel_6_4);
 		
 		JLabel lblNewLabel_6_5 = new JLabel("");
 		lblNewLabel_6_5.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblNewLabel_6_5.setForeground(Gray);
-		lblNewLabel_6_5.setBounds(501, 57, 158, 20);
+		lblNewLabel_6_5.setBounds(513, 57, 158, 20);
 		panel_3.add(lblNewLabel_6_5);
 		
 		if(ktOngoing.getId() != null) {
@@ -237,7 +236,7 @@ public class ViewStudent extends JFrame {
 		mbtnBtuLm.setColorClick(new Color(150, 207, 250));
 		mbtnBtuLm.setColor(new Color(44, 173, 167));
 		mbtnBtuLm.setBorderColor(new Color(44, 173, 167));
-		mbtnBtuLm.setBounds(345, 136, 195, 37);
+		mbtnBtuLm.setBounds(389, 160, 195, 37);
 		mbtnBtuLm.addActionListener(cl);
 		panel_3.add(mbtnBtuLm);
 		
@@ -252,7 +251,7 @@ public class ViewStudent extends JFrame {
 		
 		JPanel panelName = new JPanel();
 		panelName.setBackground(new Color(255, 255, 255));
-		panelName.setBounds(286, 87, 306, 35);
+		panelName.setBounds(323, 92, 306, 35);
 		panelName.add(lblNewLabel_6_3);
 		panel_3.add(panelName);
 		
@@ -459,7 +458,7 @@ public class ViewStudent extends JFrame {
 		panel.add(btnProfile);
 		panel_4.setBounds(171, 0, 713, 661); 
 		
-		view_test();
+		view_home();
 		//-----------------------------------
 		
 		//------------

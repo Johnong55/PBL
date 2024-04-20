@@ -50,9 +50,12 @@ public class Controller_Student implements ActionListener  {
 		
 		else if(e.getSource() == s.mbtnBtuLm)
 		{
-			GoingTest frame = new GoingTest();
+			if(s.ktOngoing.getId() != null)
+			{
+			GoingTest frame = new GoingTest(s.v,s.ktOngoing);
 			frame.setVisible(true);
 			s.dispose();
+			}
 
 		}
 		else if(e.getSource() == s.btnChangePer)
