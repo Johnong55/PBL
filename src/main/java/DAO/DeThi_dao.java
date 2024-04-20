@@ -148,9 +148,9 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 				e.printStackTrace();
 			}
 			return result;
-		
-		
-		
+	}
+	public void Xaydungdethi(int socauhoide,int socauhoitrungbinh,int socauhoikho,DeThi t)
+	{
 		
 	}
 
