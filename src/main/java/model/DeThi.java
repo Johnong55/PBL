@@ -59,8 +59,13 @@ public class DeThi {
 	public void setMota(String mota) {
 		this.mota = mota;
 	}
-	public List<Cauhoi_DeThi> getList() {
-		return list;
+	public List<Cauhoi> getList() {
+		 List<Cauhoi> cauhoi =  new ArrayList<Cauhoi>();
+		for(Cauhoi_DeThi i : list)
+		{
+			cauhoi.add(i.getCauhoi());
+		}
+		return cauhoi;
 	}
 	public void setList(List<Cauhoi_DeThi> list) {
 		this.list = list;

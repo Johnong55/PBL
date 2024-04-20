@@ -96,8 +96,6 @@ public class Gv extends Account{
 		this.danhsachlop  =new ArrayList<Giangday>();
 	}
 
-
-
 	public void addclass(Class t)
 	{
 		
