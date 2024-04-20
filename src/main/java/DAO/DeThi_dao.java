@@ -149,9 +149,79 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 			}
 			return result;
 	}
-	public void Xaydungdethi(int socauhoide,int socauhoitrungbinh,int socauhoikho,DeThi t)
+	public DeThi Xaydungdethi(int socauhoide,int socauhoitrungbinh,int socauhoikho,DeThi t)
 	{
-		
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from cauhoi "
+					+ "where Nganhang = ? and mucdo = ? "
+					+ " order by rand() "
+					+ " limit ?";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1,t.getKithi().getNganhangcauhoi().getIdNganHang());
+				a.setInt(2,1);
+				a.setInt(3, socauhoide);
+				ResultSet kq = a.executeQuery();
+				
+				while(kq.next())
+				{
+					String id  = kq.getString("id");
+					String	noidung  =  kq.getString("Noidung");
+					String dapAnA = kq.getString("dapAnA");
+					String dapAnB = kq.getString("dapAnB");
+					String dapAnC = kq.getString("dapAnC");
+					String dapAnD = kq.getString("dapAnD");
+					int dapAn = kq.getInt("dapan");
+					int mucdo = kq.getInt("mucdo");
+					String Nganhang = kq.getString("NganHang");
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					t.addCauhoi(u);
+				}
+				a.setInt(2,2);
+				a.setInt(3, socauhoitrungbinh);
+				kq = a.executeQuery();
+				
+				while(kq.next())
+				{
+					String id  = kq.getString("id");
+					String	noidung  =  kq.getString("Noidung");
+					String dapAnA = kq.getString("dapAnA");
+					String dapAnB = kq.getString("dapAnB");
+					String dapAnC = kq.getString("dapAnC");
+					String dapAnD = kq.getString("dapAnD");
+					int dapAn = kq.getInt("dapan");
+					int mucdo = kq.getInt("mucdo");
+					String Nganhang = kq.getString("NganHang");
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					t.addCauhoi(u);
+				}
+				a.setInt(2,3);
+				a.setInt(3, socauhoikho);
+				kq = a.executeQuery();
+				
+				while(kq.next())
+				{
+					String id  = kq.getString("id");
+					String	noidung  =  kq.getString("Noidung");
+					String dapAnA = kq.getString("dapAnA");
+					String dapAnB = kq.getString("dapAnB");
+					String dapAnC = kq.getString("dapAnC");
+					String dapAnD = kq.getString("dapAnD");
+					int dapAn = kq.getInt("dapan");
+					int mucdo = kq.getInt("mucdo");
+					String Nganhang = kq.getString("NganHang");
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					t.addCauhoi(u);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return t;
 	}
 
 }
