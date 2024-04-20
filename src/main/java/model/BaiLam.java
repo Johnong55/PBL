@@ -26,6 +26,7 @@ public class BaiLam{
 	private Time thoigianketthuc;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private DeThi dethi;
+	
 	public String getMaBailam() {
 		return maBailam;
 	}
