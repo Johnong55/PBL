@@ -15,6 +15,7 @@ import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 import model.Cauhoi;
 import model.Class;
+import model.Nganhangcauhoi;
 import model.truonghoc;
 import util.HibernateUtil;
 import util.JDBCUtil;
@@ -34,17 +35,26 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 		List<Cauhoi> result =  new ArrayList<Cauhoi>();	
 		try {
 			Connection con  = JDBCUtil.getConnection();
-			String sql = "select * from class";
+			String sql = "select * from cauhoi";
 			
 			PreparedStatement a;
 
 				a = con.prepareStatement(sql);
 				ResultSet kq = a.executeQuery();
-				ResultSetMetaData rsmd  = (ResultSetMetaData) kq.getMetaData();
 				
 				while(kq.next())
 				{
-				
+					String id  = kq.getString("id");
+					String	noidung  =  kq.getString("Noidung");
+					String dapAnA = kq.getString("dapAnA");
+					String dapAnB = kq.getString("dapAnB");
+					String dapAnC = kq.getString("dapAnC");
+					String dapAnD = kq.getString("dapAnD");
+					int dapAn = kq.getInt("dapan");
+					int mucdo = kq.getInt("mucdo");
+					String Nganhang = kq.getString("NganHang");
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					result.add(u);
 				}
 				con.close();
 			} catch (SQLException e) {

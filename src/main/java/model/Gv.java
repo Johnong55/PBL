@@ -108,16 +108,7 @@ public class Gv extends Account{
 	 * @param nH
 	 * @param kithi
 	 */
-	public Gv(String id, String username, String password, int maquyen, String linkAnh, String ten,
-			List<Giangday> danhsachlop, truonghoc truong, List<Nganhangcauhoi> nH, List<KiThi> kithi) {
-		super(id, username, password, maquyen, linkAnh);
-		this.ten = ten;
-		this.danhsachlop = danhsachlop;
-		this.truong = truong;
-		NH = nH;
-		this.kithi = kithi;
-	}
-
+	
 	public void addclass(Class t)
 	{
 		

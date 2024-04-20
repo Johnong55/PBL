@@ -19,7 +19,7 @@ import DAO.DeThi_dao;
 import DAO.Giangday_dao;
 import DAO.Gv_dao;
 import DAO.KiThi_dao;
-import DAO.NganhangDao;	
+import DAO.NganhangDao;
 import DAO.Sv_dao;
 import DAO.truonghoc_dao;
 import model.Account;
@@ -40,7 +40,7 @@ public class Demo {
 		Account_dao ac_dao = new Account_dao();
 		Gv_dao gv = new Gv_dao();
 		Sv_dao sv = new Sv_dao();
-		truonghoc_dao tr  = new truonghoc_dao();
+		truonghoc_dao tr = new truonghoc_dao();
 		Class_dao cl = new Class_dao();
 		Giangday_dao gd = new Giangday_dao();
 		NganhangDao nhdao = new NganhangDao();
@@ -48,6 +48,7 @@ public class Demo {
 		DeThi_dao dt = new DeThi_dao();
 		Cauhoi_Dao CHdao = new Cauhoi_Dao();
 		////////////////////////
+
 		/*
 		 * truonghoc truong1 = new truonghoc(); truong1.setId("01");
 		 * truong1.setTentruong("THPT HOA VANG"); tr.insert(truong1); Class cl1 = new
@@ -56,10 +57,10 @@ public class Demo {
 		 * cl2.setTruong(truong1); Class cl3 = new Class(); cl3.setIdclass("03");
 		 * cl3.setTenlop("10C"); cl3.setTruong(truong1); cl.insert(cl3); cl.insert(cl2);
 		 * cl.insert(cl1); List<Class> a = new ArrayList<Class>(); a.add(cl1);
-		 * a.add(cl2); a.add(cl3); Gv gv1= new Gv(); gv1.setId("01");
+		 * a.add(cl2); a.add(cl3); Gv gv1 = new Gv(); gv1.setId("01");
 		 * gv1.setTen("ONG VAN QUANG TRI"); gv1.setTruong(truong1); gv1.setMaquyen(1);
 		 * gv1.setUsername(gv1.getId()); gv1.setPassword("123456"); gv1.addclass(cl1);
-		 * gv1.addclass(cl3); Gv gv2= new Gv(); gv2.setId("02"); gv2.setTen("ONG ");
+		 * gv1.addclass(cl3); Gv gv2 = new Gv(); gv2.setId("02"); gv2.setTen("ONG ");
 		 * gv2.setTruong(truong1); gv2.setMaquyen(1); gv2.setUsername(gv2.getId());
 		 * gv2.setPassword("123456"); gv2.addclass(cl1); gv2.addclass(cl2);
 		 * gv.insert(gv2); gv.insert(gv1); Sv sv1 = new Sv(); sv1.setId("102220088");
@@ -79,22 +80,22 @@ public class Demo {
 		 * sv1.setIdclass(cl1); sv3.setIdclass(cl2); sv5.setIdclass(cl3);
 		 * sv.insert(sv5); sv.insert(sv4); sv.insert(sv3); sv.insert(sv2);
 		 * sv.insert(sv1); KiThi kithi = new KiThi(); kithi.setId("02");
-		 * kithi.setLop(cl2); kithi.setGv(gv1); kithi.setThoigianbatdau(new
-		 * Time(9,30,0)); kithi.setThoigianlambai(45); kithi.setDate(new Date(2024-1900,
-		 * 04,20)); kithi.setMota("Van"); kithi.setSl(12);
+		 * kithi.setLop(cl2); kithi.setGv(gv1); kithi.setThoigianbatdau(new Time(9, 30,
+		 * 0)); kithi.setThoigianlambai(45); kithi.setDate(new Date(2024 - 1900, 04,
+		 * 20)); kithi.setMota("Van"); kithi.setSl(12);
 		 * 
 		 * KiThi kithi1 = new KiThi(); kithi1.setId("03"); kithi1.setLop(cl2);
 		 * kithi1.setGv(gv2); kithi1.setThoigianlambai(45); kithi1.setThoigianbatdau(new
-		 * Time(17,30,0)); kithi1.setDate(new Date(2024-1900, 8,20));
+		 * Time(17, 30, 0)); kithi1.setDate(new Date(2024 - 1900, 8, 20));
 		 * kithi1.setMota("Dia"); kithi1.setSl(12);
 		 * 
 		 * KiThi kithi2 = new KiThi(); kithi2.setId("04"); kithi2.setLop(cl2);
-		 * kithi2.setGv(gv2); kithi2.setThoigianbatdau(new Time(8,0,0));
-		 * kithi2.setThoigianlambai(45); kithi2.setDate(new Date(2024-1900, 6, 20));
+		 * kithi2.setGv(gv2); kithi2.setThoigianbatdau(new Time(8, 0, 0));
+		 * kithi2.setThoigianlambai(45); kithi2.setDate(new Date(2024 - 1900, 6, 20));
 		 * kithi2.setMota("SU"); kithi2.setSl(12);
 		 * 
-		 * DeThi dt1 = new DeThi("01",kithi2); DeThi dt2 = new DeThi("02",kithi1); DeThi
-		 * dt3 = new DeThi("03",kithi2); DeThi dt4 = new DeThi("04",kithi1);
+		 * DeThi dt1 = new DeThi("01", kithi2); DeThi dt2 = new DeThi("02", kithi1);
+		 * DeThi dt3 = new DeThi("03", kithi2); DeThi dt4 = new DeThi("04", kithi1);
 		 * Nganhangcauhoi nh = new Nganhangcauhoi(); nh.setIdNganHang("Li");
 		 * nh.setGiaovienquanli(gv2); Nganhangcauhoi nh1 = new Nganhangcauhoi();
 		 * nh1.setIdNganHang("su"); nh1.setGiaovienquanli(gv1); nhdao.insert(nh1);
@@ -127,16 +128,17 @@ public class Demo {
 		 * kithi.setNganhangcauhoi(nh1); kithi1.setNganhangcauhoi(nh1);
 		 * kithi2.setNganhangcauhoi(nh); kt.insert(kithi2); kt.insert(kithi1);
 		 * kt.insert(kithi); dt.insert(dethi1);
+		 * 
+		 * truonghoc truong1 = new truonghoc(); truong1.setId("01");
+		 * truong1.setTentruong("THPT HOA VANG"); Gv gv1 = new Gv(); gv1.setId("01");
+		 * gv1.setTen("ONG VAN QUANG TRI"); gv1.setTruong(truong1); gv1.setMaquyen(1);
+		 * Account u = new Account("01", "01", "123456", 1, null); for (Giangday i :
+		 * gv.selectbyid(u).getDanhsachlop()) { System.out.println(i.getMalop()); }
 		 */
-		truonghoc truong1 = new truonghoc(); truong1.setId("01");
-		 truong1.setTentruong("THPT HOA VANG");
-		Gv gv1= new Gv(); gv1.setId("01");
-		gv1.setTen("ONG VAN QUANG TRI"); gv1.setTruong(truong1); gv1.setMaquyen(1);
-		 Account u = new Account("01", "01", "123456", 1, null);
-		 for(Giangday i : gv.selectbyid(u).getDanhsachlop())
-		 {
-			 System.out.println(i.getMalop());
-		 }
-		
+		for(Cauhoi i : DeThi_dao.Instance().Hienthicauhoi(new DeThi("05", null)))
+		{
+			System.out.println(i);
+		}
+
 	}
 }

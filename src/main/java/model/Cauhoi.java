@@ -11,6 +11,12 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Cauhoi {
+	@Override
+	public String toString() {
+		return "Cauhoi [id=" + id + ", Noidung=" + Noidung + ", dapAnA=" + dapAnA + ", dapAnB=" + dapAnB + ", dapAnC="
+				+ dapAnC + ", dapAnD=" + dapAnD + ", mucdo=" + mucdo + ", dapan=" + dapan + ", NH=" + NH + ", CD=" + CD
+				+ "]";
+	}
 	@Id
 	private String id ;
 	private String Noidung;
