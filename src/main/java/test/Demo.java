@@ -51,7 +51,7 @@ public class Demo {
 		truonghoc truong1 = new truonghoc();
 		truong1.setId("01");
 		truong1.setTentruong("THPT HOA VANG");
-		//tr.insert(truong1);
+		tr.insert(truong1);
 		Class cl1 = new Class();
 		cl1.setIdclass("01");
 		cl1.setTenlop("10A");
@@ -64,9 +64,9 @@ public class Demo {
 		cl3.setIdclass("03");
 		cl3.setTenlop("10C");
 		cl3.setTruong(truong1);
-		/*
-		 * cl.insert(cl3); cl.insert(cl2); cl.insert(cl1);
-		 */
+		
+		  cl.insert(cl3); cl.insert(cl2); cl.insert(cl1);
+		 
 		List<Class> a = new ArrayList<Class>();
 		a.add(cl1);
 		a.add(cl2);
@@ -89,9 +89,9 @@ public class Demo {
 		gv2.setPassword("123456");
 		gv2.addclass(cl1);
 		gv2.addclass(cl2);
-		/*
-		 * gv.insert(gv2); gv.insert(gv1);
-		 */
+		
+		  gv.insert(gv2); gv.insert(gv1);
+		
 		Sv sv1 = new Sv();
 		sv1.setId("102220088");
 		sv1.setUsername(sv1.getId());
@@ -128,11 +128,11 @@ public class Demo {
 		sv1.setIdclass(cl1);
 		sv3.setIdclass(cl2);
 		sv5.setIdclass(cl3);
-//		sv.insert(sv5);
-//		sv.insert(sv4);
-//		sv.insert(sv3);
-//		sv.insert(sv2);
-//		sv.insert(sv1);
+		sv.insert(sv5);
+		sv.insert(sv4);
+		sv.insert(sv3);
+		sv.insert(sv2);
+		sv.insert(sv1);
 		KiThi kithi = new KiThi();
 		kithi.setId("02");
 		kithi.setLop(cl2);
@@ -173,35 +173,29 @@ public class Demo {
 		Nganhangcauhoi nh1 = new Nganhangcauhoi();
 		nh1.setIdNganHang("su");
 		nh1.setGiaovienquanli(gv1);
-//		nhdao.insert(nh1);
-//		nhdao.insert(nh);
-		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 2, 1,
-				nh1);
-		Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen",
-				"Charles Dickens", "Mark Twain", 1, 1, nh);
-		Cauhoi q3 = new Cauhoi("q3", "What is the chemical symbol for water?", "H2O", "CO2", "O2", "NaCl", 1, 1, nh);
-		Cauhoi q4 = new Cauhoi("q4", "Which planet is known as the Red Planet?", "Mars", "Venus", "Jupiter", "Saturn",
-				1, 1, nh1);
-		Cauhoi q5 = new Cauhoi("q5", "Who painted the Mona Lisa?", "Leonardo da Vinci", "Vincent van Gogh",
-				"Pablo Picasso", "Claude Monet", 1, 1, nh);
-		Cauhoi q6 = new Cauhoi("q6", "What year did the Titanic sink?", "1912", "1905", "1920", "1935", 1, 1, nh1);
-		Cauhoi q7 = new Cauhoi("q7", "What is the tallest mountain in the world?", "Mount Everest", "Mount Kilimanjaro",
-				"K2", "Mount Fuji", 1, 1, nh);
-		Cauhoi q8 = new Cauhoi("q8", "Who invented the telephone?", "Alexander Graham Bell", "Thomas Edison",
-				"Nikola Tesla", "Guglielmo Marconi", 1, 1, nh);
-		Cauhoi q9 = new Cauhoi("q9", "What is the currency of Japan?", "Yen", "Euro", "Dollar", "Pound", 1, 1, nh1);
-		Cauhoi q10 = new Cauhoi("q10", "Who is the author of 'To Kill a Mockingbird'?", "Harper Lee", "J.K. Rowling",
-				"Stephen King", "Ernest Hemingway", 1, 1, nh1);
-//		CHdao.insert(q10);
-//		CHdao.insert(q1);
-//		CHdao.insert(q2);
-//		CHdao.insert(q3);
-//		CHdao.insert(q4);
-//		CHdao.insert(q5);
-//		CHdao.insert(q6);
-//		CHdao.insert(q7);
-//		CHdao.insert(q8);
-//		CHdao.insert(q9);
+		nhdao.insert(nh1);
+		nhdao.insert(nh);
+		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 2, "Paris", nh1);
+        Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain", 1, "William Shakespeare", nh);
+        Cauhoi q3 = new Cauhoi("q3", "What is the chemical symbol for water?", "H2O", "CO2", "O2", "NaCl", 1, "H2O", nh);
+        Cauhoi q4 = new Cauhoi("q4", "Which planet is known as the Red Planet?", "Mars", "Venus", "Jupiter", "Saturn", 1, "Mars", nh1);
+        Cauhoi q5 = new Cauhoi("q5", "Who painted the Mona Lisa?", "Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Claude Monet", 1, "Leonardo da Vinci", nh);
+        Cauhoi q6 = new Cauhoi("q6", "What year did the Titanic sink?", "1912", "1905", "1920", "1935", 1, "1912", nh1);
+        Cauhoi q7 = new Cauhoi("q7", "What is the tallest mountain in the world?", "Mount Everest", "Mount Kilimanjaro", "K2", "Mount Fuji", 1, "Mount Everest", nh);
+        Cauhoi q8 = new Cauhoi("q8", "Who invented the telephone?", "Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Guglielmo Marconi", 1, "Alexander Graham Bell", nh);
+        Cauhoi q9 = new Cauhoi("q9", "What is the currency of Japan?", "Yen", "Euro", "Dollar", "Pound", 1, "Yen", nh1);
+        Cauhoi q10 = new Cauhoi("q10", "Who is the author of 'To Kill a Mockingbird'?", "Harper Lee", "J.K. Rowling", "Stephen King", "Ernest Hemingway", 1, "Harper Lee", nh1);
+
+		CHdao.insert(q10);
+		CHdao.insert(q1);
+		CHdao.insert(q2);
+		CHdao.insert(q3);
+		CHdao.insert(q4);
+		CHdao.insert(q5);
+		CHdao.insert(q6);
+		CHdao.insert(q7);
+		CHdao.insert(q8);
+		CHdao.insert(q9);
 		DeThi dethi1 = new DeThi();
 		dethi1.addCauhoi(q10);
 		dethi1.addCauhoi(q2);
@@ -212,27 +206,27 @@ public class Demo {
 		kithi.setNganhangcauhoi(nh1);
 		kithi1.setNganhangcauhoi(nh1);
 		kithi2.setNganhangcauhoi(nh);
-//		kt.insert(kithi2);
-//		kt.insert(kithi1);
-//		kt.insert(kithi);
-//		dt.insert(dethi1);
+		kt.insert(kithi2);
+		kt.insert(kithi1);
+		kt.insert(kithi);
+		dt.insert(dethi1);
 
-		Cauhoi[] danhSachCauHoi = new Cauhoi[10];
+		 Cauhoi[] danhSachCauHoi = new Cauhoi[10];
 
-		danhSachCauHoi[0] = new Cauhoi("1", "Câu hỏi số 1", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 1, 1, nh);
-		danhSachCauHoi[1] = new Cauhoi("2", "Câu hỏi số 2", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 2, 2, nh);
-		danhSachCauHoi[2] = new Cauhoi("3", "Câu hỏi số 3", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 3, 3, nh);
-		danhSachCauHoi[3] = new Cauhoi("4", "Câu hỏi số 4", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 1, 4, nh);
-		danhSachCauHoi[4] = new Cauhoi("5", "Câu hỏi số 5", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 2, 1, nh);
-		danhSachCauHoi[5] = new Cauhoi("6", "Câu hỏi số 6", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 3, 2, nh);
-		danhSachCauHoi[6] = new Cauhoi("7", "Câu hỏi số 7", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 1, 3, nh);
-		danhSachCauHoi[7] = new Cauhoi("8", "Câu hỏi số 8", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 2, 4, nh);
-		danhSachCauHoi[8] = new Cauhoi("9", "Câu hỏi số 9", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 3, 1, nh);
-		danhSachCauHoi[9] = new Cauhoi("10", "Câu hỏi số 10", "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", 1, 2, nh);
+	        danhSachCauHoi[0] = new Cauhoi("1", "Câu hỏi số 1", "A", "B", "C", "D", 1, "A",nh);
+	        danhSachCauHoi[1] = new Cauhoi("2", "Câu hỏi số 2", "A", "B", "C", "D", 2, "B",nh);
+	        danhSachCauHoi[2] = new Cauhoi("3", "Câu hỏi số 3", "A", "B", "C", "D", 3, "C",nh);
+	        danhSachCauHoi[3] = new Cauhoi("4", "Câu hỏi số 4", "A", "B", "C", "D", 1, "D",nh);
+	        danhSachCauHoi[4] = new Cauhoi("5", "Câu hỏi số 5", "A", "B", "C", "D", 2, "A",nh);
+	        danhSachCauHoi[5] = new Cauhoi("6", "Câu hỏi số 6", "A", "B", "C", "D", 3, "B",nh);
+	        danhSachCauHoi[6] = new Cauhoi("7", "Câu hỏi số 7", "A", "B", "C", "D", 1, "C",nh);
+	        danhSachCauHoi[7] = new Cauhoi("8", "Câu hỏi số 8", "A", "B", "C", "D", 2, "D",nh);
+	        danhSachCauHoi[8] = new Cauhoi("9", "Câu hỏi số 9", "A", "B", "C", "D", 3, "A",nh);
+	        danhSachCauHoi[9] = new Cauhoi("10", "Câu hỏi số 10", "A", "B", "C", "D", 1, "B",nh);
 
-//		for (Cauhoi i : danhSachCauHoi) {
-//			Cauhoi_Dao.Instance().insert(i);
-//		}
+	for (Cauhoi i : danhSachCauHoi) {
+			Cauhoi_Dao.Instance().insert(i);
+		}
 		
 		DeThi dethimoi  = new DeThi();
 		dethimoi.setId("01");
@@ -241,9 +235,8 @@ public class Demo {
 		dt.Xaydungdethi(2, 3, 4, dethimoi);
 		for(Cauhoi i : dethimoi.getList())
 		{
-
 			System.out.println(i);
 		}
-		gv.update(gv1);
+			
 	}	
 }

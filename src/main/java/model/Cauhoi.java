@@ -25,7 +25,7 @@ public class Cauhoi {
 	private	String dapAnC;
 	private	String dapAnD;
 	private int mucdo;
-	private int dapan;
+	private String dapan;
 	@ManyToOne
 	@JoinColumn(name = "NganHang")	
 	private Nganhangcauhoi NH;
@@ -79,10 +79,10 @@ public class Cauhoi {
 	public void setMucdo(int mucdo) {
 		this.mucdo = mucdo;
 	}
-	public int getDapan() {
+	public String getDapan() {
 		return dapan;
 	}
-	public void setDapan(int dapan) {
+	public void setDapan(String dapan) {
 		this.dapan = dapan;
 	}
 	public Nganhangcauhoi getNH() {
@@ -110,7 +110,7 @@ public class Cauhoi {
 	 * @param nH
 	 */
 	public Cauhoi(String id, String noidung, String dapAnA, String dapAnB, String dapAnC, String dapAnD, int mucdo,
-			int dapan, Nganhangcauhoi nH) {
+			String dapan, Nganhangcauhoi nH) {
 		super();
 		this.id = id;
 		Noidung = noidung;

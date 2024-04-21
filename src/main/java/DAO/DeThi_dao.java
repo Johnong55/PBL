@@ -161,10 +161,10 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 					String dapAnB = kq.getString("dapAnB");
 					String dapAnC = kq.getString("dapAnC");
 					String dapAnD = kq.getString("dapAnD");
-					int dapAn = kq.getInt("dapan");
+					String dapAn = kq.getString("dapan");
 					int mucdo = kq.getInt("mucdo");
 					String Nganhang = kq.getString("NganHang");
-					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
 					result.add(u);
 				}
 				con.close();
@@ -199,10 +199,11 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 					String dapAnB = kq.getString("dapAnB");
 					String dapAnC = kq.getString("dapAnC");
 					String dapAnD = kq.getString("dapAnD");
-					int dapAn = kq.getInt("dapan");
+					String dapAn = kq.getString("dapan");
 					int mucdo = kq.getInt("mucdo");
 					String Nganhang = kq.getString("NganHang");
-					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					
 					t.addCauhoi(u);
 				}
 				a.setInt(2,2);
@@ -211,16 +212,18 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 				
 				while(kq.next())
 				{
+
 					String id  = kq.getString("id");
 					String	noidung  =  kq.getString("Noidung");
 					String dapAnA = kq.getString("dapAnA");
 					String dapAnB = kq.getString("dapAnB");
 					String dapAnC = kq.getString("dapAnC");
 					String dapAnD = kq.getString("dapAnD");
-					int dapAn = kq.getInt("dapan");
+					String dapAn = kq.getString("dapan");
 					int mucdo = kq.getInt("mucdo");
 					String Nganhang = kq.getString("NganHang");
-					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					
 					t.addCauhoi(u);
 				}
 				a.setInt(2,3);
@@ -229,16 +232,17 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 				
 				while(kq.next())
 				{
+
 					String id  = kq.getString("id");
 					String	noidung  =  kq.getString("Noidung");
 					String dapAnA = kq.getString("dapAnA");
 					String dapAnB = kq.getString("dapAnB");
 					String dapAnC = kq.getString("dapAnC");
 					String dapAnD = kq.getString("dapAnD");
-					int dapAn = kq.getInt("dapan");
+					String dapAn = kq.getString("dapan");
 					int mucdo = kq.getInt("mucdo");
 					String Nganhang = kq.getString("NganHang");
-					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
 					t.addCauhoi(u);
 				}
 				con.close();

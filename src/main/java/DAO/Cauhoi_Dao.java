@@ -50,10 +50,10 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 					String dapAnB = kq.getString("dapAnB");
 					String dapAnC = kq.getString("dapAnC");
 					String dapAnD = kq.getString("dapAnD");
-					int dapAn = kq.getInt("dapan");
+					String dapAn = kq.getString("dapan");
 					int mucdo = kq.getInt("mucdo");
 					String Nganhang = kq.getString("NganHang");
-					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
 					result.add(u);
 				}
 				con.close();
@@ -83,10 +83,10 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 					String dapAnB = kq.getString("dapAnB");
 					String dapAnC = kq.getString("dapAnC");
 					String dapAnD = kq.getString("dapAnD");
-					int dapAn = kq.getInt("dapan");
+					String dapAn = kq.getString("dapan");
 					int mucdo = kq.getInt("mucdo");
 					String Nganhang = kq.getString("NganHang");
-					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, dapAn ,mucdo, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
 					return u;
 				}
 				con.close();
