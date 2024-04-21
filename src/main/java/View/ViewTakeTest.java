@@ -31,6 +31,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JMenuItem;
@@ -71,15 +72,14 @@ public class ViewTakeTest extends JFrame {
 	public JLabel lblNewLabel_1;
 	public ButtonGroup group = new ButtonGroup();
 	public RadioButtonCustom btnDapAn_D, btnDapAn_A, btnDapAn_B, btnDapAn_C;
-	public String cauhoi, dapanA, dapanB, dapanC, dapanD;
+	public String cauhoi, dapanA, dapanB, dapanC, dapanD,dapan;
 	public JScrollPane scrollPane;
 	public JPanel panel_3 = new JPanel();
-	public int dapan;
 	public List<MyButton> listBtnCauhoi = new ArrayList<MyButton>();
-	
+	public int[]  checkView; char[]checkAnswer ;
 
 	public Sv v;
-	public KiThi ktOngoing;
+	public KiThi ktOngoing; 
 	public DeThi dethi;
 	public List<Cauhoi> listCauhoi = new ArrayList<Cauhoi>();
 	public int vitriCauhoi = 0;
@@ -114,6 +114,8 @@ public class ViewTakeTest extends JFrame {
 		listCauhoi = DeThi_dao.Instance().Hienthicauhoi(dethi);
 		for(int i = 1 ; i <= 3;i++) {listBtnCauhoi.add(new MyButton(String.valueOf(i))); setMau(1, listBtnCauhoi.get(i-1)); panel_3.add(listBtnCauhoi.get(i-1));}
 		panel_3.setPreferredSize(new Dimension(359, (48+40) * (listBtnCauhoi.size() / 5) + 30)); //(48 + 40 ) * n + 30; 
+		checkAnswer = new char[listCauhoi.size()]; Arrays.fill(checkAnswer,'0');
+		checkView = new int[checkAnswer.length]; Arrays.fill(checkView,0);
 		
 		cauhoi = listCauhoi.get(0).getNoidung();
 		dapanA = listCauhoi.get(0).getDapAnA();
@@ -304,15 +306,13 @@ public class ViewTakeTest extends JFrame {
 		btnCau1_1.setBounds(10, 10, 47, 47);
 		panel_4_1.add(btnCau1_1);
 
-		MyButton btnCau2_2 = new MyButton("New button");
-		btnCau2_2.setText("1");
-		btnCau2_2.setRadius(20);
-		btnCau2_2.setForeground(new Color(17, 49, 123));
-		btnCau2_2.setFont(new Font("Calibri", Font.BOLD, 18));
-		btnCau2_2.setColor(new Color(203, 219, 248));
-		btnCau2_2.setBounds(10, 63, 47, 47);
-		panel_4_1.add(btnCau2_2);
-
+		/*
+		 * MyButton btnCau2_2 = new MyButton("New button"); btnCau2_2.setText("1");
+		 * btnCau2_2.setRadius(20); btnCau2_2.setForeground(new Color(17, 49, 123));
+		 * btnCau2_2.setFont(new Font("Calibri", Font.BOLD, 18)); btnCau2_2.setColor(new
+		 * Color(203, 219, 248)); btnCau2_2.setBounds(10, 63, 47, 47);
+		 * panel_4_1.add(btnCau2_2);
+		 */
 		MyButton btnCau2_1_1 = new MyButton("New button");
 		btnCau2_1_1.setText("1");
 		btnCau2_1_1.setRadius(20);
@@ -329,7 +329,7 @@ public class ViewTakeTest extends JFrame {
 		btnCau3_1.setFont(new Font("Calibri", Font.BOLD, 18));
 		btnCau3_1.setColor(BgBlack);
 		btnCau3_1.setBorderColor(BgBlack);
-		btnCau3_1.setBounds(190, 63, 47, 47);
+		btnCau3_1.setBounds(77, 60, 47, 47);
 		panel_4_1.add(btnCau3_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Đã trả lời");
@@ -337,10 +337,11 @@ public class ViewTakeTest extends JFrame {
 		lblNewLabel_2.setBounds(67, 17, 80, 32);
 		panel_4_1.add(lblNewLabel_2);
 
-		JLabel lblNewLabel_2_1 = new JLabel("Đặt cờ");
-		lblNewLabel_2_1.setFont(new Font("Calibri", Font.BOLD, 20));
-		lblNewLabel_2_1.setBounds(67, 68, 107, 32);
-		panel_4_1.add(lblNewLabel_2_1);
+		/*
+		 * JLabel lblNewLabel_2_1 = new JLabel("Đặt cờ"); lblNewLabel_2_1.setFont(new
+		 * Font("Calibri", Font.BOLD, 20)); lblNewLabel_2_1.setBounds(67, 68, 107, 32);
+		 * panel_4_1.add(lblNewLabel_2_1);
+		 */
 
 		JLabel lblNewLabel_2_2 = new JLabel("Chưa trả lời");
 		lblNewLabel_2_2.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -349,7 +350,7 @@ public class ViewTakeTest extends JFrame {
 
 		JLabel lblNewLabel_2_3 = new JLabel("Chưa xem");
 		lblNewLabel_2_3.setFont(new Font("Calibri", Font.BOLD, 20));
-		lblNewLabel_2_3.setBounds(247, 70, 102, 32);
+		lblNewLabel_2_3.setBounds(134, 67, 102, 32);
 		panel_4_1.add(lblNewLabel_2_3);
 
 		btnNext = new MyButton("New button");
