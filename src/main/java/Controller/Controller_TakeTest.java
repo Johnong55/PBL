@@ -33,6 +33,13 @@ public class Controller_TakeTest implements ActionListener ,MouseWheelListener{
 			vt.btnDapAn_D.setText(c.getDapAnD());
 			vt.Cauhoi.setText(c.getNoidung());
 			vt.dapan = c.getDapan();
+			vt.checkView[vt.vitriCauhoi -1] = 1;
+			if(vt.group.getSelection() != null)
+			{
+				
+			}
+			
+			
 		}
 		
 		if(e.getSource() == vt.mbtnCuTrc && vt.vitriCauhoi >0) 
