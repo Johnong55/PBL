@@ -27,6 +27,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -46,6 +47,8 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class ViewTakeTest extends JFrame {
 
@@ -68,19 +71,50 @@ public class ViewTakeTest extends JFrame {
 	public JLabel lblNewLabel_1;
 	public ButtonGroup group = new ButtonGroup();
 	public RadioButtonCustom btnDapAn_D, btnDapAn_A, btnDapAn_B, btnDapAn_C;
-	public String cauhoi,dapanA,dapanB,dapanC,dapanD; public int dapan;
-
+	public String cauhoi, dapanA, dapanB, dapanC, dapanD;
+	public JScrollPane scrollPane;
+	public JPanel panel_3 = new JPanel();
+	public int dapan;
+	public List<MyButton> listBtnCauhoi = new ArrayList<MyButton>();
 	
 
-	public Sv v ; public KiThi  ktOngoing; public DeThi dethi;
+	public Sv v;
+	public KiThi ktOngoing;
+	public DeThi dethi;
 	public List<Cauhoi> listCauhoi = new ArrayList<Cauhoi>();
 	public int vitriCauhoi = 0;
 
+	public void setMau(int mau, MyButton btn) {
+
+		if (mau == 1) {
+			btn.setRadius(20);
+			btn.setForeground(Black);
+			btn.setFont(new Font("Calibri", Font.BOLD, 17));
+			btn.setColor(BgBlack);
+			btn.setBorderColor(BgBlack);
+			btn.setPreferredSize(new Dimension(40, 40));
+			
+		} else if (mau == 2) {
+			btn.setColor(BgGreen);
+			btn.setForeground(Green);
+		} else if (mau == 3) {
+			btn.setForeground(Purple);
+			btn.setColor(BgPurple);
+		} else if (mau == 4) {
+			btn.setForeground(Blue);
+			btn.setColor(BgBlue);
+		}
+
+	}
 	public ViewTakeTest(Sv sv, KiThi onl) {
+
 		this.v = sv;
 		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
 		this.dethi = DeThi_dao.Instance().getDethi();
 		listCauhoi = DeThi_dao.Instance().Hienthicauhoi(dethi);
+		for(int i = 1 ; i <= 3;i++) {listBtnCauhoi.add(new MyButton(String.valueOf(i))); setMau(1, listBtnCauhoi.get(i-1)); panel_3.add(listBtnCauhoi.get(i-1));}
+		panel_3.setPreferredSize(new Dimension(359, (48+40) * (listBtnCauhoi.size() / 5) + 30)); //(48 + 40 ) * n + 30; 
+		
 		cauhoi = listCauhoi.get(0).getNoidung();
 		dapanA = listCauhoi.get(0).getDapAnA();
 		dapanB = listCauhoi.get(0).getDapAnB();
@@ -92,6 +126,8 @@ public class ViewTakeTest extends JFrame {
 		ViewTakeTest1();
 		setVisible(true);
 	}
+
+	
 	/**
 	 * Launch the application.
 	 */
@@ -106,7 +142,7 @@ public class ViewTakeTest extends JFrame {
 	 * Create the frame.
 	 */
 	public void ViewTakeTest1() {
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -212,41 +248,30 @@ public class ViewTakeTest extends JFrame {
 		Question_bank.setFont(new Font("Calibri", Font.BOLD, 26));
 		Question_bank.setBounds(108, 10, 171, 37);
 		panel_1_1.add(Question_bank);
-
-		JPanel panel_3 = new JPanel();
+		
+		panel_3.setForeground(new Color(255, 255, 255));
 		panel_3.setBackground(new Color(255, 255, 255));
-		panel_3.setBounds(10, 79, 359, 324);
-		panel_1_1.add(panel_3);
-		panel_3.setLayout(new GridLayout(5, 5, 10, 10));
+		panel_3.setLayout(new FlowLayout(FlowLayout.LEFT, 26, 24));
+		/*
+		 * panel_3.setPreferredSize(new Dimension(359, 324)); //(48 + 40 ) * n + 30;
+		 */		panel_3.setBorder(null);
 
-		btnCau1 = new MyButton("New button");
+		scrollPane = new JScrollPane(panel_3);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); 
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(10, 50, 359, 324); 
+		scrollPane.addMouseWheelListener(cl);
+		scrollPane.setBorder(null);
+
+		panel_1_1.add(scrollPane);
+
+		btnCau1 = new MyButton("1");
+		btnCau1.setPreferredSize(new Dimension(40, 40));
 		btnCau1.setColor(BgGreen);
+		btnCau1.setForeground(Green);
 		btnCau1.setFont(new Font("Calibri", Font.BOLD, 15));
 		btnCau1.setRadius(20);
-		btnCau1.setForeground(Green);
 		panel_3.add(btnCau1);
-
-		MyButton btnCau2 = new MyButton("New button");
-		btnCau2.setRadius(20);
-		btnCau2.setForeground(Blue);
-		btnCau2.setFont(new Font("Calibri", Font.BOLD, 15));
-		btnCau2.setColor(BgBlue);
-		panel_3.add(btnCau2);
-
-		MyButton btnCau3 = new MyButton("New button");
-		btnCau3.setRadius(20);
-		btnCau3.setForeground(Black);
-		btnCau3.setFont(new Font("Calibri", Font.BOLD, 15));
-		btnCau3.setColor(BgBlack);
-		btnCau3.setBorderColor(BgBlack);
-		panel_3.add(btnCau3);
-
-		MyButton btnCau2_1 = new MyButton("New button");
-		btnCau2_1.setRadius(20);
-		btnCau2_1.setForeground(Purple);
-		btnCau2_1.setFont(new Font("Calibri", Font.BOLD, 15));
-		btnCau2_1.setColor(BgPurple);
-		panel_3.add(btnCau2_1);
 
 		JLabel lblCuTrLi = new JLabel("Câu trả lời:");
 		lblCuTrLi.setForeground(new Color(0, 0, 0));
@@ -328,7 +353,7 @@ public class ViewTakeTest extends JFrame {
 		panel_4_1.add(lblNewLabel_2_3);
 
 		btnNext = new MyButton("New button");
-		btnNext.setColorOver(new Color(114, 120, 231));
+		btnNext.setColorOver(new Color(45, 49, 225));
 		btnNext.addActionListener(cl);
 		btnNext.setText("Câu tiếp theo");
 		btnNext.setRadius(20);
