@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JScrollBar;
 
+import View.MyButton;
 import View.RadioButtonCustom;
 import View.ViewTakeTest;
 import model.Cauhoi;
@@ -23,6 +24,39 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 		this.vt = vt;
 	}
 
+	public String tendapAn(int q) {
+		String k = "";
+		if(q == 1) k = "A"; else if(q == 2) k = "B" ; else if(q==3) k = "C"; else if(q == 4) k = "D";
+		return k;
+	}
+	public void checkXem(int vitri,int vitri2) {
+		if(vt.checkView[vitri] == 0 ) {
+			vt.checkView[vitri] = 1;
+			vt.setMau(3, vt.listBtnCauhoi.get(vitri)); 
+		}
+		
+		if(vt.group.getSelection() != null)
+		{
+			int i = 0;
+			Enumeration<AbstractButton> allRadioButtons = vt.group.getElements();
+			while (allRadioButtons.hasMoreElements()) {
+				i++;
+				RadioButtonCustom radioButton = (RadioButtonCustom) allRadioButtons.nextElement();
+			    if (radioButton.isSelected()) {
+			        vt.selectButton[vitri] = vt.group.getSelection();
+			        vt.checkAnswer[vitri]  = tendapAn(i);
+			        break;
+			    }
+			}
+			vt.group.clearSelection();
+			vt.setMau(2, vt.listBtnCauhoi.get(vitri)); 
+		}
+		
+		if(vt.checkView[vitri2] != 0) 
+		{
+			vt.group.setSelected(vt.selectButton[vitri2], true);
+		} 
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -36,34 +70,11 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 			vt.btnDapAn_D.setText(c.getDapAnD());
 			vt.Cauhoi.setText(c.getNoidung());
 			vt.dapan = c.getDapan();
-			if(vt.checkView[vt.vitriCauhoi-1] == 0)
-			{
-				vt.checkView[vt.vitriCauhoi -1] = 1;
-				vt.setMau(3, vt.listBtnCauhoi.get(vt.vitriCauhoi-1)); 
-			}
-			if(vt.checkAnswer[vt.vitriCauhoi] != "0")
-			{
-				vt.group.setSelected(vt.selectButton[vt.vitriCauhoi], true);
-			}
-			if(vt.group.getSelection() != null)
-			{
-				
-				Enumeration<AbstractButton> allRadioButtons = vt.group.getElements();
-				while (allRadioButtons.hasMoreElements()) {
-					RadioButtonCustom radioButton = (RadioButtonCustom) allRadioButtons.nextElement();
-				    if (radioButton.isSelected()) {
-				        vt.checkAnswer[vt.vitriCauhoi-1] = radioButton.getName();
-				        vt.selectButton[vt.vitriCauhoi-1] = vt.group.getSelection();
-				        break;
-				    }
-				}
-				vt.group.clearSelection();
-				vt.setMau(2, vt.listBtnCauhoi.get(vt.vitriCauhoi-1)); 
-			}
-			
+			checkXem(vt.vitriCauhoi -1 , vt.vitriCauhoi);
+					
 			
 		}
-		
+		else 
 		if(e.getSource() == vt.mbtnCuTrc && vt.vitriCauhoi >0) 
 		{
 			vt.vitriCauhoi--;
@@ -74,9 +85,9 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 			vt.btnDapAn_D.setText(c.getDapAnD());
 			vt.Cauhoi.setText(c.getNoidung());
 			vt.dapan = c.getDapan();
-			
+			checkXem(vt.vitriCauhoi+ 1, vt.vitriCauhoi);
 		}
-		
+	
 	}
 
 	@Override

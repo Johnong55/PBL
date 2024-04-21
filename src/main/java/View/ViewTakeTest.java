@@ -72,15 +72,17 @@ public class ViewTakeTest extends JFrame {
 	public MyButton btnCau1, btnExit, btnNext, mbtnCuTrc;
 	public JLabel lblNewLabel_1;
 	public ButtonGroup group = new ButtonGroup();
-	public RadioButtonCustom btnDapAn_D, btnDapAn_A, btnDapAn_B, btnDapAn_C;
-	public String cauhoi, dapanA, dapanB, dapanC, dapanD,dapan;
+	public RadioButtonCustom btnDapAn_D = new RadioButtonCustom(), btnDapAn_A = new RadioButtonCustom(),
+			btnDapAn_B = new RadioButtonCustom(), btnDapAn_C = new RadioButtonCustom();
+	public String cauhoi, dapanA, dapanB, dapanC, dapanD, dapan;
 	public JScrollPane scrollPane;
 	public JPanel panel_3 = new JPanel();
 	public List<MyButton> listBtnCauhoi = new ArrayList<MyButton>();
-	public int[]  checkView; public String[]checkAnswer ;
+	public int[] checkView;
+	public String[] checkAnswer;
 	public ButtonModel[] selectButton;
 	public Sv v;
-	public KiThi ktOngoing; 
+	public KiThi ktOngoing;
 	public DeThi dethi;
 	public List<Cauhoi> listCauhoi = new ArrayList<Cauhoi>();
 	public int vitriCauhoi = 0;
@@ -94,7 +96,7 @@ public class ViewTakeTest extends JFrame {
 			btn.setColor(BgBlack);
 			btn.setBorderColor(BgBlack);
 			btn.setPreferredSize(new Dimension(40, 40));
-			
+
 		} else if (mau == 2) {
 			btn.setColor(BgGreen);
 			btn.setForeground(Green);
@@ -109,17 +111,23 @@ public class ViewTakeTest extends JFrame {
 		}
 
 	}
+
 	public ViewTakeTest(Sv sv, KiThi onl) {
 
 		this.v = sv;
 		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
 		this.dethi = DeThi_dao.Instance().getDethi();
 		listCauhoi = DeThi_dao.Instance().Hienthicauhoi(dethi);
-		for(int i = 1 ; i <= 3;i++) {listBtnCauhoi.add(new MyButton(String.valueOf(i))); setMau(1, listBtnCauhoi.get(i-1)); panel_3.add(listBtnCauhoi.get(i-1));}
+		for(int i = 1 ; i <= 3;i++) {
+			listBtnCauhoi.add(new MyButton(String.valueOf(i))); setMau(1, listBtnCauhoi.get(i-1));
+			panel_3.add(listBtnCauhoi.get(i - 1));
+			listBtnCauhoi.get(i).addActionListener(cl);
+		}
 		panel_3.setPreferredSize(new Dimension(359, (48+40) * (listBtnCauhoi.size() / 5) + 30)); //(48 + 40 ) * n + 30; 
 		checkAnswer = new String[listCauhoi.size()]; Arrays.fill(checkAnswer,"0");
 		checkView = new int[checkAnswer.length]; Arrays.fill(checkView,0);
 		selectButton = new ButtonModel[checkAnswer.length];
+		
 		cauhoi = listCauhoi.get(0).getNoidung();
 		dapanA = listCauhoi.get(0).getDapAnA();
 		dapanB = listCauhoi.get(0).getDapAnB();
@@ -132,7 +140,6 @@ public class ViewTakeTest extends JFrame {
 		setVisible(true);
 	}
 
-	
 	/**
 	 * Launch the application.
 	 */
@@ -253,18 +260,18 @@ public class ViewTakeTest extends JFrame {
 		Question_bank.setFont(new Font("Calibri", Font.BOLD, 26));
 		Question_bank.setBounds(108, 10, 171, 37);
 		panel_1_1.add(Question_bank);
-		
+
 		panel_3.setForeground(new Color(255, 255, 255));
 		panel_3.setBackground(new Color(255, 255, 255));
 		panel_3.setLayout(new FlowLayout(FlowLayout.LEFT, 26, 24));
 		/*
 		 * panel_3.setPreferredSize(new Dimension(359, 324)); //(48 + 40 ) * n + 30;
-		 */		panel_3.setBorder(null);
+		 */ panel_3.setBorder(null);
 
 		scrollPane = new JScrollPane(panel_3);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); 
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 50, 359, 324); 
+		scrollPane.setBounds(10, 50, 359, 324);
 		scrollPane.addMouseWheelListener(cl);
 		scrollPane.setBorder(null);
 
