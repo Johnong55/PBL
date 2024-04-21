@@ -61,7 +61,7 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 	}
 	public void setViewCauhoi(int vitricauhoi) {
 		Cauhoi c = vt.listCauhoi.get(vitricauhoi);
-		vt.lblNewLabel_1.setText("Question " + vt.listBtnCauhoi.get(vitricauhoi).getText());
+		vt.lblNewLabel_1.setText("Câu hỏi " + vt.listBtnCauhoi.get(vitricauhoi).getText());
 		vt.btnDapAn_A.setText(c.getDapAnA());
 		vt.btnDapAn_B.setText(c.getDapAnB());
 		vt.btnDapAn_C.setText(c.getDapAnC());

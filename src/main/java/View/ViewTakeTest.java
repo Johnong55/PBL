@@ -190,7 +190,7 @@ public class ViewTakeTest extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		lblNewLabel_1 = new JLabel("Question 1");
+		lblNewLabel_1 = new JLabel("Câu hỏi 1");
 		lblNewLabel_1.setFont(new Font("Calibri", Font.BOLD, 26));
 		lblNewLabel_1.setForeground(Blue);
 		lblNewLabel_1.setBounds(20, 10, 153, 37);
@@ -260,7 +260,7 @@ public class ViewTakeTest extends JFrame {
 		btnExit.setRadius(20);
 		btnExit.setFont(new Font("Verdana", Font.PLAIN, 19));
 
-		JLabel Question_bank = new JLabel("Question bank");
+		JLabel Question_bank = new JLabel("Mục lục câu hỏi");
 		Question_bank.setForeground(new Color(17, 49, 123));
 		Question_bank.setFont(new Font("Calibri", Font.BOLD, 26));
 		Question_bank.setBounds(108, 10, 171, 37);
@@ -296,7 +296,7 @@ public class ViewTakeTest extends JFrame {
 		lblCuTrLi.setBounds(192, 432, 98, 28);
 		panel_1_1.add(lblCuTrLi);
 
-		 soCauTraLoi = new JLabel("15/25");
+		 soCauTraLoi = new JLabel("0/" + String.valueOf(listBtnCauhoi.size()));
 		soCauTraLoi.setForeground(Blue);
 		soCauTraLoi.setFont(new Font("Calibri", Font.BOLD, 20));
 		soCauTraLoi.setBounds(304, 432, 51, 28);
@@ -313,6 +313,7 @@ public class ViewTakeTest extends JFrame {
 		panel_4_1.setLayout(null);
 
 		btnTL = new MyButton("New button");
+		btnTL.setEnabled(false);
 		btnTL.setText("0");
 		btnTL.setRadius(20);
 		btnTL.setForeground(new Color(44, 173, 167));
@@ -329,6 +330,7 @@ public class ViewTakeTest extends JFrame {
 		 * panel_4_1.add(btnCau2_2);
 		 */
 		btnCTL = new MyButton("New button");
+		btnCTL.setEnabled(false);
 		btnCTL.setText("0");
 		btnCTL.setRadius(20);
 		btnCTL.setForeground(new Color(249, 87, 139));
@@ -338,6 +340,7 @@ public class ViewTakeTest extends JFrame {
 		panel_4_1.add(btnCTL);
 
 		btnCX = new MyButton("New button");
+		btnCX.setEnabled(false);
 		btnCX.setText(String.valueOf(listBtnCauhoi.size()));
 		btnCX.setRadius(20);
 		btnCX.setForeground(Color.BLACK);
