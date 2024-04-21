@@ -19,6 +19,7 @@ import model.KiThi;
 import model.Sv;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.GroupLayout.Group;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -76,8 +77,8 @@ public class ViewTakeTest extends JFrame {
 	public JScrollPane scrollPane;
 	public JPanel panel_3 = new JPanel();
 	public List<MyButton> listBtnCauhoi = new ArrayList<MyButton>();
-	public int[]  checkView; char[]checkAnswer ;
-
+	public int[]  checkView; public String[]checkAnswer ;
+	public ButtonModel[] selectButton;
 	public Sv v;
 	public KiThi ktOngoing; 
 	public DeThi dethi;
@@ -97,9 +98,11 @@ public class ViewTakeTest extends JFrame {
 		} else if (mau == 2) {
 			btn.setColor(BgGreen);
 			btn.setForeground(Green);
+			btn.setBorderColor(Green);
 		} else if (mau == 3) {
 			btn.setForeground(Purple);
 			btn.setColor(BgPurple);
+			btn.setBorderColor(Purple);
 		} else if (mau == 4) {
 			btn.setForeground(Blue);
 			btn.setColor(BgBlue);
@@ -114,9 +117,9 @@ public class ViewTakeTest extends JFrame {
 		listCauhoi = DeThi_dao.Instance().Hienthicauhoi(dethi);
 		for(int i = 1 ; i <= 3;i++) {listBtnCauhoi.add(new MyButton(String.valueOf(i))); setMau(1, listBtnCauhoi.get(i-1)); panel_3.add(listBtnCauhoi.get(i-1));}
 		panel_3.setPreferredSize(new Dimension(359, (48+40) * (listBtnCauhoi.size() / 5) + 30)); //(48 + 40 ) * n + 30; 
-		checkAnswer = new char[listCauhoi.size()]; Arrays.fill(checkAnswer,'0');
+		checkAnswer = new String[listCauhoi.size()]; Arrays.fill(checkAnswer,"0");
 		checkView = new int[checkAnswer.length]; Arrays.fill(checkView,0);
-		
+		selectButton = new ButtonModel[checkAnswer.length];
 		cauhoi = listCauhoi.get(0).getNoidung();
 		dapanA = listCauhoi.get(0).getDapAnA();
 		dapanB = listCauhoi.get(0).getDapAnB();
