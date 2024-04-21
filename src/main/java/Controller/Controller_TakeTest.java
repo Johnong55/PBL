@@ -30,9 +30,11 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 		return k;
 	}
 	public void checkXem(int vitri,int vitri2) {
+		
 		if(vt.checkView[vitri] == 0 ) {
 			vt.checkView[vitri] = 1;
 			vt.setMau(3, vt.listBtnCauhoi.get(vitri)); 
+			vt.soCauDaXem +=1;
 		}
 		
 		if(vt.group.getSelection() != null)
@@ -57,35 +59,50 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 			vt.group.setSelected(vt.selectButton[vitri2], true);
 		} 
 	}
+	public void setViewCauhoi(int vitricauhoi) {
+		Cauhoi c = vt.listCauhoi.get(vitricauhoi);
+		vt.lblNewLabel_1.setText("Question " + vt.listBtnCauhoi.get(vitricauhoi).getText());
+		vt.btnDapAn_A.setText(c.getDapAnA());
+		vt.btnDapAn_B.setText(c.getDapAnB());
+		vt.btnDapAn_C.setText(c.getDapAnC());
+		vt.btnDapAn_D.setText(c.getDapAnD());
+		vt.Cauhoi.setText(c.getNoidung());
+		vt.dapan = c.getDapan();
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		// TODO Auto-generated method stub
 		if(e.getSource() == vt.btnNext && vt.vitriCauhoi < vt.listCauhoi.size()-1) 
 		{
 			vt.vitriCauhoi++;
-			Cauhoi c = vt.listCauhoi.get(vt.vitriCauhoi);
-			vt.btnDapAn_A.setText(c.getDapAnA());
-			vt.btnDapAn_B.setText(c.getDapAnB());
-			vt.btnDapAn_C.setText(c.getDapAnC());
-			vt.btnDapAn_D.setText(c.getDapAnD());
-			vt.Cauhoi.setText(c.getNoidung());
-			vt.dapan = c.getDapan();
+			setViewCauhoi(vt.vitriCauhoi);
 			checkXem(vt.vitriCauhoi -1 , vt.vitriCauhoi);
 					
-			
 		}
 		else 
 		if(e.getSource() == vt.mbtnCuTrc && vt.vitriCauhoi >0) 
 		{
 			vt.vitriCauhoi--;
-			Cauhoi c = vt.listCauhoi.get(vt.vitriCauhoi);
-			vt.btnDapAn_A.setText(c.getDapAnA());
-			vt.btnDapAn_B.setText(c.getDapAnB());
-			vt.btnDapAn_C.setText(c.getDapAnC());
-			vt.btnDapAn_D.setText(c.getDapAnD());
-			vt.Cauhoi.setText(c.getNoidung());
-			vt.dapan = c.getDapan();
+			setViewCauhoi(vt.vitriCauhoi);
 			checkXem(vt.vitriCauhoi+ 1, vt.vitriCauhoi);
+		} else 
+			
+		for(int i = 0 ; i < 3;i++) {
+			if(e.getSource() == vt.listBtnCauhoi.get(i)) {
+				setViewCauhoi(i);
+				checkXem(vt.vitriCauhoi,i);
+				vt.vitriCauhoi = i;
+			}
+		}
+		int dem = 0;
+		for(int i =  0 ; i< vt.checkAnswer.length;i++) {
+			if(vt.checkAnswer[i] != "0") 
+			dem++;
+			vt.soCauTraLoi.setText(String.valueOf(dem) +"/" + String.valueOf(vt.checkAnswer.length)); 
+			vt.btnTL.setText(String.valueOf(dem));
+			vt.btnCTL.setText(String.valueOf(vt.soCauDaXem - dem));
+			vt.btnCX.setText(String.valueOf(vt.listBtnCauhoi.size()- vt.soCauDaXem));
 		}
 	
 	}
