@@ -39,6 +39,37 @@ public class KiThi {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "nganhangcauhoi")
 	private Nganhangcauhoi nganhangcauhoi;
+	@OneToMany(mappedBy = "kithi")
+	private List<BaiLam> bailam;
+	
+	private int socauDe;
+	private int socaukho;
+	private int socautb;
+	
+	public int getSocauDe() {
+		return socauDe;
+	}
+	public void setSocauDe(int socauDe) {
+		this.socauDe = socauDe;
+	}
+	public int getSocaukho() {
+		return socaukho;
+	}
+	public void setSocaukho(int socaukho) {
+		this.socaukho = socaukho;
+	}
+	public int getSocautb() {
+		return socautb;
+	}
+	public void setSocautb(int socautb) {
+		this.socautb = socautb;
+	}
+	public List<BaiLam> getBailam() {
+		return bailam;
+	}
+	public void setBailam(List<BaiLam> bailam) {
+		this.bailam = bailam;
+	}
 	/**
 	 * @param id
 	 * @param lop
@@ -157,6 +188,9 @@ public class KiThi {
 		thoigianbatdau = new Time(now);
 		// TODO Auto-generated constructor stub
 	}
-	
+	public void add_bailam(BaiLam t)
+	{
+		this.bailam.add(t);
+	}
 	
 }

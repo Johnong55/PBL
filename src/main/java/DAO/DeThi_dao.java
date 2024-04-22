@@ -174,8 +174,10 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 			}
 			return result;
 	}
-	public DeThi Xaydungdethi(int socauhoide,int socauhoitrungbinh,int socauhoikho,DeThi t)
+	public List<Cauhoi> Xaydungdethi(KiThi t)
 	{
+		List<Cauhoi> result = new ArrayList<Cauhoi>();
+		
 		try {
 			Connection con  = JDBCUtil.getConnection();
 			String sql = "select * from cauhoi "
@@ -186,11 +188,11 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 			PreparedStatement a;
 
 				a = con.prepareStatement(sql);
-				a.setString(1,t.getKithi().getNganhangcauhoi().getIdNganHang());
+				a.setString(1,t.getNganhangcauhoi().getIdNganHang());
 				a.setInt(2,1);
-				a.setInt(3, socauhoide);
+				a.setInt(3, t.getSocauDe());
 				ResultSet kq = a.executeQuery();
-				
+				System.out.println(a.toString());
 				while(kq.next())
 				{
 					String id  = kq.getString("id");
@@ -203,13 +205,12 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 					int mucdo = kq.getInt("mucdo");
 					String Nganhang = kq.getString("NganHang");
 					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
-					
-					t.addCauhoi(u);
+					result.add(u);
 				}
 				a.setInt(2,2);
-				a.setInt(3, socauhoitrungbinh);
+				a.setInt(3, t.getSocautb());
 				kq = a.executeQuery();
-				
+				System.out.println(a.toString());
 				while(kq.next())
 				{
 
@@ -224,12 +225,12 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 					String Nganhang = kq.getString("NganHang");
 					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
 					
-					t.addCauhoi(u);
+					result.add(u);
 				}
 				a.setInt(2,3);
-				a.setInt(3, socauhoikho);
+				a.setInt(3, t.getSocaukho());
 				kq = a.executeQuery();
-				
+				System.out.println(a.toString());
 				while(kq.next())
 				{
 
@@ -243,14 +244,14 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 					int mucdo = kq.getInt("mucdo");
 					String Nganhang = kq.getString("NganHang");
 					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
-					t.addCauhoi(u);
+					result.add(u);
 				}
 				con.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		return t;
+		return result;
 	}
 
 }

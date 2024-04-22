@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import DAO.Account_dao;
+import DAO.BaiLam_dao;
 import DAO.Cauhoi_Dao;
 import DAO.Class_dao;
 import DAO.DeThi_dao;
@@ -23,6 +24,7 @@ import DAO.NganhangDao;
 import DAO.Sv_dao;
 import DAO.truonghoc_dao;
 import model.Account;
+import model.BaiLam;
 import model.Cauhoi;
 import model.Class;
 import model.DeThi;
@@ -51,7 +53,7 @@ public class Demo {
 		truonghoc truong1 = new truonghoc();
 		truong1.setId("01");
 		truong1.setTentruong("THPT HOA VANG");
-		tr.insert(truong1);
+	 	tr.insert(truong1);
 		Class cl1 = new Class();
 		cl1.setIdclass("01");
 		cl1.setTenlop("10A");
@@ -65,7 +67,7 @@ public class Demo {
 		cl3.setTenlop("10C");
 		cl3.setTruong(truong1);
 		
-		  cl.insert(cl3); cl.insert(cl2); cl.insert(cl1);
+		   cl.insert(cl3); cl.insert(cl2); cl.insert(cl1);
 		 
 		List<Class> a = new ArrayList<Class>();
 		a.add(cl1);
@@ -90,7 +92,7 @@ public class Demo {
 		gv2.addclass(cl1);
 		gv2.addclass(cl2);
 		
-		  gv.insert(gv2); gv.insert(gv1);
+		   gv.insert(gv2); gv.insert(gv1);
 		
 		Sv sv1 = new Sv();
 		sv1.setId("102220088");
@@ -128,11 +130,11 @@ public class Demo {
 		sv1.setIdclass(cl1);
 		sv3.setIdclass(cl2);
 		sv5.setIdclass(cl3);
-		sv.insert(sv5);
-		sv.insert(sv4);
-		sv.insert(sv3);
-		sv.insert(sv2);
-		sv.insert(sv1);
+ 		sv.insert(sv5);
+ 		sv.insert(sv4);
+ 		sv.insert(sv3);
+ 		sv.insert(sv2);
+ 		sv.insert(sv1);
 		KiThi kithi = new KiThi();
 		kithi.setId("02");
 		kithi.setLop(cl2);
@@ -142,7 +144,9 @@ public class Demo {
 		kithi.setDate(new Date(2024 - 1900, 04, 20));
 		kithi.setMota("Van");
 		kithi.setSl(12);
-
+		kithi.setSocauDe(3);
+		kithi.setSocaukho(3);
+		kithi.setSocautb(12-3-3);
 		KiThi kithi1 = new KiThi();
 		kithi1.setId("03");
 		kithi1.setLop(cl2);
@@ -152,7 +156,9 @@ public class Demo {
 		kithi1.setDate(new Date(2024 - 1900, 8, 20));
 		kithi1.setMota("Dia");
 		kithi1.setSl(12);
-
+		kithi1.setSocauDe(3);
+		kithi1.setSocaukho(3);
+		kithi1.setSocautb(12-3-3);
 		KiThi kithi2 = new KiThi();
 		kithi2.setId("04");
 		kithi2.setLop(cl2);
@@ -162,19 +168,18 @@ public class Demo {
 		kithi2.setDate(new Date(2024 - 1900, 6, 20));
 		kithi2.setMota("SU");
 		kithi2.setSl(12);
-
-		DeThi dt1 = new DeThi("01", kithi2);
-		DeThi dt2 = new DeThi("02", kithi1);
-		DeThi dt3 = new DeThi("03", kithi2);
-		DeThi dt4 = new DeThi("04", kithi1);
+		kithi2.setSocauDe(3);
+		kithi2.setSocaukho(3);
+		kithi2.setSocautb(4);
+	
 		Nganhangcauhoi nh = new Nganhangcauhoi();
 		nh.setIdNganHang("Li");
 		nh.setGiaovienquanli(gv2);
 		Nganhangcauhoi nh1 = new Nganhangcauhoi();
 		nh1.setIdNganHang("su");
 		nh1.setGiaovienquanli(gv1);
-		nhdao.insert(nh1);
-		nhdao.insert(nh);
+ 		nhdao.insert(nh1);
+ 		nhdao.insert(nh);
 		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 2, "Paris", nh1);
         Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain", 1, "William Shakespeare", nh);
         Cauhoi q3 = new Cauhoi("q3", "What is the chemical symbol for water?", "H2O", "CO2", "O2", "NaCl", 1, "H2O", nh);
@@ -186,30 +191,23 @@ public class Demo {
         Cauhoi q9 = new Cauhoi("q9", "What is the currency of Japan?", "Yen", "Euro", "Dollar", "Pound", 1, "Yen", nh1);
         Cauhoi q10 = new Cauhoi("q10", "Who is the author of 'To Kill a Mockingbird'?", "Harper Lee", "J.K. Rowling", "Stephen King", "Ernest Hemingway", 1, "Harper Lee", nh1);
 
-		CHdao.insert(q10);
-		CHdao.insert(q1);
-		CHdao.insert(q2);
-		CHdao.insert(q3);
-		CHdao.insert(q4);
-		CHdao.insert(q5);
-		CHdao.insert(q6);
-		CHdao.insert(q7);
-		CHdao.insert(q8);
-		CHdao.insert(q9);
-		DeThi dethi1 = new DeThi();
-		dethi1.addCauhoi(q10);
-		dethi1.addCauhoi(q2);
-		dethi1.addCauhoi(q3);
-		dethi1.setId("05");
-		dethi1.setKithi(kithi2);
-
+ 		CHdao.insert(q10);
+ 		CHdao.insert(q1);
+ 		CHdao.insert(q2);
+ 		CHdao.insert(q3);
+ 		CHdao.insert(q4);
+ 		CHdao.insert(q5);
+ 		CHdao.insert(q6);
+ 		CHdao.insert(q7);
+ 		CHdao.insert(q8);
+ 		CHdao.insert(q9);
+		
 		kithi.setNganhangcauhoi(nh1);
 		kithi1.setNganhangcauhoi(nh1);
 		kithi2.setNganhangcauhoi(nh);
-		kt.insert(kithi2);
-		kt.insert(kithi1);
-		kt.insert(kithi);
-		dt.insert(dethi1);
+ 		kt.insert(kithi2);
+ 		kt.insert(kithi1);
+ 		kt.insert(kithi);
 
 		 Cauhoi[] danhSachCauHoi = new Cauhoi[10];
 
@@ -224,19 +222,14 @@ public class Demo {
 	        danhSachCauHoi[8] = new Cauhoi("9", "Câu hỏi số 9", "A", "B", "C", "D", 3, "A",nh);
 	        danhSachCauHoi[9] = new Cauhoi("10", "Câu hỏi số 10", "A", "B", "C", "D", 1, "B",nh);
 
-	for (Cauhoi i : danhSachCauHoi) {
-			Cauhoi_Dao.Instance().insert(i);
-		}
-		
-		DeThi dethimoi  = new DeThi();
-		dethimoi.setId("01");
-		dethimoi.setMota("GIUA KI");
-		dethimoi.setKithi(kithi2);
-		dt.Xaydungdethi(2, 3, 4, dethimoi);
-		for(Cauhoi i : dethimoi.getList())
-		{
-			System.out.println(i);
-		}
+ 	for (Cauhoi i : danhSachCauHoi) {
+ 			Cauhoi_Dao.Instance().insert(i);
+ 		}
+ 	BaiLam bailam1 = new BaiLam();
+ 	bailam1.setSv(sv2);
+	bailam1.setKiThi(kithi2);
+	bailam1.createbailam();
+	BaiLam_dao.Instance().insert(bailam1);
 			
 	}	
 }

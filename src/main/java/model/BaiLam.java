@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -13,20 +14,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import DAO.DeThi_dao;
+
 @Entity
 public class BaiLam{
 	@Id 
 	private String maBailam;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "Sv")
-	private Sv sv;
-	//private Map<Cauhoi, Integer> CautraloiCuaSV;
+	private Sv sv;	
+	
 	private double diem;
 	private Time thoigianbatdau;
 	private Time thoigianketthuc;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@OneToOne(cascade = CascadeType.ALL)
 	private DeThi dethi;
-	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	private KiThi kithi;
 	public String getMaBailam() {
 		return maBailam;
 	}
@@ -39,12 +43,8 @@ public class BaiLam{
 	public void setSv(Sv sv) {
 		this.sv = sv;
 	}
-
-	/*
-	 * public Map<Cauhoi, Integer> getCautraloiCuaSV() { return CautraloiCuaSV; }
-	 * public void setCautraloiCuaSV(Map<Cauhoi, Integer> cautraloiCuaSV) {
-	 * CautraloiCuaSV = cautraloiCuaSV; }
-	 */
+	
+	
 	public double getDiem() {
 		return diem;
 	}
@@ -69,6 +69,12 @@ public class BaiLam{
 	public void setDethi(DeThi dethi) {
 		this.dethi = dethi;
 	}
+	public KiThi getKiThi() {
+		return kithi;
+	}
+	public void setKiThi(KiThi kiThi) {
+		this.kithi = kiThi;
+	}
 	/**
 	 * @param maBailam
 	 * @param sv
@@ -77,24 +83,26 @@ public class BaiLam{
 	 * @param thoigianbatdau
 	 * @param thoigianketthuc
 	 * @param dethi
+	 * @param kiThi
 	 */
-	public BaiLam(String maBailam, Sv sv,  double diem, Time thoigianbatdau,
-			Time thoigianketthuc, DeThi dethi) {
-		super();
-		this.maBailam = maBailam;
-		this.sv = sv;
-		//CautraloiCuaSV = cautraloiCuaSV;
-		this.diem = diem;
-		this.thoigianbatdau = thoigianbatdau;
-		this.thoigianketthuc = thoigianketthuc;
-		this.dethi = dethi;
-	}
+	
 	/**
 	 * 
 	 */
 	public BaiLam() {
 		super();
+		
+		
 		// TODO Auto-generated constructor stub
 	}
-
+	public void createbailam()
+	{
+		
+		this.maBailam = this.sv.getId()+this.kithi.getId();
+		this.dethi = new DeThi(maBailam, kithi );
+		this.dethi.setMota("HIHI");
+		dethi.addlistcauhoi(DeThi_dao.Instance().Xaydungdethi(kithi));
+		
+		
+	}
 }

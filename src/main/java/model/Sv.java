@@ -19,7 +19,7 @@ public class Sv extends Account{
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "lop")
 	private Class idclass; 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sv")
 	private List<BaiLam> list;
 	public Sv() {
 		super();

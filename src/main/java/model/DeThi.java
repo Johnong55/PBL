@@ -11,6 +11,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -23,14 +24,9 @@ public class DeThi {
 	private String mota;
 	@OneToMany(mappedBy = "deThi",cascade = CascadeType.ALL)
 	private List<Cauhoi_DeThi> list;
-	@OneToMany(mappedBy = "dethi",cascade = CascadeType.ALL)
-	private List<BaiLam> bailam;
-	public List<BaiLam> getBailam() {
-		return bailam;
-	}
-	public void setBailam(List<BaiLam> bailam) {
-		this.bailam = bailam;
-	}
+	@OneToOne(mappedBy = "dethi")
+	private BaiLam bailam;
+	
 	public String getId() {
 		return id;
 	}
@@ -48,7 +44,8 @@ public class DeThi {
 	 * @param kithi
 	 */
 	public DeThi(String id, KiThi kithi) {
-		super();
+		
+		 List<Cauhoi> cauhoi =  new ArrayList<Cauhoi>();
 		this.id = id;
 		this.kithi = kithi;
 		
@@ -82,13 +79,24 @@ public class DeThi {
 	{
 		this.list.add(new Cauhoi_DeThi(t, this));
 	}
+	public void addlistcauhoi(List<Cauhoi> t)
+	{
+		this.list = new ArrayList<Cauhoi_DeThi>();
+		for(Cauhoi i : t)
+		{
+			this.list.add(new Cauhoi_DeThi(i, this));
+		}
+	}
 	@Override
 	public String toString() {
 		return "DeThi [id=" + id + ", kithi=" + kithi + ", mota=" + mota + ", list=" + list + "]";
 	}
-	public void addBailam(BaiLam t)
-	{
-		this.bailam.add(t);
+	public BaiLam getBailam() {
+		return bailam;
 	}
+	public void setBailam(BaiLam bailam) {
+		this.bailam = bailam;
+	}
+	
 	
 }
