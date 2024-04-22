@@ -25,6 +25,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
@@ -38,18 +41,33 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
 import model.Gv;
+import model.Giangday;
+import DAO.Class_dao;
+import model.Sv;
+import model.Class;
 
 public class ViewTeacher extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public static JPanel pView;
-	MyButton btnNewButton1,btnNewButton,btnNewButton3,btnNewButton2,btnNewButton4;
+	MyButton btnNewButton1,btnNewButton,btnNewButton3,btnNewButton2,btnNewButton4,ViewStudent,ViewTest;
 	private JTable table;
 	public Gv g;
+	public List<Giangday> danhsachlop;
+	public List<Sv> listSV;
+	public Class_dao ClassDao = new Class_dao();
 	
 	public ViewTeacher(Gv gv) {
 		this.g = gv;
+		danhsachlop = g.getDanhsachlop();
+		
+		for (Giangday giangday : danhsachlop) {
+			listSV = ClassDao.selectSVinclass(giangday.getMalop());
+			System.out.println(listSV.size());
+			System.out.println(giangday.getMalop().getTenlop());
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
 		ViewMenu();
@@ -239,7 +257,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		pView.add(panel_2);
 		
-		JLabel lblNewLabel = new JLabel("Hi cậu =)) ");
+		JLabel lblNewLabel = new JLabel("Hi, " + g.getTen());
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 0,(int) size.getWidth()+1,(int) size.getHeight()+1);
@@ -330,7 +348,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.add(btnNewButton_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 89, 695, 561);
+		scrollPane.setBounds(0, 89, 715, 668);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		
 		pView.add(scrollPane);
@@ -345,8 +363,136 @@ public class ViewTeacher extends JFrame implements ActionListener {
 				"Name class", "Students"
 			}
 		));
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		for (Giangday giangday : danhsachlop) {
+			listSV = ClassDao.selectSVinclass(giangday.getMalop());
+			Object[] row = {giangday.getMalop().getTenlop(),listSV.size()};
+			model.addRow(row);
+		}
+		
+        table.setModel(model);
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            	int i = table.getSelectedRow();
+            	String m = table.getValueAt(i, 0).toString();
+            	
+            	for (Giangday giangday : danhsachlop) {
+					if(m == giangday.getMalop().getTenlop()) {
+						ViewClassDetails(giangday.getMalop());
+					}
+				}
+            }
+        });
+		
 		scrollPane.setViewportView(table);
 	}
+	
+	public void ViewClassDetails(Class c) {
+		
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();	 
+		
+		JLabel lblNewLabel = new JLabel("CLASSES");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Dimension size = lblNewLabel.getPreferredSize();
+		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
+		
+		pView.add(lblNewLabel);
+		
+		ViewStudent = new MyButton("New class");
+		ViewStudent.setText("View students");
+
+		ViewStudent.setForeground(new Color(255, 255, 255));
+		ViewStudent.setFont(new Font("Tahoma", Font.BOLD, 14));
+		ViewStudent.setBounds(150, 250, 160, 80);
+		ViewStudent.setBackground(new Color(50, 185, 185));
+		ViewStudent.setRadius(10);
+		ViewStudent.setColor(new Color(50, 185, 185));
+		ViewStudent.setBorderColor(Color.WHITE);
+		ViewStudent.setColorOver(new Color(100, 241, 241));
+		ViewStudent.setColorClick(new Color(50, 185, 185));
+		
+		pView.add(ViewStudent);
+		
+	    ViewStudent.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	        	
+	        	ViewListSVinClass(c);
+	        	
+	            System.out.println("Button View students clicked!");
+	        }
+	    });
+
+		
+		ViewTest = new MyButton("New class");
+		ViewTest.setText("View tests");
+		ViewTest.setRadius(10);
+		ViewTest.setForeground(Color.WHITE);
+		ViewTest.setFont(new Font("Tahoma", Font.BOLD, 14));
+		ViewTest.setColorOver(new Color(100, 241, 241));
+		ViewTest.setColorClick(new Color(50, 185, 185));
+		ViewTest.setColor(new Color(50, 185, 185));
+		ViewTest.setBorderColor(Color.WHITE);
+		ViewTest.setBackground(new Color(50, 185, 185));
+		ViewTest.setBounds(385, 250, 160, 80);
+		pView.add(ViewTest);
+		
+	    ViewTest.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Thực hiện xử lý khi nút được kick
+	            // Ví dụ: mở giao diện để xem danh sách các bài kiểm tra
+	            System.out.println("Button View tests clicked!");
+	        }
+	    });
+	}
+	
+	public void ViewListSVinClass(Class c) {
+		
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+		
+		JLabel lblNewLabel = new JLabel("CLASSES");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Dimension size = lblNewLabel.getPreferredSize();
+		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
+		
+		pView.add(lblNewLabel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBounds(0, 41, 715, 620);
+		pView.add(scrollPane);
+		
+		table = new JTable();
+		table.getTableHeader().setBackground(Color.WHITE);
+		table.setBorder(null);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Name", "GPA", "Passed/Total"
+			}
+		));
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		List<Sv> temp = ClassDao.selectSVinclass(c);
+	    for (Sv sv : temp) { 
+	    	Object[] row = {sv.getTen(),"",""};
+	    	model.addRow(row);
+	    	
+			/*
+			 * System.out.println(sv.getTen()); System.out.println(sv.getIdSv());
+			 * System.out.println(sv.getIdclass());
+			 */
+	    }
+		scrollPane.setViewportView(table);
+	}
+	
 	public void ViewResult() {
 		pView.removeAll();
 		pView.repaint();
@@ -360,10 +506,12 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 41, 714, 620);
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBounds(0, 41, 715, 620);
 		pView.add(scrollPane);
 		
 		table = new JTable();
+		table.getTableHeader().setBackground(Color.WHITE);
 		table.setBorder(null);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -467,7 +615,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnNewButton1) {
-			ViewClass();
+			ViewClass();			
 		}else if(e.getSource() == btnNewButton ) {
 			ViewHome();
 		}else if(e.getSource()==btnNewButton2) {
