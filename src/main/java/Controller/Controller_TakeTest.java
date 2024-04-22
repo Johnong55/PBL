@@ -9,8 +9,11 @@ import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 
+import View.CompleteTest;
+import View.GoingTest;
 import View.MyButton;
 import View.RadioButtonCustom;
 import View.ViewTakeTest;
@@ -86,7 +89,20 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 			vt.vitriCauhoi--;
 			setViewCauhoi(vt.vitriCauhoi);
 			checkXem(vt.vitriCauhoi+ 1, vt.vitriCauhoi);
-		} else 
+		} 
+		else if(e.getSource() == vt.btnExit) {
+			 int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thay đổi mật khẩu không?", "Xác nhận thay đổi mật khẩu", JOptionPane.YES_NO_OPTION);
+		        
+		        if (choice == JOptionPane.YES_OPTION) {
+		            // Xử lý khi người dùng chọn "Yes"
+		        	CompleteTest frame = new CompleteTest(vt.v,vt.ktOngoing);
+					frame.setVisible(true);
+		        	vt.dispose();
+		        }
+			
+			
+			
+		}else 
 			
 		for(int i = 0 ; i < 3;i++) {
 			if(e.getSource() == vt.listBtnCauhoi.get(i)) {
@@ -95,6 +111,7 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 				vt.vitriCauhoi = i;
 			}
 		}
+		
 		int dem = 0;
 		for(int i =  0 ; i< vt.checkAnswer.length;i++) {
 			if(vt.checkAnswer[i] != "0") 

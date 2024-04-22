@@ -31,6 +31,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -238,10 +239,12 @@ public class ViewTakeTest extends JFrame {
 		btnDapAn_D.setFont(new Font("Calibri", Font.BOLD, 20));
 		group.add(btnDapAn_D);
 
-		JLabel labelDiem = new JLabel("3 điểm");
+		double socau1 = listCauhoi.size();
+		socau1 = 10/socau1;
+		JLabel labelDiem = new JLabel( String.format("%.3f", socau1) + " điểm");
 		labelDiem.setForeground(Green);
 		labelDiem.setFont(new Font("Calibri", Font.BOLD, 22));
-		labelDiem.setBounds(720, 15, 91, 28);
+		labelDiem.setBounds(702, 15, 107, 28);
 		panel_1.add(labelDiem);
 
 		PanelRound panel_1_1 = new PanelRound();
@@ -251,6 +254,7 @@ public class ViewTakeTest extends JFrame {
 		panel_1_1.setLayout(null);
 
 		btnExit = new MyButton("New button");
+		btnExit.setColorClick(new Color(149, 159, 253));
 		btnExit.addActionListener(cl);
 		btnExit.setText("Lưu và thoát");
 		btnExit.setBounds(93, 590, 204, 43);
@@ -269,9 +273,13 @@ public class ViewTakeTest extends JFrame {
 		panel_3.setForeground(new Color(255, 255, 255));
 		panel_3.setBackground(new Color(255, 255, 255));
 		panel_3.setLayout(new FlowLayout(FlowLayout.LEFT, 26, 24));
-		/*
-		 * panel_3.setPreferredSize(new Dimension(359, 324)); //(48 + 40 ) * n + 30;
-		 */ panel_3.setBorder(null);
+		
+		int socau = listCauhoi.size()  % 5; 
+		if(socau != 0) socau = listCauhoi.size() / 5 + 1; else socau = listCauhoi.size() / 5;
+		
+		panel_3.setPreferredSize(new Dimension(359, (48 + 40) * socau + 30)); //(48 + 40 ) * n + 30;
+		  
+		panel_3.setBorder(null);
 
 		scrollPane = new JScrollPane(panel_3);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
