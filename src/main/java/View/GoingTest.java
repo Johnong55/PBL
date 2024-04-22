@@ -32,7 +32,8 @@ public class GoingTest extends JFrame {
 	public Sv v ; public KiThi  ktOngoing;
 	public GoingTest(Sv sv, KiThi onl) {
 		this.v = sv;
-		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
+		this.ktOngoing = onl;
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 150, 1000, 700);
 		GoingTest1();

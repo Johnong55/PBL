@@ -122,10 +122,10 @@ public class ViewTakeTest extends JFrame {
 	 	bailam1.setSv(this.v);
 		bailam1.setKiThi(onl);
 		bailam1.createbailam();
-		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
+		this.ktOngoing = onl;
 		this.dethi = bailam1.getDethi();
-		listCauhoi = DeThi_dao.Instance().Hienthicauhoi(dethi);
-		for(int i = 1 ; i <= 3;i++) {
+		listCauhoi = this.dethi.getList();/* DeThi_dao.Instance().Hienthicauhoi(dethi); */
+		for(int i = 1 ; i <= listCauhoi.size();i++) {
 			listBtnCauhoi.add(new MyButton(String.valueOf(i))); setMau(1, listBtnCauhoi.get(i-1));
 			panel_3.add(listBtnCauhoi.get(i - 1));
 			listBtnCauhoi.get(i-1).addActionListener(cl);

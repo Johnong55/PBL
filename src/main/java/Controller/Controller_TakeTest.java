@@ -106,7 +106,7 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 			
 		}else 
 			
-		for(int i = 0 ; i < 3;i++) {
+		for(int i = 0 ; i < vt.listCauhoi.size();i++) {
 			if(e.getSource() == vt.listBtnCauhoi.get(i)) {
 				setViewCauhoi(i);
 				checkXem(vt.vitriCauhoi,i);

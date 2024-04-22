@@ -18,6 +18,7 @@ import model.Account;
 import model.Class;
 import model.Gv;
 import model.KiThi;
+import model.Nganhangcauhoi;
 import model.Sv;
 import model.truonghoc;
 import util.HibernateUtil;
@@ -38,7 +39,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 			Connection con = JDBCUtil.getConnection();
 			String sql = "select kithi.* from kithi \r\n"
 					+ "INNER JOIN sv ON sv.lop = kithi.lop\r\n"
-					+ " WHERE ( (kithi.date > ? ) OR ( kithi.date = ?  and kithi.thoigianbatdau < ?)) and sv.id = ?\r\n"
+					+ " WHERE ( (kithi.date > ? ) OR ( kithi.date = ?  and kithi.thoigianbatdau > ?)) and sv.id = ?\r\n"
 					+ "order by date,thoigianbatdau limit 1;";
 			PreparedStatement a;
 			LocalTime time =  LocalTime.now();
@@ -109,6 +110,9 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				int tg = kq.getInt("thoigianlambai");
 				int sl = kq.getInt("sl");
 				Date date = kq.getDate("date");
+				String nganhang = kq.getString("nganhangcauhoi");
+				
+				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
 				Gv_dao gvdao = new Gv_dao();
 				Class lop1 = new Class();
@@ -120,7 +124,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 		
-				k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl);
+				k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
 				return k;
 			}
 			con.close();

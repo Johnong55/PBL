@@ -16,6 +16,7 @@ import org.hibernate.Transaction;
 import model.Class;
 import model.Gv;
 import model.KiThi;
+import model.Nganhangcauhoi;
 import model.Sv;
 import util.HibernateUtil;
 import util.JDBCUtil;
@@ -137,6 +138,9 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				int tg = kq.getInt("thoigianlambai");
 				int sl = kq.getInt("sl");
 				Date date = kq.getDate("date");
+				String nganhang = kq.getString("nganhangcauhoi");
+				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
+
 				Class_dao c = new Class_dao();
 				Gv_dao gvdao = new Gv_dao();
 				Class lop1 = new Class();
@@ -148,7 +152,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 		
-				KiThi kt = new KiThi(id, Lresult,startTime, tg, mota, date, gv, sl);
+				KiThi kt = new KiThi(id, Lresult,startTime, tg, mota, date, gv, sl,dataNganHang);
 				
 				return kt;
 			}
