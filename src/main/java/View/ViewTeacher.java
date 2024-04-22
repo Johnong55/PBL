@@ -45,6 +45,7 @@ import model.Giangday;
 import DAO.Class_dao;
 import model.Sv;
 import model.Class;
+import Controller.Controller_Teacher;
 
 public class ViewTeacher extends JFrame implements ActionListener {
 
@@ -57,17 +58,10 @@ public class ViewTeacher extends JFrame implements ActionListener {
 	public List<Giangday> danhsachlop;
 	public List<Sv> listSV;
 	public Class_dao ClassDao = new Class_dao();
+	public Controller_Teacher controlGV = new Controller_Teacher();
 	
 	public ViewTeacher(Gv gv) {
 		this.g = gv;
-		danhsachlop = g.getDanhsachlop();
-		
-		for (Giangday giangday : danhsachlop) {
-			listSV = ClassDao.selectSVinclass(giangday.getMalop());
-			System.out.println(listSV.size());
-			System.out.println(giangday.getMalop().getTenlop());
-		}
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
 		ViewMenu();
@@ -362,27 +356,16 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			new String[] {
 				"Name class", "Students"
 			}
-		));
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for (Giangday giangday : danhsachlop) {
-			listSV = ClassDao.selectSVinclass(giangday.getMalop());
-			Object[] row = {giangday.getMalop().getTenlop(),listSV.size()};
-			model.addRow(row);
-		}
+		));		
 		
-        table.setModel(model);
+        table.setModel(controlGV.getModelClasses(g, table));
 
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
             	int i = table.getSelectedRow();
             	String m = table.getValueAt(i, 0).toString();
-            	
-            	for (Giangday giangday : danhsachlop) {
-					if(m == giangday.getMalop().getTenlop()) {
-						ViewClassDetails(giangday.getMalop());
-					}
-				}
+            	ViewClassDetails(controlGV.getClassbyName(m, g));
             }
         });
 		
@@ -419,11 +402,8 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 	    ViewStudent.addActionListener(new ActionListener() {
 	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	        	
+	        public void actionPerformed(ActionEvent e) {	
 	        	ViewListSVinClass(c);
-	        	
-	            System.out.println("Button View students clicked!");
 	        }
 	    });
 
@@ -441,12 +421,12 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		ViewTest.setBounds(385, 250, 160, 80);
 		pView.add(ViewTest);
 		
+		// chua xu li nut view tests
+		
 	    ViewTest.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            // Thực hiện xử lý khi nút được kick
-	            // Ví dụ: mở giao diện để xem danh sách các bài kiểm tra
-	            System.out.println("Button View tests clicked!");
+	            // Thực hiện xử lý khi nút được kick view tests
 	        }
 	    });
 	}
@@ -479,16 +459,15 @@ public class ViewTeacher extends JFrame implements ActionListener {
 				"Name", "GPA", "Passed/Total"
 			}
 		));
+		
+		
+		// chua xu li controler
+		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		List<Sv> temp = ClassDao.selectSVinclass(c);
 	    for (Sv sv : temp) { 
 	    	Object[] row = {sv.getTen(),"",""};
 	    	model.addRow(row);
-	    	
-			/*
-			 * System.out.println(sv.getTen()); System.out.println(sv.getIdSv());
-			 * System.out.println(sv.getIdclass());
-			 */
 	    }
 		scrollPane.setViewportView(table);
 	}
