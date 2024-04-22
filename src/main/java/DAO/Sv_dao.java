@@ -36,19 +36,19 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		KiThi k = new KiThi(null,null,null,0,null,null,null,0);
 		try {
 			Connection con = JDBCUtil.getConnection();
-			String sql = "select kithi.* from kithi "
-					+ "INNER JOIN class on kithi.lop = class.idclass "
-					+ "INNER JOIN sv ON sv.lop = class.idclass "
-					+ "  where date >= ? and thoigianbatdau >= ? and sv.id = ? "
-					+ "order by date,thoigianbatdau limit 1;" ;
+			String sql = "select kithi.* from kithi \r\n"
+					+ "INNER JOIN sv ON sv.lop = kithi.lop\r\n"
+					+ " WHERE ( (kithi.date > ? ) OR ( kithi.date = ?  and kithi.thoigianbatdau < ?)) and sv.id = ?\r\n"
+					+ "order by date,thoigianbatdau limit 1;";
 			PreparedStatement a;
 			LocalTime time =  LocalTime.now();
 	        long currentTimeMillis = System.currentTimeMillis();
 			Date d = new  Date(currentTimeMillis);
 			a = con.prepareStatement(sql);
 			a.setString(1, d.toString());
-			a.setString(2, time.toString());
-			a.setString(3, t.getId());
+			a.setString(2,d.toString() );
+			a.setString(3, time.toString());
+			a.setString(4, t.getId());
 			ResultSet kq = a.executeQuery();
 			while (kq.next()) {
 				String id = kq.getString("id");
@@ -85,8 +85,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		try {
 			Connection con = JDBCUtil.getConnection();
 			String sql = "select kithi.* from kithi "
-					+ "INNER JOIN class on kithi.lop = class.idclass "
-					+ "INNER JOIN sv ON sv.lop = class.idclass "
+					+ "INNER JOIN sv ON sv.lop =kithi.lop "
 					+ "  where date = ? and thoigianbatdau <= ?"
 					+" and ADDTIME(thoigianbatdau , SEC_TO_TIME(thoigianlambai * 60)) >= ?"
 					+ " and sv.id = ? "

@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import Controller.Controller_TakeTest;
 import DAO.DeThi_dao;
 import DAO.Sv_dao;
+import model.BaiLam;
 import model.Cauhoi;
 import model.DeThi;
 import model.KiThi;
@@ -67,7 +68,7 @@ public class ViewTakeTest extends JFrame {
 	Color BgBlack = new Color(227, 227, 227);
 	Color Purple = new Color(249, 87, 139);
 	Color BgPurple = new Color(253, 219, 230);
-	public JTextArea Cauhoi;
+	public JTextArea Cauhoi;public BaiLam bailam1;
 
 	public PanelRound panel_1;
 	public MyButton btnCau1, btnExit, btnNext, mbtnCuTrc,btnTL,btnCTL,btnCX;
@@ -117,8 +118,12 @@ public class ViewTakeTest extends JFrame {
 	public ViewTakeTest(Sv sv, KiThi onl) {
 		
 		this.v = sv;
+		bailam1 = new BaiLam();
+	 	bailam1.setSv(this.v);
+		bailam1.setKiThi(onl);
+		bailam1.createbailam();
 		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
-		this.dethi = DeThi_dao.Instance().getDethi();
+		this.dethi = bailam1.getDethi();
 		listCauhoi = DeThi_dao.Instance().Hienthicauhoi(dethi);
 		for(int i = 1 ; i <= 3;i++) {
 			listBtnCauhoi.add(new MyButton(String.valueOf(i))); setMau(1, listBtnCauhoi.get(i-1));
@@ -135,6 +140,9 @@ public class ViewTakeTest extends JFrame {
 		dapanC = listCauhoi.get(0).getDapAnC();
 		dapanD = listCauhoi.get(0).getDapAnD();
 		dapan = listCauhoi.get(0).getDapan();
+		
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 100, 1299, 858);
 		ViewTakeTest1();
