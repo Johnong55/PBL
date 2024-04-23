@@ -30,7 +30,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.PrinterGraphics;
+import java.sql.Time;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -45,8 +48,10 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
 import model.Gv;
+import model.KiThi;
 import model.Giangday;
 import DAO.Class_dao;
+import DAO.KiThi_dao;
 import model.Sv;
 import model.Class;
 import Controller.Controller_Teacher;
@@ -62,6 +67,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 	public Gv g;
 	public Class_dao ClassDao = new Class_dao();
 	public Controller_Teacher controlGV = new Controller_Teacher();
+	public KiThi_dao kthi = new KiThi_dao();
 	
 	public ViewTeacher(Gv gv) {
 		this.g = gv;
@@ -765,12 +771,12 @@ public class ViewTeacher extends JFrame implements ActionListener {
         MaskFormatter dateformatter = null;
         MaskFormatter timeformatter = null;
         try {
-            dateformatter = new MaskFormatter(" ##/##/#### ");
+            dateformatter = new MaskFormatter(" ####/##/## ");
         } catch (ParseException e) {
             e.printStackTrace();
         }
         try {
-            timeformatter = new MaskFormatter(" ##:## ");
+            timeformatter = new MaskFormatter(" ##:##:## ");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -807,12 +813,34 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				String tenlop = comboBox.getSelectedItem().toString();
+				String mota = comboBox_1.getSelectedItem().toString();
 				int total = Integer.parseInt(textField_2.getText());
 				int easy = Integer.parseInt(textField_1.getText());
 				int medium = Integer.parseInt(textField.getText());
 				int hard = Integer.parseInt(textField_3.getText());
-				
+				int duringtime = Integer.parseInt(textField_4.getText());
+				String date = dateField.getText();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+				java.sql.Date datE = null;
+		        try {
+		        	java.util.Date utilDate = dateFormat.parse(date);
+		            datE = new java.sql.Date(utilDate.getTime());
+		        } catch (ParseException k) {
+		            k.printStackTrace();
+		        }
+		        String time = timeField.getText();
+		        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+		        java.sql.Time timE = null;
+		        try {
+		        	Date utilDate = timeFormat.parse(time);
+		        	timE = new java.sql.Time(utilDate.getTime());
+		        } catch (ParseException l) {
+		            l.printStackTrace();
+		        }
+		        String m = time.replace(":", "");
+		        KiThi kt = new KiThi(m,controlGV.getClassbyNameClass(tenlop, g),timE,duringtime,mota,datE,g,total,hard,easy,medium,controlGV.getNganhangcauhoibyName(mota));    
+		        kthi.insert(kt);
 			}
 		});
 		

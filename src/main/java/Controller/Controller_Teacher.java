@@ -98,6 +98,15 @@ public class Controller_Teacher {
 		}
 		return tenmon;
 	}
+	public Nganhangcauhoi getNganhangcauhoibyName(String name) {
+		NganHangCauHoi = nganhangDAO.selectall();
+		for (Nganhangcauhoi nganhangcauhoi2 : NganHangCauHoi) {
+			if(name.equalsIgnoreCase(nganhangcauhoi2.getIdNganHang())) {
+				return nganhangcauhoi2;
+			}
+		}
+		return null;
+	}
 }
 
 
