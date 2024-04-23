@@ -12,6 +12,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 
+import DAO.BaiLam_dao;
 import View.CompleteTest;
 import View.GoingTest;
 import View.MyButton;
@@ -91,9 +92,10 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 			checkXem(vt.vitriCauhoi+ 1, vt.vitriCauhoi);
 		} 
 		else if(e.getSource() == vt.btnExit) {
-			 int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thay đổi mật khẩu không?", "Xác nhận thay đổi mật khẩu", JOptionPane.YES_NO_OPTION);
+			 int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc kết thúc bài làm ?", "Xác nhận kết thúc ", JOptionPane.YES_NO_OPTION);
 		        
 		        if (choice == JOptionPane.YES_OPTION) {
+		        	BaiLam_dao.Instance().insert(vt.bailam1);
 		            // Xử lý khi người dùng chọn "Yes"
 		        	CompleteTest frame = new CompleteTest(vt.v,vt.ktOngoing);
 					frame.setVisible(true);
