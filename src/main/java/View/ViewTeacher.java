@@ -16,9 +16,11 @@ import java.awt.Dimension;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import javax.swing.text.View;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Image;
@@ -27,6 +29,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.PrinterGraphics;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -53,10 +57,9 @@ public class ViewTeacher extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	public static JPanel pView;
 	MyButton btnNewButton1,btnNewButton,btnNewButton3,btnNewButton2,btnNewButton4,ViewStudent,ViewTest;
+	private JPlaceholderTextField textField,textField_1,textField_2,textField_3,textField_4;
 	private JTable table;
 	public Gv g;
-	public List<Giangday> danhsachlop;
-	public List<Sv> listSV;
 	public Class_dao ClassDao = new Class_dao();
 	public Controller_Teacher controlGV = new Controller_Teacher();
 	
@@ -170,7 +173,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton4.setBorderColor(new Color(50, 185, 185));
 		btnNewButton4.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-add-new-20.png"))));
-		btnNewButton3.addActionListener(this);
+		btnNewButton4.addActionListener(this);
 		panel.add(btnNewButton4);
 	}
 
@@ -365,7 +368,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
             	int i = table.getSelectedRow();
             	String m = table.getValueAt(i, 0).toString();
-            	ViewClassDetails(controlGV.getClassbyName(m, g));
+            	ViewClassDetails(controlGV.getClassbyNameClass(m, g));
             }
         });
 		
@@ -520,7 +523,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		lblNewLabel_1.setBounds(10, 60, (int) size_1.getWidth()+1 , (int) size_1.getHeight()+1);
 		pView.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Student ID:");
+		JLabel lblNewLabel_2 = new JLabel("Teacher ID:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Dimension size_2 = lblNewLabel_1.getPreferredSize();
 		lblNewLabel_2.setBounds(10, 100, (int) size_2.getWidth()+1 , (int) size_2.getHeight()+1);
@@ -571,23 +574,249 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton_1_1_1.setBounds(524, 220, 150, 30);
 		pView.add(btnNewButton_1_1_1);
 		
-		JLabel lblNewLabel_4 = new JLabel("XXX");
+		JLabel lblNewLabel_4 = new JLabel(g.getId());
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Dimension size_4 = lblNewLabel_4.getPreferredSize();
 		lblNewLabel_4.setBounds(130, 100, (int) size_4.getWidth()+1 , (int) size_4.getHeight()+1);
 		pView.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_4_1 = new JLabel("Mr.XYZ");
+		JLabel lblNewLabel_4_1 = new JLabel(g.getTen());
 		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Dimension size_4_1 = lblNewLabel_4_1.getPreferredSize();
 		lblNewLabel_4_1.setBounds(130, 140, (int) size_4_1.getWidth()+1 , (int) size_4_1.getHeight()+1);
 		pView.add(lblNewLabel_4_1);
 		
-		JLabel lblNewLabel_4_2 = new JLabel("XXXXXXXX");
+		JLabel lblNewLabel_4_2 = new JLabel("bí mật");
 		lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Dimension size_4_2 = lblNewLabel_4_2.getPreferredSize();
 		lblNewLabel_4_2.setBounds(130, 180, (int) size_4_2.getWidth()+1 , (int) size_4_2.getHeight()+1);
 		pView.add(lblNewLabel_4_2);
+		
+		
+	}
+	public void ViewCreateNew() {
+		
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+		
+		JLabel lblNewLabel = new JLabel("CREATE NEW");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Dimension size = lblNewLabel.getPreferredSize();
+		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
+		
+		pView.add(lblNewLabel);
+		
+		MyButton NewQuestion = new MyButton("New question");
+		NewQuestion.setForeground(new Color(255, 255, 255));
+		NewQuestion.setFont(new Font("Tahoma", Font.BOLD, 14));
+		NewQuestion.setBounds(150, 250, 160, 80);
+		NewQuestion.setBackground(new Color(50, 185, 185));
+		NewQuestion.setRadius(10);
+		NewQuestion.setColor(new Color(50, 185, 185));
+		NewQuestion.setBorderColor(Color.WHITE);
+		NewQuestion.setColorOver(new Color(100, 241, 241));
+		NewQuestion.setColorClick(new Color(50, 185, 185));
+		
+		pView.add(NewQuestion);
+		
+		MyButton NewExam = new MyButton("New exam");
+		NewExam.setRadius(10);
+		NewExam.setForeground(Color.WHITE);
+		NewExam.setFont(new Font("Tahoma", Font.BOLD, 14));
+		NewExam.setColorOver(new Color(100, 241, 241));
+		NewExam.setColorClick(new Color(50, 185, 185));
+		NewExam.setColor(new Color(50, 185, 185));
+		NewExam.setBorderColor(Color.WHITE);
+		NewExam.setBackground(new Color(50, 185, 185));
+		NewExam.setBounds(385, 250, 160, 80);
+		
+		pView.add(NewExam);
+		
+		NewExam.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				ViewCreateExam();
+			}
+		});
+	}
+	public void ViewCreateExam() {
+		
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+		
+		JLabel lblNewLabel = new JLabel("CREATE EXAM");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel.setBounds(10, 10, 150 , 20);
+		
+		pView.add(lblNewLabel);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(10, 41, 694, 609);
+		panel_3.setBackground(Color.white);
+		pView.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Class : ");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(10, 30, 50 , 18);
+		
+		panel_3.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Subject :");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1.setBounds(339, 30, 60 , 18);
+		panel_3.add(lblNewLabel_1_1);
+		
+		
+		JComboBox<String> comboBox = new JComboBox<>(controlGV.getTenLop(g));
+		comboBox.setBackground(new Color(255, 255, 255));
+		comboBox.setBounds(60, 30, 102, 22);
+		panel_3.add(comboBox);
+		
+		JComboBox<String> comboBox_1 = new JComboBox<>(controlGV.getTenMon());
+		comboBox_1.setBackground(new Color(255, 255, 255));
+		comboBox_1.setBounds(402, 30, 102, 22);
+		panel_3.add(comboBox_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("Number of questions :");
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2.setBounds(10, 90, 137 , 18);
+		panel_3.add(lblNewLabel_1_2);
+		
+		JLabel lblNewLabel_1_2_1 = new JLabel("Number of easy questions :");
+		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_1.setBounds(10, 150, 169, 18);
+		panel_3.add(lblNewLabel_1_2_1);
+		
+		JLabel lblNewLabel_1_2_2 = new JLabel("Number of medium questions :");
+		lblNewLabel_1_2_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_2.setBounds(10, 210, 190, 18);
+		panel_3.add(lblNewLabel_1_2_2);
+		
+		JLabel lblNewLabel_1_2_3 = new JLabel("Number of hard questions :");
+		lblNewLabel_1_2_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3.setBounds(10, 270, 169, 18);
+		panel_3.add(lblNewLabel_1_2_3);
+		
+		JLabel lblNewLabel_1_2_3_1 = new JLabel("Exm day :");
+		lblNewLabel_1_2_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3_1.setBounds(10, 330, 70, 18);
+		panel_3.add(lblNewLabel_1_2_3_1);
+		
+		JLabel lblNewLabel_1_2_3_2 = new JLabel("Starting time :");
+		lblNewLabel_1_2_3_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3_2.setBounds(10, 390, 88, 18);
+		panel_3.add(lblNewLabel_1_2_3_2);
+		
+		JLabel lblNewLabel_1_2_3_3 = new JLabel("Exam duration :");
+		lblNewLabel_1_2_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3_3.setBounds(10, 450, 100, 18);
+		panel_3.add(lblNewLabel_1_2_3_3);
+		
+		textField = new JPlaceholderTextField("");
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setBounds(210, 206, 100, 30);
+		textField.setBorder(null);
+		textField.setGradientColors(new Color(50,185,185), Color.white);
+		textField.setCornerRadius(20);
+		panel_3.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JPlaceholderTextField("");
+		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_1.setColumns(10);
+		textField_1.setBounds(210, 146, 100, 30);
+		textField_1.setBorder(null);
+		textField_1.setGradientColors(new Color(50,185,185), Color.white);
+		textField_1.setCornerRadius(20);
+		panel_3.add(textField_1);
+		
+		textField_2 = new JPlaceholderTextField("");
+		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_2.setColumns(10);
+		textField_2.setBorder(null);
+		textField_2.setGradientColors(new Color(50,185,185), Color.white);
+		textField_2.setCornerRadius(20);
+		textField_2.setBounds(210, 86, 100, 30);
+		panel_3.add(textField_2);
+		
+		textField_3 = new JPlaceholderTextField("");
+		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_3.setColumns(10);
+		textField_3.setBounds(210, 266, 100, 30);
+		textField_3.setBorder(null);
+		textField_3.setGradientColors(new Color(50,185,185), Color.white);
+		textField_3.setCornerRadius(20);
+		panel_3.add(textField_3);
+		
+		textField_4 = new JPlaceholderTextField("");
+		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_4.setColumns(10);
+		textField_4.setBounds(210, 446, 100, 30);
+		textField_4.setBorder(null);
+		textField_4.setGradientColors(new Color(50,185,185), Color.white);
+		textField_4.setCornerRadius(20);
+		panel_3.add(textField_4);
+		
+        MaskFormatter dateformatter = null;
+        MaskFormatter timeformatter = null;
+        try {
+            dateformatter = new MaskFormatter(" ##/##/#### ");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            timeformatter = new MaskFormatter(" ##:## ");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        PlaceholderFormattedTextField dateField = new PlaceholderFormattedTextField(dateformatter);
+        dateField.setHorizontalAlignment(SwingConstants.CENTER);
+        dateField.setColumns(10);
+        dateField.setBounds(210, 326, 100, 30);
+        dateField.setBorder(null);
+        dateField.setGradientColors(new Color(50,185,185), Color.white);
+        dateField.setCornerRadius(20);
+        PlaceholderFormattedTextField timeField = new PlaceholderFormattedTextField(timeformatter);
+        timeField.setHorizontalAlignment(SwingConstants.CENTER);
+        timeField.setColumns(10);
+        timeField.setBounds(210, 386, 100, 30);
+        timeField.setBorder(null);
+        timeField.setGradientColors(new Color(50,185,185), Color.white);
+		timeField.setCornerRadius(20);
+        panel_3.add(dateField);
+		panel_3.add(timeField);
+		
+		MyButton btnNewButton_1_1 = new MyButton("Create");
+		btnNewButton_1_1.setRadius(10);
+		btnNewButton_1_1.setForeground(Color.WHITE);
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
+		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
+		btnNewButton_1_1.setColor(new Color(50, 185, 185));
+		btnNewButton_1_1.setBorderColor(Color.WHITE);
+		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
+		btnNewButton_1_1.setBounds(520, 530, 150, 30);
+		
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				int total = Integer.parseInt(textField_2.getText());
+				int easy = Integer.parseInt(textField_1.getText());
+				int medium = Integer.parseInt(textField.getText());
+				int hard = Integer.parseInt(textField_3.getText());
+				
+			}
+		});
+		
+		panel_3.add(btnNewButton_1_1);
 	}
 
 
@@ -601,7 +830,8 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			ViewResult();
 		}else if(e.getSource()==btnNewButton3) {
 			ViewProfile();
-		}
-		
+		}else if(e.getSource()==btnNewButton4) {
+			ViewCreateNew();
+		}	
 	}
 }
