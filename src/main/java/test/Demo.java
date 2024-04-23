@@ -26,6 +26,7 @@ import DAO.truonghoc_dao;
 import model.Account;
 import model.BaiLam;
 import model.Cauhoi;
+import model.Cautraloisinhvien;
 import model.Class;
 import model.DeThi;
 import model.Giangday;
@@ -229,6 +230,11 @@ public class Demo {
  	bailam1.setSv(sv2);
 	bailam1.setKiThi(kithi2);
 	bailam1.createbailam();
+	Cautraloisinhvien cautraloi = new Cautraloisinhvien();
+	cautraloi.setBailamsv(bailam1);
+	cautraloi.setCauhoiso(5);
+	cautraloi.setCautraloi("XIN CHAO");
+	bailam1.addCautraloi(cautraloi);
 	BaiLam_dao.Instance().insert(bailam1);
 			
 	}	
