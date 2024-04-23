@@ -9,11 +9,12 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Cautraloisinhvien {
 	@Id
-	private String id;
+	private String id ;
 	private int cauhoiso;
 	private String cautraloi;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "bailam")
 	private BaiLam bailamsv ;
 
 	public String getId() {
@@ -30,7 +31,7 @@ public class Cautraloisinhvien {
 
 	public void setCauhoiso(int cauhoiso) {
 		this.cauhoiso = cauhoiso;
-		this.id   =  bailamsv.getMaBailam()+cauhoiso;
+
 	}
 
 	public String getCautraloi() {
@@ -57,7 +58,7 @@ public class Cautraloisinhvien {
 	 */
 	public Cautraloisinhvien(String id, int cauhoiso, String cautraloi, BaiLam bailamsv) {
 		super();
-		this.id = id;
+		this.id = bailamsv.getMaBailam() + cauhoiso;
 		this.cauhoiso = cauhoiso;
 		this.cautraloi = cautraloi;
 		this.bailamsv = bailamsv;

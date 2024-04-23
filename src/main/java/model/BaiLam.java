@@ -31,7 +31,7 @@ public class BaiLam{
 	private DeThi dethi;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private KiThi kithi;
-	@OneToMany( mappedBy = "bailamsv",cascade = CascadeType.ALL)
+	@OneToMany( mappedBy = "bailamsv",	cascade = CascadeType.ALL)
 	private List<Cautraloisinhvien> cautraloi;
 	
 	public List<Cautraloisinhvien> getCautraloi() {
