@@ -45,6 +45,8 @@ import model.Giangday;
 import DAO.Class_dao;
 import model.Sv;
 import model.Class;
+import DAO.NganhangDao;
+import model.Nganhangcauhoi;
 
 
 public class Controller_Teacher {
@@ -52,6 +54,8 @@ public class Controller_Teacher {
 	public  List<Giangday> dslop;
 	public  List<Sv> listSV;
 	public Class_dao ClassDao = new Class_dao();
+	public NganhangDao nganhangDAO = new NganhangDao();
+	public List<Nganhangcauhoi> NganHangCauHoi;
 	
 	public List<Giangday> getClasses(Gv g) {
 		return g.getDanhsachlop();
@@ -67,7 +71,7 @@ public class Controller_Teacher {
 		}
 		return model;
 	}
-	public Class getClassbyName(String m, Gv g) {
+	public Class getClassbyNameClass(String m, Gv g) {
     	for (Giangday giangday : g.getDanhsachlop()) {
 			if(m == giangday.getMalop().getTenlop()) {
 				return giangday.getMalop();
@@ -75,7 +79,25 @@ public class Controller_Teacher {
 		}
     	return null;
 	}
-	
+	public String[] getTenLop(Gv g) {
+		int i = 0;
+		String[] tenlop = new String[g.getDanhsachlop().size()];
+		for (Giangday giangday : g.getDanhsachlop()) {
+			tenlop[i] = giangday.getMalop().getTenlop();
+			i++;
+		}
+		return tenlop;
+	}
+	public String[] getTenMon() {
+		int i = 0;
+		NganHangCauHoi = nganhangDAO.selectall();
+		String[] tenmon = new String[NganHangCauHoi.size()];
+		for (Nganhangcauhoi cauhoi : NganHangCauHoi) {
+			tenmon[i] = cauhoi.getIdNganHang();
+			i++;
+		}
+		return tenmon;
+	}
 }
 
 
