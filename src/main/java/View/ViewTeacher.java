@@ -71,6 +71,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 	
 	public ViewTeacher(Gv gv) {
 		this.g = gv;
+		System.out.println(g);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
 		ViewMenu();
@@ -708,7 +709,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		lblNewLabel_1_2_3.setBounds(10, 270, 169, 18);
 		panel_3.add(lblNewLabel_1_2_3);
 		
-		JLabel lblNewLabel_1_2_3_1 = new JLabel("Exm day :");
+		JLabel lblNewLabel_1_2_3_1 = new JLabel("Exam day :");
 		lblNewLabel_1_2_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_1.setBounds(10, 330, 70, 18);
 		panel_3.add(lblNewLabel_1_2_3_1);
@@ -798,6 +799,29 @@ public class ViewTeacher extends JFrame implements ActionListener {
         panel_3.add(dateField);
 		panel_3.add(timeField);
 		
+		JLabel lblNewLabel_1_2_3_3_1 = new JLabel("Describe :");
+		lblNewLabel_1_2_3_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3_3_1.setBounds(10, 510, 100, 18);
+		panel_3.add(lblNewLabel_1_2_3_3_1);
+		
+		JPlaceholderTextField textField_4_1 = new JPlaceholderTextField("");
+		textField_4_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_4_1.setCornerRadius(20);
+		textField_4_1.setColumns(10);
+		textField_4_1.setBorder(null);
+		textField_4_1.setBounds(210, 511, 100, 30);
+		panel_3.add(textField_4_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("( VD: 2004/04/07)");
+		lblNewLabel_2.setForeground(new Color(192, 192, 192));
+		lblNewLabel_2.setBounds(320, 334, 102, 14);
+		panel_3.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("( VD: 09:00:00)");
+		lblNewLabel_2_1.setForeground(Color.LIGHT_GRAY);
+		lblNewLabel_2_1.setBounds(320, 394, 102, 14);
+		panel_3.add(lblNewLabel_2_1);
+		
 		MyButton btnNewButton_1_1 = new MyButton("Create");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(Color.WHITE);
@@ -814,7 +838,8 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String tenlop = comboBox.getSelectedItem().toString();
-				String mota = comboBox_1.getSelectedItem().toString();
+				String tenmon = comboBox_1.getSelectedItem().toString();
+				String mota = textField_4_1.getText();
 				int total = Integer.parseInt(textField_2.getText());
 				int easy = Integer.parseInt(textField_1.getText());
 				int medium = Integer.parseInt(textField.getText());
@@ -839,7 +864,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		            l.printStackTrace();
 		        }
 		        String m = time.replace(":", "");
-		        KiThi kt = new KiThi(m,controlGV.getClassbyNameClass(tenlop, g),timE,duringtime,mota,datE,g,total,hard,easy,medium,controlGV.getNganhangcauhoibyName(mota));    
+		        KiThi kt = new KiThi(m,controlGV.getClassbyNameClass(tenlop, g),timE,duringtime,mota,datE,g,total,hard,easy,medium,controlGV.getNganhangcauhoibyName(tenmon));    
 		        kthi.insert(kt);
 			}
 		});
