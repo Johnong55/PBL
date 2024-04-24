@@ -102,7 +102,6 @@ public class BaiLam{
 		this.dethi = new DeThi(maBailam, kithi );
 		this.dethi.setMota("Hoàn thành");
 		dethi.addlistcauhoi(DeThi_dao.Instance().Xaydungdethi(kithi));
-		
-		
+	
 	}
 }

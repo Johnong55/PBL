@@ -51,6 +51,12 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				int tg = kq.getInt("thoigianlambai");
 				int sl = kq.getInt("sl");
 				Date date = kq.getDate("date");
+				String nganhang = kq.getString("nganhangcauhoi");
+				int socaude = kq.getInt("socauDe");
+				int socaukho = kq.getInt("socaukho");
+				int socautb  = kq.getInt("socautb");
+
+				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
 				Gv_dao gvdao = new Gv_dao();
 				Class lop1 = new Class();
@@ -62,9 +68,12 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 		
-				KiThi kt = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl);
+			KiThi	k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+				k.setSocauDe(socaude);
+				k.setSocaukho(socaukho);
+				k.setSocautb(socautb);
 				
-				result.add(kt);
+				result.add(k);
 			}
 			con.close();
 		} catch (SQLException e) {
@@ -96,6 +105,12 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				int tg = kq.getInt("thoigianlambai");
 				int sl = kq.getInt("sl");
 				Date date = kq.getDate("date");
+				String nganhang = kq.getString("nganhangcauhoi");
+				int socaude = kq.getInt("socauDe");
+				int socaukho = kq.getInt("socaukho");
+				int socautb  = kq.getInt("socautb");
+
+				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
 				Gv_dao gvdao = new Gv_dao();
 				Class lop1 = new Class();
@@ -107,9 +122,13 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 		
-				KiThi kt = new KiThi(id, Lresult,startTime, tg, mota, date, gv, sl);
+				KiThi k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+				k.setSocauDe(socaude);
+				k.setSocaukho(socaukho);
+				k.setSocautb(socautb);
 				
-				return kt;
+				
+				return k;
 			}
 			con.close();
 		} catch (SQLException e) {
@@ -139,8 +158,11 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				int sl = kq.getInt("sl");
 				Date date = kq.getDate("date");
 				String nganhang = kq.getString("nganhangcauhoi");
-				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
+				int socaude = kq.getInt("socauDe");
+				int socaukho = kq.getInt("socaukho");
+				int socautb  = kq.getInt("socautb");
 
+				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
 				Gv_dao gvdao = new Gv_dao();
 				Class lop1 = new Class();
@@ -152,9 +174,11 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 		
-				KiThi kt = new KiThi(id, Lresult,startTime, tg, mota, date, gv, sl,dataNganHang);
-				
-				return kt;
+				KiThi k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+				k.setSocauDe(socaude);
+				k.setSocaukho(socaukho);
+				k.setSocautb(socautb);
+				return k;
 			}
 			con.close();
 		} catch (SQLException e) {

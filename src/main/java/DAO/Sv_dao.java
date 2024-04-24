@@ -111,7 +111,10 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				int sl = kq.getInt("sl");
 				Date date = kq.getDate("date");
 				String nganhang = kq.getString("nganhangcauhoi");
-				
+				int socaude = kq.getInt("socauDe");
+				int socaukho = kq.getInt("socaukho");
+				int socautb  = kq.getInt("socautb");
+
 				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
 				Gv_dao gvdao = new Gv_dao();
@@ -125,6 +128,10 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				Lresult = c.selectbyid(lop1);
 		
 				k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+				k.setSocauDe(socaude);
+				k.setSocaukho(socaukho);
+				k.setSocautb(socautb);
+				
 				return k;
 			}
 			con.close();

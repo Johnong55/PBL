@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.Controller_TakeTest;
+import DAO.BaiLam_dao;
 import DAO.DeThi_dao;
 import DAO.Sv_dao;
 import model.BaiLam;
@@ -120,11 +121,16 @@ public class ViewTakeTest extends JFrame {
 		this.v = sv;
 		bailam1 = new BaiLam();
 	 	bailam1.setSv(this.v);
+	 	System.out.println(this.v);
 		bailam1.setKiThi(onl);
+		System.out.println(onl);
 		bailam1.createbailam();
+		System.out.println(bailam1.getDethi());
 		this.ktOngoing = onl;
+		
 		this.dethi = bailam1.getDethi();
-		listCauhoi = this.dethi.getList();/* DeThi_dao.Instance().Hienthicauhoi(dethi); */
+		listCauhoi  = this.dethi.getList() ;/* DeThi_dao.Instance().Hienthicauhoi(dethi); */
+		System.out.println(listCauhoi.isEmpty());
 		for(int i = 1 ; i <= listCauhoi.size();i++) {
 			listBtnCauhoi.add(new MyButton(String.valueOf(i))); setMau(1, listBtnCauhoi.get(i-1));
 			panel_3.add(listBtnCauhoi.get(i - 1));
