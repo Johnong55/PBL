@@ -159,7 +159,7 @@ public class Demo {
 		kithi1.setSl(12);
 		kithi1.setSocauDe(3);
 		kithi1.setSocaukho(3);
-		kithi1.setSocautb(12-3-3);
+		kithi1.setSocautb(12-3-3);	
 		KiThi kithi2 = new KiThi();
 		kithi2.setId("04");
 		kithi2.setLop(cl2);
@@ -236,6 +236,6 @@ public class Demo {
 	cautraloi.setCautraloi("XIN CHAO");
 	bailam1.addCautraloi(cautraloi);
 	BaiLam_dao.Instance().insert(bailam1);
-			
+
 	}	
 }

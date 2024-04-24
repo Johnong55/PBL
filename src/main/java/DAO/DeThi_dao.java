@@ -115,7 +115,7 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 	}
 
 	/*
-	 * public DeThi getDethi() { DeThi a; String id= "" , mota,kithi=""; try {
+	 * public DeThi getDethi() { DeThi a; String id= "" , mota,kit hi=""; try {
 	 * Connection con = JDBCUtil.getConnection(); String sql =
 	 * "select * from dethi " + "inner join kithi on dethi.kithi = kithi.id " +
 	 * "order by RAND() LIMIT 1;"; Statement st = con.createStatement(); ResultSet

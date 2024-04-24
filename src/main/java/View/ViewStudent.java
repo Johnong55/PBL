@@ -54,7 +54,7 @@ public class ViewStudent extends JFrame {
 		this.v = sv;
 		this.ktsoon = Sv_dao.Instance().findKithiSoon(v);
 		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
-//		System.out.println(kt.getDate());
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
 		ViewStudent1();

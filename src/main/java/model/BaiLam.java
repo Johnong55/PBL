@@ -109,11 +109,17 @@ public class BaiLam{
 		
 		this.maBailam = this.sv.getId()+this.kithi.getId();
 		this.dethi = new DeThi(maBailam, kithi );
+<<<<<<< HEAD
+		this.dethi.setMota("Hoàn thành");
+		dethi.addlistcauhoi(DeThi_dao.Instance().Xaydungdethi(kithi));
+	
+=======
 		this.dethi.setMota("HIHI");
 		dethi.addlistcauhoi(DeThi_dao.Instance().Xaydungdethi(kithi));	
 	}
 	public void addCautraloi(Cautraloisinhvien cautraloi)
 	{
 		this.cautraloi.add(cautraloi);
+>>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
 	}
 }
