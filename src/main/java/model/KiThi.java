@@ -38,7 +38,7 @@ public class KiThi {
 	private List<DeThi> listdethi;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "nganhangcauhoi")
-	private Nganhangcauhoi nganhangcauhoi;
+	private Nganhangcauhoi nganhangcauhoi=null;
 	@OneToMany(mappedBy = "kithi")
 	private List<BaiLam> bailam;
 	
@@ -163,6 +163,22 @@ public class KiThi {
 	 * @param gv
 	 * @param sl
 	 */
+	public KiThi(String id, Class lop,Time thoigianbatdau , int thoigianlambai, String mota, Date date, Gv gv, int sl, int kho, int de, int tb,Nganhangcauhoi nganhangcauhoi ) {
+		super();
+		this.id = id;
+		this.lop = lop;
+		this.thoigianbatdau = thoigianbatdau;
+		this.thoigianlambai = thoigianlambai;
+		this.mota = mota;
+		this.date = date;
+		this.gv = gv;
+		this.sl = sl;
+		this.socaukho = kho;
+		this.socauDe = de;
+		this.socautb = tb;
+		this.nganhangcauhoi = nganhangcauhoi;
+	}
+	
 	public KiThi(String id, Class lop,Time thoigianbatdau , int thoigianlambai, String mota, Date date, Gv gv, int sl) {
 		super();
 		this.id = id;

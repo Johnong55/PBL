@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,6 @@ public class BaiLam{
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "Sv")
 	private Sv sv;	
-	
 	private double diem;
 	private Time thoigianbatdau;
 	private Time thoigianketthuc;
@@ -31,6 +31,15 @@ public class BaiLam{
 	private DeThi dethi;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private KiThi kithi;
+	@OneToMany( mappedBy = "bailamsv",	cascade = CascadeType.ALL)
+	private List<Cautraloisinhvien> cautraloi;
+	
+	public List<Cautraloisinhvien> getCautraloi() {
+		return cautraloi;
+	}
+	public void setCautraloi(List<Cautraloisinhvien> cautraloi) {
+		this.cautraloi = cautraloi;
+	}
 	public String getMaBailam() {
 		return maBailam;
 	}
@@ -91,7 +100,7 @@ public class BaiLam{
 	 */
 	public BaiLam() {
 		super();
-		
+		this.cautraloi= new ArrayList<Cautraloisinhvien>();
 		
 		// TODO Auto-generated constructor stub
 	}
@@ -100,8 +109,17 @@ public class BaiLam{
 		
 		this.maBailam = this.sv.getId()+this.kithi.getId();
 		this.dethi = new DeThi(maBailam, kithi );
+<<<<<<< HEAD
 		this.dethi.setMota("Hoàn thành");
 		dethi.addlistcauhoi(DeThi_dao.Instance().Xaydungdethi(kithi));
 	
+=======
+		this.dethi.setMota("HIHI");
+		dethi.addlistcauhoi(DeThi_dao.Instance().Xaydungdethi(kithi));	
+	}
+	public void addCautraloi(Cautraloisinhvien cautraloi)
+	{
+		this.cautraloi.add(cautraloi);
+>>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
 	}
 }
