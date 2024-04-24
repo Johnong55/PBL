@@ -138,7 +138,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton1.addActionListener(this);
 		panel.add(btnNewButton1);
 
-		btnNewButton2 = new MyButton("Results");
+		btnNewButton2 = new MyButton("Exam");
 		btnNewButton2.setForeground(new Color(255, 255, 255));
 		btnNewButton2.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton2.setHorizontalAlignment(SwingConstants.LEFT);
@@ -239,7 +239,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		lblNewLabel_1.setBounds(10, 11, 55, 14);
 		panel_2.add(lblNewLabel_1);
 
-		MyButton btnNewButton_1 = new MyButton("Create test");
+		MyButton btnNewButton_1 = new MyButton("Create exam");
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_1.setBounds(37, 200, 181, 40);
@@ -250,6 +250,14 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton_1.setColorOver(new Color(100, 241, 241));
 		btnNewButton_1.setColorClick(new Color(50, 185, 185));
 		panel_2.add(btnNewButton_1);
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ViewCreateExam();
+			}
+		});
 
 		JLabel lblNewLabel_3 = new JLabel();
 		lblNewLabel_3.setBounds(10, 36, 235, 153);
@@ -375,71 +383,59 @@ public class ViewTeacher extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
             	int i = table.getSelectedRow();
             	String m = table.getValueAt(i, 0).toString();
-            	ViewClassDetails(controlGV.getClassbyNameClass(m, g));
+            	ViewListSVinClass(controlGV.getClassbyNameClass(m, g));
+     //       	ViewClassDetails(controlGV.getClassbyNameClass(m, g));
             }
         });
 		
 		scrollPane.setViewportView(table);
 	}
 	
-	public void ViewClassDetails(Class c) {
-		
-		pView.removeAll();
-		pView.repaint();
-		pView.revalidate();	 
-		
-		JLabel lblNewLabel = new JLabel("CLASSES");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		Dimension size = lblNewLabel.getPreferredSize();
-		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
-		
-		pView.add(lblNewLabel);
-		
-		ViewStudent = new MyButton("New class");
-		ViewStudent.setText("View students");
-
-		ViewStudent.setForeground(new Color(255, 255, 255));
-		ViewStudent.setFont(new Font("Tahoma", Font.BOLD, 14));
-		ViewStudent.setBounds(150, 250, 160, 80);
-		ViewStudent.setBackground(new Color(50, 185, 185));
-		ViewStudent.setRadius(10);
-		ViewStudent.setColor(new Color(50, 185, 185));
-		ViewStudent.setBorderColor(Color.WHITE);
-		ViewStudent.setColorOver(new Color(100, 241, 241));
-		ViewStudent.setColorClick(new Color(50, 185, 185));
-		
-		pView.add(ViewStudent);
-		
-	    ViewStudent.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {	
-	        	ViewListSVinClass(c);
-	        }
-	    });
-
-		
-		ViewTest = new MyButton("New class");
-		ViewTest.setText("View tests");
-		ViewTest.setRadius(10);
-		ViewTest.setForeground(Color.WHITE);
-		ViewTest.setFont(new Font("Tahoma", Font.BOLD, 14));
-		ViewTest.setColorOver(new Color(100, 241, 241));
-		ViewTest.setColorClick(new Color(50, 185, 185));
-		ViewTest.setColor(new Color(50, 185, 185));
-		ViewTest.setBorderColor(Color.WHITE);
-		ViewTest.setBackground(new Color(50, 185, 185));
-		ViewTest.setBounds(385, 250, 160, 80);
-		pView.add(ViewTest);
-		
-		// chua xu li nut view tests
-		
-	    ViewTest.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            // Thực hiện xử lý khi nút được kick view tests
-	        }
-	    });
-	}
+	/*
+	 * public void ViewClassDetails(Class c) {
+	 * 
+	 * pView.removeAll(); pView.repaint(); pView.revalidate();
+	 * 
+	 * JLabel lblNewLabel = new JLabel("CLASSES"); lblNewLabel.setFont(new
+	 * Font("Tahoma", Font.BOLD, 15)); Dimension size =
+	 * lblNewLabel.getPreferredSize(); lblNewLabel.setBounds(10, 10, (int)
+	 * size.getWidth()+1 , (int) size.getHeight()+1);
+	 * 
+	 * pView.add(lblNewLabel);
+	 * 
+	 * ViewStudent = new MyButton("New class");
+	 * ViewStudent.setText("View students");
+	 * 
+	 * ViewStudent.setForeground(new Color(255, 255, 255)); ViewStudent.setFont(new
+	 * Font("Tahoma", Font.BOLD, 14)); ViewStudent.setBounds(150, 250, 160, 80);
+	 * ViewStudent.setBackground(new Color(50, 185, 185));
+	 * ViewStudent.setRadius(10); ViewStudent.setColor(new Color(50, 185, 185));
+	 * ViewStudent.setBorderColor(Color.WHITE); ViewStudent.setColorOver(new
+	 * Color(100, 241, 241)); ViewStudent.setColorClick(new Color(50, 185, 185));
+	 * 
+	 * pView.add(ViewStudent);
+	 * 
+	 * ViewStudent.addActionListener(new ActionListener() {
+	 * 
+	 * @Override public void actionPerformed(ActionEvent e) { ViewListSVinClass(c);
+	 * } });
+	 * 
+	 * 
+	 * ViewTest = new MyButton("New class"); ViewTest.setText("View tests");
+	 * ViewTest.setRadius(10); ViewTest.setForeground(Color.WHITE);
+	 * ViewTest.setFont(new Font("Tahoma", Font.BOLD, 14));
+	 * ViewTest.setColorOver(new Color(100, 241, 241)); ViewTest.setColorClick(new
+	 * Color(50, 185, 185)); ViewTest.setColor(new Color(50, 185, 185));
+	 * ViewTest.setBorderColor(Color.WHITE); ViewTest.setBackground(new Color(50,
+	 * 185, 185)); ViewTest.setBounds(385, 250, 160, 80); pView.add(ViewTest);
+	 * 
+	 * // chua xu li nut view tests
+	 * 
+	 * ViewTest.addActionListener(new ActionListener() {
+	 * 
+	 * @Override public void actionPerformed(ActionEvent e) { // Thực hiện xử lý khi
+	 * nút được kick view tests } }); }
+	 */
 	
 	public void ViewListSVinClass(Class c) {
 		
@@ -506,9 +502,10 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			new Object[][] {
 			},
 			new String[] {
-				"Name exam", "Exam day", "Students attended", "Starting time"
+					"Subject", "Name exam", "Exam day", "Starting time", "Exam duration", "Number of questions"
 			}
 		));
+		table.setModel(controlGV.getModelExam(g, table));
 		scrollPane.setViewportView(table);
 	}
 	

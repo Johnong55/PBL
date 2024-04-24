@@ -81,7 +81,7 @@ public class KiThi {
 	 * @param listdethi
 	 * @param nganhangcauhoi
 	 */
-	public KiThi(String id, Class lop,Time thoigianbatdau, int thoigianlambai, String mota, Date date, Gv gv, int sl, List<DeThi> listdethi,
+	public KiThi(String id, Class lop,Time thoigianbatdau, int thoigianlambai, String mota, Date date, Gv gv, int sl, 
 			Nganhangcauhoi nganhangcauhoi) {
 		super();
 		this.id = id;
@@ -92,7 +92,6 @@ public class KiThi {
 		this.date = date;
 		this.gv = gv;
 		this.sl = sl;
-		this.listdethi = listdethi;
 		this.nganhangcauhoi = nganhangcauhoi;
 	}
 	public Time getThoigianbatdau() {
