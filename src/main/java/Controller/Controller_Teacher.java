@@ -80,15 +80,9 @@ public class Controller_Teacher {
 		String idgv = g.getId();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (KiThi k : kthi) {
-	//		System.out.println(idgv);
-		//	System.out.println(k.getGv().getId());
 			if(idgv.equalsIgnoreCase(k.getGv().getId())) {
-				Object[] row = {k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
+				Object[] row = {k.getLop().getTenlop(),k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
 						k.getDate(), k.getThoigianbatdau(), k.getThoigianlambai(), k.getSl()};
-				
-				System.out.println(k.getNganhangcauhoi().getIdNganHang());
-				System.out.println(k.getMota());
-				
 				model.addRow(row);
 			}
 		}
@@ -129,6 +123,18 @@ public class Controller_Teacher {
 			}
 		}
 		return null;
+	}
+	public KiThi getKithibyID(String id) {
+		KiThi k = kt.selectbyid(id);
+		return k;
+	}
+	public int getIndexofArray(String[] arr,String s) {
+        for (int i = 0; i < arr.length; i++) {
+            if (s.equalsIgnoreCase(arr[i])) {
+                return i;
+            }
+        }
+        return -1;
 	}
 }
 

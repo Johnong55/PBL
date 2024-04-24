@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.print.PrinterGraphics;
 import java.sql.Time;
 import java.text.ParseException;
@@ -62,7 +63,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	public static JPanel pView;
 	MyButton btnNewButton1,btnNewButton,btnNewButton3,btnNewButton2,btnNewButton4,ViewStudent,ViewTest;
-	private JPlaceholderTextField textField,textField_1,textField_2,textField_3,textField_4;
+	private JPlaceholderTextField textField,textField_1,textField_2,textField_3,textField_4,textField_4_1;
 	private JTable table;
 	public Gv g;
 	public Class_dao ClassDao = new Class_dao();
@@ -345,20 +346,6 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		pView.add(lblNewLabel);
 		
-		MyButton btnNewButton_1 = new MyButton("New class");
-
-		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1.setBounds(555, 48, 150, 30);
-		btnNewButton_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1.setRadius(10);
-		btnNewButton_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1.setBorderColor(Color.WHITE);
-		btnNewButton_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1.setColorClick(new Color(50, 185, 185));
-		
-		pView.add(btnNewButton_1);
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 89, 715, 668);
 		scrollPane.getViewport().setBackground(Color.WHITE);
@@ -478,12 +465,12 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		scrollPane.setViewportView(table);
 	}
 	
-	public void ViewResult() {
+	public void ViewExam() {
 		pView.removeAll();
 		pView.repaint();
 		pView.revalidate();
 		
-		JLabel lblNewLabel = new JLabel("RESULTS");
+		JLabel lblNewLabel = new JLabel("EXAM");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
@@ -502,11 +489,20 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			new Object[][] {
 			},
 			new String[] {
-					"Subject", "Name exam", "Exam day", "Starting time", "Exam duration", "Number of questions"
+					"Class", "Subject", "Name exam", "Exam day", "Starting time", "Exam duration", "Questions"
 			}
 		));
 		table.setModel(controlGV.getModelExam(g, table));
 		scrollPane.setViewportView(table);
+		
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int i = table.getSelectedRow();
+				String IdKiThi = table.getValueAt(i,1).toString() + table.getValueAt(i,3).toString().replace("-", "") + table.getValueAt(i,0);
+				ViewUpdateExam(controlGV.getKithibyID(IdKiThi));
+				
+			}
+		});
 	}
 	
 	public void ViewProfile() {
@@ -708,7 +704,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		JLabel lblNewLabel_1_2_3_1 = new JLabel("Exam day :");
 		lblNewLabel_1_2_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_2_3_1.setBounds(10, 330, 70, 18);
+		lblNewLabel_1_2_3_1.setBounds(10, 330, 80, 18);
 		panel_3.add(lblNewLabel_1_2_3_1);
 		
 		JLabel lblNewLabel_1_2_3_2 = new JLabel("Starting time :");
@@ -766,15 +762,24 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField_4.setCornerRadius(20);
 		panel_3.add(textField_4);
 		
+		textField_4_1 = new JPlaceholderTextField("");
+		textField_4_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_4_1.setCornerRadius(20);
+		textField_4_1.setColumns(10);
+		textField_4_1.setBorder(null);
+		textField_4_1.setBounds(210, 511, 100, 30);
+		textField_4_1.setGradientColors(new Color(50,185,185), Color.white);
+		panel_3.add(textField_4_1);
+		
         MaskFormatter dateformatter = null;
         MaskFormatter timeformatter = null;
         try {
-            dateformatter = new MaskFormatter(" ####/##/## ");
+            dateformatter = new MaskFormatter("####-##-##");
         } catch (ParseException e) {
             e.printStackTrace();
         }
         try {
-            timeformatter = new MaskFormatter(" ##:##:## ");
+            timeformatter = new MaskFormatter("##:##:##");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -801,14 +806,6 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		lblNewLabel_1_2_3_3_1.setBounds(10, 510, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3_1);
 		
-		JPlaceholderTextField textField_4_1 = new JPlaceholderTextField("");
-		textField_4_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_4_1.setCornerRadius(20);
-		textField_4_1.setColumns(10);
-		textField_4_1.setBorder(null);
-		textField_4_1.setBounds(210, 511, 100, 30);
-		panel_3.add(textField_4_1);
-		
 		JLabel lblNewLabel_2 = new JLabel("( VD: 2004/04/07)");
 		lblNewLabel_2.setForeground(new Color(192, 192, 192));
 		lblNewLabel_2.setBounds(320, 334, 102, 14);
@@ -828,7 +825,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton_1_1.setColor(new Color(50, 185, 185));
 		btnNewButton_1_1.setBorderColor(Color.WHITE);
 		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1.setBounds(520, 530, 150, 30);
+		btnNewButton_1_1.setBounds(520, 560, 150, 30);
 		
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			
@@ -860,13 +857,294 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		        } catch (ParseException l) {
 		            l.printStackTrace();
 		        }
-		        String m = time.replace(":", "");
+		        String m = tenmon + date.replace("-", "") + tenlop;
 		        KiThi kt = new KiThi(m,controlGV.getClassbyNameClass(tenlop, g),timE,duringtime,mota,datE,g,total,hard,easy,medium,controlGV.getNganhangcauhoibyName(tenmon));    
 		        kthi.insert(kt);
 			}
 		});
 		
 		panel_3.add(btnNewButton_1_1);
+		
+		MyButton btnNewButton_1_1_1 = new MyButton("Cancel");
+		btnNewButton_1_1_1.setRadius(10);
+		btnNewButton_1_1_1.setForeground(new Color(50, 185, 185));
+		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1_1.setColorOver(new Color(207, 231, 231));
+		btnNewButton_1_1_1.setColorClick(Color.WHITE);
+		btnNewButton_1_1_1.setColor(Color.WHITE);
+		btnNewButton_1_1_1.setBorderColor(new Color(50, 185, 185));
+		btnNewButton_1_1_1.setBackground(Color.white);
+		btnNewButton_1_1_1.setBounds(354, 562, 146, 26);
+		
+		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ViewCreateNew();
+				
+			}
+		});
+		
+		panel_3.add(btnNewButton_1_1_1);
+	}
+	
+	public void ViewUpdateExam(KiThi kt) {
+		
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+		
+		JLabel lblNewLabel = new JLabel("UPDATE EXAM");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel.setBounds(10, 10, 150 , 20);
+		
+		pView.add(lblNewLabel);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(10, 41, 694, 609);
+		panel_3.setBackground(Color.white);
+		pView.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Class : ");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(10, 30, 50 , 18);
+		
+		panel_3.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Subject :");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1.setBounds(339, 30, 60 , 18);
+		panel_3.add(lblNewLabel_1_1);
+		
+		
+		JComboBox<String> comboBox = new JComboBox<>(controlGV.getTenLop(g));
+		
+		comboBox.setSelectedIndex(controlGV.getIndexofArray(controlGV.getTenLop(g), kt.getLop().getTenlop()));
+		
+		comboBox.setBackground(new Color(255, 255, 255));
+		comboBox.setBounds(60, 30, 102, 22);
+		panel_3.add(comboBox);
+		
+		JComboBox<String> comboBox_1 = new JComboBox<>(controlGV.getTenMon());
+		comboBox_1.setSelectedIndex(controlGV.getIndexofArray(controlGV.getTenMon(), kt.getNganhangcauhoi().getIdNganHang()));
+		comboBox_1.setBackground(new Color(255, 255, 255));
+		comboBox_1.setBounds(402, 30, 102, 22);
+		panel_3.add(comboBox_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("Number of questions :");
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2.setBounds(10, 90, 137 , 18);
+		panel_3.add(lblNewLabel_1_2);
+		
+		JLabel lblNewLabel_1_2_1 = new JLabel("Number of easy questions :");
+		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_1.setBounds(10, 150, 169, 18);
+		panel_3.add(lblNewLabel_1_2_1);
+		
+		JLabel lblNewLabel_1_2_2 = new JLabel("Number of medium questions :");
+		lblNewLabel_1_2_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_2.setBounds(10, 210, 190, 18);
+		panel_3.add(lblNewLabel_1_2_2);
+		
+		JLabel lblNewLabel_1_2_3 = new JLabel("Number of hard questions :");
+		lblNewLabel_1_2_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3.setBounds(10, 270, 169, 18);
+		panel_3.add(lblNewLabel_1_2_3);
+		
+		JLabel lblNewLabel_1_2_3_1 = new JLabel("Exam day :");
+		lblNewLabel_1_2_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3_1.setBounds(10, 330, 80, 18);
+		panel_3.add(lblNewLabel_1_2_3_1);
+		
+		JLabel lblNewLabel_1_2_3_2 = new JLabel("Starting time :");
+		lblNewLabel_1_2_3_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3_2.setBounds(10, 390, 88, 18);
+		panel_3.add(lblNewLabel_1_2_3_2);
+		
+		JLabel lblNewLabel_1_2_3_3 = new JLabel("Exam duration :");
+		lblNewLabel_1_2_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3_3.setBounds(10, 450, 100, 18);
+		panel_3.add(lblNewLabel_1_2_3_3);
+		
+		textField = new JPlaceholderTextField("");
+		textField.setText(String.valueOf(kt.getSocautb()));
+		textField.setHorizontalAlignment(JPlaceholderTextField.CENTER);
+		textField.setBounds(210, 206, 100, 30);
+		textField.setBorder(null);
+		textField.setGradientColors(new Color(50,185,185), Color.white);
+		textField.setCornerRadius(20);
+		panel_3.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JPlaceholderTextField("");
+		textField_1.setText(String.valueOf(kt.getSocauDe()));
+		textField_1.setHorizontalAlignment(JPlaceholderTextField.CENTER);
+		textField_1.setColumns(10);
+		textField_1.setBounds(210, 146, 100, 30);
+		textField_1.setBorder(null);
+		textField_1.setGradientColors(new Color(50,185,185), Color.white);
+		textField_1.setCornerRadius(20);
+		panel_3.add(textField_1);
+		
+		textField_2 = new JPlaceholderTextField("");
+		textField_2.setText(String.valueOf(kt.getSl()));
+		textField_2.setHorizontalAlignment(JPlaceholderTextField.CENTER);
+		textField_2.setColumns(10);
+		textField_2.setBorder(null);
+		textField_2.setGradientColors(new Color(50,185,185), Color.white);
+		textField_2.setCornerRadius(20);
+		textField_2.setBounds(210, 86, 100, 30);
+		panel_3.add(textField_2);
+		
+		textField_3 = new JPlaceholderTextField("");
+		textField_3.setText(String.valueOf(kt.getSocaukho()));
+		textField_3.setHorizontalAlignment(JPlaceholderTextField.CENTER);
+		textField_3.setColumns(10);
+		textField_3.setBounds(210, 266, 100, 30);
+		textField_3.setBorder(null);
+		textField_3.setGradientColors(new Color(50,185,185), Color.white);
+		textField_3.setCornerRadius(20);
+		panel_3.add(textField_3);
+		
+		textField_4 = new JPlaceholderTextField("");
+		textField_4.setText(String.valueOf(kt.getThoigianlambai()));
+		textField_4.setHorizontalAlignment(JPlaceholderTextField.CENTER);
+		textField_4.setColumns(10);
+		textField_4.setBounds(210, 446, 100, 30);
+		textField_4.setBorder(null);
+		textField_4.setGradientColors(new Color(50,185,185), Color.white);
+		textField_4.setCornerRadius(20);
+		panel_3.add(textField_4);
+		
+        MaskFormatter dateformatter = null;
+        MaskFormatter timeformatter = null;
+        try {
+            dateformatter = new MaskFormatter("####-##-##");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            timeformatter = new MaskFormatter("##:##:##");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        PlaceholderFormattedTextField dateField = new PlaceholderFormattedTextField(dateformatter);
+        dateField.setValue(kt.getDate());
+        System.out.println(kt.getDate());
+        dateField.setHorizontalAlignment(SwingConstants.CENTER);
+        dateField.setColumns(10);
+        dateField.setBounds(210, 326, 100, 30);
+        dateField.setBorder(null);
+        dateField.setGradientColors(new Color(50,185,185), Color.white);
+        dateField.setCornerRadius(20);
+        PlaceholderFormattedTextField timeField = new PlaceholderFormattedTextField(timeformatter);
+        timeField.setValue(kt.getThoigianbatdau());
+        timeField.setHorizontalAlignment(SwingConstants.CENTER);
+        timeField.setColumns(10);
+        timeField.setBounds(210, 386, 100, 30);
+        timeField.setBorder(null);
+        timeField.setGradientColors(new Color(50,185,185), Color.white);
+		timeField.setCornerRadius(20);
+        panel_3.add(dateField);
+		panel_3.add(timeField);
+		
+		JLabel lblNewLabel_1_2_3_3_1 = new JLabel("Describe :");
+		lblNewLabel_1_2_3_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_3_3_1.setBounds(10, 510, 100, 18);
+		panel_3.add(lblNewLabel_1_2_3_3_1);
+		
+		JPlaceholderTextField textField_4_1 = new JPlaceholderTextField("");
+		textField_4_1.setText(kt.getMota());
+		textField_4_1.setHorizontalAlignment(JPlaceholderTextField.CENTER);
+		textField_4_1.setCornerRadius(20);
+		textField_4_1.setColumns(10);
+		textField_4_1.setBorder(null);
+		textField_4_1.setBounds(210, 511, 100, 30);
+		textField_4_1.setGradientColors(new Color(50,185,185), Color.white);
+		panel_3.add(textField_4_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("( VD: 2004/04/07)");
+		lblNewLabel_2.setForeground(new Color(192, 192, 192));
+		lblNewLabel_2.setBounds(320, 334, 102, 14);
+		panel_3.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("( VD: 09:00:00)");
+		lblNewLabel_2_1.setForeground(Color.LIGHT_GRAY);
+		lblNewLabel_2_1.setBounds(320, 394, 102, 14);
+		panel_3.add(lblNewLabel_2_1);
+		
+		MyButton btnNewButton_1_1 = new MyButton("Create");
+		btnNewButton_1_1.setRadius(10);
+		btnNewButton_1_1.setForeground(Color.WHITE);
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
+		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
+		btnNewButton_1_1.setColor(new Color(50, 185, 185));
+		btnNewButton_1_1.setBorderColor(Color.WHITE);
+		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
+		btnNewButton_1_1.setBounds(520, 560, 150, 30);
+		
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String tenlop = comboBox.getSelectedItem().toString();
+				String tenmon = comboBox_1.getSelectedItem().toString();
+				String mota = textField_4_1.getText();
+				int total = Integer.parseInt(textField_2.getText());
+				int easy = Integer.parseInt(textField_1.getText());
+				int medium = Integer.parseInt(textField.getText());
+				int hard = Integer.parseInt(textField_3.getText());
+				int duringtime = Integer.parseInt(textField_4.getText());
+				String date = dateField.getText();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+				java.sql.Date datE = null;
+		        try {
+		        	java.util.Date utilDate = dateFormat.parse(date);
+		            datE = new java.sql.Date(utilDate.getTime());
+		        } catch (ParseException k) {
+		            k.printStackTrace();
+		        }
+		        String time = timeField.getText();
+		        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+		        java.sql.Time timE = null;
+		        try {
+		        	Date utilDate = timeFormat.parse(time);
+		        	timE = new java.sql.Time(utilDate.getTime());
+		        } catch (ParseException l) {
+		            l.printStackTrace();
+		        }
+		        String m = tenmon + date.replace("-", "") + tenlop;
+		        KiThi kt = new KiThi(m,controlGV.getClassbyNameClass(tenlop, g),timE,duringtime,mota,datE,g,total,hard,easy,medium,controlGV.getNganhangcauhoibyName(tenmon));    
+		        kthi.insert(kt);
+			}
+		});
+		
+		panel_3.add(btnNewButton_1_1);
+		
+		MyButton btnNewButton_1_1_1 = new MyButton("Cancel");
+		btnNewButton_1_1_1.setRadius(10);
+		btnNewButton_1_1_1.setForeground(new Color(50, 185, 185));
+		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1_1.setColorOver(new Color(207, 231, 231));
+		btnNewButton_1_1_1.setColorClick(Color.WHITE);
+		btnNewButton_1_1_1.setColor(Color.WHITE);
+		btnNewButton_1_1_1.setBorderColor(new Color(50, 185, 185));
+		btnNewButton_1_1_1.setBackground(Color.white);
+		btnNewButton_1_1_1.setBounds(354, 562, 146, 26);
+		
+		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				ViewExam();
+			}
+		});
+		
+		panel_3.add(btnNewButton_1_1_1);
 	}
 
 
@@ -877,7 +1155,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		}else if(e.getSource() == btnNewButton ) {
 			ViewHome();
 		}else if(e.getSource()==btnNewButton2) {
-			ViewResult();
+			ViewExam();
 		}else if(e.getSource()==btnNewButton3) {
 			ViewProfile();
 		}else if(e.getSource()==btnNewButton4) {
