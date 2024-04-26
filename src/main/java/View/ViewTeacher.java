@@ -562,6 +562,14 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		pView.add(btnNewButton_1_1);
 		
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ViewChangePassword v = new ViewChangePassword();				
+			}
+		});
+		
 		MyButton btnNewButton_1_1_1 = new MyButton("Change image");
 		btnNewButton_1_1_1.setRadius(10);
 		btnNewButton_1_1_1.setForeground(Color.WHITE);
@@ -1075,7 +1083,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		lblNewLabel_2_1.setBounds(320, 394, 102, 14);
 		panel_3.add(lblNewLabel_2_1);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Create");
+		MyButton btnNewButton_1_1 = new MyButton("Update");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -1118,7 +1126,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		        }
 		        String m = tenmon + date.replace("-", "") + tenlop;
 		        KiThi kt = new KiThi(m,controlGV.getClassbyNameClass(tenlop, g),timE,duringtime,mota,datE,g,total,hard,easy,medium,controlGV.getNganhangcauhoibyName(tenmon));    
-		        kthi.insert(kt);
+		        kthi.update(kt);
 			}
 		});
 		

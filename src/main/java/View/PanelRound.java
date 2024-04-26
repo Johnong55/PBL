@@ -60,11 +60,11 @@ public class PanelRound extends JPanel {
 	private int borderWidth = 0;
 	private int radius = 0;
 	private Color background = Color.white;
-	private Color borderColor = Color.black;
+	private Color borderColor = Color.white;
     private Color gradientColorStart = Color.white;
     private Color gradientColorEnd = Color.white;
-    private Color borderGradientColorStart = Color.WHITE;
-    private Color borderGradientColorEnd = Color.WHITE;
+    private Color borderGradientColorStart = Color.black;
+    private Color borderGradientColorEnd = Color.black;
 
     public void setGradientColor(Color startColor, Color endColor) {
         this.gradientColorStart = startColor;
