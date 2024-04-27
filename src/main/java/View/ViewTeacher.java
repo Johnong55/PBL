@@ -4,11 +4,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JInternalFrame;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -196,8 +198,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		// panel chua bieu do
 		PanelRound panel_1 = new PanelRound(15);
-		panel_1.setBackground(new Color(221, 221, 221));
-		panel_1.setBorderColor(getBackground());
+		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBounds(10, 80, 440, 280);
 		panel_1.setBground(Color.WHITE);
 		panel_1.setLayout(null);
@@ -594,7 +595,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		lblNewLabel_4_1.setBounds(130, 140, (int) size_4_1.getWidth()+1 , (int) size_4_1.getHeight()+1);
 		pView.add(lblNewLabel_4_1);
 		
-		JLabel lblNewLabel_4_2 = new JLabel("bí mật");
+		JLabel lblNewLabel_4_2 = new JLabel("********");
 		lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Dimension size_4_2 = lblNewLabel_4_2.getPreferredSize();
 		lblNewLabel_4_2.setBounds(130, 180, (int) size_4_2.getWidth()+1 , (int) size_4_2.getHeight()+1);
@@ -627,6 +628,15 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		NewQuestion.setColorClick(new Color(50, 185, 185));
 		
 		pView.add(NewQuestion);
+		
+		NewQuestion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ViewCreateQuestion();
+				
+			}
+		});
 		
 		MyButton NewExam = new MyButton("New exam");
 		NewExam.setRadius(10);
@@ -1153,6 +1163,162 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		});
 		
 		panel_3.add(btnNewButton_1_1_1);
+	}
+	public void ViewCreateQuestion() {
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+		
+		JLabel lblNewLabel = new JLabel("CREATE QUESTION");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel.setBounds(10, 10, 150 , 20);
+		
+		pView.add(lblNewLabel);
+		
+		PanelRound panel_1 = new PanelRound(50);
+		panel_1.setBorderWidth(1);
+		panel_1.setBorderGradientColor(new Color(50, 185, 185), new Color(50, 185, 185));
+		panel_1.setBounds(10, 41, 694, 550);
+		panel_1.setBground(Color.red);
+		pView.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Subject :");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1.setBounds(30, 30, 60 , 18);
+		panel_1.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("Level :");
+		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1_1.setBounds(370, 30, 60, 18);
+		panel_1.add(lblNewLabel_1_1_1);
+		
+		JComboBox<String> comboBox = new JComboBox<>();
+		comboBox.setBackground(new Color(255, 255, 255));
+		comboBox.setBounds(130, 30, 102, 22);
+		panel_1.add(comboBox);
+		
+		JComboBox<String> comboBox_1 = new JComboBox<>();
+		comboBox_1.setBackground(new Color(255, 255, 255));
+		comboBox_1.setBounds(470, 30, 102, 22);
+		panel_1.add(comboBox_1);
+		
+		JLabel lblNewLabel_1_1_2 = new JLabel("Question :");
+		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1_2.setBounds(30, 110, 75, 18);
+		panel_1.add(lblNewLabel_1_1_2);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(130, 110, 520, 75);
+		panel_1.add(scrollPane);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		scrollPane.setViewportView(textArea);
+		
+		JLabel lblNewLabel_1_1_2_1 = new JLabel("Answer A :");
+		lblNewLabel_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1_2_1.setBounds(30, 210, 75, 18);
+		panel_1.add(lblNewLabel_1_1_2_1);
+		
+		JLabel lblNewLabel_1_1_2_1_1 = new JLabel("Answer B :");
+		lblNewLabel_1_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1_2_1_1.setBounds(30, 290, 75, 18);
+		panel_1.add(lblNewLabel_1_1_2_1_1);
+		
+		JLabel lblNewLabel_1_1_2_1_1_1 = new JLabel("Answer C :");
+		lblNewLabel_1_1_2_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1_2_1_1_1.setBounds(30, 370, 75, 18);
+		panel_1.add(lblNewLabel_1_1_2_1_1_1);
+		
+		JLabel lblNewLabel_1_1_2_1_1_1_1 = new JLabel("Answer D :");
+		lblNewLabel_1_1_2_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1_2_1_1_1_1.setBounds(30, 450, 75, 18);
+		panel_1.add(lblNewLabel_1_1_2_1_1_1_1);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(130, 210, 520, 45);
+		panel_1.add(scrollPane_1);
+		
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setLineWrap(true);
+		textArea_1.setWrapStyleWord(true);
+		scrollPane_1.setViewportView(textArea_1);
+		
+		JScrollPane scrollPane_1_1 = new JScrollPane();
+		scrollPane_1_1.setBounds(130, 290, 520, 45);
+		panel_1.add(scrollPane_1_1);
+		
+		JTextArea textArea_2 = new JTextArea();
+		textArea_2.setLineWrap(true);
+		textArea_2.setWrapStyleWord(true);
+		scrollPane_1_1.setViewportView(textArea_2);
+		
+		JScrollPane scrollPane_1_2 = new JScrollPane();
+		scrollPane_1_2.setBounds(130, 370, 520, 45);
+		panel_1.add(scrollPane_1_2);
+		
+		JTextArea textArea_3 = new JTextArea();
+		textArea_3.setLineWrap(true);
+		textArea_3.setWrapStyleWord(true);
+		scrollPane_1_2.setViewportView(textArea_3);
+		
+		JScrollPane scrollPane_1_3 = new JScrollPane();
+		scrollPane_1_3.setBounds(130, 450, 520, 45);
+		panel_1.add(scrollPane_1_3);
+		
+		JTextArea textArea_4 = new JTextArea();
+		textArea_4.setLineWrap(true);
+		textArea_4.setWrapStyleWord(true);
+		scrollPane_1_3.setViewportView(textArea_4);
+		
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Answer correctly");
+		rdbtnNewRadioButton.setBackground(new Color(255, 255, 255));
+		rdbtnNewRadioButton.setBounds(130, 260, 109, 23);
+		panel_1.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Answer correctly");
+		rdbtnNewRadioButton_1.setBackground(new Color(255, 255, 255));
+		rdbtnNewRadioButton_1.setBounds(130, 342, 109, 23);
+		panel_1.add(rdbtnNewRadioButton_1);
+		
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Answer correctly");
+		rdbtnNewRadioButton_2.setBackground(new Color(255, 255, 255));
+		rdbtnNewRadioButton_2.setBounds(130, 422, 109, 23);
+		panel_1.add(rdbtnNewRadioButton_2);
+		
+		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Answer correctly");
+		rdbtnNewRadioButton_3.setBackground(new Color(255, 255, 255));
+		rdbtnNewRadioButton_3.setBounds(130, 502, 109, 23);
+		panel_1.add(rdbtnNewRadioButton_3);
+		
+		MyButton btnNewButton_1_1 = new MyButton("Save & continue");
+		btnNewButton_1_1.setRadius(10);
+		btnNewButton_1_1.setForeground(Color.WHITE);
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
+		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
+		btnNewButton_1_1.setColor(new Color(50, 185, 185));
+		btnNewButton_1_1.setBorderColor(Color.WHITE);
+		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
+		btnNewButton_1_1.setBounds(554, 607, 150, 30);
+		
+		pView.add(btnNewButton_1_1);
+		
+		MyButton btnNewButton_1_1_1 = new MyButton("Exit");
+		btnNewButton_1_1_1.setRadius(10);
+		btnNewButton_1_1_1.setForeground(new Color(50, 185, 185));
+		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1_1.setColorOver(new Color(207, 231, 231));
+		btnNewButton_1_1_1.setColorClick(Color.WHITE);
+		btnNewButton_1_1_1.setColor(Color.WHITE);
+		btnNewButton_1_1_1.setBorderColor(new Color(50, 185, 185));
+		btnNewButton_1_1_1.setBackground(Color.white);
+		btnNewButton_1_1_1.setBounds(382, 609, 146, 26);
+		
+		pView.add(btnNewButton_1_1_1);
 	}
 
 

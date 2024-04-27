@@ -85,7 +85,7 @@ public class ViewChangePassword extends JFrame {
 		JLabel lblNewLabel_1_1_1 = new JLabel("Change Password");
 		lblNewLabel_1_1_1.setForeground(Color.WHITE);
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1_1.setBounds(30, 230, 115, 14);
+		lblNewLabel_1_1_1.setBounds(30, 230, 115, 18);
 		contentPane.add(lblNewLabel_1_1_1);
 		
 		textField = new JPlaceholderTextField("");
