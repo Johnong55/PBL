@@ -41,8 +41,10 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
 import model.Gv;
+import model.KiThi;
 import model.Giangday;
 import DAO.Class_dao;
+import DAO.KiThi_dao;
 import model.Sv;
 import model.Class;
 import DAO.NganhangDao;
@@ -56,6 +58,8 @@ public class Controller_Teacher {
 	public Class_dao ClassDao = new Class_dao();
 	public NganhangDao nganhangDAO = new NganhangDao();
 	public List<Nganhangcauhoi> NganHangCauHoi;
+	public List<KiThi> kthi;
+	public KiThi_dao kt = new KiThi_dao();
 	
 	public List<Giangday> getClasses(Gv g) {
 		return g.getDanhsachlop();
@@ -68,6 +72,19 @@ public class Controller_Teacher {
 			listSV = ClassDao.selectSVinclass(giangday.getMalop());
 			Object[] row = {giangday.getMalop().getTenlop(),listSV.size()};
 			model.addRow(row);
+		}
+		return model;
+	}
+	public DefaultTableModel getModelExam(Gv g, JTable table) {
+		kthi = kt.selectall();
+		String idgv = g.getId();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		for (KiThi k : kthi) {
+			if(idgv.equalsIgnoreCase(k.getGv().getId())) {
+				Object[] row = {k.getLop().getTenlop(),k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
+						k.getDate(), k.getThoigianbatdau(), k.getThoigianlambai(), k.getSl()};
+				model.addRow(row);
+			}
 		}
 		return model;
 	}
@@ -106,6 +123,18 @@ public class Controller_Teacher {
 			}
 		}
 		return null;
+	}
+	public KiThi getKithibyID(String id) {
+		KiThi k = kt.selectbyid(id);
+		return k;
+	}
+	public int getIndexofArray(String[] arr,String s) {
+        for (int i = 0; i < arr.length; i++) {
+            if (s.equalsIgnoreCase(arr[i])) {
+                return i;
+            }
+        }
+        return -1;
 	}
 }
 

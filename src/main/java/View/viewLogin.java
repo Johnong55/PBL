@@ -25,6 +25,9 @@ import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
@@ -59,6 +62,7 @@ public class viewLogin extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1141, 713);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
