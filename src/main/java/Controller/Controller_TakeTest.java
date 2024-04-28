@@ -95,9 +95,10 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 			 int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc kết thúc bài làm ?", "Xác nhận kết thúc ", JOptionPane.YES_NO_OPTION);
 		        
 		        if (choice == JOptionPane.YES_OPTION) {
-		        	BaiLam_dao.Instance().insert(vt.bailam1);
-		            // Xử lý khi người dùng chọn "Yes"
-		        	CompleteTest frame = new CompleteTest(vt.v,vt.ktOngoing);
+					/*
+					 * BaiLam_dao.Instance().insert(vt.bailam1);
+					 */		            // Xử lý khi người dùng chọn "Yes"
+		        	CompleteTest frame = new CompleteTest(vt.v,vt.ktOngoing,vt.dethi,vt.listCauhoi,vt.checkAnswer);
 					frame.setVisible(true);
 		        	vt.dispose();
 		        }
