@@ -43,9 +43,11 @@ import org.jfree.data.general.PieDataset;
 import model.Gv;
 import model.KiThi;
 import model.Giangday;
+import DAO.Cauhoi_Dao;
 import DAO.Class_dao;
 import DAO.KiThi_dao;
 import model.Sv;
+import model.Cauhoi;
 import model.Class;
 import DAO.NganhangDao;
 import model.Nganhangcauhoi;
@@ -60,6 +62,7 @@ public class Controller_Teacher {
 	public List<Nganhangcauhoi> NganHangCauHoi;
 	public List<KiThi> kthi;
 	public KiThi_dao kt = new KiThi_dao();
+	public Cauhoi_Dao cauhoi = new Cauhoi_Dao();
 	
 	public List<Giangday> getClasses(Gv g) {
 		return g.getDanhsachlop();
@@ -135,6 +138,15 @@ public class Controller_Teacher {
             }
         }
         return -1;
+	}
+	public void InsertExam(KiThi k) {
+		kt.insert(k);
+	}
+	public void UpdateExam(KiThi k) {
+		kt.update(k);
+	}
+	public void InsertCauhoi(Cauhoi c) {
+		cauhoi.insert(c);
 	}
 }
 

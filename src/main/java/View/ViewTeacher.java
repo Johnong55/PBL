@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -20,6 +21,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.View;
+import javax.persistence.Convert;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -38,6 +41,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
@@ -49,6 +53,10 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.dial.DialPointer;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
+import org.jfree.ui.action.ActionButton;
+
+import com.google.protobuf.Message;
+import com.mysql.cj.MessageBuilder;
 
 import model.Gv;
 import model.KiThi;
@@ -56,6 +64,7 @@ import model.Giangday;
 import DAO.Class_dao;
 import DAO.KiThi_dao;
 import model.Sv;
+import model.Cauhoi;
 import model.Class;
 import Controller.Controller_Teacher;
 
@@ -70,7 +79,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 	public Gv g;
 	public Class_dao ClassDao = new Class_dao();
 	public Controller_Teacher controlGV = new Controller_Teacher();
-	public KiThi_dao kthi = new KiThi_dao();
+
 	
 	public ViewTeacher(Gv gv) {
 		this.g = gv;
@@ -858,7 +867,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 				int hard = Integer.parseInt(textField_3.getText());
 				int duringtime = Integer.parseInt(textField_4.getText());
 				String date = dateField.getText();
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				java.sql.Date datE = null;
 		        try {
 		        	java.util.Date utilDate = dateFormat.parse(date);
@@ -877,7 +886,10 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		        }
 		        String m = tenmon + date.replace("-", "") + tenlop;
 		        KiThi kt = new KiThi(m,controlGV.getClassbyNameClass(tenlop, g),timE,duringtime,mota,datE,g,total,hard,easy,medium,controlGV.getNganhangcauhoibyName(tenmon));    
-		        kthi.insert(kt);
+		        
+		  //      System.out.println(datE);
+
+		        controlGV.InsertExam(kt);
 			}
 		});
 		
@@ -1117,7 +1129,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 				int hard = Integer.parseInt(textField_3.getText());
 				int duringtime = Integer.parseInt(textField_4.getText());
 				String date = dateField.getText();
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				java.sql.Date datE = null;
 		        try {
 		        	java.util.Date utilDate = dateFormat.parse(date);
@@ -1136,7 +1148,8 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		        }
 		        String m = tenmon + date.replace("-", "") + tenlop;
 		        KiThi kt = new KiThi(m,controlGV.getClassbyNameClass(tenlop, g),timE,duringtime,mota,datE,g,total,hard,easy,medium,controlGV.getNganhangcauhoibyName(tenmon));    
-		        kthi.update(kt);
+		        		        
+		        controlGV.UpdateExam(kt);
 			}
 		});
 		
@@ -1193,12 +1206,14 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		lblNewLabel_1_1_1.setBounds(370, 30, 60, 18);
 		panel_1.add(lblNewLabel_1_1_1);
 		
-		JComboBox<String> comboBox = new JComboBox<>();
+		JComboBox<String> comboBox = new JComboBox<>(controlGV.getTenMon());
 		comboBox.setBackground(new Color(255, 255, 255));
 		comboBox.setBounds(130, 30, 102, 22);
 		panel_1.add(comboBox);
 		
-		JComboBox<String> comboBox_1 = new JComboBox<>();
+		String[] list = {"1","2","3"};
+		
+		JComboBox<String> comboBox_1 = new JComboBox<>(list);
 		comboBox_1.setBackground(new Color(255, 255, 255));
 		comboBox_1.setBounds(470, 30, 102, 22);
 		panel_1.add(comboBox_1);
@@ -1294,6 +1309,12 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		rdbtnNewRadioButton_3.setBounds(130, 502, 109, 23);
 		panel_1.add(rdbtnNewRadioButton_3);
 		
+		ButtonGroup onechoice = new ButtonGroup();
+		onechoice.add(rdbtnNewRadioButton);
+		onechoice.add(rdbtnNewRadioButton_1);
+		onechoice.add(rdbtnNewRadioButton_2);
+		onechoice.add(rdbtnNewRadioButton_3);
+		
 		MyButton btnNewButton_1_1 = new MyButton("Save & continue");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(Color.WHITE);
@@ -1307,6 +1328,38 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		pView.add(btnNewButton_1_1);
 		
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			                                                                ///// đang làm dở //////////////////////////////////////////
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String question = textArea.getText();
+				String dapanA = textArea_1.getText();
+				String dapanB = textArea_2.getText();
+				String dapanC = textArea_3.getText();
+				String dapanD = textArea_4.getText();
+				String dapanDung=null;
+				String tenMon = comboBox.getSelectedItem().toString();
+				int mucdo = Integer.parseInt(comboBox_1.getSelectedItem().toString());
+				if(rdbtnNewRadioButton.isSelected()) {
+					dapanDung = textArea_1.getText();
+				}else if(rdbtnNewRadioButton_1.isSelected()) {
+					dapanDung = textArea_2.getText();
+				}else if(rdbtnNewRadioButton_2.isSelected()) {
+					dapanDung = textArea_3.getText();
+				}else if(rdbtnNewRadioButton_3.isSelected()) {
+					dapanDung = textArea_4.getText();
+				}else {
+					JOptionPane.showMessageDialog(null, "You must choice a correct answer","Error",JOptionPane.INFORMATION_MESSAGE);
+				}
+				// tạo id bằng phương pháp UUID
+				String id = UUID.randomUUID().toString();
+				
+				Cauhoi c = new Cauhoi(id,question,dapanA,dapanB,dapanC,dapanD,mucdo,dapanDung,controlGV.getNganhangcauhoibyName(tenMon));
+				
+				controlGV.InsertCauhoi(c);
+			}
+		});
+		
 		MyButton btnNewButton_1_1_1 = new MyButton("Exit");
 		btnNewButton_1_1_1.setRadius(10);
 		btnNewButton_1_1_1.setForeground(new Color(50, 185, 185));
@@ -1319,6 +1372,15 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton_1_1_1.setBounds(382, 609, 146, 26);
 		
 		pView.add(btnNewButton_1_1_1);
+		
+		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				ViewCreateNew();
+			}
+		});
 	}
 
 
