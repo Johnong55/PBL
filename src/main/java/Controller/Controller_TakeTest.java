@@ -95,6 +95,7 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 			 int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc kết thúc bài làm ?", "Xác nhận kết thúc ", JOptionPane.YES_NO_OPTION);
 		        
 		        if (choice == JOptionPane.YES_OPTION) {
+		        	checkXem(vt.vitriCauhoi, vt.vitriCauhoi);
 					/*
 					 * BaiLam_dao.Instance().insert(vt.bailam1);
 					 */		            // Xử lý khi người dùng chọn "Yes"
