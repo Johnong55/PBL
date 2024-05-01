@@ -15,6 +15,15 @@ import util.JDBCUtil;
 
 public class CautraloiSinhvien_dao  {
 
+	public static CautraloiSinhvien_dao _instance;
+	public static CautraloiSinhvien_dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new CautraloiSinhvien_dao();
+		
+		}
+			return _instance;
+	}
 	public List<Cautraloisinhvien> selectCautraloisinhvienfromBailam(BaiLam bailam)
 	{
 		List<Cautraloisinhvien> result = new ArrayList<Cautraloisinhvien>();

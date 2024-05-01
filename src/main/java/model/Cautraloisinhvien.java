@@ -64,6 +64,12 @@ public class Cautraloisinhvien {
 		this.bailamsv = bailamsv;
 	}
 
+	@Override
+	public String toString() {
+		return "Cautraloisinhvien [id=" + id + ", cauhoiso=" + cauhoiso + ", cautraloi=" + cautraloi + ", bailamsv="
+				+ bailamsv + "]";
+	}
+
 	/**
 	 * 
 	 */

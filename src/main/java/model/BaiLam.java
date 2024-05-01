@@ -104,6 +104,28 @@ public class BaiLam{
 		
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * @param maBailam
+	 * @param sv
+	 * @param diem
+	 * @param thoigianbatdau
+	 * @param thoigianketthuc
+	 * @param dethi
+	 * @param kithi
+	 * @param cautraloi
+	 */
+	public BaiLam(String maBailam, Sv sv, double diem, Time thoigianbatdau, Time thoigianketthuc, DeThi dethi,
+			KiThi kithi, List<Cautraloisinhvien> cautraloi) {
+		super();
+		this.maBailam = maBailam;
+		this.sv = sv;
+		this.diem = diem;
+		this.thoigianbatdau = thoigianbatdau;
+		this.thoigianketthuc = thoigianketthuc;
+		this.dethi = dethi;
+		this.kithi = kithi;
+		this.cautraloi = cautraloi;
+	}
 	public void createbailam()
 	{
 		
