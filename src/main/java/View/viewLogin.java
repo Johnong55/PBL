@@ -73,6 +73,8 @@ public class viewLogin extends JFrame {
 		panel.setBground(new Color(0, 128, 255));
 		panel.setBorderWidth(1);
 		panel.setBounds(68, 70, 992, 516);
+		panel.setBorderGradientColor(new Color(0, 128, 255), new Color(0, 128, 255));
+		panel.setGradientColor(new Color(0, 128, 255), new Color(0, 128, 255));
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -80,6 +82,7 @@ public class viewLogin extends JFrame {
 		panel_1.setBorder(null);
 		panel_1.setBground(new Color(0, 128, 255));
 		panel_1.setBounds(10, 10, 508, 477);
+		panel_1.setGradientColor(new Color(0, 128, 255), new Color(0, 128, 255));
 		panel.add(panel_1);
 		panel_1.setLayout(null); 
 
@@ -162,6 +165,7 @@ public class viewLogin extends JFrame {
 		PanelRound panel_3 = new PanelRound(20);
 		panel_3.setBorderWidth(0);
 		panel_3.setBground(new Color(0, 128, 192));
+		panel_3.setGradientColor(new Color(0, 128, 192), new Color(0, 128, 192));
 		panel_3.setBounds(49, 322, 326, 66);
 		panel_dangnhap.add(panel_3);
 		panel_3.setLayout(null);
@@ -190,6 +194,7 @@ public class viewLogin extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
 				btnNewButton.setBackground(new Color(0,128,192));
+				panel_3.setGradientColor(new Color(0,128,192), new Color(0,128,192));
 				panel_3.setBground(new Color(0,128,192));	
 				
 			}
@@ -198,6 +203,7 @@ public class viewLogin extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
 				btnNewButton.setBackground(new Color(0,125,255));
+				panel_3.setGradientColor(new Color(0,125,255), new Color(0,125,255));
 				panel_3.setBground(new Color(0,125,255));	
 			}
 			

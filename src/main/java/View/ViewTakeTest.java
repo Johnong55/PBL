@@ -76,6 +76,7 @@ public class ViewTakeTest extends JFrame {
 	public JLabel lblNewLabel_1,lblNewLabel,lblH,soCauTraLoi;
 	public ButtonGroup group = new ButtonGroup();
 	public RadioButtonCustom btnDapAn_D = new RadioButtonCustom(), btnDapAn_A = new RadioButtonCustom(),
+			
 			btnDapAn_B = new RadioButtonCustom(), btnDapAn_C = new RadioButtonCustom();
 	public String cauhoi, dapanA, dapanB, dapanC, dapanD, dapan;
 	public JScrollPane scrollPane;

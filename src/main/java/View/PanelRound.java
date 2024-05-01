@@ -77,23 +77,24 @@ public class PanelRound extends JPanel {
     
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g.create();
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
-		g2.setColor(background);
-		g2.fillRoundRect(borderWidth, borderWidth, getWidth() - 2 * borderWidth, getHeight() - 2 * borderWidth, radius, radius);
-		
-		GradientPaint gradient = new GradientPaint(0, 0, gradientColorStart, 0, getHeight(), gradientColorEnd);
-        g2.setPaint(gradient);
-        g2.fillRoundRect(borderWidth, borderWidth, getWidth() - 2 * borderWidth, getHeight() - 2 * borderWidth, radius, radius);
-        
-        GradientPaint borderGradient = new GradientPaint(0, 0, borderGradientColorStart, getWidth(), getHeight(), borderGradientColorEnd);
-        g2.setPaint(borderGradient);
-        g2.setStroke(new BasicStroke(borderWidth));
-        g2.draw(new RoundRectangle2D.Double(borderWidth / 2.0, borderWidth / 2.0, getWidth() - borderWidth, getHeight() - borderWidth, radius, radius));
-        g2.dispose();
-		
-		
+	    super.paintComponent(g);
+	    Graphics2D g2 = (Graphics2D) g.create();
+	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+	    g2.setColor(background);
+	    g2.fillRoundRect(borderWidth, borderWidth, getWidth() - 2 * borderWidth, getHeight() - 2 * borderWidth, radius, radius);
+
+	    GradientPaint gradient = new GradientPaint(0, 0, gradientColorStart, 0, getHeight(), gradientColorEnd);
+	    g2.setPaint(gradient);
+	    g2.fillRoundRect(borderWidth, borderWidth, getWidth() - 2 * borderWidth, getHeight() - 2 * borderWidth, radius, radius);
+
+	    if (borderWidth > 0) {
+	        GradientPaint borderGradient = new GradientPaint(0, 0, borderGradientColorStart, getWidth(), getHeight(), borderGradientColorEnd);
+	        g2.setPaint(borderGradient);
+	        g2.setStroke(new BasicStroke(borderWidth));
+	        g2.draw(new RoundRectangle2D.Double(borderWidth / 2.0, borderWidth / 2.0, getWidth() - borderWidth, getHeight() - borderWidth, radius, radius));
+	    }
+
+	    g2.dispose();
 	}
 }

@@ -131,9 +131,9 @@ public class BaiLam{
 		
 		this.maBailam = this.sv.getId()+this.kithi.getId();
 		this.dethi = new DeThi(maBailam, kithi );
-		
-		this.dethi.setMota("HIHI");
+		this.dethi.setMota("Hoàn thành");
 		dethi.addlistcauhoi(DeThi_dao.Instance().Xaydungdethi(kithi));
+
 
 	}
 	public void addCautraloi(Cautraloisinhvien cautraloi) {

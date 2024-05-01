@@ -1,15 +1,26 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.Controller_ViewResult;
+import DAO.Sv_dao;
+import model.Cauhoi;
+import model.DeThi;
+import model.KiThi;
+import model.Sv;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
@@ -19,49 +30,150 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
 
 public class ViewResult extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	Controller_ViewResult rs = new Controller_ViewResult(this);
 	private JPanel contentPane;
-
+	public String[] checkAnswer;
+	public List<Cauhoi> listCauhoi = new ArrayList<Cauhoi>();
+	public Sv v;
+	public KiThi ktOngoing;
+	public DeThi dethi;
 	Color Blue=  new Color(17, 49, 123);
 	Color Gray = new Color(122, 122, 129);
 	Color Green = new Color(44, 173, 167);
 	Color purple = new Color(221, 0, 221);
-	
+	int vx = 10 , vy = 63;
+	int socauhoi = 1;
 	public MyButton btnNewButton;
 	public JPanel pn;
+	public JScrollPane scrollPane;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewResult frame = new ViewResult();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public ViewResult(Sv sv, KiThi onl, DeThi dt, List<Cauhoi> ls, String[] answer) {
+		this.v = sv;
+		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
+		this.dethi = dt ; this.listCauhoi = ls ; this.checkAnswer = answer;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(400, 150, 1000, 700);
+		ViewResult1();
+		setVisible(true);
 	}
+	/*
+	 * public static void main(String[] args) { EventQueue.invokeLater(new
+	 * Runnable() { public void run() { try { ViewResult frame = new ViewResult();
+	 * frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); } } });
+	 * }
+	 */
 
 	/**
 	 * Create the frame.
 	 */
-	public ViewResult() {
+	public JPanel addCau() {
+		JPanel panel_4 = new JPanel();
+		panel_4.setBounds(vx,vy, 1199, 436);
+		vy = vy + 486;
+		panel_4.setLayout(null);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Câu hỏi " + socauhoi); socauhoi+= 1;
+		lblNewLabel_1_1.setForeground(new Color(17, 49, 123));
+		lblNewLabel_1_1.setFont(new Font("Calibri", Font.BOLD, 26));
+		lblNewLabel_1_1.setBounds(10, 11, 153, 37);
+		panel_4.add(lblNewLabel_1_1);
+		
+		JTextArea Cauhoi = new JTextArea();
+		Cauhoi.setText(listCauhoi.get(socauhoi-2).getNoidung());
+		Cauhoi.setFont(new Font("Calibri", Font.BOLD, 24));
+		Cauhoi.setEditable(false);
+		Cauhoi.setBounds(10, 59, 723, 119);
+		panel_4.add(Cauhoi);
+		
+		JPanel panel_6 = new JPanel();
+		panel_6.setBounds(10, 190, 767, 236);
+		panel_4.add(panel_6);
+		panel_6.setLayout(null);
+		
+		PanelRound panel_5= new PanelRound();
+		panel_5.setRadius(25);
+		panel_5.setBounds(10, 31 , 25, 25);
+		panel_6.add(panel_5);
+		
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		lblNewLabel_5.setFont(new Font("Calibri", Font.PLAIN, 24));
+		lblNewLabel_5.setBounds(57, 31, 448, 32);
+		panel_6.add(lblNewLabel_5);
+		
+		
+		PanelRound panel_5_1 = new PanelRound();
+		panel_5_1.setRadius(25);
+		panel_5_1.setBounds(10, 31 + 58 * 1 , 25, 25);
+		panel_6.add(panel_5_1);
+		
+		JLabel lblNewLabel_5_1 = new JLabel("New label");
+		lblNewLabel_5_1.setFont(new Font("Calibri", Font.PLAIN, 24));
+		lblNewLabel_5_1.setBounds(57, 31 + 58 * 1, 448, 32);
+		panel_6.add(lblNewLabel_5_1);
+		
+		PanelRound panel_5_2 = new PanelRound();
+		panel_5_2.setRadius(25);
+		panel_5_2.setBounds(10, 31 + 58 * 2 , 25, 25);
+		panel_6.add(panel_5_2);
+		
+		JLabel lblNewLabel_5_2 = new JLabel("New label");
+		lblNewLabel_5_2.setFont(new Font("Calibri", Font.PLAIN, 24));
+		lblNewLabel_5_2.setBounds(57, 31 + 58 * 2, 448, 32);
+		panel_6.add(lblNewLabel_5_2);
+		
+		PanelRound panel_5_3 = new PanelRound();
+		panel_5_3.setRadius(25);
+		panel_5_3.setBounds(10, 31 + 58 * 3 , 25, 25);
+		panel_6.add(panel_5_3);
+		
+		JLabel lblNewLabel_5_3 = new JLabel("New label");
+		lblNewLabel_5_3.setFont(new Font("Calibri", Font.PLAIN, 24));
+		lblNewLabel_5_3.setBounds(57, 31 + 58 * 3, 448, 32);
+		panel_6.add(lblNewLabel_5_3);
+		
+		String ds ;
+		if(listCauhoi.get(socauhoi- 2).getDapan().equals(checkAnswer[socauhoi-2])) ds = "Đúng" ;else ds = "Sai";
+
+		MyButton mbtnng = new MyButton(ds);
+		mbtnng.setFont(new Font("Calibri", Font.BOLD, 23));
+		mbtnng.setRadius(20);
+		mbtnng.setColorOver(new Color(44, 173, 167));
+		mbtnng.setBounds(1042, 23, 127, 34);
+		panel_4.add(mbtnng);
+		
+		MyButton mbtnim = new MyButton("Thoát");
+		mbtnim.setText("3 điểm");
+		mbtnim.setRadius(20);
+		mbtnim.setFont(new Font("Calibri", Font.BOLD, 23));
+		mbtnim.setColorOver(new Color(44, 173, 167));
+		mbtnim.setBounds(1042, 80, 127, 34);
+		panel_4.add(mbtnim);
+		
+		return panel_4;
+		
+	}
+	public void ViewResult1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 100, 1299, 1000);
+		setBounds(200, 100, 1298, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(0, 0, 1290, 1000);
+		scrollPane.addMouseWheelListener(rs);
+		scrollPane.setBorder(null);
+
 		contentPane.add(scrollPane);
 		
 		pn = new JPanel();
@@ -206,37 +318,72 @@ public class ViewResult extends JFrame {
 		lblTtC.setBounds(1144, 16, 65, 32);
 		panel_1_1.add(lblTtC);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(10, 63, 1199, 436);
-		panel_1_1.add(panel_4);
-		panel_4.setLayout(null);
+		for(int i = 0 ; i < listCauhoi.size() ; i++) 
+		{
+			
+			panel_1_1.add(addCau());
+			panel_1_1.setBounds(36, 439, 1219, 74 + 436 * (i+1) + 50 * (i+1)  );
+			
+			
+		}
+		pn.setPreferredSize(new Dimension(1290,439 + panel_1_1.getHeight() + 200 ));
+
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Câu hỏi 1");
-		lblNewLabel_1_1.setForeground(new Color(17, 49, 123));
-		lblNewLabel_1_1.setFont(new Font("Calibri", Font.BOLD, 26));
-		lblNewLabel_1_1.setBounds(10, 11, 153, 37);
-		panel_4.add(lblNewLabel_1_1);
 		
-		JTextArea Cauhoi = new JTextArea();
-		Cauhoi.setText("Who is the author of 'To Kill a Mockingbird'?");
-		Cauhoi.setFont(new Font("Calibri", Font.BOLD, 24));
-		Cauhoi.setEditable(false);
-		Cauhoi.setBounds(10, 59, 723, 119);
-		panel_4.add(Cauhoi);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(787, 175, 25, 25);
-		panel_4.add(panel_5);
-		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBounds(10, 189, 723, 236);
-		panel_4.add(panel_6);
-		GridBagLayout gbl_panel_6 = new GridBagLayout();
-		gbl_panel_6.columnWidths = new int[]{0};
-		gbl_panel_6.rowHeights = new int[]{0};
-		gbl_panel_6.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_panel_6.rowWeights = new double[]{Double.MIN_VALUE};
-		panel_6.setLayout(gbl_panel_6);
+		/*
+		 * JLabel lblNewLabel_1_1 = new JLabel("Câu hỏi 1");
+		 * lblNewLabel_1_1.setForeground(new Color(17, 49, 123));
+		 * lblNewLabel_1_1.setFont(new Font("Calibri", Font.BOLD, 26));
+		 * lblNewLabel_1_1.setBounds(10, 11, 153, 37); panel_4.add(lblNewLabel_1_1);
+		 * 
+		 * JTextArea Cauhoi = new JTextArea();
+		 * Cauhoi.setText("Who is the author of 'To Kill a Mockingbird'?");
+		 * Cauhoi.setFont(new Font("Calibri", Font.BOLD, 24));
+		 * Cauhoi.setEditable(false); Cauhoi.setBounds(10, 59, 723, 119);
+		 * panel_4.add(Cauhoi);
+		 * 
+		 * JPanel panel_6 = new JPanel(); panel_6.setBounds(10, 190, 767, 236);
+		 * panel_4.add(panel_6); panel_6.setLayout(null);
+		 * 
+		 * PanelRound panel_5 = new PanelRound(); panel_5.setRadius(25);
+		 * panel_5.setBounds(10, 31 , 25, 25); panel_6.add(panel_5);
+		 * 
+		 * JLabel lblNewLabel_5 = new JLabel("New label"); lblNewLabel_5.setFont(new
+		 * Font("Calibri", Font.PLAIN, 24)); lblNewLabel_5.setBounds(57, 31, 448, 32);
+		 * panel_6.add(lblNewLabel_5);
+		 * 
+		 * PanelRound panel_5_1 = new PanelRound(); panel_5_1.setRadius(25);
+		 * panel_5_1.setBounds(10, 31 + 58 * 1 , 25, 25); panel_6.add(panel_5_1);
+		 * 
+		 * JLabel lblNewLabel_5_1 = new JLabel("New label"); lblNewLabel_5_1.setFont(new
+		 * Font("Calibri", Font.PLAIN, 24)); lblNewLabel_5_1.setBounds(57, 31 + 58 * 1,
+		 * 448, 32); panel_6.add(lblNewLabel_5_1);
+		 * 
+		 * PanelRound panel_5_2 = new PanelRound(); panel_5_2.setRadius(25);
+		 * panel_5_2.setBounds(10, 31 + 58 * 2 , 25, 25); panel_6.add(panel_5_2);
+		 * 
+		 * JLabel lblNewLabel_5_2 = new JLabel("New label"); lblNewLabel_5_2.setFont(new
+		 * Font("Calibri", Font.PLAIN, 24)); lblNewLabel_5_2.setBounds(57, 31 + 58 * 2,
+		 * 448, 32); panel_6.add(lblNewLabel_5_2);
+		 * 
+		 * PanelRound panel_5_3 = new PanelRound(); panel_5_3.setRadius(25);
+		 * panel_5_3.setBounds(10, 31 + 58 * 3 , 25, 25); panel_6.add(panel_5_3);
+		 * 
+		 * JLabel lblNewLabel_5_3 = new JLabel("New label"); lblNewLabel_5_3.setFont(new
+		 * Font("Calibri", Font.PLAIN, 24)); lblNewLabel_5_3.setBounds(57, 31 + 58 * 3,
+		 * 448, 32); panel_6.add(lblNewLabel_5_3);
+		 * 
+		 * MyButton mbtnng = new MyButton("Thoát"); mbtnng.setFont(new Font("Calibri",
+		 * Font.BOLD, 23)); mbtnng.setText("Đúng"); mbtnng.setRadius(20);
+		 * mbtnng.setColorOver(new Color(44, 173, 167)); mbtnng.setBounds(1042, 23, 127,
+		 * 34); panel_4.add(mbtnng);
+		 * 
+		 * MyButton mbtnim = new MyButton("Thoát"); mbtnim.setText("3 điểm");
+		 * mbtnim.setRadius(20); mbtnim.setFont(new Font("Calibri", Font.BOLD, 23));
+		 * mbtnim.setColorOver(new Color(44, 173, 167)); mbtnim.setBounds(1042, 80, 127,
+		 * 34); panel_4.add(mbtnim);
+		 */
 		
 	}
 }
