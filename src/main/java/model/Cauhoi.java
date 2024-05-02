@@ -29,8 +29,16 @@ public class Cauhoi {
 	@ManyToOne
 	@JoinColumn(name = "NganHang")	
 	private Nganhangcauhoi NH;
+	public List<Cautraloisinhvien> getCautraloi() {
+		return cautraloi;
+	}
+	public void setCautraloi(List<Cautraloisinhvien> cautraloi) {
+		this.cautraloi = cautraloi;
+	}
 	@OneToMany(mappedBy = "cauhoi",cascade = CascadeType.ALL)
 	private List<Cauhoi_DeThi> CD;
+	@OneToMany(mappedBy = "cauhoi",cascade =  CascadeType.ALL)
+	private List<Cautraloisinhvien> cautraloi;
 	public List<Cauhoi_DeThi> getCD() {
 		return CD;
 	}

@@ -145,12 +145,5 @@ public class BaiLam{
 	public void addCautraloi(Cautraloisinhvien cautraloi) {
 		this.cautraloi.add(cautraloi);
 	}
-	public void tinhdiem()
-	{
-		for(int i = 0 ;i < dethi.listcauhoi().size();i++)
-		{
-			String traloi = 
-			if(dethi.listcauhoi().get(i).getDapan()==cautraloi.get(i)  )
-		}
-	}
+	
 }

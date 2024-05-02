@@ -42,12 +42,14 @@ public class CautraloiSinhvien_dao  {
 				while(kq.next())
 				{
 					String id = kq.getString("id");
-					int cauhoiso = kq.getInt("cauhoiso");
+					String cauhoi= kq.getString("cauhoi");
 					String cautraloi = kq.getString("cautraloi");
 					String bailamid = kq.getString("bailam");
 					Cautraloisinhvien u = new Cautraloisinhvien();
 					u.setBailamsv(bailam);
-					u.setCauhoiso(cauhoiso);
+					Cauhoi ch = new Cauhoi();
+					ch.setId(cauhoi);
+					u.setCauhoi(Cauhoi_Dao.Instance().selectbyid(ch));
 					u.setCautraloi(cautraloi);
 					u.setId(bailamid);
 					result.add(u);
@@ -59,4 +61,5 @@ public class CautraloiSinhvien_dao  {
 			}
 			return result;
 	}
+	
 }
