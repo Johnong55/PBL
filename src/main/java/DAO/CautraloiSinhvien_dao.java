@@ -30,8 +30,8 @@ public class CautraloiSinhvien_dao  {
 		try {
 			Connection con  = JDBCUtil.getConnection();
 			String sql = " select * from cautraloisinhvien\r\n"
-					+ "where bailam = ? \r\n";
-				
+					+ "where bailam = ? \r\n"
+					+ " order by cauhoiso asc";
 			
 			PreparedStatement a;
 
@@ -58,9 +58,5 @@ public class CautraloiSinhvien_dao  {
 				e.printStackTrace();
 			}
 			return result;
-		
-		 
-		 
-		
 	}
 }

@@ -11,12 +11,9 @@ import model.Cautraloisinhvien;
 
 public class testing {
 	public static void main(String[] args) {
-		for(BaiLam i: BaiLam_dao.Instance().selectall())
+		for(BaiLam i: BaiLam_dao.Instance().selectbailamfromkithi("04"))
 			{
-				for(Cautraloisinhvien j : CautraloiSinhvien_dao.Instance().selectCautraloisinhvienfromBailam(i))
-				{
-					System.out.println(j );
-				}
+					System.out.println(i);
 			}
 	}
 }

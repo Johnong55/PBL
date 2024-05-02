@@ -3,6 +3,7 @@ package model;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -136,7 +137,20 @@ public class BaiLam{
 
 
 	}
+	@Override
+	public String toString() {
+		return "BaiLam [maBailam=" + maBailam + ", sv=" + sv + ", diem=" + diem + ", thoigianbatdau=" + thoigianbatdau
+				+ ", thoigianketthuc=" + thoigianketthuc + ", dethi=" + dethi + ", kithi=" + kithi + "]";
+	}
 	public void addCautraloi(Cautraloisinhvien cautraloi) {
 		this.cautraloi.add(cautraloi);
+	}
+	public void tinhdiem()
+	{
+		for(int i = 0 ;i < dethi.listcauhoi().size();i++)
+		{
+			String traloi = 
+			if(dethi.listcauhoi().get(i).getDapan()==cautraloi.get(i)  )
+		}
 	}
 }

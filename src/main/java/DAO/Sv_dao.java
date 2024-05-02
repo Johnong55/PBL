@@ -70,8 +70,8 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				gv.setId(nguoitao);
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
-		
 				k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl);
+				
 				return k;
 			}
 			con.close();
@@ -126,7 +126,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				gv.setId(nguoitao);
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
-		
+				
 				k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);

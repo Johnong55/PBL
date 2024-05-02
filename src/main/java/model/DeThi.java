@@ -97,6 +97,16 @@ public class DeThi {
 	public void setBailam(BaiLam bailam) {
 		this.bailam = bailam;
 	}
-	
+	public List<Cauhoi> listcauhoi()
+	{
+		List<Cauhoi> result = new ArrayList<Cauhoi>();
+		for(Cauhoi_DeThi i : list)
+		{
+			result.add(i.getCauhoi());
+		}
+		
+		return result;
+		
+	}
 	
 }
