@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import Controller.Controller_Teacher;
+import model.Gv;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -21,6 +25,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
 import java.beans.Visibility;
 import java.text.AttributedCharacterIterator;
@@ -31,6 +37,9 @@ public class ViewChangePassword extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPlaceholderTextField textField;
+	private Gv g;
+	public Controller_Teacher controlGV = new Controller_Teacher();
+
 
 	/**
 	 * Launch the application.
@@ -45,7 +54,8 @@ public class ViewChangePassword extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ViewChangePassword() {
+	public ViewChangePassword(Gv gv) {
+		this.g = gv;
 		setBounds(700, 350, 400, 400);
 		setVisible(true);
 		contentPane = new JPanel();
@@ -137,6 +147,20 @@ public class ViewChangePassword extends JFrame {
 		btnNewButton_1_1.setBackground(Color.WHITE);
 		btnNewButton_1_1.setBounds(30, 298, 310, 35);
 		contentPane.add(btnNewButton_1_1);
+		
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String passwordNow = textField_2.getText();
+				String passwordChange = textField_1.getText();
+				String passwordComfirm = textField.getText();
+				
+				System.out.println(passwordNow + passwordChange + passwordComfirm);
+				
+				controlGV.ChangePassword(gv, passwordNow, passwordChange, passwordComfirm);
+			}
+		});
 		
 		
 	}
