@@ -17,7 +17,7 @@ public class Controller_ViewResult implements ActionListener, MouseWheelListener
 		// TODO Auto-generated method stub
 		if (e.getSource() == rs.scrollPane) {
 			JScrollBar vertical = rs.scrollPane.getVerticalScrollBar();
-			vertical.setValue(vertical.getValue() + e.getUnitsToScroll() * 3);
+			vertical.setValue(vertical.getValue() + e.getUnitsToScroll() * 5);
 		}
 	}
 

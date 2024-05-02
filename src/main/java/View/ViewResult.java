@@ -86,6 +86,7 @@ public class ViewResult extends JFrame {
 	public JPanel addCau(int i) {
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(vx,vy, 1199, 436);
+		panel_4.setBackground(Color.white);
 		vy = vy + 486;
 		panel_4.setLayout(null);
 		
@@ -104,6 +105,7 @@ public class ViewResult extends JFrame {
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBounds(10, 190, 767, 236);
+		panel_6.setBackground(Color.white);
 		panel_4.add(panel_6);
 		panel_6.setLayout(null);
 		
@@ -155,10 +157,11 @@ public class ViewResult extends JFrame {
 		MyButton mbtnng = new MyButton("");
 		mbtnng.setFont(new Font("Calibri", Font.BOLD, 23));
 		mbtnng.setRadius(20);
-		mbtnng.setColor(Green);
 		mbtnng.setForeground(Color.white);
+		mbtnng.setColor(Green);
+		mbtnng.setColorClick(Green);
+		mbtnng.setColorOver(Green);
 		mbtnng.setBounds(1042, 23, 127, 34);
-		mbtnng.setEnabled(false);
 		panel_4.add(mbtnng);
 		
 		double socau1 = listCauhoi.size();
@@ -177,27 +180,33 @@ public class ViewResult extends JFrame {
 			panel_5_1.setBorderGradientColor(Green,Green);
 			panel_5_2.setBorderGradientColor(Green,Green);
 			panel_5_3.setBorderGradientColor(Green,Green);
-			if(this.checkAnswer[i].equals("A")) panel_5.setBground(Green); else 
-				if(this.checkAnswer[i].equals("B")) panel_5_1.setBground(Green); else 
-					if(this.checkAnswer[i].equals("C")) panel_5_2.setBground(Green); else 
-						if(this.checkAnswer[i].equals("D")) panel_5_3.setBground(Green); 
+			
+			if(this.checkAnswer[i].equals("A"))  panel_5.setGradientColor(Green, Green); else 
+				if(this.checkAnswer[i].equals("B")) panel_5_1.setGradientColor(Green, Green); else 
+					if(this.checkAnswer[i].equals("C")) panel_5_2.setGradientColor(Green, Green); else 
+						if(this.checkAnswer[i].equals("D")) panel_5_3.setGradientColor(Green, Green); 
 			mbtnng.setText("Đúng")  ;
+		
 		} else {
 			panel_5.setBorderGradientColor(Color.red,Color.red);
 			panel_5_1.setBorderGradientColor(Color.red,Color.red);
 			panel_5_2.setBorderGradientColor(Color.red,Color.red);
 			panel_5_3.setBorderGradientColor(Color.red,Color.red);
-			if(this.checkAnswer[i].equals("A")) { panel_5.setBground(Color.red); System.out.println("ok");} else 
-				if(this.checkAnswer[i].equals("B")) panel_5_1.setBground(Color.red); else 
-					if(this.checkAnswer[i].equals("C")) panel_5_2.setBground(Color.red); else 
-						if(this.checkAnswer[i].equals("D")) panel_5_3.setBground(Color.red); 
+			if(this.checkAnswer[i].equals("A"))  panel_5.setGradientColor(Color.red, Color.red);  else 
+				if(this.checkAnswer[i].equals("B")) panel_5_1.setGradientColor(Color.red, Color.red); else 
+					if(this.checkAnswer[i].equals("C")) panel_5_2.setGradientColor(Color.red, Color.red); else 
+						if(this.checkAnswer[i].equals("D")) panel_5_3.setGradientColor(Color.red, Color.red); 
+			if(this.listCauhoi.get(i).getDapAnA().equals(this.listCauhoi.get(i).getDapan()))  panel_5.setGradientColor(Green, Green); else
+			if(this.listCauhoi.get(i).getDapAnB().equals(this.listCauhoi.get(i).getDapan()))  panel_5.setGradientColor(Green, Green); else	
+			if(this.listCauhoi.get(i).getDapAnC().equals(this.listCauhoi.get(i).getDapan()))  panel_5.setGradientColor(Green, Green); else
+			if(this.listCauhoi.get(i).getDapAnD().equals(this.listCauhoi.get(i).getDapan()))  panel_5.setGradientColor(Green, Green);
+
+			mbtnng.setColor(Color.red);
+			mbtnng.setColorClick(Color.red);
+			mbtnng.setColorOver(Color.red);
+			mbtnim.setForeground(Color.red);
 			mbtnng.setText("Sai")  ;
 		}
-		
-
-		
-		
-		
 		return panel_4;
 		
 	}

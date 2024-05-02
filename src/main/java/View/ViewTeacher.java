@@ -576,7 +576,13 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				ViewChangePassword v = new ViewChangePassword(g);			
+=======
+				ViewChangePassword v = new ViewChangePassword(g);				
+
+
+>>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
 			}
 		});
 		
