@@ -576,7 +576,11 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				ViewChangePassword v = new ViewChangePassword(g);				
+=======
+				ViewChangePassword v = new ViewChangePassword(g);			
+>>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
 			}
 		});
 		
@@ -1350,6 +1354,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 					dapanDung = textArea_4.getText();
 				}else {
 					JOptionPane.showMessageDialog(null, "You must choice a correct answer","Error",JOptionPane.INFORMATION_MESSAGE);
+					return;
 				}
 				// tạo id bằng phương pháp UUID
 				String id = UUID.randomUUID().toString();
