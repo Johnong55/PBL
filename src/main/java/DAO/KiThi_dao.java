@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import model.BaiLam;
 import model.Class;
 import model.Gv;
 import model.KiThi;
@@ -222,8 +223,25 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 
 	@Override
 	public boolean deletebyid(KiThi t) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if (sessionFactory != null) {
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
 
+			session.delete(t);
+			tr.commit();
+			session.close();
+			return true;
+	}	
+	return false;}
+	
+	public List<BaiLam> showlistbailamsinhvien(String makithi)
+	{
+		List<BaiLam> result = new ArrayList<BaiLam>();
+		
+		
+		
+		return result;
+	}
 }
+	
