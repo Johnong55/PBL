@@ -102,7 +102,9 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 		        	{
 		        		Cautraloisinhvien answer = new Cautraloisinhvien();
 		        		answer.setBailamsv(vt.bailam1);
-//		        		answer.);
+		        		answer.setCauhoi(vt.listCauhoi.get(i));
+		        		answer.setCautraloi(vt.checkAnswer[i]);
+		        		vt.bailam1.addCautraloi(answer);
 		        	}
 					BaiLam_dao.Instance().insert(vt.bailam1);
 					  

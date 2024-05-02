@@ -232,10 +232,9 @@ public class Demo {
 	bailam1.createbailam();
 	Cautraloisinhvien cautraloi = new Cautraloisinhvien();
 	cautraloi.setBailamsv(bailam1);
-	cautraloi.setCauhoiso(5);
+	cautraloi.setCauhoi(bailam1.getDethi().listcauhoi().get(1));
 	cautraloi.setCautraloi("XIN CHAO");
 	bailam1.addCautraloi(cautraloi);
 	BaiLam_dao.Instance().insert(bailam1);
-
 	}	
 }
