@@ -234,7 +234,9 @@ public class Demo {
 	cautraloi.setBailamsv(bailam1);
 	cautraloi.setCauhoi(bailam1.getDethi().listcauhoi().get(1));
 	cautraloi.setCautraloi("XIN CHAO");
+	cautraloi.setKiemtra();
 	bailam1.addCautraloi(cautraloi);
+	bailam1.check();
 	BaiLam_dao.Instance().insert(bailam1);
 	}	
 }

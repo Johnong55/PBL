@@ -35,6 +35,20 @@ public class BaiLam{
 	@OneToMany( mappedBy = "bailamsv",	cascade = CascadeType.ALL)
 	private List<Cautraloisinhvien> cautraloi;
 	
+	private int socaudung = 0;
+	private int socausai = 0;
+	public int getSocausai() {
+		return socausai;
+	}
+	public void setSocausai(int socausai) {
+		this.socausai = socausai;
+	}
+	public int getSocaudung() {
+		return socaudung;
+	}
+	public void setSocaudung(int socaudung) {
+		this.socaudung = socaudung;
+	}
 	public List<Cautraloisinhvien> getCautraloi() {
 		return cautraloi;
 	}
@@ -140,10 +154,24 @@ public class BaiLam{
 	@Override
 	public String toString() {
 		return "BaiLam [maBailam=" + maBailam + ", sv=" + sv + ", diem=" + diem + ", thoigianbatdau=" + thoigianbatdau
-				+ ", thoigianketthuc=" + thoigianketthuc + ", dethi=" + dethi + ", kithi=" + kithi + "]";
+				+ ", thoigianketthuc=" + thoigianketthuc + ", dethi=" + dethi + ", kithi=" + kithi + ","+" socaudung=" + socaudung + ", socausai=" + socausai + "]";
 	}
 	public void addCautraloi(Cautraloisinhvien cautraloi) {
 		this.cautraloi.add(cautraloi);
+	}
+	public void check()
+	{
+		for(Cautraloisinhvien i : cautraloi)
+		{
+			if(i.getKiemtra()==1)
+			{
+				socaudung++;
+			}
+			else {
+				socausai++;
+			}
+			
+		}
 	}
 	
 }

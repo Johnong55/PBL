@@ -44,7 +44,7 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 			a = con.prepareStatement(sql);
 			ResultSet kq = a.executeQuery();
 			while (kq.next()) {
-				String id = kq.getString("id");
+				String id = kq.getString("id");	
 				String  kithi = kq.getString("kithi");
 				String mota= kq.getString("mota");
 				KiThi_dao kt = new KiThi_dao();
