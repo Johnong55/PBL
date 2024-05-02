@@ -165,12 +165,12 @@ public class ViewResult extends JFrame {
 		socau1 = 10/socau1;
 		MyButton mbtnim = new MyButton(String.format("%.2f", socau1) + " điểm");
 		mbtnim.setRadius(20);
+		mbtnim.setForeground(Green);
 		mbtnim.setFont(new Font("Calibri", Font.BOLD, 23));
 		mbtnim.setColor(Color.white);
-		mbtnim.setForeground(Green);
-		mbtnim.setEnabled(false);
 		mbtnim.setBounds(1042, 80, 127, 34);
 		panel_4.add(mbtnim);
+		
 		if(dapan(i).equals( this.listCauhoi.get(i).getDapan()))
 		{
 			panel_5.setBorderGradientColor(Green,Green);
