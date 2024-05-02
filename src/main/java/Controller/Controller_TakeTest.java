@@ -19,6 +19,7 @@ import View.MyButton;
 import View.RadioButtonCustom;
 import View.ViewTakeTest;
 import model.Cauhoi;
+import model.Cautraloisinhvien;
 
 public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 	private ViewTakeTest vt;
@@ -96,9 +97,16 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 		        
 		        if (choice == JOptionPane.YES_OPTION) {
 		        	checkXem(vt.vitriCauhoi, vt.vitriCauhoi);
-					/*
-					 * BaiLam_dao.Instance().insert(vt.bailam1);
-					 */		            // Xử lý khi người dùng chọn "Yes"
+					
+		        	for(int i = 0 ; i<vt.listBtnCauhoi.size() ; i++)
+		        	{
+		        		Cautraloisinhvien answer = new Cautraloisinhvien();
+		        		answer.setBailamsv(vt.bailam1);
+//		        		answer.);
+		        	}
+					BaiLam_dao.Instance().insert(vt.bailam1);
+					  
+					 		            // Xử lý khi người dùng chọn "Yes"
 		        	CompleteTest frame = new CompleteTest(vt.v,vt.ktOngoing,vt.dethi,vt.listCauhoi,vt.checkAnswer);
 					frame.setVisible(true);
 		        	vt.dispose();
