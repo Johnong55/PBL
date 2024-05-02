@@ -576,7 +576,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ViewChangePassword v = new ViewChangePassword();				
+				ViewChangePassword v = new ViewChangePassword(g);				
 			}
 		});
 		
