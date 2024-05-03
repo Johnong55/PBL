@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -45,6 +46,7 @@ import model.KiThi;
 import model.Giangday;
 import DAO.Cauhoi_Dao;
 import DAO.Class_dao;
+import DAO.Gv_dao;
 import DAO.KiThi_dao;
 import model.Sv;
 import model.Cauhoi;
@@ -63,12 +65,14 @@ public class Controller_Teacher {
 	public List<KiThi> kthi;
 	public KiThi_dao kt = new KiThi_dao();
 	public Cauhoi_Dao cauhoi = new Cauhoi_Dao();
+	public Gv_dao gvDAO = new Gv_dao();
 	
 	public List<Giangday> getClasses(Gv g) {
 		return g.getDanhsachlop();
 	}
 	public DefaultTableModel getModelClasses(Gv g, JTable table) {
 		dslop = g.getDanhsachlop();
+		System.out.println(dslop);
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (Giangday giangday : dslop) {
@@ -147,6 +151,21 @@ public class Controller_Teacher {
 	}
 	public void InsertCauhoi(Cauhoi c) {
 		cauhoi.insert(c);
+	}
+	public void ChangePassword(Gv g, String o, String n, String c) {
+		System.out.println(o);
+		System.out.println(g.getPassword());
+		if(o.equals(g.getPassword())) {
+			if(n.equals(c)) {
+				g.setPassword(n);
+				gvDAO.update(g);
+				
+			}else {
+				JOptionPane.showMessageDialog(null, "Confirmation password is incorrect","Error",JOptionPane.INFORMATION_MESSAGE);
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Password is incorrect","Error",JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 }
 

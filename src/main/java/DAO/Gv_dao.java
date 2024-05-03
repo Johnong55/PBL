@@ -53,6 +53,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setMaGv(id);
 					u.setTen(ten);
 					u.setTruong(tr.selectbyid(truong));
+					u.setDanhsachlop(selectclassbyid(u));
 					
 					result.add(u);
 				}
@@ -125,6 +126,9 @@ public class Gv_dao implements DAO_Interface<Gv> {
 
 					Gv u = new Gv(id, ten, truong);
 					u.setDanhsachlop(selectclassbyid(u));
+					u.setPassword(t.getPassword());
+					u.setUsername(t.getUsername());
+					u.setMaquyen(t.getMaquyen());
 				
 				return u;
 
@@ -151,8 +155,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 			session.close();
 			return true;
 		}
-		return false;
-		
+		return false;		
 	}
 
 	@Override

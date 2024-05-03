@@ -218,8 +218,13 @@ public class viewLogin extends JFrame {
 				else {
 				for(Account q : Account_dao.Instance().selectall())
 				{
+					System.out.println(user);
+					System.out.println(pass);
+					System.out.println(q.username);
+					System.out.println(q.password);
 					if(q.username.equals(user) && q.password.equals(pass))
 					{
+						System.out.println("cc");
 						if(q.getMaquyen() == 2) {
 							
 							ViewStudent v = new ViewStudent(Sv_dao.Instance().selectbyid(q));
@@ -227,6 +232,7 @@ public class viewLogin extends JFrame {
 							
 							dispose();
 						}if(q.getMaquyen() == 1) {
+							System.out.println("cl");
 							ViewTeacher v = new ViewTeacher(Gv_dao.Instance().selectbyid(q));
 							dispose();
 						}
