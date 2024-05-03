@@ -174,6 +174,7 @@ public class BaiLam{
 			}
 			
 		}
+		System.out.println("hello");
 	}
 	
 }

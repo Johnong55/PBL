@@ -100,6 +100,7 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 					
 		        	for(int i = 0 ; i<vt.listBtnCauhoi.size() ; i++)
 		        	{
+		        		System.out.println();
 		        		Cautraloisinhvien answer = new Cautraloisinhvien();
 		        		answer.setBailamsv(vt.bailam1);
 		        		answer.setCauhoi(vt.listCauhoi.get(i));
@@ -114,7 +115,7 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 		        		vt.bailam1.addCautraloi(answer); 
 		        	}
 		        	vt.bailam1.check();
-					
+					System.out.println("ditme");
 					  BaiLam_dao.Instance().insert(vt.bailam1);
 					 					  
 					 		            // Xử lý khi người dùng chọn "Yes"

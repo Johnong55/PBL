@@ -14,7 +14,7 @@ public class Cautraloisinhvien {
 	private String id ;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private Cauhoi cauhoi;
-	private String cautraloi;
+	private String cautraloi ="";
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "bailam")
