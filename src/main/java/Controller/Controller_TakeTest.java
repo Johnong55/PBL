@@ -100,14 +100,24 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 					
 		        	for(int i = 0 ; i<vt.listBtnCauhoi.size() ; i++)
 		        	{
+		        		System.out.println();
 		        		Cautraloisinhvien answer = new Cautraloisinhvien();
 		        		answer.setBailamsv(vt.bailam1);
 		        		answer.setCauhoi(vt.listCauhoi.get(i));
-		        		answer.setCautraloi(vt.checkAnswer[i]);
-		        		vt.bailam1.addCautraloi(answer);
+		        		System.out.println(answer.getCauhoi());
+		        		System.out.println(answer);
+		        		if(vt.checkAnswer[i].equals("A")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnA()); else
+			        		if(vt.checkAnswer[i].equals("B")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnB()); else
+				        		if(vt.checkAnswer[i].equals("C")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnC()); else
+					        		if(vt.checkAnswer[i].equals("D")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnD()); 
+		        		
+		        		answer.setKiemtra();
+		        		vt.bailam1.addCautraloi(answer); 
 		        	}
-					BaiLam_dao.Instance().insert(vt.bailam1);
-					  
+		        	vt.bailam1.check();
+			
+					  BaiLam_dao.Instance().insert(vt.bailam1);
+					 					  
 					 		            // Xử lý khi người dùng chọn "Yes"
 		        	CompleteTest frame = new CompleteTest(vt.v,vt.ktOngoing,vt.dethi,vt.listCauhoi,vt.checkAnswer);
 					frame.setVisible(true);

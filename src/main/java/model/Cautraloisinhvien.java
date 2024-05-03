@@ -26,13 +26,16 @@ public class Cautraloisinhvien {
 	}
 
 	public void setKiemtra() {
-		if(this.cauhoi.getDapan()== cautraloi)
+	
+		if(this.cauhoi.getDapan().equals(cautraloi))
 		{
+			
 			kiemtra = 1;
 		}
 		else {
-			kiemtra=0;
+			kiemtra = 0;
 		}
+		System.out.println("kiem tra "+kiemtra);
 	}
 
 	public String getId() {
@@ -49,6 +52,7 @@ public class Cautraloisinhvien {
 
 	public void setCauhoi(Cauhoi cauhoi) {
 		this.cauhoi = cauhoi;
+		this.setId(this.bailamsv.getMaBailam()+this.cauhoi.getId());
 	}
 
 	public String getCautraloi() {
@@ -88,6 +92,7 @@ public class Cautraloisinhvien {
 	 */
 	public Cautraloisinhvien() {
 		super();
+		cautraloi="";
 		// TODO Auto-generated constructor stub
 	}
 

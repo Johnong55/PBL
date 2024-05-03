@@ -13,7 +13,8 @@ public class testing {
 	public static void main(String[] args) {
 		for(BaiLam i: BaiLam_dao.Instance().selectbailamfromkithi("04"))
 			{
-					System.out.println(i);
+			
+				System.out.println(i);
 			}
 	}
 }

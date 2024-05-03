@@ -161,10 +161,13 @@ public class BaiLam{
 	}
 	public void check()
 	{
+		diem = 0.0;
+		double diemtungcau = (double)10/kithi.getSl();
 		for(Cautraloisinhvien i : cautraloi)
 		{
 			if(i.getKiemtra()==1)
 			{
+				diem+= (double)diemtungcau;
 				socaudung++;
 			}
 			else {
