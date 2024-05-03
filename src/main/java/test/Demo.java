@@ -181,16 +181,27 @@ public class Demo {
 		nh1.setGiaovienquanli(gv1);
  		nhdao.insert(nh1);
  		nhdao.insert(nh);
-		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 2, "Paris", nh1);
-        Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain", 1, "William Shakespeare", nh);
-        Cauhoi q3 = new Cauhoi("q3", "What is the chemical symbol for water?", "H2O", "CO2", "O2", "NaCl", 1, "H2O", nh);
-        Cauhoi q4 = new Cauhoi("q4", "Which planet is known as the Red Planet?", "Mars", "Venus", "Jupiter", "Saturn", 1, "Mars", nh1);
-        Cauhoi q5 = new Cauhoi("q5", "Who painted the Mona Lisa?", "Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Claude Monet", 1, "Leonardo da Vinci", nh);
-        Cauhoi q6 = new Cauhoi("q6", "What year did the Titanic sink?", "1912", "1905", "1920", "1935", 1, "1912", nh1);
-        Cauhoi q7 = new Cauhoi("q7", "What is the tallest mountain in the world?", "Mount Everest", "Mount Kilimanjaro", "K2", "Mount Fuji", 1, "Mount Everest", nh);
-        Cauhoi q8 = new Cauhoi("q8", "Who invented the telephone?", "Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Guglielmo Marconi", 1, "Alexander Graham Bell", nh);
-        Cauhoi q9 = new Cauhoi("q9", "What is the currency of Japan?", "Yen", "Euro", "Dollar", "Pound", 1, "Yen", nh1);
-        Cauhoi q10 = new Cauhoi("q10", "Who is the author of 'To Kill a Mockingbird'?", "Harper Lee", "J.K. Rowling", "Stephen King", "Ernest Hemingway", 1, "Harper Lee", nh1);
+ 		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 1, "Paris", nh);
+ 		Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain", 1, "William Shakespeare", nh);
+ 		Cauhoi q3 = new Cauhoi("q3", "What is the tallest mountain in the world?", "Mount Everest", "K2", "Kangchenjunga", "Lhotse", 3, "Mount Everest", nh);
+ 		Cauhoi q4 = new Cauhoi("q4", "What is the chemical symbol for water?", "H2O", "CO2", "NaCl", "O2", 1, "H2O", nh);
+ 		Cauhoi q5 = new Cauhoi("q5", "Who painted the Mona Lisa?", "Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo", 1, "Leonardo da Vinci", nh);
+ 		Cauhoi q6 = new Cauhoi("q6", "Which planet is known as the Red Planet?", "Mars", "Venus", "Jupiter", "Saturn", 1, "Mars", nh);
+ 		Cauhoi q7 = new Cauhoi("q7", "What is the currency of Japan?", "Yen", "Dollar", "Euro", "Pound", 2, "Yen", nh);
+ 		Cauhoi q8 = new Cauhoi("q8", "Who is the author of 'To Kill a Mockingbird'?", "Harper Lee", "J.K. Rowling", "Stephen King", "George Orwell", 1, "Harper Lee", nh);
+ 		Cauhoi q9 = new Cauhoi("q9", "What is the largest ocean on Earth?", "Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean", 2, "Pacific Ocean", nh);
+ 		Cauhoi q10 = new Cauhoi("q10", "What is the chemical symbol for gold?", "Au", "Ag", "Cu", "Fe", 1, "Au", nh);
+ 		Cauhoi q11 = new Cauhoi("q11", "Who painted 'The Starry Night'?", "Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet", 1, "Vincent van Gogh", nh);
+ 		Cauhoi q12 = new Cauhoi("q12", "Which country is known as the Land of the Rising Sun?", "Japan", "China", "Korea", "Vietnam", 2, "Japan", nh);
+ 		Cauhoi q13 = new Cauhoi("q13", "What is the boiling point of water in Celsius?", "100°C", "0°C", "-100°C", "50°C", 1, "100°C", nh);
+ 		Cauhoi q14 = new Cauhoi("q14", "Who was the first person to step on the Moon?", "Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "John Glenn", 1, "Neil Armstrong", nh);
+ 		Cauhoi q15 = new Cauhoi("q15", "What is the chemical symbol for oxygen?", "O2", "H2O", "CO2", "N2", 1, "O2", nh);
+ 		Cauhoi q16 = new Cauhoi("q16", "Who wrote 'The Great Gatsby'?", "F. Scott Fitzgerald", "Ernest Hemingway", "John Steinbeck", "Virginia Woolf", 1, "F. Scott Fitzgerald", nh);
+ 		Cauhoi q17 = new Cauhoi("q17", "What is the capital of Italy?", "Rome", "Paris", "Berlin", "Madrid", 1, "Rome", nh);
+ 		Cauhoi q18 = new Cauhoi("q18", "What is the largest mammal in the world?", "Blue Whale", "Elephant", "Giraffe", "Hippopotamus", 3, "Blue Whale", nh);
+ 		Cauhoi q19 = new Cauhoi("q19", "Who painted 'The Last Supper'?", "Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo", 1, "Leonardo da Vinci", nh);
+ 		Cauhoi q20 = new Cauhoi("q20", "Which planet is known as the 'Morning Star' or 'Evening Star'?", "Venus", "Mars", "Mercury", "Jupiter", 2, "Venus", nh);
+
 
  		CHdao.insert(q10);
  		CHdao.insert(q1);
@@ -202,7 +213,16 @@ public class Demo {
  		CHdao.insert(q7);
  		CHdao.insert(q8);
  		CHdao.insert(q9);
-		
+ 		CHdao.insert(q20);
+ 		CHdao.insert(q11);
+ 		CHdao.insert(q12);
+ 		CHdao.insert(q13);
+ 		CHdao.insert(q14);
+ 		CHdao.insert(q15);
+ 		CHdao.insert(q16);
+ 		CHdao.insert(q17);
+ 		CHdao.insert(q18);
+ 		CHdao.insert(q19);
 		kithi.setNganhangcauhoi(nh1);
 		kithi1.setNganhangcauhoi(nh1);
 		kithi2.setNganhangcauhoi(nh);
@@ -210,31 +230,7 @@ public class Demo {
  		kt.insert(kithi1);
  		kt.insert(kithi);
 
-		 Cauhoi[] danhSachCauHoi = new Cauhoi[10];
-
-	        danhSachCauHoi[0] = new Cauhoi("1", "Câu hỏi số 1", "A", "B", "C", "D", 1, "A",nh);
-	        danhSachCauHoi[1] = new Cauhoi("2", "Câu hỏi số 2", "A", "B", "C", "D", 2, "B",nh);
-	        danhSachCauHoi[2] = new Cauhoi("3", "Câu hỏi số 3", "A", "B", "C", "D", 3, "C",nh);
-	        danhSachCauHoi[3] = new Cauhoi("4", "Câu hỏi số 4", "A", "B", "C", "D", 1, "D",nh);
-	        danhSachCauHoi[4] = new Cauhoi("5", "Câu hỏi số 5", "A", "B", "C", "D", 2, "A",nh);
-	        danhSachCauHoi[5] = new Cauhoi("6", "Câu hỏi số 6", "A", "B", "C", "D", 3, "B",nh);
-	        danhSachCauHoi[6] = new Cauhoi("7", "Câu hỏi số 7", "A", "B", "C", "D", 1, "C",nh);
-	        danhSachCauHoi[7] = new Cauhoi("8", "Câu hỏi số 8", "A", "B", "C", "D", 2, "D",nh);
-	        danhSachCauHoi[8] = new Cauhoi("9", "Câu hỏi số 9", "A", "B", "C", "D", 3, "A",nh);
-	        danhSachCauHoi[9] = new Cauhoi("10", "Câu hỏi số 10", "A", "B", "C", "D", 1, "B",nh);
-
- 	for (Cauhoi i : danhSachCauHoi) {
- 			Cauhoi_Dao.Instance().insert(i);
- 		}
-
-		/*
-		 * BaiLam bailam1 = new BaiLam(); bailam1.setSv(sv2); bailam1.setKiThi(kithi2);
-		 * bailam1.createbailam(); Cautraloisinhvien cautraloi = new
-		 * Cautraloisinhvien(); cautraloi.setBailamsv(bailam1);
-		 * cautraloi.setCauhoi(bailam1.getDethi().listcauhoi().get(1));
-		 * cautraloi.setCautraloi("XIN CHAO"); cautraloi.setKiemtra();
-		 * bailam1.addCautraloi(cautraloi); bailam1.check();
-		 * BaiLam_dao.Instance().insert(bailam1);
-		 */
+		 
+ 
 	}	
 }

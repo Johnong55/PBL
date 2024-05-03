@@ -14,7 +14,7 @@ public class Cautraloisinhvien {
 	private String id ;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private Cauhoi cauhoi;
-	private String cautraloi ="";
+	private String cautraloi;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "bailam")
@@ -26,12 +26,14 @@ public class Cautraloisinhvien {
 	}
 
 	public void setKiemtra() {
+	
 		if(this.cauhoi.getDapan().equals(cautraloi))
 		{
+			
 			kiemtra = 1;
 		}
 		else {
-			kiemtra=0;
+			kiemtra = 0;
 		}
 	}
 
@@ -49,6 +51,7 @@ public class Cautraloisinhvien {
 
 	public void setCauhoi(Cauhoi cauhoi) {
 		this.cauhoi = cauhoi;
+		this.setId(this.bailamsv.getMaBailam()+this.cauhoi.getId());
 	}
 
 	public String getCautraloi() {
@@ -88,7 +91,7 @@ public class Cautraloisinhvien {
 	 */
 	public Cautraloisinhvien() {
 		super();
-		this.cautraloi = "0";
+		cautraloi="";
 		// TODO Auto-generated constructor stub
 	}
 

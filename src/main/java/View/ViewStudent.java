@@ -378,19 +378,22 @@ public class ViewStudent extends JFrame {
 		LopSV.setBounds(10, 199, 58, 24);
 		panel_2.add(LopSV);
 		
-		JLabel MSSV_text = new JLabel("Mã số học sinh :");
+		JLabel MSSV_text = new JLabel("MSHS");
+		MSSV_text.setText(v.getIdSv());
 		MSSV_text.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		MSSV_text.setBounds(168, 67, 126, 29);
+		MSSV_text.setBounds(168, 67, 173, 29);
 		panel_2.add(MSSV_text);
 		
-		JLabel NameSV_Text = new JLabel("Mã số học sinh :");
+		JLabel NameSV_Text = new JLabel("Ten");
+		NameSV_Text.setText(v.getTen());
 		NameSV_Text.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		NameSV_Text.setBounds(105, 129, 126, 29);
+		NameSV_Text.setBounds(105, 129, 289, 29);
 		panel_2.add(NameSV_Text);
 		
 		JLabel LopSV_Text = new JLabel("Mã số học sinh :");
+		LopSV_Text.setText(v.getIdclass().getTenlop());
 		LopSV_Text.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		LopSV_Text.setBounds(105, 197, 126, 29);
+		LopSV_Text.setBounds(105, 197, 151, 29);
 		panel_2.add(LopSV_Text);
 		
 		PanelRound panel_2_1 = new PanelRound(15);
@@ -398,8 +401,11 @@ public class ViewStudent extends JFrame {
 		panel_4.add(panel_2_1);
 		panel_2_1.setLayout(null);
 		
-		JLabel lblNewLabel_14 = new JLabel("New label");
-		lblNewLabel_14.setBounds(34, 11, 119, 117);
+		JLabel lblNewLabel_14 = new JLabel("");
+		lblNewLabel_14.setBounds(34, 11, 119, 126);
+		lblNewLabel_14.setIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/anhtri.jpg"))
+						.getScaledInstance(lblNewLabel_14.getWidth(), lblNewLabel_14.getHeight(), Image.SCALE_SMOOTH)));
 		panel_2_1.add(lblNewLabel_14);
 		
 		BtnChangeImagePer = new MyButton("Thay đổi hình ảnh");
@@ -496,7 +502,7 @@ public class ViewStudent extends JFrame {
 		panel.add(btnProfile);
 		panel_4.setBounds(171, 0, 713, 661); 
 		
-		view_test();
+		view_profile();
 		//-----------------------------------
 		
 		//------------
