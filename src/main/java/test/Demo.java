@@ -226,16 +226,7 @@ public class Demo {
  	for (Cauhoi i : danhSachCauHoi) {
  			Cauhoi_Dao.Instance().insert(i);
  		}
-<<<<<<< HEAD
-		/*
-		 * BaiLam bailam1 = new BaiLam(); bailam1.setSv(sv2); bailam1.setKiThi(kithi2);
-		 * bailam1.createbailam(); Cautraloisinhvien cautraloi = new
-		 * Cautraloisinhvien(); cautraloi.setBailamsv(bailam1);
-		 * cautraloi.setCauhoi(bailam1.getDethi().listcauhoi().get(1));
-		 * cautraloi.setCautraloi("XIN CHAO"); bailam1.addCautraloi(cautraloi);
-		 * BaiLam_dao.Instance().insert(bailam1);
-		 */
-=======
+
  	BaiLam bailam1 = new BaiLam();
  	bailam1.setSv(sv2);
 	bailam1.setKiThi(kithi2);
@@ -248,6 +239,5 @@ public class Demo {
 	bailam1.addCautraloi(cautraloi);
 	bailam1.check();
 	BaiLam_dao.Instance().insert(bailam1);
->>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
 	}	
 }
