@@ -96,7 +96,7 @@ public class Account_dao implements DAO_Interface<Account> {
 		if (sessionFactory != null) {
 			Session session = sessionFactory.openSession();
 			Transaction tr = session.beginTransaction();
-			session.update(t);
+			session.save(t);
 			tr.commit();
 			session.close();
 			return true;

@@ -1,21 +1,39 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cautraloisinhvien {
 	@Id
 	private String id ;
-	private int cauhoiso;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	private Cauhoi cauhoi;
 	private String cautraloi;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "bailam")
 	private BaiLam bailamsv ;
+	private int kiemtra;
+	
+	public int getKiemtra() {
+		return kiemtra;
+	}
+
+	public void setKiemtra() {
+		if(this.cauhoi.getDapan()== cautraloi)
+		{
+			kiemtra = 1;
+		}
+		else {
+			kiemtra=0;
+		}
+	}
 
 	public String getId() {
 		return id;
@@ -25,13 +43,12 @@ public class Cautraloisinhvien {
 		this.id = id;
 	}
 
-	public int getCauhoiso() {
-		return cauhoiso;
+	public Cauhoi getCauhoi() {
+		return cauhoi;
 	}
 
-	public void setCauhoiso(int cauhoiso) {
-		this.cauhoiso = cauhoiso;
-
+	public void setCauhoi(Cauhoi cauhoi) {
+		this.cauhoi = cauhoi;
 	}
 
 	public String getCautraloi() {
@@ -39,6 +56,7 @@ public class Cautraloisinhvien {
 	}
 
 	public void setCautraloi(String cautraloi) {
+		this.setId(this.bailamsv.getMaBailam()+this.cauhoi.getId());
 		this.cautraloi = cautraloi;
 	}
 
@@ -52,14 +70,15 @@ public class Cautraloisinhvien {
 
 	/**
 	 * @param id
-	 * @param cauhoiso
+	 * @param cauhoi
 	 * @param cautraloi
 	 * @param bailamsv
 	 */
-	public Cautraloisinhvien(String id, int cauhoiso, String cautraloi, BaiLam bailamsv) {
+	public Cautraloisinhvien(String id, Cauhoi cauhoi, String cautraloi, BaiLam bailamsv) {
+		
 		super();
-		this.id = bailamsv.getMaBailam() + cauhoiso;
-		this.cauhoiso = cauhoiso;
+		this.setId(this.bailamsv.getMaBailam()+this.cauhoi.getId());
+		this.cauhoi = cauhoi;
 		this.cautraloi = cautraloi;
 		this.bailamsv = bailamsv;
 	}
@@ -69,8 +88,16 @@ public class Cautraloisinhvien {
 	 */
 	public Cautraloisinhvien() {
 		super();
-		
+		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "Cautraloisinhvien [id=" + id + ", cauhoi=" + cauhoi + ", cautraloi=" + cautraloi + ", bailamsv="
+				+ bailamsv + "]";
+	}
+
+	
 	
 	
 	

@@ -3,6 +3,7 @@ package model;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,20 @@ public class BaiLam{
 	@OneToMany( mappedBy = "bailamsv",	cascade = CascadeType.ALL)
 	private List<Cautraloisinhvien> cautraloi;
 	
+	private int socaudung = 0;
+	private int socausai = 0;
+	public int getSocausai() {
+		return socausai;
+	}
+	public void setSocausai(int socausai) {
+		this.socausai = socausai;
+	}
+	public int getSocaudung() {
+		return socaudung;
+	}
+	public void setSocaudung(int socaudung) {
+		this.socaudung = socaudung;
+	}
 	public List<Cautraloisinhvien> getCautraloi() {
 		return cautraloi;
 	}
@@ -104,6 +119,28 @@ public class BaiLam{
 		
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * @param maBailam
+	 * @param sv
+	 * @param diem
+	 * @param thoigianbatdau
+	 * @param thoigianketthuc
+	 * @param dethi
+	 * @param kithi
+	 * @param cautraloi
+	 */
+	public BaiLam(String maBailam, Sv sv, double diem, Time thoigianbatdau, Time thoigianketthuc, DeThi dethi,
+			KiThi kithi, List<Cautraloisinhvien> cautraloi) {
+		super();
+		this.maBailam = maBailam;
+		this.sv = sv;
+		this.diem = diem;
+		this.thoigianbatdau = thoigianbatdau;
+		this.thoigianketthuc = thoigianketthuc;
+		this.dethi = dethi;
+		this.kithi = kithi;
+		this.cautraloi = cautraloi;
+	}
 	public void createbailam()
 	{
 		
@@ -114,7 +151,27 @@ public class BaiLam{
 
 
 	}
+	@Override
+	public String toString() {
+		return "BaiLam [maBailam=" + maBailam + ", sv=" + sv + ", diem=" + diem + ", thoigianbatdau=" + thoigianbatdau
+				+ ", thoigianketthuc=" + thoigianketthuc + ", dethi=" + dethi + ", kithi=" + kithi + ","+" socaudung=" + socaudung + ", socausai=" + socausai + "]";
+	}
 	public void addCautraloi(Cautraloisinhvien cautraloi) {
 		this.cautraloi.add(cautraloi);
 	}
+	public void check()
+	{
+		for(Cautraloisinhvien i : cautraloi)
+		{
+			if(i.getKiemtra()==1)
+			{
+				socaudung++;
+			}
+			else {
+				socausai++;
+			}
+			
+		}
+	}
+	
 }

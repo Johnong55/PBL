@@ -201,6 +201,7 @@ public class ViewTakeTest extends JFrame {
 		panel.add(lblH);
 
 		panel_1 = new PanelRound();
+		panel_1.setBorderColor(new Color(255, 255, 255));
 		panel_1.setRadius(20);
 		panel_1.setBounds(47, 158, 819, 505);
 		contentPane.add(panel_1);

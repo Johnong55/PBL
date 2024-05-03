@@ -15,6 +15,15 @@ import util.JDBCUtil;
 
 public class CautraloiSinhvien_dao  {
 
+	public static CautraloiSinhvien_dao _instance;
+	public static CautraloiSinhvien_dao Instance(){
+		if(_instance  ==null)
+		{
+			_instance = new CautraloiSinhvien_dao();
+		
+		}
+			return _instance;
+	}
 	public List<Cautraloisinhvien> selectCautraloisinhvienfromBailam(BaiLam bailam)
 	{
 		List<Cautraloisinhvien> result = new ArrayList<Cautraloisinhvien>();
@@ -22,7 +31,6 @@ public class CautraloiSinhvien_dao  {
 			Connection con  = JDBCUtil.getConnection();
 			String sql = " select * from cautraloisinhvien\r\n"
 					+ "where bailam = ? \r\n";
-				
 			
 			PreparedStatement a;
 
@@ -33,12 +41,14 @@ public class CautraloiSinhvien_dao  {
 				while(kq.next())
 				{
 					String id = kq.getString("id");
-					int cauhoiso = kq.getInt("cauhoiso");
+					String cauhoi= kq.getString("cauhoi_id");
 					String cautraloi = kq.getString("cautraloi");
 					String bailamid = kq.getString("bailam");
 					Cautraloisinhvien u = new Cautraloisinhvien();
 					u.setBailamsv(bailam);
-					u.setCauhoiso(cauhoiso);
+					Cauhoi ch = new Cauhoi();
+					ch.setId(cauhoi);
+					u.setCauhoi(Cauhoi_Dao.Instance().selectbyid(ch));
 					u.setCautraloi(cautraloi);
 					u.setId(bailamid);
 					result.add(u);
@@ -49,9 +59,6 @@ public class CautraloiSinhvien_dao  {
 				e.printStackTrace();
 			}
 			return result;
-		
-		 
-		 
-		
 	}
+	
 }
