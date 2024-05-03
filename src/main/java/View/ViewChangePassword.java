@@ -69,7 +69,7 @@ public class ViewChangePassword extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		Dimension size_4_2 = lblNewLabel.getPreferredSize();
-		lblNewLabel.setBounds(107, 30, (int) size_4_2.getWidth()+1 , (int) size_4_2.getHeight()+1);
+		lblNewLabel.setBounds(120, 30, (int) size_4_2.getWidth()+1 , (int) size_4_2.getHeight()+1);
 		contentPane.add(lblNewLabel);
 		
 		PanelRound panel = new PanelRound(0);
@@ -95,12 +95,12 @@ public class ViewChangePassword extends JFrame {
 		JLabel lblNewLabel_1_1_1 = new JLabel("Xác nhận mật khẩu");
 		lblNewLabel_1_1_1.setForeground(Color.WHITE);
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1_1.setBounds(30, 230, 150, 18);
+		lblNewLabel_1_1_1.setBounds(30, 220, 150, 18);
 		contentPane.add(lblNewLabel_1_1_1);
 		
 		textField = new JPlaceholderTextField("");
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setBounds(155, 220, 183, 35);
+		textField.setBounds(155, 210, 183, 35);
 		textField.setForeground(new Color(255, 255, 255));
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setBackground(new Color(50, 185, 185));
