@@ -1,6 +1,5 @@
 package View;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,22 +8,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.JInternalFrame;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
+
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.text.MaskFormatter;
-import javax.swing.text.View;
-import javax.persistence.Convert;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -34,35 +31,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.print.PrinterGraphics;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.dial.DialPointer;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
-import org.jfree.ui.action.ActionButton;
 
-import com.google.protobuf.Message;
-import com.mysql.cj.MessageBuilder;
 
 import model.Gv;
 import model.KiThi;
-import model.Giangday;
 import DAO.Class_dao;
-import DAO.KiThi_dao;
 import model.Sv;
 import model.Cauhoi;
 import model.Class;
@@ -70,12 +55,11 @@ import Controller.Controller_Teacher;
 
 public class ViewTeacher extends JFrame implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public static JPanel pView;
 	MyButton btnNewButton1,btnNewButton,btnNewButton3,btnNewButton2,btnNewButton4,ViewStudent,ViewTest;
 	private JPlaceholderTextField textField,textField_1,textField_2,textField_3,textField_4,textField_4_1;
-	private JTable table;
+	private MyTable table;
 	public Gv g;
 	public Class_dao ClassDao = new Class_dao();
 	public Controller_Teacher controlGV = new Controller_Teacher();
@@ -91,11 +75,6 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	/*
-	 * public void showpView() { pView = new JPanel(); pView.setBorder(null);
-	 * pView.setBackground(new Color(255, 255, 255)); pView.setBounds(170, 0, 715,
-	 * 661); contentPane.add(pView); pView.setLayout(null); }
-	 */
 	
 	
 	public void ViewMenu() {
@@ -120,7 +99,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		btnNewButton = new MyButton("Home");
+		btnNewButton = new MyButton("Trang chủ");
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -135,7 +114,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton.addActionListener(this);
 		panel.add(btnNewButton);
 
-		btnNewButton1 = new MyButton("Classes");
+		btnNewButton1 = new MyButton("Lớp");
 		btnNewButton1.setForeground(new Color(255, 255, 255));
 		btnNewButton1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -150,7 +129,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton1.addActionListener(this);
 		panel.add(btnNewButton1);
 
-		btnNewButton2 = new MyButton("Exam");
+		btnNewButton2 = new MyButton("Kì thi");
 		btnNewButton2.setForeground(new Color(255, 255, 255));
 		btnNewButton2.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton2.setHorizontalAlignment(SwingConstants.LEFT);
@@ -165,7 +144,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton2.addActionListener(this);
 		panel.add(btnNewButton2);
 
-		btnNewButton3 = new MyButton("Profile");
+		btnNewButton3 = new MyButton("Cá nhân");
 		btnNewButton3.setForeground(new Color(255, 255, 255));
 		btnNewButton3.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton3.setHorizontalAlignment(SwingConstants.LEFT);
@@ -180,7 +159,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		btnNewButton3.addActionListener(this);
 		panel.add(btnNewButton3);
 
-		btnNewButton4 = new MyButton("Create new");
+		btnNewButton4 = new MyButton("Tạo mới");
 		btnNewButton4.setForeground(new Color(255, 255, 255));
 		btnNewButton4.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton4.setHorizontalAlignment(SwingConstants.LEFT);
@@ -213,18 +192,18 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		panel_1.setLayout(null);
 		// bỉu do
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("C Grade", 15);
-        dataset.setValue("B Grade", 66);
-        dataset.setValue("Failing", 9);
-        dataset.setValue("A Grade", 10);
+        dataset.setValue("Điểm C", 15);
+        dataset.setValue("Điểm B", 66);
+        dataset.setValue("Rớt", 9);
+        dataset.setValue("Điểm A", 10);
     	
         JFreeChart chart = ChartFactory.createPieChart(
                 "Recent test results", dataset, true, true, true);
         PiePlot pie = (PiePlot) chart.getPlot();
-        pie.setSectionPaint("B Grade",new Color(50, 185, 185));
-        pie.setSectionPaint("A Grade",Color.red);
-        pie.setSectionPaint("C Grade",Color.green);
-        pie.setSectionPaint("Failing",Color.yellow);
+        pie.setSectionPaint("Điểm B",new Color(50, 185, 185));
+        pie.setSectionPaint("Điểm A",Color.red);
+        pie.setSectionPaint("Điểm C",Color.green);
+        pie.setSectionPaint("Rớt",Color.yellow);
         pie.setBackgroundPaint(Color.WHITE);
     	
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -245,12 +224,12 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		panel_2.setBground(Color.WHITE);
 		panel_2.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("Create");
+		JLabel lblNewLabel_1 = new JLabel("Tạo");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(10, 11, 55, 14);
 		panel_2.add(lblNewLabel_1);
 
-		MyButton btnNewButton_1 = new MyButton("Create exam");
+		MyButton btnNewButton_1 = new MyButton("Tạo kì thi");
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_1.setBounds(37, 200, 181, 40);
@@ -280,7 +259,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		pView.add(panel_2);
 		
-		JLabel lblNewLabel = new JLabel("Hi, " + g.getTen());
+		JLabel lblNewLabel = new JLabel("Chào, " + g.getTen());
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 0,(int) size.getWidth()+1,(int) size.getHeight()+1);
@@ -296,12 +275,12 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		panel_2_1.setBackground(new Color(221, 221, 221));
 		panel_2_1.setBounds(455, 371, 255, 255);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Schedules test");
+		JLabel lblNewLabel_1_1 = new JLabel("Lịch thi");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1_1.setBounds(10, 11, 116, 14);
 		panel_2_1.add(lblNewLabel_1_1);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Set another");
+		MyButton btnNewButton_1_1 = new MyButton("Cài đặt khác");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -323,7 +302,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		 */
 		panel_2_1.add(lblNewLabel_3_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Edit");
+		JLabel lblNewLabel_2 = new JLabel("Sửa");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_2.setBounds(199, 13, 46, 14);
@@ -349,7 +328,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.removeAll();
 		pView.repaint();
 		pView.revalidate();
-		JLabel lblNewLabel = new JLabel("CLASSES");
+		JLabel lblNewLabel = new JLabel("LỚP");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
@@ -357,19 +336,41 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 89, 715, 668);
+		scrollPane.setBounds(10, 89, 695, 668);
 		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201,201,201)));
 		
 		pView.add(scrollPane);
 		
-		table = new JTable();
-		table.setBackground(new Color(255, 255, 255));
-		table.getTableHeader().setBackground(Color.WHITE);
+		table = new MyTable();
+		table.setRowHeight(30);
+		table.setColor1(Color.WHITE);
+		table.setColor2(Color.WHITE);
+		table.setGridColor(new Color(201,201,201));
+	//	table.setShowGrid(false);
+		table.setColumnAlignment(0, JLabel.LEFT);
+		table.setCellAlignment(0, JLabel.LEFT);
+		
+        JTableHeader header = table.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            private static final long serialVersionUID = 1L;
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
+                        column);
+                comp.setBackground(new Color(50, 185, 185));
+                comp.setForeground(Color.WHITE);
+                setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201,201,201)));
+               
+                return comp;
+            }
+        });
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Name class", "Students"
+				"  Tên lớp", "  Số học sinh"
 			}
 		));		
 		
@@ -388,51 +389,6 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		scrollPane.setViewportView(table);
 	}
 	
-	/*
-	 * public void ViewClassDetails(Class c) {
-	 * 
-	 * pView.removeAll(); pView.repaint(); pView.revalidate();
-	 * 
-	 * JLabel lblNewLabel = new JLabel("CLASSES"); lblNewLabel.setFont(new
-	 * Font("Tahoma", Font.BOLD, 15)); Dimension size =
-	 * lblNewLabel.getPreferredSize(); lblNewLabel.setBounds(10, 10, (int)
-	 * size.getWidth()+1 , (int) size.getHeight()+1);
-	 * 
-	 * pView.add(lblNewLabel);
-	 * 
-	 * ViewStudent = new MyButton("New class");
-	 * ViewStudent.setText("View students");
-	 * 
-	 * ViewStudent.setForeground(new Color(255, 255, 255)); ViewStudent.setFont(new
-	 * Font("Tahoma", Font.BOLD, 14)); ViewStudent.setBounds(150, 250, 160, 80);
-	 * ViewStudent.setBackground(new Color(50, 185, 185));
-	 * ViewStudent.setRadius(10); ViewStudent.setColor(new Color(50, 185, 185));
-	 * ViewStudent.setBorderColor(Color.WHITE); ViewStudent.setColorOver(new
-	 * Color(100, 241, 241)); ViewStudent.setColorClick(new Color(50, 185, 185));
-	 * 
-	 * pView.add(ViewStudent);
-	 * 
-	 * ViewStudent.addActionListener(new ActionListener() {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { ViewListSVinClass(c);
-	 * } });
-	 * 
-	 * 
-	 * ViewTest = new MyButton("New class"); ViewTest.setText("View tests");
-	 * ViewTest.setRadius(10); ViewTest.setForeground(Color.WHITE);
-	 * ViewTest.setFont(new Font("Tahoma", Font.BOLD, 14));
-	 * ViewTest.setColorOver(new Color(100, 241, 241)); ViewTest.setColorClick(new
-	 * Color(50, 185, 185)); ViewTest.setColor(new Color(50, 185, 185));
-	 * ViewTest.setBorderColor(Color.WHITE); ViewTest.setBackground(new Color(50,
-	 * 185, 185)); ViewTest.setBounds(385, 250, 160, 80); pView.add(ViewTest);
-	 * 
-	 * // chua xu li nut view tests
-	 * 
-	 * ViewTest.addActionListener(new ActionListener() {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { // Thực hiện xử lý khi
-	 * nút được kick view tests } }); }
-	 */
 	
 	public void ViewListSVinClass(Class c) {
 		
@@ -440,7 +396,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.repaint();
 		pView.revalidate();
 		
-		JLabel lblNewLabel = new JLabel("CLASSES");
+		JLabel lblNewLabel = new JLabel("LỚP");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
@@ -449,17 +405,39 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
-		scrollPane.setBounds(0, 41, 715, 620);
+		scrollPane.setBounds(10, 41, 695, 620);
+		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201,201,201)));
 		pView.add(scrollPane);
 		
-		table = new JTable();
-		table.getTableHeader().setBackground(Color.WHITE);
-		table.setBorder(null);
+		table = new MyTable();
+		table.setRowHeight(30);
+		table.setColor1(Color.WHITE);
+		table.setColor2(Color.WHITE);
+		table.setGridColor(new Color(201,201,201));
+	//	table.setShowGrid(false);
+		table.setColumnAlignment(0, JLabel.LEFT);
+		table.setCellAlignment(0, JLabel.LEFT);
+		
+        JTableHeader header = table.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            private static final long serialVersionUID = 1L;
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
+                        column);
+                comp.setBackground(new Color(50, 185, 185));
+                comp.setForeground(Color.WHITE);
+                setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201,201,201)));
+               
+                return comp;
+            }
+        });
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Name", "GPA", "Passed/Total"
+				"  Tên", "  Điểm trung bình", "  Bài vượt qua/Tổng số"
 			}
 		));
 		
@@ -480,7 +458,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.repaint();
 		pView.revalidate();
 		
-		JLabel lblNewLabel = new JLabel("EXAM");
+		JLabel lblNewLabel = new JLabel("KÌ THI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
@@ -489,17 +467,39 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
-		scrollPane.setBounds(0, 41, 715, 620);
+		scrollPane.setBounds(10, 41, 695, 620);
+		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201,201,201)));
 		pView.add(scrollPane);
 		
-		table = new JTable();
-		table.getTableHeader().setBackground(Color.WHITE);
-		table.setBorder(null);
+		table = new MyTable();
+		table.setRowHeight(30);
+		table.setColor1(Color.WHITE);
+		table.setColor2(Color.WHITE);
+		table.setGridColor(new Color(201,201,201));
+	//	table.setShowGrid(false);
+		table.setColumnAlignment(0, JLabel.LEFT);
+		table.setCellAlignment(0, JLabel.LEFT);
+		
+        JTableHeader header = table.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            private static final long serialVersionUID = 1L;
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
+                        column);
+                comp.setBackground(new Color(50, 185, 185));
+                comp.setForeground(Color.WHITE);
+                setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201,201,201)));
+               
+                return comp;
+            }
+        });
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-					"Class", "Subject", "Name exam", "Exam day", "Starting time", "Exam duration", "Questions"
+					"  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi"
 			}
 		));
 		table.setModel(controlGV.getModelExam(g, table));
@@ -521,31 +521,31 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.repaint();
 		pView.revalidate();
 		
-		JLabel lblNewLabel = new JLabel("PROFILE");
+		JLabel lblNewLabel = new JLabel("CÁ NHÂN");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
 		pView.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Personal details");
+		JLabel lblNewLabel_1 = new JLabel("Thông tin cá nhân");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		Dimension size_1 = lblNewLabel_1.getPreferredSize();
 		lblNewLabel_1.setBounds(10, 60, (int) size_1.getWidth()+1 , (int) size_1.getHeight()+1);
 		pView.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Teacher ID:");
+		JLabel lblNewLabel_2 = new JLabel("Mã giáo viên :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Dimension size_2 = lblNewLabel_1.getPreferredSize();
 		lblNewLabel_2.setBounds(10, 100, (int) size_2.getWidth()+1 , (int) size_2.getHeight()+1);
 		pView.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("Name: ");
+		JLabel lblNewLabel_2_1 = new JLabel("Tên : ");
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Dimension size_2_1 = lblNewLabel_1.getPreferredSize();
 		lblNewLabel_2_1.setBounds(10, 140, (int) size_2_1.getWidth()+1 , (int) size_2_1.getHeight()+1);
 		pView.add(lblNewLabel_2_1);
 		
-		JLabel lblNewLabel_2_1_1 = new JLabel("Password");
+		JLabel lblNewLabel_2_1_1 = new JLabel("Mật khẩu :");
 		lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Dimension size_2_1_1 = lblNewLabel_1.getPreferredSize();
 		lblNewLabel_2_1_1.setBounds(10, 180, (int) size_2_1_1.getWidth()+1 , (int) size_2_1_1.getHeight()+1);
@@ -559,7 +559,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		pView.add(lblNewLabel_3);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Change password");
+		MyButton btnNewButton_1_1 = new MyButton("Thay đổi mật khẩu");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -576,12 +576,13 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-		ViewChangePassword v = new ViewChangePassword(g);				
+
+				ViewChangePassword v = new ViewChangePassword(g);			
 
 			}
 		});
 		
-		MyButton btnNewButton_1_1_1 = new MyButton("Change image");
+		MyButton btnNewButton_1_1_1 = new MyButton("Thay đổi hình ảnh");
 		btnNewButton_1_1_1.setRadius(10);
 		btnNewButton_1_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -619,14 +620,14 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.repaint();
 		pView.revalidate();
 		
-		JLabel lblNewLabel = new JLabel("CREATE NEW");
+		JLabel lblNewLabel = new JLabel("TẠO MỚI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth()+1 , (int) size.getHeight()+1);
 		
 		pView.add(lblNewLabel);
 		
-		MyButton NewQuestion = new MyButton("New question");
+		MyButton NewQuestion = new MyButton("Tạo câu hỏi");
 		NewQuestion.setForeground(new Color(255, 255, 255));
 		NewQuestion.setFont(new Font("Tahoma", Font.BOLD, 14));
 		NewQuestion.setBounds(150, 250, 160, 80);
@@ -648,7 +649,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			}
 		});
 		
-		MyButton NewExam = new MyButton("New exam");
+		MyButton NewExam = new MyButton("Tạo kì thi");
 		NewExam.setRadius(10);
 		NewExam.setForeground(Color.WHITE);
 		NewExam.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -676,7 +677,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.repaint();
 		pView.revalidate();
 		
-		JLabel lblNewLabel = new JLabel("CREATE EXAM");
+		JLabel lblNewLabel = new JLabel("TẠO KÌ THI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(10, 10, 150 , 20);
 		
@@ -688,13 +689,13 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.add(panel_3);
 		panel_3.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Class : ");
+		JLabel lblNewLabel_1 = new JLabel("Lớp : ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1.setBounds(10, 30, 50 , 18);
 		
 		panel_3.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Subject :");
+		JLabel lblNewLabel_1_1 = new JLabel("Môn :");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1.setBounds(339, 30, 60 , 18);
 		panel_3.add(lblNewLabel_1_1);
@@ -710,37 +711,37 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		comboBox_1.setBounds(402, 30, 102, 22);
 		panel_3.add(comboBox_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Number of questions :");
+		JLabel lblNewLabel_1_2 = new JLabel("Số câu hỏi :");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2.setBounds(10, 90, 137 , 18);
 		panel_3.add(lblNewLabel_1_2);
 		
-		JLabel lblNewLabel_1_2_1 = new JLabel("Number of easy questions :");
+		JLabel lblNewLabel_1_2_1 = new JLabel("Số câu dễ :");
 		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_1.setBounds(10, 150, 169, 18);
 		panel_3.add(lblNewLabel_1_2_1);
 		
-		JLabel lblNewLabel_1_2_2 = new JLabel("Number of medium questions :");
+		JLabel lblNewLabel_1_2_2 = new JLabel("Số câu trung bình :");
 		lblNewLabel_1_2_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_2.setBounds(10, 210, 190, 18);
 		panel_3.add(lblNewLabel_1_2_2);
 		
-		JLabel lblNewLabel_1_2_3 = new JLabel("Number of hard questions :");
+		JLabel lblNewLabel_1_2_3 = new JLabel("Số câu khó :");
 		lblNewLabel_1_2_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3.setBounds(10, 270, 169, 18);
 		panel_3.add(lblNewLabel_1_2_3);
 		
-		JLabel lblNewLabel_1_2_3_1 = new JLabel("Exam day :");
+		JLabel lblNewLabel_1_2_3_1 = new JLabel("Ngày thi :");
 		lblNewLabel_1_2_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_1.setBounds(10, 330, 80, 18);
 		panel_3.add(lblNewLabel_1_2_3_1);
 		
-		JLabel lblNewLabel_1_2_3_2 = new JLabel("Starting time :");
+		JLabel lblNewLabel_1_2_3_2 = new JLabel("Thời gian bắt đầu :");
 		lblNewLabel_1_2_3_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_2_3_2.setBounds(10, 390, 88, 18);
+		lblNewLabel_1_2_3_2.setBounds(10, 390, 150, 18);
 		panel_3.add(lblNewLabel_1_2_3_2);
 		
-		JLabel lblNewLabel_1_2_3_3 = new JLabel("Exam duration :");
+		JLabel lblNewLabel_1_2_3_3 = new JLabel("Thời gian thi :");
 		lblNewLabel_1_2_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_3.setBounds(10, 450, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3);
@@ -749,7 +750,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setBounds(210, 206, 100, 30);
 		textField.setBorder(null);
-		textField.setGradientColors(new Color(50,185,185), Color.white);
+		textField.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField.setCornerRadius(20);
 		panel_3.add(textField);
 		textField.setColumns(10);
@@ -757,9 +758,9 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField_1 = new JPlaceholderTextField("");
 		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_1.setColumns(10);
-		textField_1.setBounds(210, 146, 100, 30);
+		textField_1.setBounds(150, 146, 100, 30);
 		textField_1.setBorder(null);
-		textField_1.setGradientColors(new Color(50,185,185), Color.white);
+		textField_1.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField_1.setCornerRadius(20);
 		panel_3.add(textField_1);
 		
@@ -767,26 +768,26 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_2.setColumns(10);
 		textField_2.setBorder(null);
-		textField_2.setGradientColors(new Color(50,185,185), Color.white);
+		textField_2.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField_2.setCornerRadius(20);
-		textField_2.setBounds(210, 86, 100, 30);
+		textField_2.setBounds(140, 86, 100, 30);
 		panel_3.add(textField_2);
 		
 		textField_3 = new JPlaceholderTextField("");
 		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_3.setColumns(10);
-		textField_3.setBounds(210, 266, 100, 30);
+		textField_3.setBounds(160, 266, 100, 30);
 		textField_3.setBorder(null);
-		textField_3.setGradientColors(new Color(50,185,185), Color.white);
+		textField_3.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField_3.setCornerRadius(20);
 		panel_3.add(textField_3);
 		
 		textField_4 = new JPlaceholderTextField("");
 		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_4.setColumns(10);
-		textField_4.setBounds(210, 446, 100, 30);
+		textField_4.setBounds(150, 446, 100, 30);
 		textField_4.setBorder(null);
-		textField_4.setGradientColors(new Color(50,185,185), Color.white);
+		textField_4.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField_4.setCornerRadius(20);
 		panel_3.add(textField_4);
 		
@@ -795,8 +796,8 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField_4_1.setCornerRadius(20);
 		textField_4_1.setColumns(10);
 		textField_4_1.setBorder(null);
-		textField_4_1.setBounds(210, 511, 100, 30);
-		textField_4_1.setGradientColors(new Color(50,185,185), Color.white);
+		textField_4_1.setBounds(130, 511, 100, 30);
+		textField_4_1.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		panel_3.add(textField_4_1);
 		
         MaskFormatter dateformatter = null;
@@ -815,36 +816,36 @@ public class ViewTeacher extends JFrame implements ActionListener {
         PlaceholderFormattedTextField dateField = new PlaceholderFormattedTextField(dateformatter);
         dateField.setHorizontalAlignment(SwingConstants.CENTER);
         dateField.setColumns(10);
-        dateField.setBounds(210, 326, 100, 30);
+        dateField.setBounds(120, 326, 100, 30);
         dateField.setBorder(null);
-        dateField.setGradientColors(new Color(50,185,185), Color.white);
+        dateField.setGradientColors(new Color(50,185,185), new Color(50,185,185));
         dateField.setCornerRadius(20);
         PlaceholderFormattedTextField timeField = new PlaceholderFormattedTextField(timeformatter);
         timeField.setHorizontalAlignment(SwingConstants.CENTER);
         timeField.setColumns(10);
-        timeField.setBounds(210, 386, 100, 30);
+        timeField.setBounds(200, 386, 100, 30);
         timeField.setBorder(null);
-        timeField.setGradientColors(new Color(50,185,185), Color.white);
+        timeField.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		timeField.setCornerRadius(20);
         panel_3.add(dateField);
 		panel_3.add(timeField);
 		
-		JLabel lblNewLabel_1_2_3_3_1 = new JLabel("Describe :");
+		JLabel lblNewLabel_1_2_3_3_1 = new JLabel("Mô tả :");
 		lblNewLabel_1_2_3_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_3_1.setBounds(10, 510, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("( VD: 2004/04/07)");
 		lblNewLabel_2.setForeground(new Color(192, 192, 192));
-		lblNewLabel_2.setBounds(320, 334, 102, 14);
+		lblNewLabel_2.setBounds(230, 334, 102, 14);
 		panel_3.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("( VD: 09:00:00)");
 		lblNewLabel_2_1.setForeground(Color.LIGHT_GRAY);
-		lblNewLabel_2_1.setBounds(320, 394, 102, 14);
+		lblNewLabel_2_1.setBounds(310, 394, 102, 14);
 		panel_3.add(lblNewLabel_2_1);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Create");
+		MyButton btnNewButton_1_1 = new MyButton("Tạo");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -896,7 +897,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		panel_3.add(btnNewButton_1_1);
 		
-		MyButton btnNewButton_1_1_1 = new MyButton("Cancel");
+		MyButton btnNewButton_1_1_1 = new MyButton("Hủy");
 		btnNewButton_1_1_1.setRadius(10);
 		btnNewButton_1_1_1.setForeground(new Color(50, 185, 185));
 		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -925,9 +926,9 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.repaint();
 		pView.revalidate();
 		
-		JLabel lblNewLabel = new JLabel("UPDATE EXAM");
+		JLabel lblNewLabel = new JLabel("CẬP NHẬT THÔNG TIN KÌ THI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(10, 10, 150 , 20);
+		lblNewLabel.setBounds(10, 10, 300 , 20);
 		
 		pView.add(lblNewLabel);
 		
@@ -937,13 +938,13 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.add(panel_3);
 		panel_3.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Class : ");
+		JLabel lblNewLabel_1 = new JLabel("Lớp : ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1.setBounds(10, 30, 50 , 18);
 		
 		panel_3.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Subject :");
+		JLabel lblNewLabel_1_1 = new JLabel("Môn :");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1.setBounds(339, 30, 60 , 18);
 		panel_3.add(lblNewLabel_1_1);
@@ -963,37 +964,37 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		comboBox_1.setBounds(402, 30, 102, 22);
 		panel_3.add(comboBox_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Number of questions :");
+		JLabel lblNewLabel_1_2 = new JLabel("Số câu hỏi :");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2.setBounds(10, 90, 137 , 18);
 		panel_3.add(lblNewLabel_1_2);
 		
-		JLabel lblNewLabel_1_2_1 = new JLabel("Number of easy questions :");
+		JLabel lblNewLabel_1_2_1 = new JLabel("Số câu hỏi dễ :");
 		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_1.setBounds(10, 150, 169, 18);
 		panel_3.add(lblNewLabel_1_2_1);
 		
-		JLabel lblNewLabel_1_2_2 = new JLabel("Number of medium questions :");
+		JLabel lblNewLabel_1_2_2 = new JLabel("Số câu hỏi trung bình :");
 		lblNewLabel_1_2_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_2.setBounds(10, 210, 190, 18);
 		panel_3.add(lblNewLabel_1_2_2);
 		
-		JLabel lblNewLabel_1_2_3 = new JLabel("Number of hard questions :");
+		JLabel lblNewLabel_1_2_3 = new JLabel("Số câu hỏi khó :");
 		lblNewLabel_1_2_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3.setBounds(10, 270, 169, 18);
 		panel_3.add(lblNewLabel_1_2_3);
 		
-		JLabel lblNewLabel_1_2_3_1 = new JLabel("Exam day :");
+		JLabel lblNewLabel_1_2_3_1 = new JLabel("Ngày thi :");
 		lblNewLabel_1_2_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_1.setBounds(10, 330, 80, 18);
 		panel_3.add(lblNewLabel_1_2_3_1);
 		
-		JLabel lblNewLabel_1_2_3_2 = new JLabel("Starting time :");
+		JLabel lblNewLabel_1_2_3_2 = new JLabel("Thời gian bắt đầu :");
 		lblNewLabel_1_2_3_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_2_3_2.setBounds(10, 390, 88, 18);
+		lblNewLabel_1_2_3_2.setBounds(10, 390, 150, 18);
 		panel_3.add(lblNewLabel_1_2_3_2);
 		
-		JLabel lblNewLabel_1_2_3_3 = new JLabel("Exam duration :");
+		JLabel lblNewLabel_1_2_3_3 = new JLabel("Thời gian thi :");
 		lblNewLabel_1_2_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_3.setBounds(10, 450, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3);
@@ -1003,7 +1004,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField.setHorizontalAlignment(JPlaceholderTextField.CENTER);
 		textField.setBounds(210, 206, 100, 30);
 		textField.setBorder(null);
-		textField.setGradientColors(new Color(50,185,185), Color.white);
+		textField.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField.setCornerRadius(20);
 		panel_3.add(textField);
 		textField.setColumns(10);
@@ -1012,9 +1013,9 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField_1.setText(String.valueOf(kt.getSocauDe()));
 		textField_1.setHorizontalAlignment(JPlaceholderTextField.CENTER);
 		textField_1.setColumns(10);
-		textField_1.setBounds(210, 146, 100, 30);
+		textField_1.setBounds(150, 146, 100, 30);
 		textField_1.setBorder(null);
-		textField_1.setGradientColors(new Color(50,185,185), Color.white);
+		textField_1.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField_1.setCornerRadius(20);
 		panel_3.add(textField_1);
 		
@@ -1023,18 +1024,18 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField_2.setHorizontalAlignment(JPlaceholderTextField.CENTER);
 		textField_2.setColumns(10);
 		textField_2.setBorder(null);
-		textField_2.setGradientColors(new Color(50,185,185), Color.white);
+		textField_2.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField_2.setCornerRadius(20);
-		textField_2.setBounds(210, 86, 100, 30);
+		textField_2.setBounds(140, 86, 100, 30);
 		panel_3.add(textField_2);
 		
 		textField_3 = new JPlaceholderTextField("");
 		textField_3.setText(String.valueOf(kt.getSocaukho()));
 		textField_3.setHorizontalAlignment(JPlaceholderTextField.CENTER);
 		textField_3.setColumns(10);
-		textField_3.setBounds(210, 266, 100, 30);
+		textField_3.setBounds(160, 266, 100, 30);
 		textField_3.setBorder(null);
-		textField_3.setGradientColors(new Color(50,185,185), Color.white);
+		textField_3.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField_3.setCornerRadius(20);
 		panel_3.add(textField_3);
 		
@@ -1042,9 +1043,9 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField_4.setText(String.valueOf(kt.getThoigianlambai()));
 		textField_4.setHorizontalAlignment(JPlaceholderTextField.CENTER);
 		textField_4.setColumns(10);
-		textField_4.setBounds(210, 446, 100, 30);
+		textField_4.setBounds(150, 446, 100, 30);
 		textField_4.setBorder(null);
-		textField_4.setGradientColors(new Color(50,185,185), Color.white);
+		textField_4.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		textField_4.setCornerRadius(20);
 		panel_3.add(textField_4);
 		
@@ -1066,22 +1067,22 @@ public class ViewTeacher extends JFrame implements ActionListener {
         System.out.println(kt.getDate());
         dateField.setHorizontalAlignment(SwingConstants.CENTER);
         dateField.setColumns(10);
-        dateField.setBounds(210, 326, 100, 30);
+        dateField.setBounds(120, 326, 100, 30);
         dateField.setBorder(null);
-        dateField.setGradientColors(new Color(50,185,185), Color.white);
+        dateField.setGradientColors(new Color(50,185,185), new Color(50,185,185));
         dateField.setCornerRadius(20);
         PlaceholderFormattedTextField timeField = new PlaceholderFormattedTextField(timeformatter);
         timeField.setValue(kt.getThoigianbatdau());
         timeField.setHorizontalAlignment(SwingConstants.CENTER);
         timeField.setColumns(10);
-        timeField.setBounds(210, 386, 100, 30);
+        timeField.setBounds(200, 386, 100, 30);
         timeField.setBorder(null);
-        timeField.setGradientColors(new Color(50,185,185), Color.white);
+        timeField.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		timeField.setCornerRadius(20);
         panel_3.add(dateField);
 		panel_3.add(timeField);
 		
-		JLabel lblNewLabel_1_2_3_3_1 = new JLabel("Describe :");
+		JLabel lblNewLabel_1_2_3_3_1 = new JLabel("Mô tả :");
 		lblNewLabel_1_2_3_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_3_1.setBounds(10, 510, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3_1);
@@ -1092,21 +1093,21 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textField_4_1.setCornerRadius(20);
 		textField_4_1.setColumns(10);
 		textField_4_1.setBorder(null);
-		textField_4_1.setBounds(210, 511, 100, 30);
-		textField_4_1.setGradientColors(new Color(50,185,185), Color.white);
+		textField_4_1.setBounds(130, 511, 100, 30);
+		textField_4_1.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		panel_3.add(textField_4_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("( VD: 2004/04/07)");
 		lblNewLabel_2.setForeground(new Color(192, 192, 192));
-		lblNewLabel_2.setBounds(320, 334, 102, 14);
+		lblNewLabel_2.setBounds(230, 334, 102, 14);
 		panel_3.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("( VD: 09:00:00)");
 		lblNewLabel_2_1.setForeground(Color.LIGHT_GRAY);
-		lblNewLabel_2_1.setBounds(320, 394, 102, 14);
+		lblNewLabel_2_1.setBounds(310, 394, 102, 14);
 		panel_3.add(lblNewLabel_2_1);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Update");
+		MyButton btnNewButton_1_1 = new MyButton("Cập nhật");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -1156,7 +1157,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		
 		panel_3.add(btnNewButton_1_1);
 		
-		MyButton btnNewButton_1_1_1 = new MyButton("Cancel");
+		MyButton btnNewButton_1_1_1 = new MyButton("Hủy");
 		btnNewButton_1_1_1.setRadius(10);
 		btnNewButton_1_1_1.setForeground(new Color(50, 185, 185));
 		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -1183,7 +1184,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.repaint();
 		pView.revalidate();
 		
-		JLabel lblNewLabel = new JLabel("CREATE QUESTION");
+		JLabel lblNewLabel = new JLabel("TẠO CÂU HỎI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(10, 10, 150 , 20);
 		
@@ -1197,12 +1198,12 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		pView.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Subject :");
+		JLabel lblNewLabel_1_1 = new JLabel("Môn :");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1.setBounds(30, 30, 60 , 18);
 		panel_1.add(lblNewLabel_1_1);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Level :");
+		JLabel lblNewLabel_1_1_1 = new JLabel("Mức độ :");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1_1.setBounds(370, 30, 60, 18);
 		panel_1.add(lblNewLabel_1_1_1);
@@ -1219,7 +1220,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		comboBox_1.setBounds(470, 30, 102, 22);
 		panel_1.add(comboBox_1);
 		
-		JLabel lblNewLabel_1_1_2 = new JLabel("Question :");
+		JLabel lblNewLabel_1_1_2 = new JLabel("Câu hỏi :");
 		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1_2.setBounds(30, 110, 75, 18);
 		panel_1.add(lblNewLabel_1_1_2);
@@ -1233,22 +1234,22 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		textArea.setWrapStyleWord(true);
 		scrollPane.setViewportView(textArea);
 		
-		JLabel lblNewLabel_1_1_2_1 = new JLabel("Answer A :");
+		JLabel lblNewLabel_1_1_2_1 = new JLabel("Đáp án A :");
 		lblNewLabel_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1_2_1.setBounds(30, 210, 75, 18);
 		panel_1.add(lblNewLabel_1_1_2_1);
 		
-		JLabel lblNewLabel_1_1_2_1_1 = new JLabel("Answer B :");
+		JLabel lblNewLabel_1_1_2_1_1 = new JLabel("Đáp án B :");
 		lblNewLabel_1_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1_2_1_1.setBounds(30, 290, 75, 18);
 		panel_1.add(lblNewLabel_1_1_2_1_1);
 		
-		JLabel lblNewLabel_1_1_2_1_1_1 = new JLabel("Answer C :");
+		JLabel lblNewLabel_1_1_2_1_1_1 = new JLabel("Đáp án C :");
 		lblNewLabel_1_1_2_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1_2_1_1_1.setBounds(30, 370, 75, 18);
 		panel_1.add(lblNewLabel_1_1_2_1_1_1);
 		
-		JLabel lblNewLabel_1_1_2_1_1_1_1 = new JLabel("Answer D :");
+		JLabel lblNewLabel_1_1_2_1_1_1_1 = new JLabel("Đáp án D :");
 		lblNewLabel_1_1_2_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1_2_1_1_1_1.setBounds(30, 450, 75, 18);
 		panel_1.add(lblNewLabel_1_1_2_1_1_1_1);
@@ -1290,22 +1291,22 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		scrollPane_1_3.setViewportView(textArea_4);
 		
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Answer correctly");
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Đáp án đúng");
 		rdbtnNewRadioButton.setBackground(new Color(255, 255, 255));
 		rdbtnNewRadioButton.setBounds(130, 260, 109, 23);
 		panel_1.add(rdbtnNewRadioButton);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Answer correctly");
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Đáp án đúng");
 		rdbtnNewRadioButton_1.setBackground(new Color(255, 255, 255));
 		rdbtnNewRadioButton_1.setBounds(130, 342, 109, 23);
 		panel_1.add(rdbtnNewRadioButton_1);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Answer correctly");
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Đáp án đúng");
 		rdbtnNewRadioButton_2.setBackground(new Color(255, 255, 255));
 		rdbtnNewRadioButton_2.setBounds(130, 422, 109, 23);
 		panel_1.add(rdbtnNewRadioButton_2);
 		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Answer correctly");
+		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Đáp án đúng");
 		rdbtnNewRadioButton_3.setBackground(new Color(255, 255, 255));
 		rdbtnNewRadioButton_3.setBounds(130, 502, 109, 23);
 		panel_1.add(rdbtnNewRadioButton_3);
@@ -1316,7 +1317,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 		onechoice.add(rdbtnNewRadioButton_2);
 		onechoice.add(rdbtnNewRadioButton_3);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Save & continue");
+		MyButton btnNewButton_1_1 = new MyButton("Lưu và tiếp tục");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -1350,7 +1351,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 				}else if(rdbtnNewRadioButton_3.isSelected()) {
 					dapanDung = textArea_4.getText();
 				}else {
-					JOptionPane.showMessageDialog(null, "You must choice a correct answer","Error",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Bạn cần chọn câu trả lời đúng","LỖI",JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
 				// tạo id bằng phương pháp UUID
@@ -1362,7 +1363,7 @@ public class ViewTeacher extends JFrame implements ActionListener {
 			}
 		});
 		
-		MyButton btnNewButton_1_1_1 = new MyButton("Exit");
+		MyButton btnNewButton_1_1_1 = new MyButton("Thoát");
 		btnNewButton_1_1_1.setRadius(10);
 		btnNewButton_1_1_1.setForeground(new Color(50, 185, 185));
 		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
