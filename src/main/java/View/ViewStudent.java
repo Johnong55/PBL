@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -29,6 +31,7 @@ import Controller.Controller_Student;
 import DAO.KiThi_dao;
 import DAO.Sv_dao;
 import model.Account;
+import model.BaiLam;
 import model.KiThi;
 import model.Sv;
 
@@ -47,9 +50,18 @@ public class ViewStudent extends JFrame {
 
 	PanelRound panel_1;
 	public JTextField textField;
-	public JTable table;
+	public JTable table = new JTable(); public		
+	DefaultTableModel model = new DefaultTableModel(
+		    new Object[][] {
+		    },
+		    new String[] {
+		        "Tên kỳ thi", "Ngày thi", "Thời gian", "Câu đúng", "Câu sai", "Điểm"
+		    }
+		);
+
 	
 	public Sv v ; public KiThi ktsoon , ktOngoing;
+	public List<BaiLam> bailamsv = new ArrayList<BaiLam>();
 	public ViewStudent(Sv sv) {
 		this.v = sv;
 		this.ktsoon = Sv_dao.Instance().findKithiSoon(v);
@@ -296,19 +308,10 @@ public class ViewStudent extends JFrame {
 		scrollPane.setBounds(0, 57, 693, 467);
 		panel_1.add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"T\u00EAn k\u00EC thi", "Ng\u00E0y thi", "Th\u1EDDi gian", "C\u00E2u \u0111\u00FAng", "C\u00E2u sai", "\u0110i\u1EC3m"
-			}
-		));
+		
+		table.setModel(model);
 		table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		DefaultTableModel md = (DefaultTableModel) table.getModel();
-		md.addRow(new Object[] {
-			
-		});
+	
 		scrollPane.setViewportView(table);
 	}
 	public void view_profile() {

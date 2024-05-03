@@ -25,7 +25,7 @@ public class BaiLam{
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "Sv")
 	private Sv sv;	
-	private double diem;
+	private double diem = 0;
 	private Time thoigianbatdau;
 	private Time thoigianketthuc;
 	@OneToOne(cascade = CascadeType.ALL)
@@ -161,10 +161,12 @@ public class BaiLam{
 	}
 	public void check()
 	{
+		double dd = (double) 10 /  cautraloi.size();
 		for(Cautraloisinhvien i : cautraloi)
 		{
 			if(i.getKiemtra()==1)
 			{
+				this.diem += dd;
 				socaudung++;
 			}
 			else {

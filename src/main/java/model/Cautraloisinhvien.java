@@ -26,7 +26,7 @@ public class Cautraloisinhvien {
 	}
 
 	public void setKiemtra() {
-		if(this.cauhoi.getDapan()== cautraloi)
+		if(this.cauhoi.getDapan().equals(cautraloi))
 		{
 			kiemtra = 1;
 		}
@@ -88,6 +88,7 @@ public class Cautraloisinhvien {
 	 */
 	public Cautraloisinhvien() {
 		super();
+		this.cautraloi = "0";
 		// TODO Auto-generated constructor stub
 	}
 

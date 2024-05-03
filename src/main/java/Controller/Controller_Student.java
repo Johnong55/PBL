@@ -4,12 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JFrame;
 
+import DAO.BaiLam_dao;
+import DAO.KiThi_dao;
 import View.ChangePassword;
 import View.GoingTest;
 import View.ViewStudent;
+import model.BaiLam;
 
 public class Controller_Student implements ActionListener  {
 	private ViewStudent s;
@@ -22,6 +26,25 @@ public class Controller_Student implements ActionListener  {
 		s.panel_4.removeAll();
 		s.panel_4.revalidate();
 		s.panel_4.repaint();
+	}
+	public void hienthi() {
+		s.bailamsv = BaiLam_dao.Instance().selectbailambysv(s.v);
+		for(int i = 0 ; i< s.bailamsv.size(); i++)
+			
+		{
+			String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
+			String ngay  = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
+		s.model.addRow(new Object[] {
+				s.bailamsv.get(i).getKiThi().getMota() ,
+				ngay, 
+				s.bailamsv.get(i).getKiThi().getThoigianlambai(),
+				s.bailamsv.get(i).getSocaudung(),
+				s.bailamsv.get(i).getSocausai(),
+				diem
+		});
+		}
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -38,7 +61,9 @@ public class Controller_Student implements ActionListener  {
 		{
 			
 			setPanel_4();
+			hienthi();
 			s.view_test();
+
 		}	
 			
 		else if(e.getSource() == s.btnProfile) 
