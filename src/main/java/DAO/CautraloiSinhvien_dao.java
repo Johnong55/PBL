@@ -30,8 +30,7 @@ public class CautraloiSinhvien_dao  {
 		try {
 			Connection con  = JDBCUtil.getConnection();
 			String sql = " select * from cautraloisinhvien\r\n"
-					+ "where bailam = ? \r\n"
-					+ " order by cauhoiso asc";
+					+ "where bailam = ? \r\n";
 			
 			PreparedStatement a;
 
@@ -42,7 +41,7 @@ public class CautraloiSinhvien_dao  {
 				while(kq.next())
 				{
 					String id = kq.getString("id");
-					String cauhoi= kq.getString("cauhoi");
+					String cauhoi= kq.getString("cauhoi_id");
 					String cautraloi = kq.getString("cautraloi");
 					String bailamid = kq.getString("bailam");
 					Cautraloisinhvien u = new Cautraloisinhvien();

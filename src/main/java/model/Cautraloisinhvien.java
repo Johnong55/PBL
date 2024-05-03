@@ -19,6 +19,21 @@ public class Cautraloisinhvien {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "bailam")
 	private BaiLam bailamsv ;
+	private int kiemtra;
+	
+	public int getKiemtra() {
+		return kiemtra;
+	}
+
+	public void setKiemtra() {
+		if(this.cauhoi.getDapan()== cautraloi)
+		{
+			kiemtra = 1;
+		}
+		else {
+			kiemtra=0;
+		}
+	}
 
 	public String getId() {
 		return id;
