@@ -305,6 +305,10 @@ public class ViewStudent extends JFrame {
 			}
 		));
 		table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		DefaultTableModel md = (DefaultTableModel) table.getModel();
+		md.addRow(new Object[] {
+			
+		});
 		scrollPane.setViewportView(table);
 	}
 	public void view_profile() {
@@ -458,7 +462,7 @@ public class ViewStudent extends JFrame {
 		panel.add(btnProfile);
 		panel_4.setBounds(171, 0, 713, 661); 
 		
-		view_home();
+		view_test();
 		//-----------------------------------
 		
 		//------------
