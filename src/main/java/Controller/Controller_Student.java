@@ -59,7 +59,7 @@ public class Controller_Student implements ActionListener  {
 		}
 		else if(e.getSource() == s.btnTests)
 		{
-			
+			s.model.setRowCount(0);
 			setPanel_4();
 			hienthi();
 			s.view_test();

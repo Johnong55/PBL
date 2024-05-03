@@ -8,7 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import java.awt.Component;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -25,7 +27,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import Controller.Controller_Student;
 import DAO.KiThi_dao;
@@ -50,7 +54,7 @@ public class ViewStudent extends JFrame {
 
 	PanelRound panel_1;
 	public JTextField textField;
-	public JTable table = new JTable(); public		
+	public MyTable table = new MyTable(); public		
 	DefaultTableModel model = new DefaultTableModel(
 		    new Object[][] {
 		    },
@@ -308,9 +312,36 @@ public class ViewStudent extends JFrame {
 		scrollPane.setBounds(0, 57, 693, 467);
 		panel_1.add(scrollPane);
 		
+		table = new MyTable();
+		table.setRowHeight(30);
+		table.setColor1(Color.WHITE);
+		table.setColor2(Color.WHITE);
+		table.setGridColor(Blue);
+	//	table.setShowGrid(false);
+		table.setColumnAlignment(0, JLabel.LEFT);
+		table.setCellAlignment(0, JLabel.LEFT);
 		
+        JTableHeader header = table.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            private static final long serialVersionUID = 1L;
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
+                        column);
+                comp.setBackground(Blue);
+                comp.setForeground(Color.WHITE);
+                setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201,201,201)));
+               
+                return comp;
+            }
+        });
+		table.getTableHeader().setBackground(Color.WHITE);
+		table.setRowSelectionAllowed(true);
+		table.setCellSelectionEnabled(false);
+		table.setColumnSelectionAllowed(false);
 		table.setModel(model);
-		table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		table.setFont(new Font("Calibri", Font.PLAIN, 20));
 	
 		scrollPane.setViewportView(table);
 	}

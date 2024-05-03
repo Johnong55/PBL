@@ -53,6 +53,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setMaGv(id);
 					u.setTen(ten);
 					u.setTruong(tr.selectbyid(truong));
+					u.setDanhsachlop(selectclassbyid(u));
 					
 					result.add(u);
 				}

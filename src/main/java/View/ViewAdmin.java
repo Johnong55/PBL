@@ -167,7 +167,7 @@ public class ViewAdmin extends JFrame implements ActionListener {
 		pView.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 89, 700, 668);
+		scrollPane.setBounds(10, 89, 695, 668);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201,201,201)));
 		
@@ -236,7 +236,7 @@ public class ViewAdmin extends JFrame implements ActionListener {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
-		scrollPane.setBounds(10, 89, pView.getWidth()- 15, pView.getHeight() - 89);
+		scrollPane.setBounds(10, 89, pView.getWidth()- 20, pView.getHeight() - 89);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201,201,201)));
 		pView.add(scrollPane);
 		
@@ -287,7 +287,7 @@ public class ViewAdmin extends JFrame implements ActionListener {
 		pView.add(lblNewLabel);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 89, pView.getWidth()-15, pView.getHeight() - 89);
+		scrollPane.setBounds(10, 89, pView.getWidth()-20, pView.getHeight() - 89);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201,201,201)));
 		scrollPane.getViewport().setBackground(Color.WHITE);
 
@@ -351,7 +351,7 @@ public class ViewAdmin extends JFrame implements ActionListener {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
-		scrollPane.setBounds(10, 89, pView.getWidth()-15, pView.getHeight() - 89);
+		scrollPane.setBounds(10, 89, pView.getWidth()-20, pView.getHeight() - 89);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201,201,201)));
 		pView.add(scrollPane);
 		
@@ -402,7 +402,7 @@ public class ViewAdmin extends JFrame implements ActionListener {
 		pView.add(lblNewLabel);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 89, pView.getWidth() - 15, pView.getHeight() - 89);
+		scrollPane.setBounds(10, 89, pView.getWidth() - 20, pView.getHeight() - 89);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201,201,201)));
 
