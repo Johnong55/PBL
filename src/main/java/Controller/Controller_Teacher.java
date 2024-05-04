@@ -72,6 +72,7 @@ public class Controller_Teacher {
 	}
 	public DefaultTableModel getModelClasses(Gv g, JTable table) {
 		dslop = g.getDanhsachlop();
+		System.out.println(dslop);
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (Giangday giangday : dslop) {

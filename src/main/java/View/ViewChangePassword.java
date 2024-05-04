@@ -64,12 +64,12 @@ public class ViewChangePassword extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Change your password");
+		JLabel lblNewLabel = new JLabel("Thay đổi mật khẩu");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		Dimension size_4_2 = lblNewLabel.getPreferredSize();
-		lblNewLabel.setBounds(107, 30, (int) size_4_2.getWidth()+1 , (int) size_4_2.getHeight()+1);
+		lblNewLabel.setBounds(120, 30, (int) size_4_2.getWidth()+1 , (int) size_4_2.getHeight()+1);
 		contentPane.add(lblNewLabel);
 		
 		PanelRound panel = new PanelRound(0);
@@ -80,27 +80,27 @@ public class ViewChangePassword extends JFrame {
 		panel.setBorder(redBorder);
 		contentPane.add(panel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Password");
+		JLabel lblNewLabel_1 = new JLabel("Mật khẩu hiện tại");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setBounds(30, 110, 69, 14);
+		lblNewLabel_1.setBounds(30, 110, 150, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("New Password");
+		JLabel lblNewLabel_1_1 = new JLabel("Mật khẩu mới");
 		lblNewLabel_1_1.setForeground(Color.WHITE);
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(30, 165, 94, 14);
+		lblNewLabel_1_1.setBounds(30, 165, 150, 14);
 		contentPane.add(lblNewLabel_1_1);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Change Password");
+		JLabel lblNewLabel_1_1_1 = new JLabel("Xác nhận mật khẩu");
 		lblNewLabel_1_1_1.setForeground(Color.WHITE);
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1_1.setBounds(30, 230, 115, 18);
+		lblNewLabel_1_1_1.setBounds(30, 220, 150, 18);
 		contentPane.add(lblNewLabel_1_1_1);
 		
 		textField = new JPlaceholderTextField("");
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setBounds(155, 220, 183, 35);
+		textField.setBounds(155, 210, 183, 35);
 		textField.setForeground(new Color(255, 255, 255));
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setBackground(new Color(50, 185, 185));
@@ -136,7 +136,7 @@ public class ViewChangePassword extends JFrame {
 		textField_2.setBounds(155, 100, 183, 35);
 		contentPane.add(textField_2);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Set Password");
+		MyButton btnNewButton_1_1 = new MyButton("Ok");
 		btnNewButton_1_1.setRadius(10);
 		btnNewButton_1_1.setForeground(new Color(50, 185, 185));
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -161,7 +161,5 @@ public class ViewChangePassword extends JFrame {
 				controlGV.ChangePassword(gv, passwordNow, passwordChange, passwordComfirm);
 			}
 		});
-		
-		
 	}
 }

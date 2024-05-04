@@ -98,7 +98,7 @@ public class Class_dao implements DAO_Interface<Class> {
 			}
 		return null;
 	}
-
+	
 
 	@Override
 	public boolean insert(Class t) {

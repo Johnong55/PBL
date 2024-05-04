@@ -19,6 +19,7 @@ import model.Cauhoi;
 import model.DeThi;
 import model.KiThi;
 import model.Nganhangcauhoi;
+import model.Sv;
 import util.HibernateUtil;
 import util.JDBCUtil;
 
@@ -164,6 +165,8 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 			}
 			return result;
 	}
+
+	
 	public List<Cauhoi> Xaydungdethi(KiThi t)
 	{
 		List<Cauhoi> result = new ArrayList<Cauhoi>();
