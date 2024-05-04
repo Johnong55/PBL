@@ -579,7 +579,6 @@ public class ViewTeacher extends JFrame implements ActionListener {
 
 				ViewChangePassword v = new ViewChangePassword(g);			
 
-
 			}
 		});
 		

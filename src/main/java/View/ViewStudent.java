@@ -8,13 +8,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import java.awt.Component;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -23,12 +27,15 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import Controller.Controller_Student;
 import DAO.KiThi_dao;
 import DAO.Sv_dao;
 import model.Account;
+import model.BaiLam;
 import model.KiThi;
 import model.Sv;
 
@@ -47,9 +54,18 @@ public class ViewStudent extends JFrame {
 
 	PanelRound panel_1;
 	public JTextField textField;
-	public JTable table;
+	public MyTable table = new MyTable(); public		
+	DefaultTableModel model = new DefaultTableModel(
+		    new Object[][] {
+		    },
+		    new String[] {
+		        "Tên kỳ thi", "Ngày thi", "Thời gian", "Câu đúng", "Câu sai", "Điểm"
+		    }
+		);
+
 	
 	public Sv v ; public KiThi ktsoon , ktOngoing;
+	public List<BaiLam> bailamsv = new ArrayList<BaiLam>();
 	public ViewStudent(Sv sv) {
 		this.v = sv;
 		this.ktsoon = Sv_dao.Instance().findKithiSoon(v);
@@ -296,15 +312,37 @@ public class ViewStudent extends JFrame {
 		scrollPane.setBounds(0, 57, 693, 467);
 		panel_1.add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"T\u00EAn k\u00EC thi", "Ng\u00E0y thi", "Th\u1EDDi gian", "C\u00E2u \u0111\u00FAng", "C\u00E2u sai", "\u0110i\u1EC3m"
-			}
-		));
-		table.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		table = new MyTable();
+		table.setRowHeight(30);
+		table.setColor1(Color.WHITE);
+		table.setColor2(Color.WHITE);
+		table.setGridColor(Blue);
+	//	table.setShowGrid(false);
+		table.setColumnAlignment(0, JLabel.LEFT);
+		table.setCellAlignment(0, JLabel.LEFT);
+		
+        JTableHeader header = table.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            private static final long serialVersionUID = 1L;
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
+                        column);
+                comp.setBackground(Blue);
+                comp.setForeground(Color.WHITE);
+                setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201,201,201)));
+               
+                return comp;
+            }
+        });
+		table.getTableHeader().setBackground(Color.WHITE);
+		table.setRowSelectionAllowed(true);
+		table.setCellSelectionEnabled(false);
+		table.setColumnSelectionAllowed(false);
+		table.setModel(model);
+		table.setFont(new Font("Calibri", Font.PLAIN, 20));
+	
 		scrollPane.setViewportView(table);
 	}
 	public void view_profile() {
@@ -340,19 +378,22 @@ public class ViewStudent extends JFrame {
 		LopSV.setBounds(10, 199, 58, 24);
 		panel_2.add(LopSV);
 		
-		JLabel MSSV_text = new JLabel("Mã số học sinh :");
+		JLabel MSSV_text = new JLabel("MSHS");
+		MSSV_text.setText(v.getIdSv());
 		MSSV_text.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		MSSV_text.setBounds(168, 67, 126, 29);
+		MSSV_text.setBounds(168, 67, 173, 29);
 		panel_2.add(MSSV_text);
 		
-		JLabel NameSV_Text = new JLabel("Mã số học sinh :");
+		JLabel NameSV_Text = new JLabel("Ten");
+		NameSV_Text.setText(v.getTen());
 		NameSV_Text.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		NameSV_Text.setBounds(105, 129, 126, 29);
+		NameSV_Text.setBounds(105, 129, 289, 29);
 		panel_2.add(NameSV_Text);
 		
 		JLabel LopSV_Text = new JLabel("Mã số học sinh :");
+		LopSV_Text.setText(v.getIdclass().getTenlop());
 		LopSV_Text.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		LopSV_Text.setBounds(105, 197, 126, 29);
+		LopSV_Text.setBounds(105, 197, 151, 29);
 		panel_2.add(LopSV_Text);
 		
 		PanelRound panel_2_1 = new PanelRound(15);
@@ -360,8 +401,11 @@ public class ViewStudent extends JFrame {
 		panel_4.add(panel_2_1);
 		panel_2_1.setLayout(null);
 		
-		JLabel lblNewLabel_14 = new JLabel("New label");
-		lblNewLabel_14.setBounds(34, 11, 119, 117);
+		JLabel lblNewLabel_14 = new JLabel("");
+		lblNewLabel_14.setBounds(34, 11, 119, 126);
+		lblNewLabel_14.setIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/anhtri.jpg"))
+						.getScaledInstance(lblNewLabel_14.getWidth(), lblNewLabel_14.getHeight(), Image.SCALE_SMOOTH)));
 		panel_2_1.add(lblNewLabel_14);
 		
 		BtnChangeImagePer = new MyButton("Thay đổi hình ảnh");
@@ -458,7 +502,7 @@ public class ViewStudent extends JFrame {
 		panel.add(btnProfile);
 		panel_4.setBounds(171, 0, 713, 661); 
 		
-		view_home();
+		view_profile();
 		//-----------------------------------
 		
 		//------------
