@@ -1,12 +1,24 @@
 package Controller;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import DAO.BaiLam_dao;
 import DAO.KiThi_dao;
@@ -17,7 +29,7 @@ import model.BaiLam;
 
 public class Controller_Student implements ActionListener  {
 	private ViewStudent s;
-
+	
 	public Controller_Student(ViewStudent s) {
 		super();
 		this.s = s;
@@ -45,6 +57,15 @@ public class Controller_Student implements ActionListener  {
 		});
 		}
 		
+	}
+	private void displayImage(File imageFile, JLabel label) {
+	    try {
+	        Image image = Toolkit.getDefaultToolkit().createImage(imageFile.toString());
+	        image = image.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+	        label.setIcon(new ImageIcon(image));
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -93,6 +114,29 @@ public class Controller_Student implements ActionListener  {
 
 
 		}	
+		else if(e.getSource() == s.BtnChangeImagePer)
+		{
+			 JFileChooser saveFile = new JFileChooser();
+             int result = saveFile.showSaveDialog(null);
+             if (result == JFileChooser.APPROVE_OPTION) {
+            	    // Lấy file được chọn
+            	    File sourceFile = saveFile.getSelectedFile();
+
+            	   
+            	        // Lấy file được chọn để lưu
+            	        File destinationFile = new File("D:\\study\\PBL\\src\\main\\java\\View\\image\\" + sourceFile.getName());
+
+            	        try {
+            	            Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            	           displayImage(destinationFile, s.lblNewLabel_14);
+            	           s.v.setLinkAnh("/view/image/" + sourceFile.getName());
+            	            JOptionPane.showMessageDialog(null, destinationFile.toString());
+            	        } catch (IOException q) {
+            	            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi sao chép file: " + q.getMessage());
+            	        }
+            	    
+            	}
+		}
 		
 		s.panel_4.setBounds(171, 0, 713, 661); 
 	}

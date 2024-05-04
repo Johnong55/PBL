@@ -30,6 +30,8 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import Controller.Controller_Student;
 import DAO.KiThi_dao;
@@ -51,7 +53,7 @@ public class ViewStudent extends JFrame {
 	public JPanel panel_4 = new JPanel();
 	public MyButton BtnHome, btnTests,btnProfile, btnChangePer, BtnChangeImagePer;
 	public MyButton mbtnSetReminder, mbtnBtuLm;
-
+	public JLabel lblNewLabel_14;
 	PanelRound panel_1;
 	public JTextField textField;
 	public MyTable table = new MyTable(); public		
@@ -401,10 +403,10 @@ public class ViewStudent extends JFrame {
 		panel_4.add(panel_2_1);
 		panel_2_1.setLayout(null);
 		
-		JLabel lblNewLabel_14 = new JLabel("");
+		lblNewLabel_14 = new JLabel("");
 		lblNewLabel_14.setBounds(34, 11, 119, 126);
 		lblNewLabel_14.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/anhtri.jpg"))
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource(v.getLinkAnh()))	
 						.getScaledInstance(lblNewLabel_14.getWidth(), lblNewLabel_14.getHeight(), Image.SCALE_SMOOTH)));
 		panel_2_1.add(lblNewLabel_14);
 		
@@ -443,7 +445,14 @@ public class ViewStudent extends JFrame {
 	
 	}
 	public void ViewStudent1() {
-		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		panel_4.setLayout(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(235, 235, 235));
