@@ -224,7 +224,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					Class lop1 = new Class();
 					lop1.setIdclass(lop);
 					
-				Sv u = new Sv(id, ten, lop1);
+				Sv u = new Sv(id, ten, Class_dao.Instance().selectbyid(lop1));
 				
 				return u;
 				}

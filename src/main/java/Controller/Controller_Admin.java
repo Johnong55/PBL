@@ -74,24 +74,3 @@ public class Controller_Admin implements Action {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
