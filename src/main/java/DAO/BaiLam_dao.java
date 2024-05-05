@@ -253,4 +253,23 @@ public class BaiLam_dao implements DAO_Interface<BaiLam> {
 		}
 		return result;
 	}
+	public List<BaiLam> selectColumnbailambysv(Sv t , String column , String text)
+	{
+		List<BaiLam> result  = selectbailambysv(t);
+		List<BaiLam> result2  = new ArrayList<BaiLam>();
+
+		for(BaiLam  l : result)
+		{
+			if(column.equals("Tên kì thi"))  if(l.getKiThi().getMota().contains(text)) result2.add(l);
+			if(column.equals("Ngày thi"))  if(l.getKiThi().getDate().toString().contains(text)) result2.add(l);
+//			if(column.equals("Thời gian"))  if(l.getKiThi().getThoigianlambai() ) result2.add(l);
+			if(column.equals("Câu đúng"))  if(l.getKiThi().getMota().contains(text)) result2.add(l);
+			if(column.equals("Câu sai"))  if(l.getKiThi().getMota().contains(text)) result2.add(l);
+			if(column.equals("Điểm"))  if(l.getKiThi().getMota().contains(text)) result2.add(l);
+
+		}
+		
+		
+		return result2;
+	}
 }

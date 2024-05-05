@@ -60,6 +60,7 @@ public class ViewStudent extends JFrame {
 	public JLabel lblNewLabel_14;
 	PanelRound panel_1;
 	public JTextField textField;
+	public JComboBox comboBox;
 	public MyTable table = new MyTable(); public		
 	DefaultTableModel model = new DefaultTableModel(
 		    new Object[][] {
@@ -289,6 +290,7 @@ public class ViewStudent extends JFrame {
 		panel_4.add(lblNewLabel_7);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Calibri", Font.BOLD, 17));
 		textField.setBounds(10, 75, 340, 40);
 		panel_4.add(textField);
 		textField.setColumns(10);
@@ -352,10 +354,12 @@ public class ViewStudent extends JFrame {
 	
 		scrollPane.setViewportView(table);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Tên kỳ thi ", "Ngày thi", "Thời gian", "Câu Đúng", "Câu sai", "Điểm", "ALL"}));
+		comboBox = new JComboBox();
+		comboBox.setFont(new Font("Calibri", Font.BOLD, 16));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ALL","Tên kỳ thi", "Ngày thi", "Thời gian", "Câu Đúng", "Câu sai", "Điểm"}));
 		comboBox.setToolTipText("Tên kỳ thi \r\nNgày thi\r\nThời gian\r\nCâu Đúng\r\nCâu sai\r\nĐiểm\r\nALL");
-		comboBox.setBounds(360, 75, 93, 40);
+		comboBox.setBounds(360, 75, 104, 40);
+		comboBox.addActionListener(cl);
 		panel_4.add(comboBox);
 	}
 	public void view_profile() {

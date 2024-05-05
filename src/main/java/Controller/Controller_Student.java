@@ -1,6 +1,7 @@
 package Controller;
 
 import java.awt.Image;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,6 +44,29 @@ public class Controller_Student implements ActionListener  {
 	}
 	public void hienthi() {
 		s.bailamsv = BaiLam_dao.Instance().selectbailambysv(s.v);
+		for(int i = 0 ; i< s.bailamsv.size(); i++)
+			
+		{
+			String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
+			String ngay  = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
+		s.model.addRow(new Object[] {
+				s.bailamsv.get(i).getKiThi().getMota() ,
+				ngay, 
+				s.bailamsv.get(i).getKiThi().getThoigianlambai(),
+				s.bailamsv.get(i).getSocaudung(),
+				s.bailamsv.get(i).getSocausai(),
+				diem
+		});
+		}
+		
+	}
+	public void timkiem() 
+	{
+		String selectedColumn = (String) s.comboBox.getSelectedItem();
+		if(selectedColumn.equals("ALL")) {hienthi() ; s.textField.setText(""); return;}
+		String text = s.textField.getText();
+		s.bailamsv = BaiLam_dao.Instance().selectColumnbailambysv(s.v,selectedColumn,text);
 		for(int i = 0 ; i< s.bailamsv.size(); i++)
 			
 		{
@@ -105,6 +129,13 @@ public class Controller_Student implements ActionListener  {
 			s.dispose();
 			}
 
+		}
+		else if(e.getSource() == s.comboBox)
+		{
+			s.model.setRowCount(0);
+			System.out.println(s.comboBox.getSelectedItem());
+//			timkiem();
+			
 		}
 		else if(e.getSource() == s.btnChangePer)
 		{
