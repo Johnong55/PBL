@@ -21,8 +21,10 @@ public class ChangePassword extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public JPanel contentPane;
 	public  JPasswordField textField, textField_1;
-	
+	public JLabel lblNewLabel_1_1;
 	public MyButton btnNewButton;
+	public  boolean isDisposed = false;
+	public String password;
 	Color Blue=  new Color(17, 49, 123);
 	Color Gray = new Color(122, 122, 129);
 	Color Green = new Color(44, 173, 167);
@@ -46,7 +48,7 @@ public class ChangePassword extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ChangePassword() {
+	public ChangePassword(String mk) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 350, 514, 273);
 		contentPane = new JPanel();
@@ -68,7 +70,7 @@ public class ChangePassword extends JFrame {
 		lblNewLabel_1.setBounds(37, 69, 109, 32);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Mật khẩu mới :");
+		 lblNewLabel_1_1 = new JLabel("Mật khẩu mới :");
 		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1.setFont(new Font("Times New Roman", Font.BOLD, 17));
 		lblNewLabel_1_1.setBounds(37, 138, 122, 32);
@@ -89,13 +91,21 @@ public class ChangePassword extends JFrame {
 		MyButton btnNewButton = new MyButton("");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				 password = new String(textField.getPassword());
+
+			
+				
+				if(!password.equals(mk)) 				JOptionPane.showMessageDialog(null, "Thông tin nhập không chính xác ! Vui lòng thử lại.", "Thông báo", JOptionPane.ERROR_MESSAGE);
+				else {
 				 int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thay đổi mật khẩu không?", "Xác nhận thay đổi mật khẩu", JOptionPane.YES_NO_OPTION);
 			        
 			        if (choice == JOptionPane.YES_OPTION) {
+			        	
 			            // Xử lý khi người dùng chọn "Yes"
+			        	isDisposed = true;
 			        	dispose();
-			            System.out.println("Mật khẩu đã được thay đổi.");
 			        }
+				}
 			}
 		});
 		btnNewButton.setRadius(20);

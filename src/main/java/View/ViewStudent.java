@@ -289,7 +289,7 @@ public class ViewStudent extends JFrame {
 		lblNewLabel_7.setBounds(10, 11, 160, 40);
 		panel_4.add(lblNewLabel_7);
 		
-		textField = new JTextField();
+		textField = new JTextField("");
 		textField.setFont(new Font("Calibri", Font.BOLD, 17));
 		textField.setBounds(10, 75, 340, 40);
 		panel_4.add(textField);
@@ -356,7 +356,7 @@ public class ViewStudent extends JFrame {
 		
 		comboBox = new JComboBox();
 		comboBox.setFont(new Font("Calibri", Font.BOLD, 16));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ALL","Tên kỳ thi", "Ngày thi", "Thời gian", "Câu Đúng", "Câu sai", "Điểm"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ALL", "Tên kỳ thi", "Ngày thi", "Điểm"}));
 		comboBox.setToolTipText("Tên kỳ thi \r\nNgày thi\r\nThời gian\r\nCâu Đúng\r\nCâu sai\r\nĐiểm\r\nALL");
 		comboBox.setBounds(360, 75, 104, 40);
 		comboBox.addActionListener(cl);
@@ -527,7 +527,7 @@ public class ViewStudent extends JFrame {
 		panel.add(btnProfile);
 		panel_4.setBounds(171, 0, 713, 661); 
 		
-		view_test();
+		view_profile();
 		//-----------------------------------
 		
 		//------------
