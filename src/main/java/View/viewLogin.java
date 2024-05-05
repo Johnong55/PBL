@@ -15,6 +15,7 @@ import DAO.Account_dao;
 import DAO.Gv_dao;
 import DAO.Sv_dao;
 import model.Account;
+import model.Sv;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -218,21 +219,19 @@ public class viewLogin extends JFrame {
 				else {
 				for(Account q : Account_dao.Instance().selectall())
 				{
-					System.out.println(user);
-					System.out.println(pass);
-					System.out.println(q.username);
-					System.out.println(q.password);
+				
 					if(q.username.equals(user) && q.password.equals(pass))
 					{
-						System.out.println("cc");
 						if(q.getMaquyen() == 2) {
-							
-							ViewStudent v = new ViewStudent(Sv_dao.Instance().selectbyid(q));
-							//System.out.println(Sv_dao.Instance().selectbyid(q).getTen());
-							
+							Sv u =  Sv_dao.Instance().selectbyid(q);
+							u.setLinkAnh(q.getLinkAnh());
+							u.setPassword(q.getPassword());
+							u.setMaquyen(q.maquyen);
+							u.setUsername(q.getUsername());
+							ViewStudent v = new ViewStudent(u);
+						
 							dispose();
 						}if(q.getMaquyen() == 1) {
-							System.out.println("cl");
 							ViewTeacher v = new ViewTeacher(Gv_dao.Instance().selectbyid(q));
 							dispose();
 						}

@@ -10,10 +10,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Component;
 
+import javax.print.DocFlavor.URL;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -405,8 +407,9 @@ public class ViewStudent extends JFrame {
 		
 		lblNewLabel_14 = new JLabel("");
 		lblNewLabel_14.setBounds(34, 11, 119, 126);
+		URL imageUrl = getClass().getResource("/com/example/images/userProfile.png");
 		lblNewLabel_14.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource(v.getLinkAnh()))	
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource(link))	
 						.getScaledInstance(lblNewLabel_14.getWidth(), lblNewLabel_14.getHeight(), Image.SCALE_SMOOTH)));
 		panel_2_1.add(lblNewLabel_14);
 		
