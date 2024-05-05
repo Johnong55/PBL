@@ -43,6 +43,7 @@ import model.BaiLam;
 import model.KiThi;
 import model.Sv;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class ViewStudent extends JFrame {
 	
@@ -323,8 +324,8 @@ public class ViewStudent extends JFrame {
 		table.setColor2(Color.WHITE);
 		table.setGridColor(Blue);
 	//	table.setShowGrid(false);
-		table.setColumnAlignment(0, JLabel.LEFT);
-		table.setCellAlignment(0, JLabel.LEFT);
+		table.setCellAlignment(0, JLabel.CENTER);table.setCellAlignment(1, JLabel.CENTER);table.setCellAlignment(2, JLabel.CENTER);
+		table.setCellAlignment(3, JLabel.CENTER);table.setCellAlignment(4, JLabel.CENTER);table.setCellAlignment(5, JLabel.CENTER);
 		
         JTableHeader header = table.getTableHeader();
         header.setDefaultRenderer(new DefaultTableCellRenderer() {
@@ -335,6 +336,7 @@ public class ViewStudent extends JFrame {
                 Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
                         column);
                 comp.setBackground(Blue);
+               setHorizontalAlignment(JLabel.CENTER);
                 comp.setForeground(Color.WHITE);
                 setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201,201,201)));
                
@@ -351,6 +353,8 @@ public class ViewStudent extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Tên kỳ thi ", "Ngày thi", "Thời gian", "Câu Đúng", "Câu sai", "Điểm", "ALL"}));
+		comboBox.setToolTipText("Tên kỳ thi \r\nNgày thi\r\nThời gian\r\nCâu Đúng\r\nCâu sai\r\nĐiểm\r\nALL");
 		comboBox.setBounds(360, 75, 93, 40);
 		panel_4.add(comboBox);
 	}
