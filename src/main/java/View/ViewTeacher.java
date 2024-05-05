@@ -18,9 +18,12 @@ import java.awt.Dimension;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.text.MaskFormatter;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
@@ -33,6 +36,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -44,6 +48,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 import model.Gv;
 import model.KiThi;
@@ -62,10 +67,11 @@ import Controller.Controller_Teacher;
 public class ViewTeacher extends JFrame {
 
 	private JPanel contentPane;
-	public static JPanel pView;
-	public MyButton btnNewButton1,btnNewButton,btnNewButton3,btnNewButton2,btnNewButton4, btnNewButton5, ViewStudent,ViewTest;
-	private JPlaceholderTextField textField,textField_1,textField_2,textField_3,textField_4,textField_4_1;
-	private MyTable table;
+	public JPanel pView;
+	public MyButton buttonClass,buttonHome,buttonProfile,buttonExam,buttonNew, buttonLogout,buttonCreateExam,buttonChangePass,NewQuestion,NewExam;
+	public JPlaceholderTextField textField,textField_1,textField_2,textField_3,textField_4,textField_4_1;
+	public JComboBox<String> comboBoxSortClass, comboBoxExam,comboBoxNganHangCauHoi;
+	public MyTable table;
 	public Gv g;
 
 	Controller_Teacher actionTeacher = new Controller_Teacher(this);
@@ -79,8 +85,7 @@ public class ViewTeacher extends JFrame {
 		ViewHome();
 		setVisible(true);
 	}
-	
-	
+
 	
 	public void ViewMenu() {
 		contentPane = new JPanel();
@@ -104,95 +109,95 @@ public class ViewTeacher extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		btnNewButton = new MyButton("Trang chủ");
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setBounds(10, 90, 137, 37);
-		btnNewButton.setBackground(new Color(50, 185, 185));
-		btnNewButton.setColorClick(new Color(50, 185, 185));
-		btnNewButton.setColorOver(new Color(100, 241, 241));
-		btnNewButton.setRadius(10);
-		btnNewButton.setBorderColor(new Color(50, 185, 185));
-		btnNewButton.setIcon(new ImageIcon(
+		buttonHome = new MyButton("Trang chủ");
+		buttonHome.setForeground(new Color(255, 255, 255));
+		buttonHome.setFont(new Font("Tahoma", Font.BOLD, 15));
+		buttonHome.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonHome.setBounds(10, 90, 137, 37);
+		buttonHome.setBackground(new Color(50, 185, 185));
+		buttonHome.setColorClick(new Color(50, 185, 185));
+		buttonHome.setColorOver(new Color(100, 241, 241));
+		buttonHome.setRadius(10);
+		buttonHome.setBorderColor(new Color(50, 185, 185));
+		buttonHome.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-home-20.png"))));
-		btnNewButton.addActionListener(actionTeacher);
-		panel.add(btnNewButton);
+		buttonHome.addActionListener(actionTeacher);
+		panel.add(buttonHome);
 
-		btnNewButton1 = new MyButton("Lớp");
-		btnNewButton1.setForeground(new Color(255, 255, 255));
-		btnNewButton1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton1.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton1.setBounds(10, 138, 137, 37);
-		btnNewButton1.setBackground(new Color(50, 185, 185));
-		btnNewButton1.setColorClick(new Color(50, 185, 185));
-		btnNewButton1.setColorOver(new Color(100, 241, 241));
-		btnNewButton1.setRadius(10);
-		btnNewButton1.setBorderColor(new Color(50, 185, 185));
-		btnNewButton1.setIcon(new ImageIcon(
+		buttonClass = new MyButton("Lớp");
+		buttonClass.setForeground(new Color(255, 255, 255));
+		buttonClass.setFont(new Font("Tahoma", Font.BOLD, 15));
+		buttonClass.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonClass.setBounds(10, 138, 137, 37);
+		buttonClass.setBackground(new Color(50, 185, 185));
+		buttonClass.setColorClick(new Color(50, 185, 185));
+		buttonClass.setColorOver(new Color(100, 241, 241));
+		buttonClass.setRadius(10);
+		buttonClass.setBorderColor(new Color(50, 185, 185));
+		buttonClass.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-class-20.png"))));
-		btnNewButton1.addActionListener(actionTeacher);
-		panel.add(btnNewButton1);
+		buttonClass.addActionListener(actionTeacher);
+		panel.add(buttonClass);
 
-		btnNewButton2 = new MyButton("Kì thi");
-		btnNewButton2.setForeground(new Color(255, 255, 255));
-		btnNewButton2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton2.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton2.setBounds(10, 186, 137, 37);
-		btnNewButton2.setBackground(new Color(50, 185, 185));
-		btnNewButton2.setColorClick(new Color(50, 185, 185));
-		btnNewButton2.setColorOver(new Color(100, 241, 241));
-		btnNewButton2.setRadius(10);
-		btnNewButton2.setBorderColor(new Color(50, 185, 185));
-		btnNewButton2.setIcon(new ImageIcon(
+		buttonExam = new MyButton("Kì thi");
+		buttonExam.setForeground(new Color(255, 255, 255));
+		buttonExam.setFont(new Font("Tahoma", Font.BOLD, 15));
+		buttonExam.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonExam.setBounds(10, 186, 137, 37);
+		buttonExam.setBackground(new Color(50, 185, 185));
+		buttonExam.setColorClick(new Color(50, 185, 185));
+		buttonExam.setColorOver(new Color(100, 241, 241));
+		buttonExam.setRadius(10);
+		buttonExam.setBorderColor(new Color(50, 185, 185));
+		buttonExam.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-result-20.png"))));
-		btnNewButton2.addActionListener(actionTeacher);
-		panel.add(btnNewButton2);
+		buttonExam.addActionListener(actionTeacher);
+		panel.add(buttonExam);
 
-		btnNewButton3 = new MyButton("Cá nhân");
-		btnNewButton3.setForeground(new Color(255, 255, 255));
-		btnNewButton3.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton3.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton3.setBounds(10, 234, 137, 37);
-		btnNewButton3.setBackground(new Color(50, 185, 185));
-		btnNewButton3.setColorClick(new Color(50, 185, 185));
-		btnNewButton3.setColorOver(new Color(100, 241, 241));
-		btnNewButton3.setRadius(10);
-		btnNewButton3.setBorderColor(new Color(50, 185, 185));
-		btnNewButton3.setIcon(new ImageIcon(Toolkit.getDefaultToolkit()
+		buttonProfile = new MyButton("Cá nhân");
+		buttonProfile.setForeground(new Color(255, 255, 255));
+		buttonProfile.setFont(new Font("Tahoma", Font.BOLD, 15));
+		buttonProfile.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonProfile.setBounds(10, 234, 137, 37);
+		buttonProfile.setBackground(new Color(50, 185, 185));
+		buttonProfile.setColorClick(new Color(50, 185, 185));
+		buttonProfile.setColorOver(new Color(100, 241, 241));
+		buttonProfile.setRadius(10);
+		buttonProfile.setBorderColor(new Color(50, 185, 185));
+		buttonProfile.setIcon(new ImageIcon(Toolkit.getDefaultToolkit()
 				.createImage(getClass().getResource("/view/image/icons8-male-user-20.png"))));
-		btnNewButton3.addActionListener(actionTeacher);
-		panel.add(btnNewButton3);
+		buttonProfile.addActionListener(actionTeacher);
+		panel.add(buttonProfile);
 
-		btnNewButton4 = new MyButton("Tạo mới");
-		btnNewButton4.setForeground(new Color(255, 255, 255));
-		btnNewButton4.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton4.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton4.setBounds(10, 282, 137, 37);
-		btnNewButton4.setBackground(new Color(50, 185, 185));
-		btnNewButton4.setColorClick(new Color(50, 185, 185));
-		btnNewButton4.setColorOver(new Color(100, 241, 241));
-		btnNewButton4.setRadius(10);
-		btnNewButton4.setBorderColor(new Color(50, 185, 185));
-		btnNewButton4.setIcon(new ImageIcon(
+		buttonNew = new MyButton("Tạo mới");
+		buttonNew.setForeground(new Color(255, 255, 255));
+		buttonNew.setFont(new Font("Tahoma", Font.BOLD, 15));
+		buttonNew.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonNew.setBounds(10, 282, 137, 37);
+		buttonNew.setBackground(new Color(50, 185, 185));
+		buttonNew.setColorClick(new Color(50, 185, 185));
+		buttonNew.setColorOver(new Color(100, 241, 241));
+		buttonNew.setRadius(10);
+		buttonNew.setBorderColor(new Color(50, 185, 185));
+		buttonNew.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-add-new-20.png"))));
-		btnNewButton4.addActionListener(actionTeacher);
-		panel.add(btnNewButton4);
+		buttonNew.addActionListener(actionTeacher);
+		panel.add(buttonNew);
 		
-		btnNewButton5 = new MyButton("Đăng xuất");
-		btnNewButton5.setForeground(new Color(255, 255, 255));
-		btnNewButton5.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton5.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton5.setBounds(10, 550, 137, 37);
-		btnNewButton5.setBackground(new Color(50, 185, 185));
-		btnNewButton5.setColorClick(new Color(50, 185, 185));
-		btnNewButton5.setColorOver(new Color(100, 241, 241));
-		btnNewButton5.setRadius(10);
-		btnNewButton5.setBorderColor(new Color(50, 185, 185));
-		btnNewButton5.setIcon(new ImageIcon(
+		buttonLogout = new MyButton("Đăng xuất");
+		buttonLogout.setForeground(new Color(255, 255, 255));
+		buttonLogout.setFont(new Font("Tahoma", Font.BOLD, 15));
+		buttonLogout.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonLogout.setBounds(10, 550, 137, 37);
+		buttonLogout.setBackground(new Color(50, 185, 185));
+		buttonLogout.setColorClick(new Color(50, 185, 185));
+		buttonLogout.setColorOver(new Color(100, 241, 241));
+		buttonLogout.setRadius(10);
+		buttonLogout.setBorderColor(new Color(50, 185, 185));
+		buttonLogout.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-logout-20.png"))));
-		btnNewButton5.addActionListener(actionTeacher);
-		panel.add(btnNewButton5);
+		buttonLogout.addActionListener(actionTeacher);
+		panel.add(buttonLogout);
 		
 	}
 
@@ -250,26 +255,20 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1.setBounds(10, 11, 55, 18);
 		panel_2.add(lblNewLabel_1);
 
-		MyButton btnNewButton_1 = new MyButton("Tạo kì thi");
-		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1.setBounds(37, 200, 181, 40);
-		btnNewButton_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1.setRadius(10);
-		btnNewButton_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1.setBorderColor(Color.WHITE);
-		btnNewButton_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1.setColorClick(new Color(50, 185, 185));
-		panel_2.add(btnNewButton_1);
+		buttonCreateExam = new MyButton("Tạo kì thi");
+		buttonCreateExam.setForeground(new Color(255, 255, 255));
+		buttonCreateExam.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonCreateExam.setBounds(37, 200, 181, 40);
+		buttonCreateExam.setBackground(new Color(50, 185, 185));
+		buttonCreateExam.setRadius(10);
+		buttonCreateExam.setColor(new Color(50, 185, 185));
+		buttonCreateExam.setBorderColor(Color.WHITE);
+		buttonCreateExam.setColorOver(new Color(100, 241, 241));
+		buttonCreateExam.setColorClick(new Color(50, 185, 185));
+		panel_2.add(buttonCreateExam);
 		
-		btnNewButton_1.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ViewCreateExam();
-			}
-		});
-
+		buttonCreateExam.addActionListener(actionTeacher);
+		
 		JLabel lblNewLabel_3 = new JLabel();
 		lblNewLabel_3.setBounds(10, 36, 235, 153);
 		lblNewLabel_3.setIcon(new ImageIcon(Toolkit.getDefaultToolkit()
@@ -345,7 +344,7 @@ public class ViewTeacher extends JFrame {
         
 	}
 	
-	public void ViewClass() {
+	public void ViewClass(DefaultTableModel model) {
 		pView.removeAll();
 		pView.repaint();
 		pView.revalidate();
@@ -356,16 +355,19 @@ public class ViewTeacher extends JFrame {
 		
 		pView.add(lblNewLabel);
 		
-		String[] list = {"ALL"};
 		
-		JComboBox<String> comboBox = new JComboBox<>(list);
-		comboBox.setBounds(615, 35, 90, 22);
-		pView.add(comboBox);
-		
-		JLabel lblNewLabel_1 = new JLabel("Lớp :");
+		JLabel lblNewLabel_1 = new JLabel("Sắp xếp :");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(571, 30, 46, 28);
+		lblNewLabel_1.setBounds(550, 30, 59, 28);
 		pView.add(lblNewLabel_1);
+		
+		String[] list = {"  Tên lớp","  Số học sinh"};
+
+		comboBoxSortClass = new JComboBox<>(list);
+		comboBoxSortClass.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxSortClass);
+		
+		comboBoxSortClass.addActionListener(actionTeacher);
 		
 		MyButton btnNewButton_1_1 = new MyButton("Thêm lớp");
 		btnNewButton_1_1.setRadius(10);
@@ -431,21 +433,28 @@ public class ViewTeacher extends JFrame {
 			}
 		));		
 		
-        table.setModel(getModelClasses(g, table));
-
+        table.setModel(model);
+        
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
             	int i = table.getSelectedRow();
             	String m = table.getValueAt(i, 0).toString();
             	ViewListSVinClass(getClassbyNameClass(m, g));
-     //       	ViewClassDetails(controlGV.getClassbyNameClass(m, g));
             }
         });
 		
 		scrollPane.setViewportView(table);
 	}
 	
+	public void setTableClass(String selectedColumn) {
+		
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+        table.setRowSorter(sorter);
+        
+        int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
+        sorter.toggleSortOrder(columnIndex);
+	}
 	
 	public void ViewListSVinClass(Class c) {
 		
@@ -462,7 +471,7 @@ public class ViewTeacher extends JFrame {
 		
 		String[] list = {"Tên"};
 		
-		JComboBox comboBox_1 = new JComboBox(list);
+		JComboBox comboBox_1 = new JComboBox<>(list);
 		comboBox_1.setBounds(615, 35, 90, 22);
 		pView.add(comboBox_1);
 		
@@ -535,7 +544,7 @@ public class ViewTeacher extends JFrame {
 		));
 		
 		
-		// chua xu li controler
+		// chua xu li xong
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
@@ -558,11 +567,13 @@ public class ViewTeacher extends JFrame {
 		
 		pView.add(lblNewLabel);
 		
-		String[] list = {"Lớp"};
+		String[] list = {"  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi"};
 		
-		JComboBox comboBox_1 = new JComboBox(list);
-		comboBox_1.setBounds(615, 35, 90, 22);
-		pView.add(comboBox_1);
+		comboBoxExam = new JComboBox<>(list);
+		comboBoxExam.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxExam);
+		
+		comboBoxExam.addActionListener(actionTeacher);
 		
 		JLabel lblNewLabel_2 = new JLabel("Sắp xếp :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -619,7 +630,7 @@ public class ViewTeacher extends JFrame {
 					"  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi"
 			}
 		));
-		table.setModel(getModelExam(g, table));
+		table.setModel(getModelExam(g));
 		scrollPane.setViewportView(table);
 		
 		table.addMouseListener(new MouseAdapter() {
@@ -627,9 +638,16 @@ public class ViewTeacher extends JFrame {
 				int i = table.getSelectedRow();
 				String IdKiThi = table.getValueAt(i,1).toString() + table.getValueAt(i,3).toString().replace("-", "") + table.getValueAt(i,0);
 				ViewUpdateExam(getKithibyID(IdKiThi));
-				
 			}
 		});
+	}
+	
+	public void setTableExam(String selectedColumn) {
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+        table.setRowSorter(sorter);
+        
+        int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
+        sorter.toggleSortOrder(columnIndex);
 	}
 	
 	public void ViewProfile() {
@@ -675,32 +693,22 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_3.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-avatar-50.png"))));
 		
 		
-		btnNewButton3.setIcon(new ImageIcon(Toolkit.getDefaultToolkit()
-				.createImage(getClass().getResource("/view/image/icons8-male-user-20.png"))));
-		
 		pView.add(lblNewLabel_3);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Thay đổi mật khẩu");
-		btnNewButton_1_1.setRadius(10);
-		btnNewButton_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1.setBounds(10, 220, 150, 30);
+		buttonChangePass = new MyButton("Thay đổi mật khẩu");
+		buttonChangePass.setRadius(10);
+		buttonChangePass.setForeground(Color.WHITE);
+		buttonChangePass.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonChangePass.setColorOver(new Color(100, 241, 241));
+		buttonChangePass.setColorClick(new Color(50, 185, 185));
+		buttonChangePass.setColor(new Color(50, 185, 185));
+		buttonChangePass.setBorderColor(Color.WHITE);
+		buttonChangePass.setBackground(new Color(50, 185, 185));
+		buttonChangePass.setBounds(10, 220, 150, 30);
 		
-		pView.add(btnNewButton_1_1);
+		pView.add(buttonChangePass);
 		
-		btnNewButton_1_1.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				ViewChangePassword v = new ViewChangePassword(g);			
-			}
-		});
+		buttonChangePass.addActionListener(actionTeacher);
 		
 		MyButton btnNewButton_1_1_1 = new MyButton("Thay đổi hình ảnh");
 		btnNewButton_1_1_1.setRadius(10);
@@ -747,7 +755,7 @@ public class ViewTeacher extends JFrame {
 		
 		pView.add(lblNewLabel);
 		
-		MyButton NewQuestion = new MyButton("Tạo câu hỏi");
+		NewQuestion = new MyButton("Tạo câu hỏi");
 		NewQuestion.setForeground(new Color(255, 255, 255));
 		NewQuestion.setFont(new Font("Tahoma", Font.BOLD, 14));
 		NewQuestion.setBounds(150, 250, 160, 80);
@@ -760,16 +768,9 @@ public class ViewTeacher extends JFrame {
 		
 		pView.add(NewQuestion);
 		
-		NewQuestion.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ViewCreateQuestion();
-				
-			}
-		});
+		NewQuestion.addActionListener(actionTeacher);
 		
-		MyButton NewExam = new MyButton("Tạo kì thi");
+		NewExam = new MyButton("Tạo kì thi");
 		NewExam.setRadius(10);
 		NewExam.setForeground(Color.WHITE);
 		NewExam.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -782,14 +783,7 @@ public class ViewTeacher extends JFrame {
 		
 		pView.add(NewExam);
 		
-		NewExam.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				ViewCreateExam();
-			}
-		});
+		NewExam.addActionListener(actionTeacher);
 	}
 	public void ViewCreateExam() {
 		
@@ -815,9 +809,9 @@ public class ViewTeacher extends JFrame {
 		
 		panel_3.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Môn :");
+		JLabel lblNewLabel_1_1 = new JLabel("Ngân hàng câu hỏi :");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(339, 30, 60 , 18);
+		lblNewLabel_1_1.setBounds(339, 30, 150 , 18);
 		panel_3.add(lblNewLabel_1_1);
 		
 		
@@ -828,7 +822,7 @@ public class ViewTeacher extends JFrame {
 		
 		JComboBox<String> comboBox_1 = new JComboBox<>(getTenMon());
 		comboBox_1.setBackground(new Color(255, 255, 255));
-		comboBox_1.setBounds(402, 30, 102, 22);
+		comboBox_1.setBounds(480, 30, 102, 22);
 		panel_3.add(comboBox_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Số câu hỏi :");
@@ -916,7 +910,7 @@ public class ViewTeacher extends JFrame {
 		textField_4_1.setCornerRadius(20);
 		textField_4_1.setColumns(10);
 		textField_4_1.setBorder(null);
-		textField_4_1.setBounds(130, 511, 100, 30);
+		textField_4_1.setBounds(130, 506, 100, 30);
 		textField_4_1.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		panel_3.add(textField_4_1);
 		
@@ -1064,9 +1058,9 @@ public class ViewTeacher extends JFrame {
 		
 		panel_3.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Môn :");
+		JLabel lblNewLabel_1_1 = new JLabel("Ngân hàng câu hỏi :");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(339, 30, 60 , 18);
+		lblNewLabel_1_1.setBounds(339, 30, 150 , 18);
 		panel_3.add(lblNewLabel_1_1);
 		
 		
@@ -1081,7 +1075,7 @@ public class ViewTeacher extends JFrame {
 		JComboBox<String> comboBox_1 = new JComboBox<>(getTenMon());
 		comboBox_1.setSelectedIndex(getIndexofArray(getTenMon(), kt.getNganhangcauhoi().getIdNganHang()));
 		comboBox_1.setBackground(new Color(255, 255, 255));
-		comboBox_1.setBounds(402, 30, 102, 22);
+		comboBox_1.setBounds(480, 30, 102, 22);
 		panel_3.add(comboBox_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Số câu hỏi :");
@@ -1213,7 +1207,7 @@ public class ViewTeacher extends JFrame {
 		textField_4_1.setCornerRadius(20);
 		textField_4_1.setColumns(10);
 		textField_4_1.setBorder(null);
-		textField_4_1.setBounds(130, 511, 100, 30);
+		textField_4_1.setBounds(130, 506, 100, 30);
 		textField_4_1.setGradientColors(new Color(50,185,185), new Color(50,185,185));
 		panel_3.add(textField_4_1);
 		
@@ -1331,20 +1325,24 @@ public class ViewTeacher extends JFrame {
 		pView.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Môn :");
+		JLabel lblNewLabel_1_1 = new JLabel("Ngân hàng câu hỏi :");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(30, 30, 60 , 18);
+		lblNewLabel_1_1.setBounds(30, 30, 150 , 18);
 		panel_1.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Mức độ :");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1_1.setBounds(370, 30, 60, 18);
+		lblNewLabel_1_1_1.setBounds(390, 30, 60, 18);
 		panel_1.add(lblNewLabel_1_1_1);
 		
-		JComboBox<String> comboBox = new JComboBox<>(getTenMon());
-		comboBox.setBackground(new Color(255, 255, 255));
-		comboBox.setBounds(130, 30, 102, 22);
-		panel_1.add(comboBox);
+		String[] listNganHang = Arrays.copyOf(getTenMon(), getTenMon().length + 1);
+		listNganHang[listNganHang.length - 1] = "Thêm";
+		comboBoxNganHangCauHoi = new JComboBox<>(listNganHang);
+		comboBoxNganHangCauHoi.setBackground(new Color(255, 255, 255));
+		comboBoxNganHangCauHoi.setBounds(180, 30, 102, 22);
+		panel_1.add(comboBoxNganHangCauHoi);
+		
+		comboBoxNganHangCauHoi.addActionListener(actionTeacher);
 		
 		String[] list = {"1","2","3"};
 		
@@ -1464,7 +1462,6 @@ public class ViewTeacher extends JFrame {
 		pView.add(btnNewButton_1_1);
 		
 		btnNewButton_1_1.addActionListener(new ActionListener() {
-			                                                                ///// đang làm dở //////////////////////////////////////////
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String question = textArea.getText();
@@ -1473,7 +1470,7 @@ public class ViewTeacher extends JFrame {
 				String dapanC = textArea_3.getText();
 				String dapanD = textArea_4.getText();
 				String dapanDung=null;
-				String tenMon = comboBox.getSelectedItem().toString();
+				String tenMon = comboBoxNganHangCauHoi.getSelectedItem().toString();
 				int mucdo = Integer.parseInt(comboBox_1.getSelectedItem().toString());
 				if(rdbtnNewRadioButton.isSelected()) {
 					dapanDung = textArea_1.getText();
@@ -1525,15 +1522,21 @@ public class ViewTeacher extends JFrame {
 	//////////////////////////////////////////////////////////////
 	
 	
-	
-	public List<Giangday> getClasses(Gv g) {
-		return g.getDanhsachlop();
-	}
-	public DefaultTableModel getModelClasses(Gv g, JTable table) {
+	public DefaultTableModel getModelClasses(Gv g) {
 		List<Giangday> dslop = g.getDanhsachlop();
 		System.out.println(dslop);
 		
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		JTable t = new JTable();
+		
+		t.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"  Tên lớp", "  Số học sinh"
+				}
+			));	
+		
+		DefaultTableModel model = (DefaultTableModel) t.getModel();
 		for (Giangday giangday : dslop) {
 			List<Sv> listSV = Class_dao.Instance().selectSVinclass(giangday.getMalop());
 			Object[] row = {giangday.getMalop().getTenlop(),listSV.size()};
@@ -1541,10 +1544,20 @@ public class ViewTeacher extends JFrame {
 		}
 		return model;
 	}
-	public DefaultTableModel getModelExam(Gv g, JTable table) {
+	public DefaultTableModel getModelExam(Gv g) {
 		List<KiThi> kthi = KiThi_dao.Instance().selectall();
 		String idgv = g.getId();
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		
+		JTable t = new JTable();
+		t.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi"
+				}
+			));
+		
+		DefaultTableModel model = (DefaultTableModel) t.getModel();
 		for (KiThi k : kthi) {
 			if(idgv.equalsIgnoreCase(k.getGv().getId())) {
 				Object[] row = {k.getLop().getTenlop(),k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
@@ -1574,12 +1587,12 @@ public class ViewTeacher extends JFrame {
 	public String[] getTenMon() {
 		int i = 0;
 		List<Nganhangcauhoi> NganHangCauHoi = NganhangDao.Instance().selectall();
-		String[] tenmon = new String[NganHangCauHoi.size()];
-		for (Nganhangcauhoi cauhoi : NganHangCauHoi) {
-			tenmon[i] = cauhoi.getIdNganHang();
+		String[] nganhang = new String[NganHangCauHoi.size()];
+		for (Nganhangcauhoi ng : NganHangCauHoi) {
+			nganhang[i] = ng.getIdNganHang();
 			i++;
 		}
-		return tenmon;
+		return nganhang;
 	}
 	public Nganhangcauhoi getNganhangcauhoibyName(String name) {
 		List<Nganhangcauhoi> NganHangCauHoi = NganhangDao.Instance().selectall();
@@ -1610,6 +1623,11 @@ public class ViewTeacher extends JFrame {
 	}
 	public void InsertCauhoi(Cauhoi c) {
 		Cauhoi_Dao.Instance().insert(c);
+	}
+	public void updateComboBoxNganHangCauHoi() {
+		String[] listNganHang = Arrays.copyOf(getTenMon(), getTenMon().length + 1);
+		listNganHang[listNganHang.length - 1] = "Thêm";
+		this.comboBoxNganHangCauHoi.setModel(new DefaultComboBoxModel<String>(listNganHang));
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////
