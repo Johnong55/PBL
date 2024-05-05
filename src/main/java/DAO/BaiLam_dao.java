@@ -14,6 +14,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import model.BaiLam;
+import model.Cauhoi;
+import model.Cautraloisinhvien;
 import model.Class;
 import model.DeThi;
 import model.Gv;
@@ -249,8 +251,9 @@ public class BaiLam_dao implements DAO_Interface<BaiLam> {
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
-		return result;
-	}
+		return result;}
+	
+	
 }

@@ -104,17 +104,7 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 		        		Cautraloisinhvien answer = new Cautraloisinhvien();
 		        		answer.setBailamsv(vt.bailam1);
 		        		answer.setCauhoi(vt.listCauhoi.get(i));
-<<<<<<< HEAD
-		        		System.out.println(answer.getCauhoi());
-		        		System.out.println(answer);
-		        		if(vt.checkAnswer[i].equals("A")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnA()); else
-			        		if(vt.checkAnswer[i].equals("B")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnB()); else
-				        		if(vt.checkAnswer[i].equals("C")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnC()); else
-					        		if(vt.checkAnswer[i].equals("D")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnD()); 
-		        		
-		        		answer.setKiemtra();
-=======
-		        		
+
 		        		if(vt.checkAnswer[i].equals("A")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnA()); else
 			        		if(vt.checkAnswer[i].equals("B")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnB()); else
 				        		if(vt.checkAnswer[i].equals("C")) answer.setCautraloi(vt.listCauhoi.get(i).getDapAnC()); else
@@ -122,14 +112,9 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 		        		System.out.println(answer.getCautraloi().equals(vt.listCauhoi.get(i).getDapan()));
 		        		answer.setKiemtra();
 
->>>>>>> branch 'branch_Vinh' of https://github.com/Johnong55/PBL.git
 		        		vt.bailam1.addCautraloi(answer); 
 		        	}
 		        	vt.bailam1.check();
-<<<<<<< HEAD
-			
-=======
->>>>>>> branch 'branch_Vinh' of https://github.com/Johnong55/PBL.git
 					  BaiLam_dao.Instance().insert(vt.bailam1);
 					 					  
 					 		            // Xử lý khi người dùng chọn "Yes"

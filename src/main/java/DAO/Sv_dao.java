@@ -192,9 +192,12 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					String lop= kq.getString("lop");
 						Class lop1 = new Class();
 						lop1.setIdclass(lop);
-					
+					Account sv = 	Account_dao.Instance().selectbyid(t);
 				Sv u = new Sv(id, ten, lop1);
-				
+				u.setLinkAnh(sv.getLinkAnh());
+				u.setPassword(sv.getPassword());
+				u.setMaquyen(sv.maquyen);
+				u.setUsername(sv.getUsername());
 				return u;
 				}
 				con.close();
@@ -223,8 +226,12 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					String lop= kq.getString("lop");
 					Class lop1 = new Class();
 					lop1.setIdclass(lop);
-					
-				Sv u = new Sv(id, ten, Class_dao.Instance().selectbyid(lop1));
+					Account sv = 	Account_dao.Instance().selectbyid(t);
+					Sv u = new Sv(id, ten, lop1);
+					u.setLinkAnh(sv.getLinkAnh());
+					u.setPassword(sv.getPassword());
+					u.setMaquyen(sv.maquyen);
+					u.setUsername(sv.getUsername());
 				
 				return u;
 				}
@@ -301,8 +308,13 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					String lop= kq.getString("lop");
 			Class lop1 = new Class();
 			lop1.setIdclass(lop);
-					
-					Sv u = new Sv(id,ten,lop1);
+		
+			Sv u = new Sv(id, ten, lop1);
+			Account sv = 	Account_dao.Instance().selectbyid(u);
+			u.setLinkAnh(sv.getLinkAnh());
+			u.setPassword(sv.getPassword());
+			u.setMaquyen(sv.maquyen);
+			u.setUsername(sv.getUsername());
 					result.add(u);
 					
 				}
