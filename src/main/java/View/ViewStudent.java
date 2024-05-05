@@ -10,12 +10,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Component;
 
-import javax.print.DocFlavor.URL;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.net.URI;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +42,7 @@ import model.Account;
 import model.BaiLam;
 import model.KiThi;
 import model.Sv;
+import javax.swing.JComboBox;
 
 public class ViewStudent extends JFrame {
 	
@@ -283,7 +284,7 @@ public class ViewStudent extends JFrame {
 	public void view_test() {
 		JLabel lblNewLabel_7 = new JLabel("Bài kiểm tra");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblNewLabel_7.setBounds(10, 11, 134, 40);
+		lblNewLabel_7.setBounds(10, 11, 160, 40);
 		panel_4.add(lblNewLabel_7);
 		
 		textField = new JTextField();
@@ -294,12 +295,12 @@ public class ViewStudent extends JFrame {
 		JLabel lblNewLabel_8 = new JLabel("Kết quả tìm kiếm:");
 		lblNewLabel_8.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		lblNewLabel_8.setForeground(Gray);
-		lblNewLabel_8.setBounds(471, 90, 127, 30);
+		lblNewLabel_8.setBounds(501, 77, 127, 30);
 		panel_4.add(lblNewLabel_8);
 		
 		JLabel lblNewLabel_9 = new JLabel("ALL");
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_9.setBounds(625, 95, 56, 20);
+		lblNewLabel_9.setBounds(625, 82, 78, 20);
 		panel_4.add(lblNewLabel_9);
 		
 		JPanel panel_1 = new JPanel();
@@ -348,6 +349,10 @@ public class ViewStudent extends JFrame {
 		table.setFont(new Font("Calibri", Font.PLAIN, 20));
 	
 		scrollPane.setViewportView(table);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(360, 75, 93, 40);
+		panel_4.add(comboBox);
 	}
 	public void view_profile() {
 		panel_4.setBounds(171, 0, 713, 661); 
@@ -407,9 +412,9 @@ public class ViewStudent extends JFrame {
 		
 		lblNewLabel_14 = new JLabel("");
 		lblNewLabel_14.setBounds(34, 11, 119, 126);
-		URL imageUrl = getClass().getResource("/com/example/images/userProfile.png");
+		String q = v.getLinkAnh();
 		lblNewLabel_14.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource(link))	
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource(q))	
 						.getScaledInstance(lblNewLabel_14.getWidth(), lblNewLabel_14.getHeight(), Image.SCALE_SMOOTH)));
 		panel_2_1.add(lblNewLabel_14);
 		
@@ -514,7 +519,7 @@ public class ViewStudent extends JFrame {
 		panel.add(btnProfile);
 		panel_4.setBounds(171, 0, 713, 661); 
 		
-		view_profile();
+		view_test();
 		//-----------------------------------
 		
 		//------------

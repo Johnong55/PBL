@@ -20,8 +20,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import DAO.Account_dao;
 import DAO.BaiLam_dao;
 import DAO.KiThi_dao;
+import DAO.Sv_dao;
 import View.ChangePassword;
 import View.GoingTest;
 import View.ViewStudent;
@@ -130,6 +132,7 @@ public class Controller_Student implements ActionListener  {
             	            Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             	           displayImage(destinationFile, s.lblNewLabel_14);
             	           s.v.setLinkAnh("/view/image/" + sourceFile.getName());
+            	           Sv_dao.Instance().update(s.v);
             	            JOptionPane.showMessageDialog(null, destinationFile.toString());
             	        } catch (IOException q) {
             	            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi sao chép file: " + q.getMessage());
