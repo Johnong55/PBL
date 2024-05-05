@@ -134,6 +134,8 @@ public class Controller_Student implements ActionListener  {
 		{
 			s.model.setRowCount(0);
 			System.out.println(s.comboBox.getSelectedItem());
+			String row = "";
+			if(s.comboBox.getSelectedItem().toString().equals("Tên kì thi") ) row = "tenkithi";
 //			timkiem();
 			
 		}
