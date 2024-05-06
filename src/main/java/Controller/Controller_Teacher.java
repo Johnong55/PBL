@@ -8,7 +8,6 @@ import DAO.Gv_dao;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 
-import View.ViewAddNganHangCauHoi;
 import View.ViewChangePassword;
 import View.ViewTeacher;
 import View.viewLogin;
@@ -58,10 +57,14 @@ public class Controller_Teacher implements Action {
 		}else if(e.getSource() == viewteacher.comboBoxNganHangCauHoi) {
 			String check = viewteacher.comboBoxNganHangCauHoi.getSelectedItem().toString();
 			if(check.equals("Thêm")) {
-				this.viewteacher.ViewCreateNew();
-				ViewAddNganHangCauHoi t = new ViewAddNganHangCauHoi(viewteacher.g);
-				t.setVisible(true);
+				this.viewteacher.ViewAddNganHangCauHoi();
 			}
+		}else if(e.getSource() == viewteacher.buttonOK) {
+			this.viewteacher.insertNganHangCauHoi(viewteacher.tenNGCH.getText(), 0);
+			this.viewteacher.updateComboBoxNganHangCauHoi();
+			this.viewteacher.j.setVisible(false);
+		}else if(e.getSource() == viewteacher.buttonHuy) {
+			this.viewteacher.j.setVisible(false);
 		}
 		
 	}
