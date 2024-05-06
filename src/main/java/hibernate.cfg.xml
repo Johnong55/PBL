@@ -24,7 +24,7 @@
 <mapping class = "model.BaiLam"/>
 <mapping class = "model.Cautraloisinhvien"/>
 <mapping  class = "model.Cauhoi"/>
-
+<mapping class = "model.request"/>
 <mapping class = "model.Nganhangcauhoi"/>
 
 </session-factory>

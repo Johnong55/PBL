@@ -22,6 +22,7 @@ import DAO.Gv_dao;
 import DAO.KiThi_dao;
 import DAO.NganhangDao;
 import DAO.Sv_dao;
+import DAO.request_dao;
 import DAO.truonghoc_dao;
 import model.Account;
 import model.BaiLam;
@@ -35,6 +36,7 @@ import model.KiThi;
 
 import model.Nganhangcauhoi;
 import model.Sv;
+import model.request;
 import model.truonghoc;
 import util.HibernateUtil;
 
@@ -229,8 +231,16 @@ public class Demo {
  		kt.insert(kithi2);
  		kt.insert(kithi1);
  		kt.insert(kithi);
-
-		 
- 
+ 		request request = new request();
+ 		request.setAccount(gv1);
+ 		request.setTime(new Date(2024+1900,5,6));
+ 		request.setId();
+ 		
+ 		request request1 = new request();
+ 		request1.setAccount(sv5);
+ 		request1.setTime(new Date(2024+1900,10,10));
+ 		request1.setId();
+		 request_dao.Instance().insert(request);
+		 request_dao.Instance().insert(request1);
 	}	
 }
