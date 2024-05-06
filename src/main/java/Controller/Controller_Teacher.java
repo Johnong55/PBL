@@ -2,6 +2,7 @@ package Controller;
 
 
 import javax.swing.Action;
+import javax.swing.JOptionPane;
 
 import DAO.Gv_dao;
 
@@ -29,7 +30,7 @@ public class Controller_Teacher implements Action {
 			this.viewteacher.ViewHome();
 		}else if(e.getSource() == viewteacher.buttonClass) {
 			this.viewteacher.ViewClass(viewteacher.getModelClasses(viewteacher.g));
-			this.viewteacher.setTableClass( "  Tên lớp");
+			this.viewteacher.SortTableClass( "  Tên lớp");
 		}else if(e.getSource() == viewteacher.buttonExam) {
 			this.viewteacher.ViewExam();
 		}else if(e.getSource() == viewteacher.buttonProfile) {
@@ -50,7 +51,7 @@ public class Controller_Teacher implements Action {
 			this.viewteacher.ViewCreateExam();
 		}else if(e.getSource() == viewteacher.comboBoxSortClass) {
 			String selectedColumn = (String) viewteacher.comboBoxSortClass.getSelectedItem();
-			this.viewteacher.setTableClass(selectedColumn);
+			this.viewteacher.SortTableClass(selectedColumn);
 		}else if(e.getSource() == viewteacher.comboBoxExam) {
 			String selectedColumn = (String) viewteacher.comboBoxExam.getSelectedItem();
 			this.viewteacher.setTableExam(selectedColumn);
@@ -65,6 +66,15 @@ public class Controller_Teacher implements Action {
 			this.viewteacher.j.setVisible(false);
 		}else if(e.getSource() == viewteacher.buttonHuy) {
 			this.viewteacher.j.setVisible(false);
+		}else if(e.getSource() == viewteacher.buttonDeleteSv) {
+			if(viewteacher.table.getSelectedRowCount() != 0) {
+			String idclass = (String) viewteacher.table.getValueAt(viewteacher.table.getSelectedRow(), 3);
+			String id =(String) viewteacher.table.getValueAt(viewteacher.table.getSelectedRow(), 2);
+			viewteacher.deleteSv(id);
+			viewteacher.upadteTableSv(viewteacher.table, idclass);
+			}else {
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn học sinh muốn xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		
 	}

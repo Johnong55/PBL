@@ -20,6 +20,8 @@ import java.awt.Dimension;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.MaskFormatter;
@@ -61,6 +63,7 @@ import DAO.Class_dao;
 import DAO.Gv_dao;
 import DAO.KiThi_dao;
 import DAO.NganhangDao;
+import DAO.Sv_dao;
 import model.Sv;
 import model.Cauhoi;
 import model.Class;
@@ -72,7 +75,8 @@ public class ViewTeacher extends JFrame {
 	private JPanel contentPane,contentPane1;
 	public JFrame j;
 	public JPanel pView;
-	public MyButton buttonClass,buttonHome,buttonProfile,buttonExam,buttonNew, buttonLogout,buttonCreateExam,buttonChangePass,NewQuestion,NewExam;
+	public MyButton buttonClass,buttonHome,buttonProfile,buttonExam,buttonNew, 
+	buttonLogout,buttonCreateExam,buttonChangePass,NewQuestion,NewExam,buttonDeleteSv,buttonAddExam,buttonDeleteExam;
 	public JPlaceholderTextField textField,textField_1,textField_2,textField_3,textField_4,textField_4_1;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam,comboBoxNganHangCauHoi;
 	public MyTable table;
@@ -374,32 +378,7 @@ public class ViewTeacher extends JFrame {
 		pView.add(comboBoxSortClass);
 		
 		comboBoxSortClass.addActionListener(actionTeacher);
-		
-		MyButton btnNewButton_1_1 = new MyButton("Thêm lớp");
-		btnNewButton_1_1.setRadius(10);
-		btnNewButton_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1.setBounds(10, 600, 110, 30);
-		
-		pView.add(btnNewButton_1_1);
-		
-		MyButton btnNewButton_1_1_1 = new MyButton("Xóa lớp");
-		btnNewButton_1_1_1.setRadius(10);
-		btnNewButton_1_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBounds(130, 600, 110, 30);
-		pView.add(btnNewButton_1_1_1);
-		
+				
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 89, 695, 500);
 		scrollPane.getViewport().setBackground(Color.WHITE);
@@ -440,26 +419,20 @@ public class ViewTeacher extends JFrame {
 		));		
 		
         table.setModel(model);
+        table.setDefaultEditor(Object.class, null);
         
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+            	if(e.getClickCount() == 2) {
             	int i = table.getSelectedRow();
             	String m = table.getValueAt(i, 0).toString();
             	ViewListSVinClass(getClassbyNameClass(m, g));
+            	}
             }
         });
 		
 		scrollPane.setViewportView(table);
-	}
-	
-	public void setTableClass(String selectedColumn) {
-		
-        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
-        table.setRowSorter(sorter);
-        
-        int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
-        sorter.toggleSortOrder(columnIndex);
 	}
 	
 	public void ViewListSVinClass(Class c) {
@@ -475,7 +448,7 @@ public class ViewTeacher extends JFrame {
 		
 		pView.add(lblNewLabel);
 		
-		String[] list = {"Tên"};
+		String[] list = {"  Tên","  Điểm trung bình"};
 		
 		JComboBox comboBox_1 = new JComboBox<>(list);
 		comboBox_1.setBounds(615, 35, 90, 22);
@@ -486,30 +459,19 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_2.setBounds(550, 30, 59, 28);
 		pView.add(lblNewLabel_2);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Thêm học sinh");
-		btnNewButton_1_1.setRadius(10);
-		btnNewButton_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1.setBounds(10, 600, 110, 30);
+		buttonDeleteSv = new MyButton("Xóa học sinh");
+		buttonDeleteSv.setRadius(10);
+		buttonDeleteSv.setForeground(Color.WHITE);
+		buttonDeleteSv.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonDeleteSv.setColorOver(new Color(100, 241, 241));
+		buttonDeleteSv.setColorClick(new Color(50, 185, 185));
+		buttonDeleteSv.setColor(new Color(50, 185, 185));
+		buttonDeleteSv.setBorderColor(Color.WHITE);
+		buttonDeleteSv.setBackground(new Color(50, 185, 185));
+		buttonDeleteSv.setBounds(10, 600, 110, 30);
+		pView.add(buttonDeleteSv);
 		
-		pView.add(btnNewButton_1_1);
-		
-		MyButton btnNewButton_1_1_1 = new MyButton("Xóa học sinh");
-		btnNewButton_1_1_1.setRadius(10);
-		btnNewButton_1_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBounds(130, 600, 110, 30);
-		pView.add(btnNewButton_1_1_1);
+		buttonDeleteSv.addActionListener(actionTeacher);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
@@ -545,19 +507,27 @@ public class ViewTeacher extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"  Tên", "  Điểm trung bình", "  Bài vượt qua/Tổng số"
+				"  Tên", "  Điểm trung bình", "  Mã học sinh" , "  Mã lớp"
 			}
 		));
 		
-		
-		// chua xu li xong
-		
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
-	    for (Sv sv : temp) { 
-	    	Object[] row = {sv.getTen(),"",""};
-	    	model.addRow(row);
-	    }
+		table.setModel(getModelSv(table, c));
+		table.setDefaultEditor(Object.class, null);
+	    // ẩn cột mã học sinh
+        TableColumnModel columnModel = table.getColumnModel();
+        TableColumn column = columnModel.getColumn(2);
+        column.setMinWidth(0);
+        column.setMaxWidth(0);
+        column.setWidth(0);
+        column.setPreferredWidth(0);
+        // ẩn cột mã lớp
+        TableColumnModel columnModel1 = table.getColumnModel();
+        TableColumn column1 = columnModel1.getColumn(3);
+        column1.setMinWidth(0);
+        column1.setMaxWidth(0);
+        column1.setWidth(0);
+        column1.setPreferredWidth(0);
+        
 		scrollPane.setViewportView(table);
 	}
 	
@@ -586,18 +556,31 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_2.setBounds(550, 30, 59, 28);
 		pView.add(lblNewLabel_2);
 		
-		MyButton btnNewButton_1_1 = new MyButton("Thêm kì thi");
-		btnNewButton_1_1.setRadius(10);
-		btnNewButton_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1.setBounds(10, 600, 110, 30);
+		buttonAddExam = new MyButton("Thêm kì thi");
+		buttonAddExam.setRadius(10);
+		buttonAddExam.setForeground(Color.WHITE);
+		buttonAddExam.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonAddExam.setColorOver(new Color(100, 241, 241));
+		buttonAddExam.setColorClick(new Color(50, 185, 185));
+		buttonAddExam.setColor(new Color(50, 185, 185));
+		buttonAddExam.setBorderColor(Color.WHITE);
+		buttonAddExam.setBackground(new Color(50, 185, 185));
+		buttonAddExam.setBounds(10, 600, 110, 30);
 		
-		pView.add(btnNewButton_1_1);
+		pView.add(buttonAddExam);
+		
+		buttonDeleteExam = new MyButton("Xóa kì thi");
+		buttonDeleteExam.setRadius(10);
+		buttonDeleteExam.setForeground(Color.WHITE);
+		buttonDeleteExam.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonDeleteExam.setColorOver(new Color(100, 241, 241));
+		buttonDeleteExam.setColorClick(new Color(50, 185, 185));
+		buttonDeleteExam.setColor(new Color(50, 185, 185));
+		buttonDeleteExam.setBorderColor(Color.WHITE);
+		buttonDeleteExam.setBackground(new Color(50, 185, 185));
+		buttonDeleteExam.setBounds(130, 600, 110, 30);
+		
+		pView.add(buttonDeleteExam);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
@@ -637,13 +620,16 @@ public class ViewTeacher extends JFrame {
 			}
 		));
 		table.setModel(getModelExam(g));
+		table.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(table);
 		
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2) {
 				int i = table.getSelectedRow();
 				String IdKiThi = table.getValueAt(i,1).toString() + table.getValueAt(i,3).toString().replace("-", "") + table.getValueAt(i,0);
 				ViewUpdateExam(getKithibyID(IdKiThi));
+				}
 			}
 		});
 	}
@@ -1298,20 +1284,8 @@ public class ViewTeacher extends JFrame {
 		});
 		
 		panel_3.add(btnNewButton_1_1_2);
-		
-		MyButton btnNewButton_2 = new MyButton("Xóa kì thi");
-		btnNewButton_2.setRadius(10);
-		btnNewButton_2.setForeground(Color.WHITE);
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_2.setColorOver(new Color(100, 241, 241));
-		btnNewButton_2.setColorClick(new Color(50, 185, 185));
-		btnNewButton_2.setColor(new Color(50, 185, 185));
-		btnNewButton_2.setBorderColor(Color.WHITE);
-		btnNewButton_2.setBackground(new Color(50, 185, 185));
-		btnNewButton_2.setBounds(10, 560, 110, 30);
-		
-		panel_3.add(btnNewButton_2);
 	}
+	
 	public void ViewCreateQuestion() {
 		pView.removeAll();
 		pView.repaint();
@@ -1605,6 +1579,22 @@ public class ViewTeacher extends JFrame {
 		}
 		return model;
 	}
+	public DefaultTableModel getModelSv(JTable table, Class c) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
+	    for (Sv sv : temp) { 
+	    	Object[] row = {sv.getTen(),"",sv.getId(), sv.getIdclass().getIdclass()};
+	    	model.addRow(row);
+	    }
+	    return model;
+	}
+	
+	public void upadteTableSv(JTable table, String id) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		table.setModel(getModelSv(table,Class_dao.Instance().selectbyid(id)));
+	}
+	
 	public Class getClassbyNameClass(String m, Gv g) {
     	for (Giangday giangday : g.getDanhsachlop()) {
 			if(m == giangday.getMalop().getTenlop()) {
@@ -1672,7 +1662,18 @@ public class ViewTeacher extends JFrame {
 		Nganhangcauhoi c = new Nganhangcauhoi(idNganHang, soluong ,g);
 		NganhangDao.Instance().insert(c);
 	}
+	public void deleteSv(String id) {
+		Sv_dao.Instance().deletebyid(Sv_dao.Instance().selectbyid(id));
+	}
 	
+	public void SortTableClass(String selectedColumn) {
+		
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+        table.setRowSorter(sorter);
+        
+        int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
+        sorter.toggleSortOrder(columnIndex);
+	}
 	///////////////////////////////////////////////////////////////////////////////////////////
 	
 
