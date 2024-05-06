@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -25,6 +27,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -66,12 +69,15 @@ import Controller.Controller_Teacher;
 
 public class ViewTeacher extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel contentPane,contentPane1;
+	public JFrame j;
 	public JPanel pView;
 	public MyButton buttonClass,buttonHome,buttonProfile,buttonExam,buttonNew, buttonLogout,buttonCreateExam,buttonChangePass,NewQuestion,NewExam;
 	public JPlaceholderTextField textField,textField_1,textField_2,textField_3,textField_4,textField_4_1;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam,comboBoxNganHangCauHoi;
 	public MyTable table;
+	public JTextField tenNGCH;
+	public JButton buttonOK,buttonHuy;
 	public Gv g;
 
 	Controller_Teacher actionTeacher = new Controller_Teacher(this);
@@ -1516,7 +1522,39 @@ public class ViewTeacher extends JFrame {
 		});
 	}
 	
-	
+	public void ViewAddNganHangCauHoi() {
+		j = new JFrame();
+		j.setBounds(100, 100, 320, 150);
+		j.setLocationRelativeTo(null);
+		contentPane1 = new JPanel();
+		contentPane1.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		j.setContentPane(contentPane1);
+		contentPane1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Tên ngân hàng :");
+		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel.setBounds(48, 28, 123, 27);
+		contentPane1.add(lblNewLabel);
+		
+		tenNGCH = new JTextField();
+		tenNGCH.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tenNGCH.setBounds(166, 31, 86, 20);
+		contentPane1.add(tenNGCH);
+		tenNGCH.setColumns(10);
+		
+		buttonOK = new JButton("Ok");
+		buttonOK.setBounds(62, 77, 89, 23);
+		contentPane1.add(buttonOK);
+		buttonOK.addActionListener(actionTeacher);
+		
+		buttonHuy = new JButton("Hủy");
+		buttonHuy.setBounds(161, 77, 89, 23);
+		contentPane1.add(buttonHuy);
+		buttonHuy.addActionListener(actionTeacher);
+		
+		j.setVisible(true);
+	}
 	
 	
 	//////////////////////////////////////////////////////////////
@@ -1628,6 +1666,11 @@ public class ViewTeacher extends JFrame {
 		String[] listNganHang = Arrays.copyOf(getTenMon(), getTenMon().length + 1);
 		listNganHang[listNganHang.length - 1] = "Thêm";
 		this.comboBoxNganHangCauHoi.setModel(new DefaultComboBoxModel<String>(listNganHang));
+	}
+	
+	public void insertNganHangCauHoi(String idNganHang, int soluong) {
+		Nganhangcauhoi c = new Nganhangcauhoi(idNganHang, soluong ,g);
+		NganhangDao.Instance().insert(c);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////
