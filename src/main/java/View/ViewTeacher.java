@@ -31,6 +31,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Image;
@@ -40,6 +41,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -1705,6 +1709,29 @@ public class ViewTeacher extends JFrame {
 			label.setIcon(new ImageIcon(image));
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void saveAnh() {
+		JFileChooser saveFile = new JFileChooser();
+		int result = saveFile.showSaveDialog(null);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			// Lấy file được chọn
+			File sourceFile = saveFile.getSelectedFile();
+
+			// Lấy file được chọn để lưu
+			File destinationFile = new File(
+					"C:\\Users\\ASUS\\git\\PBL\\src\\main\\java\\View\\image\\" + sourceFile.getName());
+
+			try {
+				Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				displayImage(destinationFile,labelImage );
+				g.setLinkAnh("/view/image/" + sourceFile.getName());
+				Sv_dao.Instance().update(g);
+				JOptionPane.showMessageDialog(null, destinationFile.toString());
+			} catch (IOException q) {
+				JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi sao chép file: " + q.getMessage());
+			}
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////
