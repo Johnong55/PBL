@@ -568,6 +568,7 @@ public class ViewTeacher extends JFrame {
 		buttonAddExam.setBounds(10, 600, 110, 30);
 		
 		pView.add(buttonAddExam);
+		buttonAddExam.addActionListener(actionTeacher);
 		
 		buttonDeleteExam = new MyButton("Xóa kì thi");
 		buttonDeleteExam.setRadius(10);
@@ -581,6 +582,7 @@ public class ViewTeacher extends JFrame {
 		buttonDeleteExam.setBounds(130, 600, 110, 30);
 		
 		pView.add(buttonDeleteExam);
+		buttonDeleteExam.addActionListener(actionTeacher);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
@@ -616,11 +618,18 @@ public class ViewTeacher extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-					"  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi"
+					"  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi", "  Mã kì thi"
 			}
 		));
 		table.setModel(getModelExam(g));
 		table.setDefaultEditor(Object.class, null);
+		// ẩn mã kì thi
+        TableColumnModel columnModel = table.getColumnModel();
+        TableColumn column = columnModel.getColumn(7);
+        column.setMinWidth(0);
+        column.setMaxWidth(0);
+        column.setWidth(0);
+        column.setPreferredWidth(0);
 		scrollPane.setViewportView(table);
 		
 		table.addMouseListener(new MouseAdapter() {
@@ -1565,7 +1574,7 @@ public class ViewTeacher extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-						"  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi"
+						"  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi", "  Mã kì thi"
 				}
 			));
 		
@@ -1573,7 +1582,7 @@ public class ViewTeacher extends JFrame {
 		for (KiThi k : kthi) {
 			if(idgv.equalsIgnoreCase(k.getGv().getId())) {
 				Object[] row = {k.getLop().getTenlop(),k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
-						k.getDate(), k.getThoigianbatdau(), k.getThoigianlambai(), k.getSl()};
+						k.getDate(), k.getThoigianbatdau(), k.getThoigianlambai(), k.getSl(), k.getId()};
 				model.addRow(row);
 			}
 		}
@@ -1593,6 +1602,11 @@ public class ViewTeacher extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
 		table.setModel(getModelSv(table,Class_dao.Instance().selectbyid(id)));
+	}
+	public void updateTableExam(JTable table) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		table.setModel(getModelExam(g));
 	}
 	
 	public Class getClassbyNameClass(String m, Gv g) {
@@ -1673,6 +1687,9 @@ public class ViewTeacher extends JFrame {
         
         int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
         sorter.toggleSortOrder(columnIndex);
+	}
+	public void deleteExam(String id) {
+		KiThi_dao.Instance().deletebyid(KiThi_dao.Instance().selectbyid(id));
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////
 	

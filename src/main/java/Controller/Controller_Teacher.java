@@ -75,6 +75,16 @@ public class Controller_Teacher implements Action {
 			}else {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn học sinh muốn xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
 			}
+		}else if(e.getSource() == viewteacher.buttonAddExam) {
+			this.viewteacher.ViewCreateExam();
+		}else if(e.getSource() == viewteacher.buttonDeleteExam) {
+			if(viewteacher.table.getSelectedRowCount() != 0) {
+			String idkithi =(String) viewteacher.table.getValueAt(viewteacher.table.getSelectedRow(), 7);
+			viewteacher.deleteExam(idkithi);
+			viewteacher.updateTableExam(viewteacher.table);
+			}else {
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng để xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		
 	}
