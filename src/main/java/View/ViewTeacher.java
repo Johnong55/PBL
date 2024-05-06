@@ -39,6 +39,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -76,10 +77,11 @@ public class ViewTeacher extends JFrame {
 	public JFrame j;
 	public JPanel pView;
 	public MyButton buttonClass,buttonHome,buttonProfile,buttonExam,buttonNew, 
-	buttonLogout,buttonCreateExam,buttonChangePass,NewQuestion,NewExam,buttonDeleteSv,buttonAddExam,buttonDeleteExam;
+	buttonLogout,buttonCreateExam,buttonChangePass,NewQuestion,NewExam,buttonDeleteSv,buttonAddExam,buttonDeleteExam,buttonChangeImage;
 	public JPlaceholderTextField textField,textField_1,textField_2,textField_3,textField_4,textField_4_1;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam,comboBoxNganHangCauHoi;
 	public MyTable table;
+	public JLabel labelImage;
 	public JTextField tenNGCH;
 	public JButton buttonOK,buttonHuy;
 	public Gv g;
@@ -687,14 +689,17 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_2_1_1.setBounds(10, 180, (int) size_2_1_1.getWidth()+1 , (int) size_2_1_1.getHeight()+1);
 		pView.add(lblNewLabel_2_1_1);
 		
-		JLabel lblNewLabel_3 = new JLabel();
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(558, 60, 80, 100);
-		lblNewLabel_3.setOpaque(true);
-		lblNewLabel_3.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-avatar-50.png"))));
+		labelImage = new JLabel();
+		labelImage.setHorizontalAlignment(SwingConstants.CENTER);
+		labelImage.setBounds(558, 60, 80, 100);
+		labelImage.setOpaque(true);
+		String q = g.getLinkAnh();                        // /view/image/ava.jpg
+		labelImage.setIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource(q))	
+				.getScaledInstance(labelImage.getWidth(), labelImage.getHeight(), Image.SCALE_SMOOTH)));
+		System.out.println(q);
 		
-		
-		pView.add(lblNewLabel_3);
+		pView.add(labelImage);
 		
 		buttonChangePass = new MyButton("Thay đổi mật khẩu");
 		buttonChangePass.setRadius(10);
@@ -711,17 +716,19 @@ public class ViewTeacher extends JFrame {
 		
 		buttonChangePass.addActionListener(actionTeacher);
 		
-		MyButton btnNewButton_1_1_1 = new MyButton("Thay đổi hình ảnh");
-		btnNewButton_1_1_1.setRadius(10);
-		btnNewButton_1_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBounds(524, 220, 150, 30);
-		pView.add(btnNewButton_1_1_1);
+		buttonChangeImage = new MyButton("Thay đổi hình ảnh");
+		buttonChangeImage.setRadius(10);
+		buttonChangeImage.setForeground(Color.WHITE);
+		buttonChangeImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonChangeImage.setColorOver(new Color(100, 241, 241));
+		buttonChangeImage.setColorClick(new Color(50, 185, 185));
+		buttonChangeImage.setColor(new Color(50, 185, 185));
+		buttonChangeImage.setBorderColor(Color.WHITE);
+		buttonChangeImage.setBackground(new Color(50, 185, 185));
+		buttonChangeImage.setBounds(524, 220, 150, 30);
+		pView.add(buttonChangeImage);
+		
+		buttonChangeImage.addActionListener(actionTeacher);
 		
 		JLabel lblNewLabel_4 = new JLabel(g.getId());
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -1690,6 +1697,15 @@ public class ViewTeacher extends JFrame {
 	}
 	public void deleteExam(String id) {
 		KiThi_dao.Instance().deletebyid(KiThi_dao.Instance().selectbyid(id));
+	}
+	public void displayImage(File imageFile, JLabel label) {
+		try {
+			Image image = Toolkit.getDefaultToolkit().createImage(imageFile.toString());
+			image = image.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+			label.setIcon(new ImageIcon(image));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////
 	

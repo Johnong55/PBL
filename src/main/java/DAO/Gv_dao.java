@@ -129,6 +129,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setPassword(t.getPassword());
 					u.setUsername(t.getUsername());
 					u.setMaquyen(t.getMaquyen());
+					u.setLinkAnh(t.getLinkAnh());
 				
 				return u;
 

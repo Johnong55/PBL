@@ -296,6 +296,20 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		}
 		return false;
 	}
+	
+	public boolean update(Gv g) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if(sessionFactory!=null)
+		{
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+			session.update(g);
+			tr.commit();
+			session.close();
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public boolean deletebyid(Sv t) {

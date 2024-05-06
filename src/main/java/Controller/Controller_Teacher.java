@@ -2,12 +2,18 @@ package Controller;
 
 
 import javax.swing.Action;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import DAO.Gv_dao;
+import DAO.Sv_dao;
 
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import View.ViewChangePassword;
 import View.ViewTeacher;
@@ -85,9 +91,30 @@ public class Controller_Teacher implements Action {
 			}else {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng để xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
 			}
-		}
-		
+		}else if(e.getSource() == viewteacher.buttonChangeImage) {
+			JFileChooser saveFile = new JFileChooser();
+			int result = saveFile.showSaveDialog(null);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				// Lấy file được chọn
+				File sourceFile = saveFile.getSelectedFile();
+
+				// Lấy file được chọn để lưu
+				File destinationFile = new File(
+						"C:\\Users\\ASUS\\git\\PBL\\src\\main\\java\\View\\image\\" + sourceFile.getName());
+
+				try {
+					Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					viewteacher.displayImage(destinationFile,viewteacher.labelImage );
+					viewteacher.g.setLinkAnh("/view/image/" + sourceFile.getName());
+					Sv_dao.Instance().update(viewteacher.g);
+					JOptionPane.showMessageDialog(null, destinationFile.toString());
+				} catch (IOException q) {
+					JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi sao chép file: " + q.getMessage());
+				}
+			}
+		}	
 	}
+	
 	@Override
 	public Object getValue(String key) {
 		// TODO Auto-generated method stub
