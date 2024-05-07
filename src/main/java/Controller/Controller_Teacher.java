@@ -93,7 +93,9 @@ public class Controller_Teacher implements Action {
 			}
 		}else if(e.getSource() == viewteacher.buttonChangeImage) {
 			viewteacher.saveAnh();
-		}	
+		}else if(e.getSource() == viewteacher.buttonTaoCauHoi) {
+			this.viewteacher.ViewCreateQuestion();
+		}
 	}
 	
 	@Override
