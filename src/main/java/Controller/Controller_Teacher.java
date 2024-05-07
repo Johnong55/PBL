@@ -95,6 +95,16 @@ public class Controller_Teacher implements Action {
 			viewteacher.saveAnh();
 		}else if(e.getSource() == viewteacher.buttonTaoCauHoi) {
 			this.viewteacher.ViewCreateQuestion();
+		}else if(e.getSource() == viewteacher.buttonLuuCauHoi) {
+			viewteacher.InsertCauhoi();
+		}else if(e.getSource() == viewteacher.buttonExitAddQuestion) {
+			this.viewteacher.ViewCreateNew();
+		}else if(e.getSource() == viewteacher.buttonHuyUpdateExam) {
+			this.viewteacher.ViewExam();
+		}else if(e.getSource() == viewteacher.buttonLuuExam) {
+			viewteacher.LuuExam();
+		}else if(e.getSource() == viewteacher.buttonUpdateExam) {
+			viewteacher.CapNhatExam();
 		}
 	}
 	

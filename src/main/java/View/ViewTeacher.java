@@ -80,13 +80,18 @@ public class ViewTeacher extends JFrame {
 	public JPanel pView;
 	public MyButton buttonClass, buttonHome, buttonProfile, buttonExam, buttonNew, buttonLogout, buttonCreateExam,
 			buttonChangePass, NewQuestion, NewExam, buttonDeleteSv, buttonAddExam, buttonDeleteExam, buttonChangeImage,
-			buttonTaoCauHoi;
-	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textField_4_1;
-	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi;
+			buttonTaoCauHoi,buttonLuuCauHoi,buttonExitAddQuestion,buttonHuyUpdateExam,buttonLuuExam,buttonUpdateExam;
+	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4,textMoTa;
+	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi,comboBoxMucDo,comboBoxTenLop,comboBoxTenNGCH;
 	public MyTable table;
-	public JLabel labelImage;
+	public JLabel labelImage,labelIdKitThi;
 	public JTextField tenNGCH;
 	public JButton buttonOK, buttonHuy;
+	public JTextArea DapAnA,DapAnB,DapAnC,DapAnD,NoiDung;
+	public JRadioButton rdbtnNewRadioButton,rdbtnNewRadioButton_1,rdbtnNewRadioButton_2,rdbtnNewRadioButton_3;
+	public PlaceholderFormattedTextField dateField;
+	public PlaceholderFormattedTextField timeField;
+	public ButtonGroup onechoice;
 	public Gv g;
 
 	Controller_Teacher actionTeacher = new Controller_Teacher(this);
@@ -883,15 +888,15 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1_1.setBounds(339, 30, 150, 18);
 		panel_3.add(lblNewLabel_1_1);
 
-		JComboBox<String> comboBox = new JComboBox<>(getTenLop(g));
-		comboBox.setBackground(new Color(255, 255, 255));
-		comboBox.setBounds(60, 30, 102, 22);
-		panel_3.add(comboBox);
+		comboBoxTenLop = new JComboBox<>(getTenLop(g));
+		comboBoxTenLop.setBackground(new Color(255, 255, 255));
+		comboBoxTenLop.setBounds(60, 30, 102, 22);
+		panel_3.add(comboBoxTenLop);
 
-		JComboBox<String> comboBox_1 = new JComboBox<>(getTenMon());
-		comboBox_1.setBackground(new Color(255, 255, 255));
-		comboBox_1.setBounds(480, 30, 102, 22);
-		panel_3.add(comboBox_1);
+		comboBoxTenNGCH = new JComboBox<>(getTenMon());
+		comboBoxTenNGCH.setBackground(new Color(255, 255, 255));
+		comboBoxTenNGCH.setBounds(480, 30, 102, 22);
+		panel_3.add(comboBoxTenNGCH);
 
 		JLabel lblNewLabel_1_2 = new JLabel("Số câu hỏi :");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -973,14 +978,14 @@ public class ViewTeacher extends JFrame {
 		textField_4.setCornerRadius(20);
 		panel_3.add(textField_4);
 
-		textField_4_1 = new JPlaceholderTextField("");
-		textField_4_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_4_1.setCornerRadius(20);
-		textField_4_1.setColumns(10);
-		textField_4_1.setBorder(null);
-		textField_4_1.setBounds(130, 506, 100, 30);
-		textField_4_1.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
-		panel_3.add(textField_4_1);
+		textMoTa = new JPlaceholderTextField("");
+		textMoTa.setHorizontalAlignment(SwingConstants.CENTER);
+		textMoTa.setCornerRadius(20);
+		textMoTa.setColumns(10);
+		textMoTa.setBorder(null);
+		textMoTa.setBounds(130, 506, 100, 30);
+		textMoTa.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
+		panel_3.add(textMoTa);
 
 		MaskFormatter dateformatter = null;
 		MaskFormatter timeformatter = null;
@@ -995,14 +1000,15 @@ public class ViewTeacher extends JFrame {
 			e.printStackTrace();
 		}
 
-		PlaceholderFormattedTextField dateField = new PlaceholderFormattedTextField(dateformatter);
+		dateField = new PlaceholderFormattedTextField(dateformatter);
 		dateField.setHorizontalAlignment(SwingConstants.CENTER);
 		dateField.setColumns(10);
 		dateField.setBounds(120, 326, 100, 30);
 		dateField.setBorder(null);
 		dateField.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
 		dateField.setCornerRadius(20);
-		PlaceholderFormattedTextField timeField = new PlaceholderFormattedTextField(timeformatter);
+		
+		timeField = new PlaceholderFormattedTextField(timeformatter);
 		timeField.setHorizontalAlignment(SwingConstants.CENTER);
 		timeField.setColumns(10);
 		timeField.setBounds(200, 386, 100, 30);
@@ -1027,80 +1033,35 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_2_1.setBounds(310, 394, 102, 14);
 		panel_3.add(lblNewLabel_2_1);
 
-		MyButton btnNewButton_1_1 = new MyButton("Tạo");
-		btnNewButton_1_1.setRadius(10);
-		btnNewButton_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1.setBounds(520, 560, 150, 30);
+		buttonLuuExam = new MyButton("Tạo");
+		buttonLuuExam.setRadius(10);
+		buttonLuuExam.setForeground(Color.WHITE);
+		buttonLuuExam.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonLuuExam.setColorOver(new Color(100, 241, 241));
+		buttonLuuExam.setColorClick(new Color(50, 185, 185));
+		buttonLuuExam.setColor(new Color(50, 185, 185));
+		buttonLuuExam.setBorderColor(Color.WHITE);
+		buttonLuuExam.setBackground(new Color(50, 185, 185));
+		buttonLuuExam.setBounds(520, 560, 150, 30);
 
-		btnNewButton_1_1.addActionListener(new ActionListener() {
+		buttonLuuExam.addActionListener(actionTeacher);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String tenlop = comboBox.getSelectedItem().toString();
-				String tenmon = comboBox_1.getSelectedItem().toString();
-				String mota = textField_4_1.getText();
-				int total = Integer.parseInt(textField_2.getText());
-				int easy = Integer.parseInt(textField_1.getText());
-				int medium = Integer.parseInt(textField.getText());
-				int hard = Integer.parseInt(textField_3.getText());
-				int duringtime = Integer.parseInt(textField_4.getText());
-				String date = dateField.getText();
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				java.sql.Date datE = null;
-				try {
-					java.util.Date utilDate = dateFormat.parse(date);
-					datE = new java.sql.Date(utilDate.getTime());
-				} catch (ParseException k) {
-					k.printStackTrace();
-				}
-				String time = timeField.getText();
-				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-				java.sql.Time timE = null;
-				try {
-					Date utilDate = timeFormat.parse(time);
-					timE = new java.sql.Time(utilDate.getTime());
-				} catch (ParseException l) {
-					l.printStackTrace();
-				}
-				String m = tenmon + date.replace("-", "") + tenlop;
-				KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard,
-						easy, medium, getNganhangcauhoibyName(tenmon));
+		panel_3.add(buttonLuuExam);
 
-				// System.out.println(datE);
+		buttonHuyUpdateExam = new MyButton("Hủy");
+		buttonHuyUpdateExam.setRadius(10);
+		buttonHuyUpdateExam.setForeground(new Color(50, 185, 185));
+		buttonHuyUpdateExam.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonHuyUpdateExam.setColorOver(new Color(207, 231, 231));
+		buttonHuyUpdateExam.setColorClick(Color.WHITE);
+		buttonHuyUpdateExam.setColor(Color.WHITE);
+		buttonHuyUpdateExam.setBorderColor(new Color(50, 185, 185));
+		buttonHuyUpdateExam.setBackground(Color.white);
+		buttonHuyUpdateExam.setBounds(354, 562, 146, 26);
 
-				InsertExam(kt);
-			}
-		});
+		buttonHuyUpdateExam.addActionListener(actionTeacher);
 
-		panel_3.add(btnNewButton_1_1);
-
-		MyButton btnNewButton_1_1_1 = new MyButton("Hủy");
-		btnNewButton_1_1_1.setRadius(10);
-		btnNewButton_1_1_1.setForeground(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_1.setColorOver(new Color(207, 231, 231));
-		btnNewButton_1_1_1.setColorClick(Color.WHITE);
-		btnNewButton_1_1_1.setColor(Color.WHITE);
-		btnNewButton_1_1_1.setBorderColor(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBackground(Color.white);
-		btnNewButton_1_1_1.setBounds(354, 562, 146, 26);
-
-		btnNewButton_1_1_1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ViewCreateNew();
-
-			}
-		});
-
-		panel_3.add(btnNewButton_1_1_1);
+		panel_3.add(buttonHuyUpdateExam);
 	}
 
 	public void ViewUpdateExam(KiThi kt) {
@@ -1132,19 +1093,19 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1_1.setBounds(339, 30, 150, 18);
 		panel_3.add(lblNewLabel_1_1);
 
-		JComboBox<String> comboBox = new JComboBox<>(getTenLop(g));
+		comboBoxTenLop = new JComboBox<>(getTenLop(g));
 
-		comboBox.setSelectedIndex(getIndexofArray(getTenLop(g), kt.getLop().getTenlop()));
+		comboBoxTenLop.setSelectedIndex(getIndexofArray(getTenLop(g), kt.getLop().getTenlop()));
 
-		comboBox.setBackground(new Color(255, 255, 255));
-		comboBox.setBounds(60, 30, 102, 22);
-		panel_3.add(comboBox);
+		comboBoxTenLop.setBackground(new Color(255, 255, 255));
+		comboBoxTenLop.setBounds(60, 30, 102, 22);
+		panel_3.add(comboBoxTenLop);
 
-		JComboBox<String> comboBox_1 = new JComboBox<>(getTenMon());
-		comboBox_1.setSelectedIndex(getIndexofArray(getTenMon(), kt.getNganhangcauhoi().getIdNganHang()));
-		comboBox_1.setBackground(new Color(255, 255, 255));
-		comboBox_1.setBounds(480, 30, 102, 22);
-		panel_3.add(comboBox_1);
+		comboBoxTenNGCH = new JComboBox<>(getTenMon());
+		comboBoxTenNGCH.setSelectedIndex(getIndexofArray(getTenMon(), kt.getNganhangcauhoi().getIdNganHang()));
+		comboBoxTenNGCH.setBackground(new Color(255, 255, 255));
+		comboBoxTenNGCH.setBounds(480, 30, 102, 22);
+		panel_3.add(comboBoxTenNGCH);
 
 		JLabel lblNewLabel_1_2 = new JLabel("Số câu hỏi :");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -1244,7 +1205,7 @@ public class ViewTeacher extends JFrame {
 			e.printStackTrace();
 		}
 
-		PlaceholderFormattedTextField dateField = new PlaceholderFormattedTextField(dateformatter);
+		dateField = new PlaceholderFormattedTextField(dateformatter);
 		dateField.setValue(kt.getDate());
 		System.out.println(kt.getDate());
 		dateField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1253,7 +1214,8 @@ public class ViewTeacher extends JFrame {
 		dateField.setBorder(null);
 		dateField.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
 		dateField.setCornerRadius(20);
-		PlaceholderFormattedTextField timeField = new PlaceholderFormattedTextField(timeformatter);
+		
+		timeField = new PlaceholderFormattedTextField(timeformatter);
 		timeField.setValue(kt.getThoigianbatdau());
 		timeField.setHorizontalAlignment(SwingConstants.CENTER);
 		timeField.setColumns(10);
@@ -1269,15 +1231,15 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1_2_3_3_1.setBounds(10, 510, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3_1);
 
-		JPlaceholderTextField textField_4_1 = new JPlaceholderTextField("");
-		textField_4_1.setText(kt.getMota());
-		textField_4_1.setHorizontalAlignment(JPlaceholderTextField.CENTER);
-		textField_4_1.setCornerRadius(20);
-		textField_4_1.setColumns(10);
-		textField_4_1.setBorder(null);
-		textField_4_1.setBounds(130, 506, 100, 30);
-		textField_4_1.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
-		panel_3.add(textField_4_1);
+		textMoTa = new JPlaceholderTextField("");
+		textMoTa.setText(kt.getMota());
+		textMoTa.setHorizontalAlignment(JPlaceholderTextField.CENTER);
+		textMoTa.setCornerRadius(20);
+		textMoTa.setColumns(10);
+		textMoTa.setBorder(null);
+		textMoTa.setBounds(130, 506, 100, 30);
+		textMoTa.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
+		panel_3.add(textMoTa);
 
 		JLabel lblNewLabel_2 = new JLabel("( VD: 2004/04/07)");
 		lblNewLabel_2.setForeground(new Color(192, 192, 192));
@@ -1289,78 +1251,39 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_2_1.setBounds(310, 394, 102, 14);
 		panel_3.add(lblNewLabel_2_1);
 
-		MyButton btnNewButton_1_1_1 = new MyButton("Cập nhật");
-		btnNewButton_1_1_1.setRadius(10);
-		btnNewButton_1_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBounds(520, 560, 110, 30);
+		buttonUpdateExam = new MyButton("Cập nhật");
+		buttonUpdateExam.setRadius(10);
+		buttonUpdateExam.setForeground(Color.WHITE);
+		buttonUpdateExam.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonUpdateExam.setColorOver(new Color(100, 241, 241));
+		buttonUpdateExam.setColorClick(new Color(50, 185, 185));
+		buttonUpdateExam.setColor(new Color(50, 185, 185));
+		buttonUpdateExam.setBorderColor(Color.WHITE);
+		buttonUpdateExam.setBackground(new Color(50, 185, 185));
+		buttonUpdateExam.setBounds(520, 560, 110, 30);
 
-		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+		buttonUpdateExam.addActionListener(actionTeacher);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String tenlop = comboBox.getSelectedItem().toString();
-				String tenmon = comboBox_1.getSelectedItem().toString();
-				String mota = textField_4_1.getText();
-				int total = Integer.parseInt(textField_2.getText());
-				int easy = Integer.parseInt(textField_1.getText());
-				int medium = Integer.parseInt(textField.getText());
-				int hard = Integer.parseInt(textField_3.getText());
-				int duringtime = Integer.parseInt(textField_4.getText());
-				String date = dateField.getText();
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				java.sql.Date datE = null;
-				try {
-					java.util.Date utilDate = dateFormat.parse(date);
-					datE = new java.sql.Date(utilDate.getTime());
-				} catch (ParseException k) {
-					k.printStackTrace();
-				}
-				String time = timeField.getText();
-				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-				java.sql.Time timE = null;
-				try {
-					Date utilDate = timeFormat.parse(time);
-					timE = new java.sql.Time(utilDate.getTime());
-				} catch (ParseException l) {
-					l.printStackTrace();
-				}
-				String m = tenmon + date.replace("-", "") + tenlop;
-				KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard,
-						easy, medium, getNganhangcauhoibyName(tenmon));
+		panel_3.add(buttonUpdateExam);
 
-				UpdateExam(kt);
-			}
-		});
+		buttonHuyUpdateExam = new MyButton("Hủy");
+		buttonHuyUpdateExam.setRadius(10);
+		buttonHuyUpdateExam.setForeground(new Color(50, 185, 185));
+		buttonHuyUpdateExam.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonHuyUpdateExam.setColorOver(new Color(207, 231, 231));
+		buttonHuyUpdateExam.setColorClick(Color.WHITE);
+		buttonHuyUpdateExam.setColor(Color.WHITE);
+		buttonHuyUpdateExam.setBorderColor(new Color(50, 185, 185));
+		buttonHuyUpdateExam.setBackground(Color.white);
+		buttonHuyUpdateExam.setBounds(354, 562, 110, 26);
 
-		panel_3.add(btnNewButton_1_1_1);
+		buttonHuyUpdateExam.addActionListener(actionTeacher);
 
-		MyButton btnNewButton_1_1_2 = new MyButton("Hủy");
-		btnNewButton_1_1_2.setRadius(10);
-		btnNewButton_1_1_2.setForeground(new Color(50, 185, 185));
-		btnNewButton_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_2.setColorOver(new Color(207, 231, 231));
-		btnNewButton_1_1_2.setColorClick(Color.WHITE);
-		btnNewButton_1_1_2.setColor(Color.WHITE);
-		btnNewButton_1_1_2.setBorderColor(new Color(50, 185, 185));
-		btnNewButton_1_1_2.setBackground(Color.white);
-		btnNewButton_1_1_2.setBounds(354, 562, 110, 26);
-
-		btnNewButton_1_1_2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				ViewExam();
-			}
-		});
-
-		panel_3.add(btnNewButton_1_1_2);
+		panel_3.add(buttonHuyUpdateExam);
+		
+		labelIdKitThi = new JLabel();
+		labelIdKitThi.setText(kt.getId());
+		
 	}
 
 	public void ViewCreateQuestion() {
@@ -1403,10 +1326,10 @@ public class ViewTeacher extends JFrame {
 
 		String[] list = { "1", "2", "3" };
 
-		JComboBox<String> comboBox_1 = new JComboBox<>(list);
-		comboBox_1.setBackground(new Color(255, 255, 255));
-		comboBox_1.setBounds(470, 30, 102, 22);
-		panel_1.add(comboBox_1);
+		comboBoxMucDo = new JComboBox<>(list);
+		comboBoxMucDo.setBackground(new Color(255, 255, 255));
+		comboBoxMucDo.setBounds(470, 30, 102, 22);
+		panel_1.add(comboBoxMucDo);
 
 		JLabel lblNewLabel_1_1_2 = new JLabel("Câu hỏi :");
 		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -1417,10 +1340,10 @@ public class ViewTeacher extends JFrame {
 		scrollPane.setBounds(130, 110, 520, 75);
 		panel_1.add(scrollPane);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setLineWrap(true);
-		textArea.setWrapStyleWord(true);
-		scrollPane.setViewportView(textArea);
+		NoiDung = new JTextArea();
+		NoiDung.setLineWrap(true);
+		NoiDung.setWrapStyleWord(true);
+		scrollPane.setViewportView(NoiDung);
 
 		JLabel lblNewLabel_1_1_2_1 = new JLabel("Đáp án A :");
 		lblNewLabel_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -1446,132 +1369,93 @@ public class ViewTeacher extends JFrame {
 		scrollPane_1.setBounds(130, 210, 520, 45);
 		panel_1.add(scrollPane_1);
 
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setLineWrap(true);
-		textArea_1.setWrapStyleWord(true);
-		scrollPane_1.setViewportView(textArea_1);
+		DapAnA = new JTextArea();
+		DapAnA.setLineWrap(true);
+		DapAnA.setWrapStyleWord(true);
+		scrollPane_1.setViewportView(DapAnA);
 
 		JScrollPane scrollPane_1_1 = new JScrollPane();
 		scrollPane_1_1.setBounds(130, 290, 520, 45);
 		panel_1.add(scrollPane_1_1);
 
-		JTextArea textArea_2 = new JTextArea();
-		textArea_2.setLineWrap(true);
-		textArea_2.setWrapStyleWord(true);
-		scrollPane_1_1.setViewportView(textArea_2);
+		DapAnB = new JTextArea();
+		DapAnB.setLineWrap(true);
+		DapAnB.setWrapStyleWord(true);
+		scrollPane_1_1.setViewportView(DapAnB);
 
 		JScrollPane scrollPane_1_2 = new JScrollPane();
 		scrollPane_1_2.setBounds(130, 370, 520, 45);
 		panel_1.add(scrollPane_1_2);
 
-		JTextArea textArea_3 = new JTextArea();
-		textArea_3.setLineWrap(true);
-		textArea_3.setWrapStyleWord(true);
-		scrollPane_1_2.setViewportView(textArea_3);
+		DapAnC = new JTextArea();
+		DapAnC.setLineWrap(true);
+		DapAnC.setWrapStyleWord(true);
+		scrollPane_1_2.setViewportView(DapAnC);
 
 		JScrollPane scrollPane_1_3 = new JScrollPane();
 		scrollPane_1_3.setBounds(130, 450, 520, 45);
 		panel_1.add(scrollPane_1_3);
 
-		JTextArea textArea_4 = new JTextArea();
-		textArea_4.setLineWrap(true);
-		textArea_4.setWrapStyleWord(true);
-		scrollPane_1_3.setViewportView(textArea_4);
+		DapAnD = new JTextArea();
+		DapAnD.setLineWrap(true);
+		DapAnD.setWrapStyleWord(true);
+		scrollPane_1_3.setViewportView(DapAnD);
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Đáp án đúng");
+		rdbtnNewRadioButton = new JRadioButton("Đáp án đúng");
 		rdbtnNewRadioButton.setBackground(new Color(255, 255, 255));
 		rdbtnNewRadioButton.setBounds(130, 260, 109, 23);
 		panel_1.add(rdbtnNewRadioButton);
 
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Đáp án đúng");
+		rdbtnNewRadioButton_1 = new JRadioButton("Đáp án đúng");
 		rdbtnNewRadioButton_1.setBackground(new Color(255, 255, 255));
 		rdbtnNewRadioButton_1.setBounds(130, 342, 109, 23);
 		panel_1.add(rdbtnNewRadioButton_1);
 
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Đáp án đúng");
+		rdbtnNewRadioButton_2 = new JRadioButton("Đáp án đúng");
 		rdbtnNewRadioButton_2.setBackground(new Color(255, 255, 255));
 		rdbtnNewRadioButton_2.setBounds(130, 422, 109, 23);
 		panel_1.add(rdbtnNewRadioButton_2);
 
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Đáp án đúng");
+		rdbtnNewRadioButton_3 = new JRadioButton("Đáp án đúng");
 		rdbtnNewRadioButton_3.setBackground(new Color(255, 255, 255));
 		rdbtnNewRadioButton_3.setBounds(130, 502, 109, 23);
 		panel_1.add(rdbtnNewRadioButton_3);
 
-		ButtonGroup onechoice = new ButtonGroup();
+		onechoice = new ButtonGroup();
 		onechoice.add(rdbtnNewRadioButton);
 		onechoice.add(rdbtnNewRadioButton_1);
 		onechoice.add(rdbtnNewRadioButton_2);
 		onechoice.add(rdbtnNewRadioButton_3);
 
-		MyButton btnNewButton_1_1 = new MyButton("Lưu và tiếp tục");
-		btnNewButton_1_1.setRadius(10);
-		btnNewButton_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1.setColorOver(new Color(100, 241, 241));
-		btnNewButton_1_1.setColorClick(new Color(50, 185, 185));
-		btnNewButton_1_1.setColor(new Color(50, 185, 185));
-		btnNewButton_1_1.setBorderColor(Color.WHITE);
-		btnNewButton_1_1.setBackground(new Color(50, 185, 185));
-		btnNewButton_1_1.setBounds(554, 607, 150, 30);
+		buttonLuuCauHoi = new MyButton("Lưu và tiếp tục");
+		buttonLuuCauHoi.setRadius(10);
+		buttonLuuCauHoi.setForeground(Color.WHITE);
+		buttonLuuCauHoi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonLuuCauHoi.setColorOver(new Color(100, 241, 241));
+		buttonLuuCauHoi.setColorClick(new Color(50, 185, 185));
+		buttonLuuCauHoi.setColor(new Color(50, 185, 185));
+		buttonLuuCauHoi.setBorderColor(Color.WHITE);
+		buttonLuuCauHoi.setBackground(new Color(50, 185, 185));
+		buttonLuuCauHoi.setBounds(554, 607, 150, 30);
 
-		pView.add(btnNewButton_1_1);
+		pView.add(buttonLuuCauHoi);
 
-		btnNewButton_1_1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String question = textArea.getText();
-				String dapanA = textArea_1.getText();
-				String dapanB = textArea_2.getText();
-				String dapanC = textArea_3.getText();
-				String dapanD = textArea_4.getText();
-				String dapanDung = null;
-				String tenMon = comboBoxNganHangCauHoi.getSelectedItem().toString();
-				int mucdo = Integer.parseInt(comboBox_1.getSelectedItem().toString());
-				if (rdbtnNewRadioButton.isSelected()) {
-					dapanDung = textArea_1.getText();
-				} else if (rdbtnNewRadioButton_1.isSelected()) {
-					dapanDung = textArea_2.getText();
-				} else if (rdbtnNewRadioButton_2.isSelected()) {
-					dapanDung = textArea_3.getText();
-				} else if (rdbtnNewRadioButton_3.isSelected()) {
-					dapanDung = textArea_4.getText();
-				} else {
-					JOptionPane.showMessageDialog(null, "Bạn cần chọn câu trả lời đúng", "LỖI",
-							JOptionPane.INFORMATION_MESSAGE);
-					return;
-				}
-				// tạo id bằng phương pháp UUID
-				String id = UUID.randomUUID().toString();
+		buttonLuuCauHoi.addActionListener(actionTeacher);
 
-				Cauhoi c = new Cauhoi(id, question, dapanA, dapanB, dapanC, dapanD, mucdo, dapanDung,
-						getNganhangcauhoibyName(tenMon));
+		buttonExitAddQuestion = new MyButton("Thoát");
+		buttonExitAddQuestion.setRadius(10);
+		buttonExitAddQuestion.setForeground(new Color(50, 185, 185));
+		buttonExitAddQuestion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonExitAddQuestion.setColorOver(new Color(207, 231, 231));
+		buttonExitAddQuestion.setColorClick(Color.WHITE);
+		buttonExitAddQuestion.setColor(Color.WHITE);
+		buttonExitAddQuestion.setBorderColor(new Color(50, 185, 185));
+		buttonExitAddQuestion.setBackground(Color.white);
+		buttonExitAddQuestion.setBounds(382, 609, 146, 26);
 
-				InsertCauhoi(c);
-			}
-		});
+		pView.add(buttonExitAddQuestion);
 
-		MyButton btnNewButton_1_1_1 = new MyButton("Thoát");
-		btnNewButton_1_1_1.setRadius(10);
-		btnNewButton_1_1_1.setForeground(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_1.setColorOver(new Color(207, 231, 231));
-		btnNewButton_1_1_1.setColorClick(Color.WHITE);
-		btnNewButton_1_1_1.setColor(Color.WHITE);
-		btnNewButton_1_1_1.setBorderColor(new Color(50, 185, 185));
-		btnNewButton_1_1_1.setBackground(Color.white);
-		btnNewButton_1_1_1.setBounds(382, 609, 146, 26);
-
-		pView.add(btnNewButton_1_1_1);
-
-		btnNewButton_1_1_1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				ViewCreateNew();
-			}
-		});
+		buttonExitAddQuestion.addActionListener(actionTeacher);
 	}
 
 	public void ViewAddNganHangCauHoi() {
@@ -1726,11 +1610,130 @@ public class ViewTeacher extends JFrame {
 		KiThi_dao.Instance().insert(k);
 	}
 
-	public void UpdateExam(KiThi k) {
-		KiThi_dao.Instance().update(k);
+	public void LuuExam() {
+		
+		String tenlop = comboBoxTenLop.getSelectedItem().toString();
+		String tenmon = comboBoxTenNGCH.getSelectedItem().toString();
+		String mota = textMoTa.getText();
+		int total = Integer.parseInt(textField_2.getText());
+		int easy = Integer.parseInt(textField_1.getText());
+		int medium = Integer.parseInt(textField.getText());
+		int hard = Integer.parseInt(textField_3.getText());
+		int duringtime = Integer.parseInt(textField_4.getText());
+		String date = dateField.getText();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.sql.Date datE = null;
+		try {
+			java.util.Date utilDate = dateFormat.parse(date);
+			datE = new java.sql.Date(utilDate.getTime());
+		} catch (ParseException p) {
+			p.printStackTrace();
+		}
+		String time = timeField.getText();
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+		java.sql.Time timE = null;
+		try {
+			Date utilDate = timeFormat.parse(time);
+			timE = new java.sql.Time(utilDate.getTime());
+		} catch (ParseException l) {
+			l.printStackTrace();
+		}
+		String m = UUID.randomUUID().toString();
+		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard,
+				easy, medium, getNganhangcauhoibyName(tenmon));
+		
+		textMoTa.setText("");
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+		textField_3.setText("");
+		textField_4.setText("");
+		dateField.setText("");
+		timeField.setText("");
+		
+		KiThi_dao.Instance().insert(kt);
+	}
+	public void CapNhatExam() {
+		
+		String tenlop = comboBoxTenLop.getSelectedItem().toString();
+		String tenmon = comboBoxTenNGCH.getSelectedItem().toString();
+		String mota = textMoTa.getText();
+		int total = Integer.parseInt(textField_2.getText());
+		int easy = Integer.parseInt(textField_1.getText());
+		int medium = Integer.parseInt(textField.getText());
+		int hard = Integer.parseInt(textField_3.getText());
+		int duringtime = Integer.parseInt(textField_4.getText());
+		String date = dateField.getText();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.sql.Date datE = null;
+		try {
+			java.util.Date utilDate = dateFormat.parse(date);
+			datE = new java.sql.Date(utilDate.getTime());
+		} catch (ParseException p) {
+			p.printStackTrace();
+		}
+		String time = timeField.getText();
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+		java.sql.Time timE = null;
+		try {
+			Date utilDate = timeFormat.parse(time);
+			timE = new java.sql.Time(utilDate.getTime());
+		} catch (ParseException l) {
+			l.printStackTrace();
+		}
+		String m = labelIdKitThi.getText();
+		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard,
+				easy, medium, getNganhangcauhoibyName(tenmon));
+		
+		textMoTa.setText("");
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+		textField_3.setText("");
+		textField_4.setText("");
+		dateField.setText("");
+		timeField.setText("");
+
+		
+		
+		KiThi_dao.Instance().update(kt);
 	}
 
-	public void InsertCauhoi(Cauhoi c) {
+	public void InsertCauhoi() {
+		
+		String question = NoiDung.getText();
+		String dapanA = DapAnA.getText();
+		String dapanB = DapAnB.getText();
+		String dapanC = DapAnC.getText();
+		String dapanD = DapAnD.getText();
+		String dapanDung = null;
+		String tenMon = comboBoxNganHangCauHoi.getSelectedItem().toString();
+		int mucdo = Integer.parseInt(comboBoxMucDo.getSelectedItem().toString());
+		if (rdbtnNewRadioButton.isSelected()) {
+			dapanDung = DapAnA.getText();
+		} else if (rdbtnNewRadioButton_1.isSelected()) {
+			dapanDung = DapAnB.getText();
+		} else if (rdbtnNewRadioButton_2.isSelected()) {
+			dapanDung = DapAnC.getText();
+		} else if (rdbtnNewRadioButton_3.isSelected()) {
+			dapanDung = DapAnD.getText();
+		} else {
+			JOptionPane.showMessageDialog(null, "Bạn cần chọn câu trả lời đúng", "LỖI",
+					JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		// tạo id bằng phương pháp UUID
+		String id = UUID.randomUUID().toString();
+
+		Cauhoi c = new Cauhoi(id, question, dapanA, dapanB, dapanC, dapanD, mucdo, dapanDung,
+				getNganhangcauhoibyName(tenMon));
+		NoiDung.setText("");
+		DapAnA.setText("");
+		DapAnB.setText("");
+		DapAnC.setText("");
+		DapAnD.setText("");
+		onechoice.clearSelection();
+		
 		Cauhoi_Dao.Instance().insert(c);
 	}
 

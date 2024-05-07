@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -75,6 +76,15 @@ public class ViewAdmin extends JFrame{
 		panel.setBounds(0, 0, 170, 661);
 		contentPane.add(panel);
 		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel();
+		lblNewLabel.setBounds(45, 11, 75, 70);
+
+		lblNewLabel.setIcon(
+				new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/logo.png"))
+						.getScaledInstance(lblNewLabel.getWidth(), lblNewLabel.getHeight(), Image.SCALE_SMOOTH)));
+
+		panel.add(lblNewLabel);
 
 		btnNewButton = new MyButton("Trang chủ");
 		btnNewButton.setForeground(new Color(255, 255, 255));
