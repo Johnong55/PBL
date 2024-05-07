@@ -34,6 +34,10 @@ public class Controller_Admin implements Action {
 			this.viewadmin.setVisible(false);
 			viewLogin v = new viewLogin();
 			v.setVisible(true);
+		}else if(e.getSource() == viewadmin.buttonAddClass) {
+			
+		}else if(e.getSource() == viewadmin.buttonDeleteClass) {
+			
 		}
 		
 	}

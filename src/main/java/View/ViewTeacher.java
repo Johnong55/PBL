@@ -80,15 +80,17 @@ public class ViewTeacher extends JFrame {
 	public JPanel pView;
 	public MyButton buttonClass, buttonHome, buttonProfile, buttonExam, buttonNew, buttonLogout, buttonCreateExam,
 			buttonChangePass, NewQuestion, NewExam, buttonDeleteSv, buttonAddExam, buttonDeleteExam, buttonChangeImage,
-			buttonTaoCauHoi,buttonLuuCauHoi,buttonExitAddQuestion,buttonHuyUpdateExam,buttonLuuExam,buttonUpdateExam;
-	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4,textMoTa;
-	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi,comboBoxMucDo,comboBoxTenLop,comboBoxTenNGCH;
+			buttonTaoCauHoi, buttonLuuCauHoi, buttonExitAddQuestion, buttonHuyUpdateExam, buttonLuuExam,
+			buttonUpdateExam;
+	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa;
+	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi, comboBoxMucDo, comboBoxTenLop,
+			comboBoxTenNGCH;
 	public MyTable table;
-	public JLabel labelImage,labelIdKitThi;
+	public JLabel labelImage, labelIdKitThi;
 	public JTextField tenNGCH;
 	public JButton buttonOK, buttonHuy;
-	public JTextArea DapAnA,DapAnB,DapAnC,DapAnD,NoiDung;
-	public JRadioButton rdbtnNewRadioButton,rdbtnNewRadioButton_1,rdbtnNewRadioButton_2,rdbtnNewRadioButton_3;
+	public JTextArea DapAnA, DapAnB, DapAnC, DapAnD, NoiDung;
+	public JRadioButton rdbtnNewRadioButton, rdbtnNewRadioButton_1, rdbtnNewRadioButton_2, rdbtnNewRadioButton_3;
 	public PlaceholderFormattedTextField dateField;
 	public PlaceholderFormattedTextField timeField;
 	public ButtonGroup onechoice;
@@ -522,7 +524,7 @@ public class ViewTeacher extends JFrame {
 
 		String[] list = { "  Tên", "  Điểm trung bình" };
 
-		JComboBox comboBox_1 = new JComboBox<>(list);
+		JComboBox<String> comboBox_1 = new JComboBox<>(list);
 		comboBox_1.setBounds(615, 35, 90, 22);
 		pView.add(comboBox_1);
 
@@ -1007,7 +1009,7 @@ public class ViewTeacher extends JFrame {
 		dateField.setBorder(null);
 		dateField.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
 		dateField.setCornerRadius(20);
-		
+
 		timeField = new PlaceholderFormattedTextField(timeformatter);
 		timeField.setHorizontalAlignment(SwingConstants.CENTER);
 		timeField.setColumns(10);
@@ -1214,7 +1216,7 @@ public class ViewTeacher extends JFrame {
 		dateField.setBorder(null);
 		dateField.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
 		dateField.setCornerRadius(20);
-		
+
 		timeField = new PlaceholderFormattedTextField(timeformatter);
 		timeField.setValue(kt.getThoigianbatdau());
 		timeField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1280,10 +1282,10 @@ public class ViewTeacher extends JFrame {
 		buttonHuyUpdateExam.addActionListener(actionTeacher);
 
 		panel_3.add(buttonHuyUpdateExam);
-		
+
 		labelIdKitThi = new JLabel();
 		labelIdKitThi.setText(kt.getId());
-		
+
 	}
 
 	public void ViewCreateQuestion() {
@@ -1611,7 +1613,7 @@ public class ViewTeacher extends JFrame {
 	}
 
 	public void LuuExam() {
-		
+
 		String tenlop = comboBoxTenLop.getSelectedItem().toString();
 		String tenmon = comboBoxTenNGCH.getSelectedItem().toString();
 		String mota = textMoTa.getText();
@@ -1639,9 +1641,9 @@ public class ViewTeacher extends JFrame {
 			l.printStackTrace();
 		}
 		String m = UUID.randomUUID().toString();
-		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard,
-				easy, medium, getNganhangcauhoibyName(tenmon));
-		
+		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard, easy,
+				medium, getNganhangcauhoibyName(tenmon));
+
 		textMoTa.setText("");
 		textField.setText("");
 		textField_1.setText("");
@@ -1650,11 +1652,12 @@ public class ViewTeacher extends JFrame {
 		textField_4.setText("");
 		dateField.setText("");
 		timeField.setText("");
-		
+
 		KiThi_dao.Instance().insert(kt);
 	}
+
 	public void CapNhatExam() {
-		
+
 		String tenlop = comboBoxTenLop.getSelectedItem().toString();
 		String tenmon = comboBoxTenNGCH.getSelectedItem().toString();
 		String mota = textMoTa.getText();
@@ -1682,9 +1685,9 @@ public class ViewTeacher extends JFrame {
 			l.printStackTrace();
 		}
 		String m = labelIdKitThi.getText();
-		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard,
-				easy, medium, getNganhangcauhoibyName(tenmon));
-		
+		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard, easy,
+				medium, getNganhangcauhoibyName(tenmon));
+
 		textMoTa.setText("");
 		textField.setText("");
 		textField_1.setText("");
@@ -1694,13 +1697,11 @@ public class ViewTeacher extends JFrame {
 		dateField.setText("");
 		timeField.setText("");
 
-		
-		
 		KiThi_dao.Instance().update(kt);
 	}
 
 	public void InsertCauhoi() {
-		
+
 		String question = NoiDung.getText();
 		String dapanA = DapAnA.getText();
 		String dapanB = DapAnB.getText();
@@ -1733,7 +1734,7 @@ public class ViewTeacher extends JFrame {
 		DapAnC.setText("");
 		DapAnD.setText("");
 		onechoice.clearSelection();
-		
+
 		Cauhoi_Dao.Instance().insert(c);
 	}
 
