@@ -136,10 +136,6 @@ public class ViewChangePassword extends JFrame {
 		btnNewButton_1_1.setBounds(30, 298, 310, 35);
 		contentPane.add(btnNewButton_1_1);
 		
-		
-		
-		
-		
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			
 			@Override

@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.Action;
 
 import View.ViewAdmin;
+import View.viewLogin;
 
 
 public class Controller_Admin implements Action {
@@ -30,6 +31,12 @@ public class Controller_Admin implements Action {
 		}else if(e.getSource() == viewadmin.btnNewButton3_1) {
 			this.viewadmin.ViewStudent();
 		}else if(e.getSource() == viewadmin.btnNewButton5) {
+			this.viewadmin.setVisible(false);
+			viewLogin v = new viewLogin();
+			v.setVisible(true);
+		}else if(e.getSource() == viewadmin.buttonAddClass) {
+			
+		}else if(e.getSource() == viewadmin.buttonDeleteClass) {
 			
 		}
 		

@@ -125,10 +125,12 @@ public class Gv_dao implements DAO_Interface<Gv> {
 
 
 					Gv u = new Gv(id, ten, truong);
+					
 					u.setDanhsachlop(selectclassbyid(u));
 					u.setPassword(t.getPassword());
 					u.setUsername(t.getUsername());
 					u.setMaquyen(t.getMaquyen());
+					u.setLinkAnh(t.getLinkAnh());
 				
 				return u;
 
@@ -189,6 +191,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 	}
 	public List<Class> selectclassbyid(Gv gv)
 	{
+		System.out.println(gv.getId());
 		List<Class> result =new ArrayList<Class>();
 		try {
 			Connection con  = JDBCUtil.getConnection();
@@ -210,6 +213,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					
 					Class u = new Class(id, name, new truonghoc(school));
 					result.add(u);
+					System.out.println(1);
 				}
 				con.close();
 			} catch (SQLException e) {
