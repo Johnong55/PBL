@@ -55,6 +55,7 @@ public class ViewAdmin extends JFrame {
 	public JComboBox<String> comboBoxSortClass;
 	public JTextField textField;
 	public JFrame j;
+	public JLabel lblNewLabel_1;
 
 	/**
 	 * Launch the application.
@@ -64,6 +65,7 @@ public class ViewAdmin extends JFrame {
 			public void run() {
 				try {
 					ViewAdmin frame = new ViewAdmin();
+				frame.ViewHome();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -192,6 +194,11 @@ public class ViewAdmin extends JFrame {
 		pView.removeAll();
 		pView.repaint();
 		pView.revalidate();
+		
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(10, 11, 694, 639);
+		lblNewLabel_1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/homadmin.jpg"))));
+		pView.add(lblNewLabel_1);
 
 	}
 
@@ -297,7 +304,8 @@ public class ViewAdmin extends JFrame {
 				if (e.getClickCount() == 2) {
 					int i = table.getSelectedRow();
 					String m = table.getValueAt(i, 0).toString();
-					ViewListSVinClass(m);
+					String j =  table.getValueAt(i, 1).toString();
+					ViewListSVinClass(m,j);
 				}
 			}
 		});
@@ -340,7 +348,7 @@ public class ViewAdmin extends JFrame {
 		j.setVisible(true);
 	}
 
-	public void ViewListSVinClass(String m) {
+	public void ViewListSVinClass(String m,String soSv) {
 		System.out.println(m);
 		pView.removeAll();
 		pView.repaint();
@@ -396,7 +404,7 @@ public class ViewAdmin extends JFrame {
 			}
 		});
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Danh sách học sinh" }));
-		table.setModel(getModelSVinClass(m, table));
+		table.setModel(getModelSVinClass(m, table,soSv));
 		table.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(table);
 	}
@@ -500,6 +508,31 @@ public class ViewAdmin extends JFrame {
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth() + 1, (int) size.getHeight() + 1);
 
 		pView.add(lblNewLabel);
+		
+		MyButton btnNewButton_1_1 = new MyButton("Thêm lớp");
+		btnNewButton_1_1.setRadius(10);
+		btnNewButton_1_1.setForeground(Color.WHITE);
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1.setColorOver(new Color(86, 98, 120));
+		btnNewButton_1_1.setColorClick(new Color(45, 51, 63));
+		btnNewButton_1_1.setColor(new Color(45, 51, 63));
+		btnNewButton_1_1.setBorderColor(Color.white);
+		btnNewButton_1_1.setBackground(new Color(45, 51, 63));
+		btnNewButton_1_1.setBounds(10, 600, 110, 30);
+
+		pView.add(btnNewButton_1_1);
+
+		MyButton btnNewButton_1_1_1 = new MyButton("Xóa lớp");
+		btnNewButton_1_1_1.setRadius(10);
+		btnNewButton_1_1_1.setForeground(Color.WHITE);
+		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1_1_1.setColorOver(new Color(86, 98, 120));
+		btnNewButton_1_1_1.setColorClick(new Color(45, 51, 63));
+		btnNewButton_1_1_1.setColor(new Color(45, 51, 63));
+		btnNewButton_1_1_1.setBorderColor(Color.white);
+		btnNewButton_1_1_1.setBackground(new Color(45, 51, 63));
+		btnNewButton_1_1_1.setBounds(130, 600, 110, 30);
+		pView.add(btnNewButton_1_1_1);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
@@ -670,10 +703,10 @@ public class ViewAdmin extends JFrame {
 		return model;
 	}
 
-	public DefaultTableModel getModelSVinClass(String m, JTable table) {
+	public DefaultTableModel getModelSVinClass(String m, JTable table,String soSv) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		if(soSv.equals("0")) {
 		String idLop = getIdLopbyName(m);
-		System.out.println(idLop);
 		List<Sv> listSV = Sv_dao.Instance().selectall();
 		int i =1;
 		for (Sv s : listSV) {
@@ -682,6 +715,7 @@ public class ViewAdmin extends JFrame {
 				model.addRow(new Object[] { i + ". " + s.getTen() });
 				i++;
 			}
+		}
 		}
 		return model;
 	}

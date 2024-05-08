@@ -24,7 +24,7 @@ public class Controller_Admin implements Action {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == viewadmin.btnNewButton) {
-	
+			this.viewadmin.ViewHome();
 		}else if(e.getSource() == viewadmin.btnNewButton1) {
 			this.viewadmin.ViewClass();
 		}else if(e.getSource() == viewadmin.btnNewButton2) {
