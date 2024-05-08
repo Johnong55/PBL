@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.Action;
 
 import View.ViewAdmin;
+import View.ViewTeacher;
 import View.viewLogin;
 
 
@@ -35,9 +36,24 @@ public class Controller_Admin implements Action {
 			viewLogin v = new viewLogin();
 			v.setVisible(true);
 		}else if(e.getSource() == viewadmin.buttonAddClass) {
-			
-		}else if(e.getSource() == viewadmin.buttonDeleteClass) {
-			
+			this.viewadmin.ViewAddClass();
+		}else if(e.getSource() == viewadmin.buttonOkAddClass) {
+			String tenLop = viewadmin.textField.getText();
+			viewadmin.insertClass(tenLop);
+			viewadmin.updateTableClass(viewadmin.table);
+			viewadmin.j.setVisible(false);
+		}else if(e.getSource() == viewadmin.buttonHuyAddClass) {
+			viewadmin.j.setVisible(false);
+		}
+		else if(e.getSource() == viewadmin.buttonDeleteClass) {
+			String idclass =(String) viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 2);
+			System.out.println(idclass);
+			viewadmin.deleteClass(idclass);
+			viewadmin.updateTableClass(viewadmin.table);
+		}else if(e.getSource() == viewadmin.comboBoxSortClass) {
+			String m = (String) viewadmin.comboBoxSortClass.getSelectedItem();
+			viewadmin.SortTableClass(m);
+			viewadmin.updateTableClass(viewadmin.table);
 		}
 		
 	}

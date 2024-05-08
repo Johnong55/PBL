@@ -238,6 +238,23 @@ public class Sv_dao implements DAO_Interface<Sv> {
 			}
 		return null;
 	}
+						//UPDATE TenBang SET TenKhoaNgoai = NULL WHERE TenKhoaNgoai = (SELECT TenKhoaChinh FROM TenBangKhac WHERE DieuKien)
+	public void updateSvBeforeDeleteClass(String idclass) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "update Sv set lop = NULL where lop = (select idclass from class where idclass = ?)";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idclass);
+				a.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 	
 	public Sv selectbyid(Account t) {
 		try {
@@ -304,19 +321,6 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		return false;
 	}
 	
-	public boolean update(Gv g) {
-		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
-		if(sessionFactory!=null)
-		{
-			Session session = sessionFactory.openSession();
-			Transaction tr = session.beginTransaction();
-			session.update(g);
-			tr.commit();
-			session.close();
-			return true;
-		}
-		return false;
-	}
 
 	@Override
 	public boolean deletebyid(Sv t) {

@@ -400,7 +400,6 @@ public class ViewTeacher extends JFrame {
 		column.setMaxWidth(0);
 		column.setWidth(0);
 		column.setPreferredWidth(0);
-		scrollPane.setViewportView(table);
 
 		TableColumnModel columnModel1 = table.getColumnModel();
 		TableColumn column1 = columnModel1.getColumn(5);
@@ -408,7 +407,6 @@ public class ViewTeacher extends JFrame {
 		column1.setMaxWidth(0);
 		column1.setWidth(0);
 		column1.setPreferredWidth(0);
-		scrollPane.setViewportView(table);
 
 		TableColumnModel columnModel2 = table.getColumnModel();
 		TableColumn column2 = columnModel2.getColumn(6);
@@ -416,13 +414,14 @@ public class ViewTeacher extends JFrame {
 		column2.setMaxWidth(0);
 		column2.setWidth(0);
 		column2.setPreferredWidth(0);
-		scrollPane.setViewportView(table);
 
 		TableColumnModel columnresize = table.getColumnModel();
 		columnresize.getColumn(0).setPreferredWidth(30);
 		columnresize.getColumn(1).setPreferredWidth(30);
 		columnresize.getColumn(2).setPreferredWidth(40);
 		columnresize.getColumn(3).setPreferredWidth(60);
+
+		scrollPane.setViewportView(table);
 
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -577,10 +576,12 @@ public class ViewTeacher extends JFrame {
 			}
 		});
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "  Tên", "  Điểm trung bình", "  Mã học sinh", "  Mã lớp" }));
+				new String[] {"  Tên", "  Điểm trung bình", "  Mã học sinh", "  Mã lớp" }));
 
 		table.setModel(getModelSv(table, c));
 		table.setDefaultEditor(Object.class, null);
+		
+		
 		// ẩn cột mã học sinh
 		TableColumnModel columnModel = table.getColumnModel();
 		TableColumn column = columnModel.getColumn(2);
@@ -589,13 +590,13 @@ public class ViewTeacher extends JFrame {
 		column.setWidth(0);
 		column.setPreferredWidth(0);
 		// ẩn cột mã lớp
-		TableColumnModel columnModel1 = table.getColumnModel();
-		TableColumn column1 = columnModel1.getColumn(3);
+		TableColumn column1 = columnModel.getColumn(3);
 		column1.setMinWidth(0);
 		column1.setMaxWidth(0);
 		column1.setWidth(0);
 		column1.setPreferredWidth(0);
-
+		
+				
 		scrollPane.setViewportView(table);
 	}
 
@@ -1535,9 +1536,11 @@ public class ViewTeacher extends JFrame {
 	public DefaultTableModel getModelSv(JTable table, Class c) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
+		int i = 1;
 		for (Sv sv : temp) {
-			Object[] row = { sv.getTen(), "", sv.getId(), sv.getIdclass().getIdclass() };
+			Object[] row = { i + ". " +  sv.getTen(), "", sv.getId(), sv.getIdclass().getIdclass() };
 			model.addRow(row);
+			i++;
 		}
 		return model;
 	}
@@ -1791,7 +1794,7 @@ public class ViewTeacher extends JFrame {
 				Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 				displayImage(destinationFile, labelImage);
 				g.setLinkAnh("/view/image/" + sourceFile.getName());
-				Sv_dao.Instance().update(g);
+				Gv_dao.Instance().update(g);
 				JOptionPane.showMessageDialog(null, destinationFile.toString());
 			} catch (IOException q) {
 				JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi sao chép file: " + q.getMessage());
