@@ -207,6 +207,38 @@ public class Sv_dao implements DAO_Interface<Sv> {
 			}
 		return null;
 	}
+	
+	public Sv selectbyid(String idSv) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Sv "
+					+ " where id = ?";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idSv);
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					String id = kq.getString("id");
+					String ten = kq.getString("ten");
+					String lop= kq.getString("lop");
+						Class lop1 = new Class();
+						lop1.setIdclass(lop);
+					
+				Sv u = new Sv(id, ten, lop1);
+				
+				return u;
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	}
+	
 	public Sv selectbyid(Account t) {
 		try {
 			Connection con  = JDBCUtil.getConnection();
@@ -271,6 +303,20 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		}
 		return false;
 	}
+	
+	public boolean update(Gv g) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if(sessionFactory!=null)
+		{
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+			session.update(g);
+			tr.commit();
+			session.close();
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public boolean deletebyid(Sv t) {
@@ -286,6 +332,8 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		}
 		return false;
 	}
+	
+	
 	public List<Sv> selectbyclass(Class t)
 	{
 		List<Sv> result = new ArrayList<Sv>();

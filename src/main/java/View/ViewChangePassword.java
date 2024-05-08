@@ -9,6 +9,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import Controller.Controller_Teacher;
+import DAO.Gv_dao;
 import model.Gv;
 
 import java.awt.Color;
@@ -16,6 +17,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
@@ -38,22 +40,8 @@ public class ViewChangePassword extends JFrame {
 	private JPanel contentPane;
 	private JPlaceholderTextField textField;
 	private Gv g;
-	public Controller_Teacher controlGV = new Controller_Teacher();
 
 
-	/**
-	 * Launch the application.
-	 */
-	/*
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { ViewChangePassword frame = new
-	 * ViewChangePassword(); frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 */
-
-	/**
-	 * Create the frame.
-	 */
 	public ViewChangePassword(Gv gv) {
 		this.g = gv;
 		setBounds(700, 350, 400, 400);
@@ -158,8 +146,23 @@ public class ViewChangePassword extends JFrame {
 				
 				System.out.println(passwordNow + passwordChange + passwordComfirm);
 				
-				controlGV.ChangePassword(gv, passwordNow, passwordChange, passwordComfirm);
+				ChangePassword(gv, passwordNow, passwordChange, passwordComfirm);
 			}
 		});
+	}
+	public void ChangePassword(Gv g, String o, String n, String c) {
+		System.out.println(o);
+		System.out.println(g.getPassword());
+		if(o.equals(g.getPassword())) {
+			if(n.equals(c)) {
+				g.setPassword(n);
+				Gv_dao.Instance().update(g);
+				
+			}else {
+				JOptionPane.showMessageDialog(null, "Mật khẩu xác nhận không đúng","Lỗi",JOptionPane.INFORMATION_MESSAGE);
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Mật khẩu hiện tại không đúng","Lỗi",JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 }

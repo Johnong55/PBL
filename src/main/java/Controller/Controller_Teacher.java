@@ -1,171 +1,142 @@
 package Controller;
 
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
+import javax.swing.Action;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.JInternalFrame;
-import java.awt.Color;
-import java.awt.Dimension;
 
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.text.View;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
-
-import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
-import javax.swing.UIManager;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.dial.DialPointer;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
-
-import model.Gv;
-import model.KiThi;
-import model.Giangday;
-import DAO.Cauhoi_Dao;
-import DAO.Class_dao;
 import DAO.Gv_dao;
-import DAO.KiThi_dao;
-import model.Sv;
-import model.Cauhoi;
-import model.Class;
-import DAO.NganhangDao;
-import model.Nganhangcauhoi;
+import DAO.Sv_dao;
+
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
+import View.ViewChangePassword;
+import View.ViewTeacher;
+import View.viewLogin;
 
 
-public class Controller_Teacher {
-	public Gv g;
-	public  List<Giangday> dslop;
-	public  List<Sv> listSV;
-	public Class_dao ClassDao = new Class_dao();
-	public NganhangDao nganhangDAO = new NganhangDao();
-	public List<Nganhangcauhoi> NganHangCauHoi;
-	public List<KiThi> kthi;
-	public KiThi_dao kt = new KiThi_dao();
-	public Cauhoi_Dao cauhoi = new Cauhoi_Dao();
-	public Gv_dao gvDAO = new Gv_dao();
+
+public class Controller_Teacher implements Action {
 	
-	public List<Giangday> getClasses(Gv g) {
-		return g.getDanhsachlop();
+	public ViewTeacher viewteacher;
+	
+	public Controller_Teacher(ViewTeacher viewteacher) {
+		super();
+		this.viewteacher = viewteacher;
 	}
-	public DefaultTableModel getModelClasses(Gv g, JTable table) {
-		dslop = g.getDanhsachlop();
-		System.out.println(dslop);
-		
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for (Giangday giangday : dslop) {
-			listSV = ClassDao.selectSVinclass(giangday.getMalop());
-			Object[] row = {giangday.getMalop().getTenlop(),listSV.size()};
-			model.addRow(row);
-		}
-		return model;
-	}
-	public DefaultTableModel getModelExam(Gv g, JTable table) {
-		kthi = kt.selectall();
-		String idgv = g.getId();
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for (KiThi k : kthi) {
-			if(idgv.equalsIgnoreCase(k.getGv().getId())) {
-				Object[] row = {k.getLop().getTenlop(),k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
-						k.getDate(), k.getThoigianbatdau(), k.getThoigianlambai(), k.getSl()};
-				model.addRow(row);
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == viewteacher.buttonHome) {
+			this.viewteacher.ViewHome();
+		}else if(e.getSource() == viewteacher.buttonClass) {
+			this.viewteacher.ViewClass(viewteacher.getModelClasses(viewteacher.g));
+			this.viewteacher.SortTableClass( "  Tên lớp");
+		}else if(e.getSource() == viewteacher.buttonExam) {
+			this.viewteacher.ViewExam();
+		}else if(e.getSource() == viewteacher.buttonProfile) {
+			this.viewteacher.ViewProfile();
+		}else if(e.getSource() == viewteacher.buttonNew) {
+			this.viewteacher.ViewCreateNew();
+		}else if(e.getSource() == viewteacher.buttonLogout) {
+			this.viewteacher.setVisible(false);
+			viewLogin v = new viewLogin();
+			v.setVisible(true);
+		}else if(e.getSource() == viewteacher.buttonCreateExam) {
+			this.viewteacher.ViewCreateExam();
+		}else if(e.getSource() == viewteacher.buttonChangePass) {
+			ViewChangePassword v = new ViewChangePassword(viewteacher.g);
+		}else if(e.getSource() == viewteacher.NewQuestion) {
+			this.viewteacher.ViewCreateQuestion();
+		}else if(e.getSource() == viewteacher.NewExam) {
+			this.viewteacher.ViewCreateExam();
+		}else if(e.getSource() == viewteacher.comboBoxSortClass) {
+			String selectedColumn = (String) viewteacher.comboBoxSortClass.getSelectedItem();
+			this.viewteacher.SortTableClass(selectedColumn);
+		}else if(e.getSource() == viewteacher.comboBoxExam) {
+			String selectedColumn = (String) viewteacher.comboBoxExam.getSelectedItem();
+			this.viewteacher.setTableExam(selectedColumn);
+		}else if(e.getSource() == viewteacher.comboBoxNganHangCauHoi) {
+			String check = viewteacher.comboBoxNganHangCauHoi.getSelectedItem().toString();
+			if(check.equals("Thêm")) {
+				this.viewteacher.ViewAddNganHangCauHoi();
 			}
-		}
-		return model;
-	}
-	public Class getClassbyNameClass(String m, Gv g) {
-    	for (Giangday giangday : g.getDanhsachlop()) {
-			if(m == giangday.getMalop().getTenlop()) {
-				return giangday.getMalop();
+		}else if(e.getSource() == viewteacher.buttonOK) {
+			this.viewteacher.insertNganHangCauHoi(viewteacher.tenNGCH.getText(), 0);
+			this.viewteacher.updateComboBoxNganHangCauHoi();
+			this.viewteacher.j.setVisible(false);
+		}else if(e.getSource() == viewteacher.buttonHuy) {
+			this.viewteacher.j.setVisible(false);
+		}else if(e.getSource() == viewteacher.buttonDeleteSv) {
+			if(viewteacher.table.getSelectedRowCount() != 0) {
+			String idclass = (String) viewteacher.table.getValueAt(viewteacher.table.getSelectedRow(), 3);
+			String id =(String) viewteacher.table.getValueAt(viewteacher.table.getSelectedRow(), 2);
+			viewteacher.deleteSv(id);
+			viewteacher.upadteTableSv(viewteacher.table, idclass);
+			}else {
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn học sinh muốn xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
 			}
-		}
-    	return null;
-	}
-	public String[] getTenLop(Gv g) {
-		int i = 0;
-		String[] tenlop = new String[g.getDanhsachlop().size()];
-		for (Giangday giangday : g.getDanhsachlop()) {
-			tenlop[i] = giangday.getMalop().getTenlop();
-			i++;
-		}
-		return tenlop;
-	}
-	public String[] getTenMon() {
-		int i = 0;
-		NganHangCauHoi = nganhangDAO.selectall();
-		String[] tenmon = new String[NganHangCauHoi.size()];
-		for (Nganhangcauhoi cauhoi : NganHangCauHoi) {
-			tenmon[i] = cauhoi.getIdNganHang();
-			i++;
-		}
-		return tenmon;
-	}
-	public Nganhangcauhoi getNganhangcauhoibyName(String name) {
-		NganHangCauHoi = nganhangDAO.selectall();
-		for (Nganhangcauhoi nganhangcauhoi2 : NganHangCauHoi) {
-			if(name.equalsIgnoreCase(nganhangcauhoi2.getIdNganHang())) {
-				return nganhangcauhoi2;
+		}else if(e.getSource() == viewteacher.buttonAddExam) {
+			this.viewteacher.ViewCreateExam();
+		}else if(e.getSource() == viewteacher.buttonDeleteExam) {
+			if(viewteacher.table.getSelectedRowCount() != 0) {
+			String idkithi =(String) viewteacher.table.getValueAt(viewteacher.table.getSelectedRow(), 7);
+			viewteacher.deleteExam(idkithi);
+			viewteacher.updateTableExam(viewteacher.table);
+			}else {
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng để xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
 			}
+		}else if(e.getSource() == viewteacher.buttonChangeImage) {
+			viewteacher.saveAnh();
+		}else if(e.getSource() == viewteacher.buttonTaoCauHoi) {
+			this.viewteacher.ViewCreateQuestion();
+		}else if(e.getSource() == viewteacher.buttonLuuCauHoi) {
+			viewteacher.InsertCauhoi();
+		}else if(e.getSource() == viewteacher.buttonExitAddQuestion) {
+			this.viewteacher.ViewCreateNew();
+		}else if(e.getSource() == viewteacher.buttonHuyUpdateExam) {
+			this.viewteacher.ViewExam();
+		}else if(e.getSource() == viewteacher.buttonLuuExam) {
+			viewteacher.LuuExam();
+		}else if(e.getSource() == viewteacher.buttonUpdateExam) {
+			viewteacher.CapNhatExam();
 		}
+	}
+	
+	@Override
+	public Object getValue(String key) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-	public KiThi getKithibyID(String id) {
-		KiThi k = kt.selectbyid(id);
-		return k;
+	@Override
+	public void putValue(String key, Object value) {
+		// TODO Auto-generated method stub
+		
 	}
-	public int getIndexofArray(String[] arr,String s) {
-        for (int i = 0; i < arr.length; i++) {
-            if (s.equalsIgnoreCase(arr[i])) {
-                return i;
-            }
-        }
-        return -1;
+	@Override
+	public void setEnabled(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
-	public void InsertExam(KiThi k) {
-		kt.insert(k);
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
 	}
-	public void UpdateExam(KiThi k) {
-		kt.update(k);
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		// TODO Auto-generated method stub
+		
 	}
-	public void InsertCauhoi(Cauhoi c) {
-		cauhoi.insert(c);
-	}
-	public void ChangePassword(Gv g, String o, String n, String c) {
-		System.out.println(o);
-		System.out.println(g.getPassword());
-		if(o.equals(g.getPassword())) {
-			if(n.equals(c)) {
-				g.setPassword(n);
-				gvDAO.update(g);
-				
-			}else {
-				JOptionPane.showMessageDialog(null, "Confirmation password is incorrect","Error",JOptionPane.INFORMATION_MESSAGE);
-			}
-		}else {
-			JOptionPane.showMessageDialog(null, "Password is incorrect","Error",JOptionPane.INFORMATION_MESSAGE);
-		}
+	@Override
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

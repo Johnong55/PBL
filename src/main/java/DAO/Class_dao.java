@@ -98,6 +98,39 @@ public class Class_dao implements DAO_Interface<Class> {
 			}
 		return null;
 	}
+	public Class selectbyid(String idclass) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from class "
+					+ "where idclass = ?";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idclass);
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+
+					String id = kq.getString("idclass");
+					String name = kq.getString("tenlop");
+					String school= kq.getString("truong");
+					truonghoc truong = new truonghoc();
+					truong.setId(school);
+					truonghoc_dao tr = new truonghoc_dao();
+					truonghoc b = new truonghoc();
+					b = tr.selectbyid(truong);
+					
+					Class u = new Class(id, name,b);
+				return u;
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	}
 	
 
 	@Override
