@@ -65,11 +65,12 @@ public class Account_dao implements DAO_Interface<Account> {
 
 		try {
 			Connection con = JDBCUtil.getConnection();
-			String sql = "select * from Account";
+			String sql = "select * from Account where id = ?";
 
 			PreparedStatement a;
 
 			a = con.prepareStatement(sql);
+			a.setString(1, t.getId());
 			ResultSet kq = a.executeQuery();
 			while (kq.next()) {
 				String id = kq.getString("id");

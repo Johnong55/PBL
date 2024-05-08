@@ -4,6 +4,8 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -118,7 +120,9 @@ public class ViewTakeTest extends JFrame {
 	}
 
 	public ViewTakeTest(Sv sv, KiThi onl) {
-		
+		GraphicsEnvironment graphics =
+			      GraphicsEnvironment.getLocalGraphicsEnvironment();
+			      GraphicsDevice device = graphics.getDefaultScreenDevice();
 		this.v = sv;
 		bailam1 = new BaiLam();
 	 	bailam1.setSv(this.v);
@@ -154,6 +158,7 @@ public class ViewTakeTest extends JFrame {
 		setBounds(200, 100, 1299, 858);
 		ViewTakeTest1();
 		setVisible(true);
+		 device.setFullScreenWindow(this);
 	}
 
 	/**
@@ -170,7 +175,7 @@ public class ViewTakeTest extends JFrame {
 	 * Create the frame.
 	 */
 	public void ViewTakeTest1() {
-
+			
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -415,5 +420,6 @@ public class ViewTakeTest extends JFrame {
 		mbtnCuTrc.setColor(Color.WHITE);
 		mbtnCuTrc.setBounds(47, 686, 213, 54);
 		contentPane.add(mbtnCuTrc);
+		  
 	}
 }

@@ -54,7 +54,12 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setTen(ten);
 					u.setTruong(tr.selectbyid(truong));
 					u.setDanhsachlop(selectclassbyid(u));
-					
+					Account gv = 	Account_dao.Instance().selectbyid(u);
+
+					u.setLinkAnh(gv.getLinkAnh());
+					u.setPassword(gv.getPassword());
+					u.setMaquyen(gv.maquyen);
+					u.setUsername(gv.getUsername());
 					result.add(u);
 				}
 				con.close();
@@ -81,15 +86,22 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				while(kq.next())
 				{
 					String id = kq.getString("id");
-					String ten = kq.getString("ten");	
+					String ten = kq.getString("ten");
 					String idtruong= kq.getString("truong");
 					truonghoc truong = new truonghoc();
 					truong.setId(idtruong);
 					truonghoc_dao tr = new truonghoc_dao();
-					truonghoc b = new truonghoc();
-					b = tr.selectbyid(truong);
-					Gv u = new Gv(id, ten, truong);
+					Gv u = new Gv();
+					u.setMaGv(id);
+					u.setTen(ten);
+					u.setTruong(tr.selectbyid(truong));
 					u.setDanhsachlop(selectclassbyid(u));
+					Account gv = 	Account_dao.Instance().selectbyid(u);
+
+					u.setLinkAnh(gv.getLinkAnh());
+					u.setPassword(gv.getPassword());
+					u.setMaquyen(gv.maquyen);
+					u.setUsername(gv.getUsername());
 				return u;
 				}
 				con.close();

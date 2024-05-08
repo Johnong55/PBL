@@ -35,6 +35,7 @@ public class Cautraloisinhvien {
 		else {
 			kiemtra = 0;
 		}
+		System.out.println("kiem tra "+kiemtra);
 	}
 
 	public String getId() {

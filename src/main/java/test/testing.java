@@ -1,19 +1,23 @@
 package test;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
 
-import DAO.BaiLam_dao;
-import DAO.CautraloiSinhvien_dao;
-import model.BaiLam;
-import model.Cautraloisinhvien;
+import DAO.request_dao;
+import model.request;
 
 public class testing {
-	public static void main(String[] args) {
-		for(BaiLam i: BaiLam_dao.Instance().selectbailamfromkithi("04"))
-			{
-					System.out.println(i);
-			}
-	}
+    public static void main(String[] args) {
+    	for(request i :request_dao.Instance().selectallfromrequest())
+    	{
+    		System.out.println(i);
+    	}
+    }
 }

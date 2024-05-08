@@ -17,10 +17,19 @@ public class Account {
 	public String password;
 	public int maquyen;
 	public String linkAnh;
+	@OneToOne(mappedBy = "account")
+	private request request;
+	public request getRequest() {
+		return request;
+	}
+	public void setRequest(request request) {
+		this.request = request;
+	}
 	
 	@Override
 	public String toString() {
-		return "Account [id=" + id + "]";
+		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", maquyen=" + maquyen
+				+ ", linkAnh=" + linkAnh + ", request=" + request + "]";
 	}
 	public String getId() {
 		return id;

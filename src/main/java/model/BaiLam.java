@@ -1,3 +1,4 @@
+
 package model;
 
 import java.sql.Date;
@@ -161,11 +162,13 @@ public class BaiLam{
 	}
 	public void check()
 	{
+
 		double dd = (double) 10 /  cautraloi.size();
 		for(Cautraloisinhvien i : cautraloi)
 		{
 			if(i.getKiemtra()==1)
 			{
+
 				this.diem += dd;
 				socaudung++;
 			}
