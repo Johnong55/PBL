@@ -28,6 +28,7 @@ import DAO.Sv_dao;
 import View.ChangePassword;
 import View.GoingTest;
 import View.ViewStudent;
+import View.viewLogin;
 import model.BaiLam;
 
 public class Controller_Student implements ActionListener {
@@ -163,6 +164,11 @@ public class Controller_Student implements ActionListener {
 
 			setPanel_4();
 			s.view_profile();
+		}
+		else if (e.getSource() == s.exit) {
+			s.dispose();
+			viewLogin v = new viewLogin();
+			v.setVisible(true);
 		}
 
 		else if (e.getSource() == s.mbtnBtuLm) {

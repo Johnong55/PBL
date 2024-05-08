@@ -55,7 +55,7 @@ public class ViewStudent extends JFrame {
 	Color Gray = new Color(122, 122, 129);
 	Color Green = new Color(44, 173, 167);
 	public JPanel panel_4 = new JPanel();
-	public MyButton BtnHome, btnTests,btnProfile, btnChangePer, BtnChangeImagePer;
+	public MyButton BtnHome, btnTests,btnProfile,exit, btnChangePer, BtnChangeImagePer;
 	public MyButton mbtnSetReminder, mbtnBtuLm;
 	public JLabel lblNewLabel_14;
 	PanelRound panel_1;
@@ -110,9 +110,9 @@ public class ViewStudent extends JFrame {
 		panel_1.setBounds(10, 11, 694, 123);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Hello ,");
+		JLabel lblNewLabel = new JLabel("Xin chào ,");
 		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 22));
-		lblNewLabel.setBounds(10, 11, 96, 26);
+		lblNewLabel.setBounds(10, 11, 165, 26);
 		panel_1.add(lblNewLabel);
 		
 		JLabel lblNewLabel_13 = new JLabel("User");
@@ -483,6 +483,7 @@ public class ViewStudent extends JFrame {
 		panel.setLayout(null);
 		
 		BtnHome =    new MyButton("Home");
+		BtnHome.setText("Trang chủ");
 		BtnHome.setForeground(Color.WHITE);
 		BtnHome.setColorOver(new Color(88, 141, 220));
 		BtnHome.setColorClick(new Color(150, 207, 250));
@@ -494,10 +495,11 @@ public class ViewStudent extends JFrame {
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/home.png"))));
 		BtnHome.addActionListener(cl);
 		
-		BtnHome.setBounds(10, 90, 137, 37);
+		BtnHome.setBounds(10, 108, 137, 37);
 		panel.add(BtnHome);
 		
 		btnTests = new MyButton("Tests");
+		btnTests.setText("Kì thi");
 	
 		btnTests.setForeground(Color.WHITE);
 		btnTests.addActionListener(cl);
@@ -507,27 +509,54 @@ public class ViewStudent extends JFrame {
 		btnTests.setRadius(10);		btnTests.setColor(Blue); btnTests.setBorderColor(Blue);
 		btnTests.setHorizontalAlignment(SwingConstants.LEFT);
 		btnTests.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnTests.setBounds(10, 138, 137, 37);
+		btnTests.setBounds(10, 170, 137, 37);
 		btnTests.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/test.png"))));
 		panel.add(btnTests);
 		
 		btnProfile = new MyButton("Profile");
+	
+		btnProfile.setText("Cá nhân");
 		btnProfile.addActionListener(cl);
 		btnProfile.setForeground(Color.WHITE);
-		btnProfile.setBackground(new Color(0, 0, 0));
 		btnProfile.setColorOver(new Color(88, 141, 220));
 		btnProfile.setColorClick(new Color(150, 207, 250));
 		btnProfile.setRadius(10);		btnProfile.setColor(Blue); btnProfile.setBorderColor(Blue);
 		btnProfile.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnProfile.setHorizontalAlignment(SwingConstants.LEFT);
-		btnProfile.setBounds(10, 186, 137, 37);
+		btnProfile.setBounds(10, 237, 137, 37);
 		btnProfile.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/profile.png"))));
 		panel.add(btnProfile);
+		
+		exit = new MyButton("Profile");
+		exit.setText("Đăng xuất");
+		exit.setRadius(10);
+		exit.setHorizontalAlignment(SwingConstants.LEFT);
+		exit.setForeground(Color.WHITE);
+		exit.setFont(new Font("Tahoma", Font.BOLD, 15));
+		exit.setColorOver(new Color(88, 141, 220));
+		exit.setColorClick(new Color(150, 207, 250));
+		exit.setColor(Blue);
+		exit.setBorderColor(Blue);
+		exit.setBounds(10, 576, 137, 37);
+		exit.setIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-logout-20.png"))));
+		exit.addActionListener(cl);
+
+		panel.add(exit);
+		
+		
+		JLabel lblNewLabel_15 = new JLabel("New label");
+		lblNewLabel_15.setBounds(36, 11, 89, 82);
+		lblNewLabel_15.setIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/logo.png"))
+						.getScaledInstance(lblNewLabel_15.getWidth(), lblNewLabel_15.getHeight(), Image.SCALE_SMOOTH)));
+
+		panel.add(lblNewLabel_15);
 		panel_4.setBounds(171, 0, 713, 661); 
 		
-		view_profile();
+		view_home();
 		//-----------------------------------
 		
 		//------------

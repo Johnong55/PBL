@@ -308,7 +308,7 @@ public class ViewTeacher extends JFrame {
 		pView.add(panel_2);
 
 		JLabel lblNewLabel = new JLabel("Chào, " + g.getTen());
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 0, (int) size.getWidth() + 1, (int) size.getHeight() + 1);
 
