@@ -43,6 +43,7 @@ import model.Giangday;
 import model.Gv;
 import model.Sv;
 import model.truonghoc;
+import net.bytebuddy.asm.Advice.OffsetMapping.Sort;
 
 import javax.swing.JComboBox;
 
@@ -51,8 +52,8 @@ public class ViewAdmin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane, pView,contentPane1;
 	public MyTable table;
-	public MyButton btnNewButton, btnNewButton1, btnNewButton2, btnNewButton3_1, btnNewButton5,buttonAddClass,buttonDeleteClass,buttonAddSvInClass,buttonHuyAddClass,buttonOkAddClass;
-	public JComboBox<String> comboBoxSortClass;
+	public MyButton btnNewButton1, btnNewButton2, btnNewButton3_1, btnNewButton5,buttonAddClass,buttonDeleteClass,buttonAddSvInClass,buttonHuyAddClass,buttonOkAddClass;
+	public JComboBox<String> comboBoxSortClass,comboBoxSortALLSV;
 	public JTextField textField;
 	public JFrame j;
 	public JLabel lblNewLabel_1;
@@ -65,7 +66,7 @@ public class ViewAdmin extends JFrame {
 			public void run() {
 				try {
 					ViewAdmin frame = new ViewAdmin();
-				frame.ViewHome();
+					frame.ViewClass();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -102,26 +103,11 @@ public class ViewAdmin extends JFrame {
 
 		panel.add(lblNewLabel);
 
-		btnNewButton = new MyButton("Trang chủ");
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setBounds(10, 90, 137, 37);
-		btnNewButton.setBackground(new Color(45, 51, 63));
-		btnNewButton.setColorClick(new Color(45, 51, 63));
-		btnNewButton.setColorOver(new Color(86, 98, 120));
-		btnNewButton.setRadius(10);
-		btnNewButton.setBorderColor(new Color(45, 51, 63));
-		btnNewButton.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-home-20.png"))));
-		panel.add(btnNewButton);
-		btnNewButton.addActionListener(actionAdmin);
-
 		btnNewButton1 = new MyButton("Lớp");
 		btnNewButton1.setForeground(new Color(255, 255, 255));
 		btnNewButton1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton1.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton1.setBounds(10, 138, 137, 37);
+		btnNewButton1.setBounds(10, 90, 137, 37);
 		btnNewButton1.setBackground(new Color(45, 51, 63));
 		btnNewButton1.setColorClick(new Color(45, 51, 63));
 		btnNewButton1.setColorOver(new Color(86, 98, 120));
@@ -136,7 +122,7 @@ public class ViewAdmin extends JFrame {
 		btnNewButton2.setForeground(new Color(255, 255, 255));
 		btnNewButton2.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton2.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton2.setBounds(10, 186, 137, 37);
+		btnNewButton2.setBounds(10, 138, 137, 37);
 		btnNewButton2.setBackground(new Color(45, 51, 63));
 		btnNewButton2.setColorClick(new Color(45, 51, 63));
 		btnNewButton2.setColorOver(new Color(86, 98, 120));
@@ -156,7 +142,7 @@ public class ViewAdmin extends JFrame {
 		btnNewButton3_1.setColorClick(new Color(45, 51, 63));
 		btnNewButton3_1.setBorderColor(new Color(45, 51, 63));
 		btnNewButton3_1.setBackground(new Color(45, 51, 63));
-		btnNewButton3_1.setBounds(10, 234, 137, 37);
+		btnNewButton3_1.setBounds(10, 186, 137, 37);
 		btnNewButton3_1.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-student-20.png"))));
 		panel.add(btnNewButton3_1);
@@ -187,18 +173,6 @@ public class ViewAdmin extends JFrame {
 		pView.setLayout(null);
 
 		//////////////////////////////////////////////////
-
-	}
-
-	public void ViewHome() {
-		pView.removeAll();
-		pView.repaint();
-		pView.revalidate();
-		
-		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(10, 11, 694, 639);
-		lblNewLabel_1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/homadmin.jpg"))));
-		pView.add(lblNewLabel_1);
 
 	}
 
@@ -288,6 +262,7 @@ public class ViewAdmin extends JFrame {
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Tên lớp", "  Số học sinh", "  Mã lớp" }));
 
 		table.setModel(getModelClasses(table));
+		SortTable("  Tên lớp");
 		table.setDefaultEditor(Object.class, null);
 		
 		TableColumnModel columnModel = table.getColumnModel();
@@ -385,7 +360,7 @@ public class ViewAdmin extends JFrame {
 		table.setColor1(Color.WHITE);
 		table.setColor2(Color.WHITE);
 		table.setGridColor(new Color(201, 201, 201));
-		// table.setShowGrid(false);
+	//	 table.setShowGrid(false);
 		table.setColumnAlignment(0, JLabel.LEFT);
 		table.setCellAlignment(0, JLabel.LEFT);
 
@@ -403,9 +378,15 @@ public class ViewAdmin extends JFrame {
 				return comp;
 			}
 		});
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Danh sách học sinh" }));
-		table.setModel(getModelSVinClass(m, table,soSv));
+		table.setModel(getModelSVinClass(m,soSv));
 		table.setDefaultEditor(Object.class, null);
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn column = columnModel.getColumn(1);
+		column.setMinWidth(0);
+		column.setMaxWidth(0);
+		column.setWidth(0);
+		column.setPreferredWidth(0);
+		SortTable("  Tên");	
 		scrollPane.setViewportView(table);
 	}
 
@@ -477,7 +458,7 @@ public class ViewAdmin extends JFrame {
 				return comp;
 			}
 		});
-		table.setModel(getModelTeacher(table));
+		table.setModel(getModelTeacher());
 		table.setDefaultEditor(Object.class, null);
 
 		scrollPane.setViewportView(table);
@@ -488,7 +469,7 @@ public class ViewAdmin extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 2) {
 				int i = table.getSelectedRow();
-				String m = table.getValueAt(i, 0).toString().substring(3);
+				String m = table.getValueAt(i, 0).toString();
 				ViewClassOfTeacher(m);
 				}
 			}
@@ -564,7 +545,7 @@ public class ViewAdmin extends JFrame {
 			}
 		});
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Danh sách lớp" }));
-		table.setModel(getModelNameClassOfGv(m, table));
+		table.setModel(getModelNameClassOfGv(m));
 		table.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(table);
 	}
@@ -581,11 +562,12 @@ public class ViewAdmin extends JFrame {
 
 		pView.add(lblNewLabel);
 
-		String[] list = { "Tên" };
+		String[] list = { "  Tên", "  Lớp" };
 
-		JComboBox<String> comboBox_1 = new JComboBox(list);
-		comboBox_1.setBounds(615, 35, 90, 22);
-		pView.add(comboBox_1);
+		comboBoxSortALLSV = new JComboBox<>(list);
+		comboBoxSortALLSV.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxSortALLSV);
+		comboBoxSortALLSV.addActionListener(actionAdmin);
 
 		JLabel lblNewLabel_2 = new JLabel("Sắp xếp :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -622,7 +604,7 @@ public class ViewAdmin extends JFrame {
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
 
-		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "  Tên học sinh", "  Lớp" });
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "  Tên học sinh", "  Lớp", "  Tên" });
 		table = new MyTable();
 		table.setModel(model);
 		table.setRowHeight(30);
@@ -648,9 +630,15 @@ public class ViewAdmin extends JFrame {
 			}
 		});
 
-		table.setModel(getModelStudent(table));
+		table.setModel(getModelStudent());
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn column = columnModel.getColumn(2);
+		column.setMinWidth(0);
+		column.setMaxWidth(0);
+		column.setWidth(0);
+		column.setPreferredWidth(0);
 		table.setDefaultEditor(Object.class, null);
-
+		SortTable("  Tên");
 		scrollPane.setViewportView(table);
 		pView.add(scrollPane);
 
@@ -661,7 +649,7 @@ public class ViewAdmin extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (Class c : classes) {
 			List<Sv> listSV = Class_dao.Instance().selectSVinclass(c);
-			Object[] row = { c.getTenlop(), listSV.size(), c.getIdclass() };
+			Object[] row = { c.getTenlop(),String.valueOf(listSV.size()) , c.getIdclass() };
 			model.addRow(row);
 		}
 		return model;
@@ -673,49 +661,48 @@ public class ViewAdmin extends JFrame {
 		table.setModel(getModelClasses(table));
 	}
 
-	public DefaultTableModel getModelTeacher(JTable table) {
+	public DefaultTableModel getModelTeacher() {
 		List<Gv> listgv = Gv_dao.Instance().selectall();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		int i =1;
 		for (Gv g : listgv) {
-			Object[] row = {i + ". " + g.getTen() };
+			Object[] row = { g.getTen() };
 			model.addRow(row);
-			i++;
 		}
 		return model;
 	}
 
-	public DefaultTableModel getModelStudent(JTable table) {
+	public DefaultTableModel getModelStudent() {
 		List<Sv> listSV = Sv_dao.Instance().selectall();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		int i =1;
 		for (Sv s : listSV) {
+			int lastIndex = s.getTen().lastIndexOf(" ");
+			String lastName = s.getTen().substring(lastIndex + 1);
 			if(s.getIdclass() != null) {
-			Object[] row = { i + ". " + s.getTen(), s.getIdclass().getTenlop() };
+			Object[] row = { s.getTen(), s.getIdclass().getTenlop() ,lastName};
 			model.addRow(row);
 			}else {
-				Object[] row = { i + ". " + s.getTen(), "Chưa có lớp" };
+				Object[] row = { s.getTen(), "Chưa có lớp", lastName };
 				model.addRow(row);
 			}
-			i++;
 			
 		}
 		return model;
 	}
 
-	public DefaultTableModel getModelSVinClass(String m, JTable table,String soSv) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		if(soSv.equals("0")) {
+	public DefaultTableModel getModelSVinClass(String m, String soSv) {
+		JTable t = new JTable();
+
+		t.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"  Danh sách học sinh", "  Tên" }));
+
+		DefaultTableModel model = (DefaultTableModel) t.getModel();
 		String idLop = getIdLopbyName(m);
 		List<Sv> listSV = Sv_dao.Instance().selectall();
-		int i =1;
-		for (Sv s : listSV) {
-			
+		for (Sv s : listSV) {				
 			if (s.getIdclass().getIdclass().equalsIgnoreCase(idLop)) {
-				model.addRow(new Object[] { i + ". " + s.getTen() });
-				i++;
+				int lastIndex = s.getTen().lastIndexOf(" ");
+				String lastName = s.getTen().substring(lastIndex + 1);
+				model.addRow(new Object[] { s.getTen(), lastName });
 			}
-		}
 		}
 		return model;
 	}
@@ -740,17 +727,15 @@ public class ViewAdmin extends JFrame {
 		return null;
 	}
 
-	public DefaultTableModel getModelNameClassOfGv(String m, JTable table) {
+	public DefaultTableModel getModelNameClassOfGv(String m) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		Gv g = getGvbyName(m);
 		System.out.println(g);
 
 		List<Giangday> dslop = g.getDanhsachlop();
-		int i = 1;
 		for (Giangday gd : dslop) {
-			Object[] row = { i + ". " + gd.getMalop().getTenlop() };
+			Object[] row = {gd.getMalop().getTenlop() };
 			model.addRow(row);
-			i++;
 		}
 		return model;
 	}
@@ -765,13 +750,14 @@ public class ViewAdmin extends JFrame {
 		Class_dao.Instance().deletebyid(Class_dao.Instance().selectbyid(idclass));
 	}
 	
-	public void SortTableClass(String selectedColumn) {
+	public void SortTable(String selectedColumn) {
 
-		TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
-		table.setRowSorter(sorter);
+	    TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+	    table.setRowSorter(sorter);
 
-		int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
-		sorter.toggleSortOrder(columnIndex);
+	    int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
+	    sorter.setComparator(columnIndex, new VietnameseComparator());
+	    sorter.toggleSortOrder(columnIndex);
 	}
 	public void insertClass(String tenLop) {
 		String id = UUID.randomUUID().toString();

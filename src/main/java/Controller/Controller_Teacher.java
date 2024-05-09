@@ -34,45 +34,60 @@ public class Controller_Teacher implements Action {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == viewteacher.buttonHome) {
 			this.viewteacher.ViewHome();
-		}else if(e.getSource() == viewteacher.buttonClass) {
-			this.viewteacher.ViewClass(viewteacher.getModelClasses(viewteacher.g));
-			this.viewteacher.SortTableClass( "  Tên lớp");
-		}else if(e.getSource() == viewteacher.buttonExam) {
+		}
+		else if(e.getSource() == viewteacher.buttonClass) {
+			this.viewteacher.ViewClass();
+			this.viewteacher.SortTable( "  Tên lớp");
+		}
+		else if(e.getSource() == viewteacher.buttonExam) {
 			this.viewteacher.ViewExam();
-		}else if(e.getSource() == viewteacher.buttonProfile) {
+		}
+		else if(e.getSource() == viewteacher.buttonProfile) {
 			this.viewteacher.ViewProfile();
-		}else if(e.getSource() == viewteacher.buttonNew) {
+		}
+		else if(e.getSource() == viewteacher.buttonNew) {
 			this.viewteacher.ViewCreateNew();
-		}else if(e.getSource() == viewteacher.buttonLogout) {
+		}
+		else if(e.getSource() == viewteacher.buttonLogout) {
 			this.viewteacher.setVisible(false);
 			viewLogin v = new viewLogin();
 			v.setVisible(true);
-		}else if(e.getSource() == viewteacher.buttonCreateExam) {
+		}
+		else if(e.getSource() == viewteacher.buttonCreateExam) {
 			this.viewteacher.ViewCreateExam();
-		}else if(e.getSource() == viewteacher.buttonChangePass) {
+		}
+		else if(e.getSource() == viewteacher.buttonChangePass) {
 			ViewChangePassword v = new ViewChangePassword(viewteacher.g);
-		}else if(e.getSource() == viewteacher.NewQuestion) {
+		}
+		else if(e.getSource() == viewteacher.NewQuestion) {
 			this.viewteacher.ViewCreateQuestion();
-		}else if(e.getSource() == viewteacher.NewExam) {
+		}
+		else if(e.getSource() == viewteacher.NewExam) {
 			this.viewteacher.ViewCreateExam();
-		}else if(e.getSource() == viewteacher.comboBoxSortClass) {
+		}
+		else if(e.getSource() == viewteacher.comboBoxSortClass) {
 			String selectedColumn = (String) viewteacher.comboBoxSortClass.getSelectedItem();
-			this.viewteacher.SortTableClass(selectedColumn);
-		}else if(e.getSource() == viewteacher.comboBoxExam) {
+			this.viewteacher.SortTable(selectedColumn);
+		}
+		else if(e.getSource() == viewteacher.comboBoxExam) {
 			String selectedColumn = (String) viewteacher.comboBoxExam.getSelectedItem();
-			this.viewteacher.setTableExam(selectedColumn);
-		}else if(e.getSource() == viewteacher.comboBoxNganHangCauHoi) {
+			this.viewteacher.SortTable(selectedColumn);
+		}
+		else if(e.getSource() == viewteacher.comboBoxNganHangCauHoi) {
 			String check = viewteacher.comboBoxNganHangCauHoi.getSelectedItem().toString();
 			if(check.equals("Thêm")) {
 				this.viewteacher.ViewAddNganHangCauHoi();
 			}
-		}else if(e.getSource() == viewteacher.buttonOK) {
+		}
+		else if(e.getSource() == viewteacher.buttonOK) {
 			this.viewteacher.insertNganHangCauHoi(viewteacher.tenNGCH.getText(), 0);
 			this.viewteacher.updateComboBoxNganHangCauHoi();
 			this.viewteacher.j.setVisible(false);
-		}else if(e.getSource() == viewteacher.buttonHuy) {
+		}
+		else if(e.getSource() == viewteacher.buttonHuy) {
 			this.viewteacher.j.setVisible(false);
-		}else if(e.getSource() == viewteacher.buttonDeleteSv) {
+		}
+		else if(e.getSource() == viewteacher.buttonDeleteSv) {
 			if(viewteacher.table.getSelectedRowCount() != 0) {
 			String idclass = (String) viewteacher.table.getValueAt(viewteacher.table.getSelectedRow(), 3);
 			String id =(String) viewteacher.table.getValueAt(viewteacher.table.getSelectedRow(), 2);
@@ -81,9 +96,11 @@ public class Controller_Teacher implements Action {
 			}else {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn học sinh muốn xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
 			}
-		}else if(e.getSource() == viewteacher.buttonAddExam) {
+		}
+		else if(e.getSource() == viewteacher.buttonAddExam) {
 			this.viewteacher.ViewCreateExam();
-		}else if(e.getSource() == viewteacher.buttonDeleteExam) {
+		}
+		else if(e.getSource() == viewteacher.buttonDeleteExam) {
 			if(viewteacher.table.getSelectedRowCount() != 0) {
 			String idkithi =(String) viewteacher.table.getValueAt(viewteacher.table.getSelectedRow(), 7);
 			viewteacher.deleteExam(idkithi);
@@ -91,20 +108,30 @@ public class Controller_Teacher implements Action {
 			}else {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng để xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
 			}
-		}else if(e.getSource() == viewteacher.buttonChangeImage) {
+		}
+		else if(e.getSource() == viewteacher.buttonChangeImage) {
 			viewteacher.saveAnh();
-		}else if(e.getSource() == viewteacher.buttonTaoCauHoi) {
+		}
+		else if(e.getSource() == viewteacher.buttonTaoCauHoi) {
 			this.viewteacher.ViewCreateQuestion();
-		}else if(e.getSource() == viewteacher.buttonLuuCauHoi) {
+		}
+		else if(e.getSource() == viewteacher.buttonLuuCauHoi) {
 			viewteacher.InsertCauhoi();
-		}else if(e.getSource() == viewteacher.buttonExitAddQuestion) {
+		}
+		else if(e.getSource() == viewteacher.buttonExitAddQuestion) {
 			this.viewteacher.ViewCreateNew();
-		}else if(e.getSource() == viewteacher.buttonHuyUpdateExam) {
-			this.viewteacher.ViewExam();
-		}else if(e.getSource() == viewteacher.buttonLuuExam) {
+		}
+		else if(e.getSource() == viewteacher.buttonHuyUpdateExam) {
+			this.viewteacher.ViewCreateNew();
+		}
+		else if(e.getSource() == viewteacher.buttonLuuExam) {
 			viewteacher.LuuExam();
-		}else if(e.getSource() == viewteacher.buttonUpdateExam) {
+		}
+		else if(e.getSource() == viewteacher.buttonUpdateExam) {
 			viewteacher.CapNhatExam();
+		}
+		else if(e.getSource() == viewteacher.comboBoxSortSVinClass) {
+			                                                                         //// sort sv in class
 		}
 	}
 	

@@ -44,7 +44,10 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -56,6 +59,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
+import com.mysql.cj.result.RowList;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 import model.Gv;
@@ -84,7 +88,7 @@ public class ViewTeacher extends JFrame {
 			buttonUpdateExam;
 	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi, comboBoxMucDo, comboBoxTenLop,
-			comboBoxTenNGCH;
+			comboBoxTenNGCH,comboBoxSortSVinClass;
 	public MyTable table;
 	public JLabel labelImage, labelIdKitThi;
 	public JTextField tenNGCH;
@@ -389,9 +393,10 @@ public class ViewTeacher extends JFrame {
 				return comp;
 			}
 		});
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Lớp", "  Môn", "  Tên kì thi",
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"  Lớp", "  Môn", "  Tên kì thi",
 				"  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi", "  Mã kì thi" }));
 		table.setModel(getModelExam(g));
+		SortTable("  Lớp");
 		table.setDefaultEditor(Object.class, null);
 		// ẩn mã kì thi
 		TableColumnModel columnModel = table.getColumnModel();
@@ -435,7 +440,7 @@ public class ViewTeacher extends JFrame {
 
 	}
 
-	public void ViewClass(DefaultTableModel model) {
+	public void ViewClass() {
 		pView.removeAll();
 		pView.repaint();
 		pView.revalidate();
@@ -489,9 +494,10 @@ public class ViewTeacher extends JFrame {
 				return comp;
 			}
 		});
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Tên lớp", "  Số học sinh" }));
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"  Tên lớp", "  Số học sinh" }));
 
-		table.setModel(model);
+		table.setModel(getModelClasses(g));
+		SortTable("  Tên lớp");
 		table.setDefaultEditor(Object.class, null);
 
 		table.addMouseListener(new MouseAdapter() {
@@ -523,9 +529,11 @@ public class ViewTeacher extends JFrame {
 
 		String[] list = { "  Tên", "  Điểm trung bình" };
 
-		JComboBox<String> comboBox_1 = new JComboBox<>(list);
-		comboBox_1.setBounds(615, 35, 90, 22);
-		pView.add(comboBox_1);
+		comboBoxSortSVinClass = new JComboBox<>(list);
+		comboBoxSortSVinClass.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxSortSVinClass);
+		
+		comboBoxSortSVinClass.addActionListener(actionTeacher);
 
 		JLabel lblNewLabel_2 = new JLabel("Sắp xếp :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -576,12 +584,12 @@ public class ViewTeacher extends JFrame {
 			}
 		});
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] {"  Tên", "  Điểm trung bình", "  Mã học sinh", "  Mã lớp" }));
+				new String[] { "  Tên học sinh", "  Điểm trung bình", "  Mã học sinh", "  Mã lớp", "  Tên" }));
 
 		table.setModel(getModelSv(table, c));
+		SortTable("  Tên");
 		table.setDefaultEditor(Object.class, null);
-		
-		
+
 		// ẩn cột mã học sinh
 		TableColumnModel columnModel = table.getColumnModel();
 		TableColumn column = columnModel.getColumn(2);
@@ -595,8 +603,13 @@ public class ViewTeacher extends JFrame {
 		column1.setMaxWidth(0);
 		column1.setWidth(0);
 		column1.setPreferredWidth(0);
-		
-				
+
+		TableColumn column2 = columnModel.getColumn(4);
+		column2.setMinWidth(0);
+		column2.setMaxWidth(0);
+		column2.setWidth(0);
+		column2.setPreferredWidth(0);
+
 		scrollPane.setViewportView(table);
 	}
 
@@ -712,14 +725,6 @@ public class ViewTeacher extends JFrame {
 				}
 			}
 		});
-	}
-
-	public void setTableExam(String selectedColumn) {
-		TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
-		table.setRowSorter(sorter);
-
-		int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
-		sorter.toggleSortOrder(columnIndex);
 	}
 
 	public void ViewProfile() {
@@ -1503,12 +1508,12 @@ public class ViewTeacher extends JFrame {
 
 		JTable t = new JTable();
 
-		t.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Tên lớp", "  Số học sinh" }));
+		t.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"  Tên lớp", "  Số học sinh" }));
 
 		DefaultTableModel model = (DefaultTableModel) t.getModel();
 		for (Giangday giangday : dslop) {
 			List<Sv> listSV = Class_dao.Instance().selectSVinclass(giangday.getMalop());
-			Object[] row = { giangday.getMalop().getTenlop(), listSV.size() };
+			Object[] row = {giangday.getMalop().getTenlop(), String.valueOf(listSV.size())};
 			model.addRow(row);
 		}
 		return model;
@@ -1519,13 +1524,13 @@ public class ViewTeacher extends JFrame {
 		String idgv = g.getId();
 
 		JTable t = new JTable();
-		t.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Lớp", "  Môn", "  Tên kì thi",
+		t.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"  Lớp", "  Môn", "  Tên kì thi",
 				"  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi", "  Mã kì thi" }));
 
 		DefaultTableModel model = (DefaultTableModel) t.getModel();
 		for (KiThi k : kthi) {
 			if (idgv.equalsIgnoreCase(k.getGv().getId())) {
-				Object[] row = { k.getLop().getTenlop(), k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
+				Object[] row = {k.getLop().getTenlop(), k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
 						k.getDate(), k.getThoigianbatdau(), k.getThoigianlambai(), k.getSl(), k.getId() };
 				model.addRow(row);
 			}
@@ -1538,7 +1543,10 @@ public class ViewTeacher extends JFrame {
 		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
 		int i = 1;
 		for (Sv sv : temp) {
-			Object[] row = { i + ". " +  sv.getTen(), "", sv.getId(), sv.getIdclass().getIdclass() };
+			int lastIndex = sv.getTen().lastIndexOf(" ");
+			String lastName = sv.getTen().substring(lastIndex + 1);
+
+			Object[] row = { sv.getTen(), "", sv.getId(), sv.getIdclass().getIdclass(), lastName };
 			model.addRow(row);
 			i++;
 		}
@@ -1756,14 +1764,16 @@ public class ViewTeacher extends JFrame {
 		Sv_dao.Instance().deletebyid(Sv_dao.Instance().selectbyid(id));
 	}
 
-	public void SortTableClass(String selectedColumn) {
+	public void SortTable(String selectedColumn) {
+	    TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+	    table.setRowSorter(sorter);
 
-		TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
-		table.setRowSorter(sorter);
+	    int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
+	    sorter.setComparator(columnIndex, new VietnameseComparator());
+	    sorter.toggleSortOrder(columnIndex);
 
-		int columnIndex = table.getColumnModel().getColumnIndex(selectedColumn);
-		sorter.toggleSortOrder(columnIndex);
 	}
+	
 
 	public void deleteExam(String id) {
 		KiThi_dao.Instance().deletebyid(KiThi_dao.Instance().selectbyid(id));
