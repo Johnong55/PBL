@@ -8,6 +8,7 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.JScrollBar;
 
 import View.ViewResult;
+import View.ViewStudent;
 
 public class Controller_ViewResult implements ActionListener, MouseWheelListener{
 
@@ -18,6 +19,13 @@ public class Controller_ViewResult implements ActionListener, MouseWheelListener
 		if (e.getSource() == rs.scrollPane) {
 			JScrollBar vertical = rs.scrollPane.getVerticalScrollBar();
 			vertical.setValue(vertical.getValue() + e.getUnitsToScroll() * 5);
+		}
+		if(e.getSource() == rs.btnNewButton)
+		{
+			rs.dispose();
+			ViewStudent v = new ViewStudent(rs.v);
+			v.setVisible(true);
+
 		}
 	}
 

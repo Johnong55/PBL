@@ -31,6 +31,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewResult extends JFrame {
 
@@ -219,12 +221,11 @@ public class ViewResult extends JFrame {
 		setContentPane(contentPane);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(0, 0, 1290, 1000);
 		scrollPane.addMouseWheelListener(rs);
 		scrollPane.setBorder(null);
-
 		contentPane.add(scrollPane);
 		
 		pn = new JPanel();
@@ -352,6 +353,7 @@ public class ViewResult extends JFrame {
 		panel_3.add(lblNewLabel_4,BorderLayout.CENTER);
 		
 		 btnNewButton = new MyButton("Thoát");
+		 btnNewButton.addActionListener(rs);
 		 btnNewButton.setColorOver(Green);
 		 btnNewButton.setRadius(20);
 		btnNewButton.setBounds(1128, 394, 127, 34);
