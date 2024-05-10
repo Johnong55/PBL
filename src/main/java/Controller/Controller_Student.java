@@ -205,12 +205,10 @@ public class Controller_Student implements ActionListener {
 
 				// Lấy file được chọn để lưu
 				File destinationFile = new File(
-						"D:\\study\\PBL\\src\\main\\java\\View\\image\\" + sourceFile.getName());
+						"C:\\Users\\Admin\\git\\PBL\\src\\main\\java\\View\\image\\" + sourceFile.getName());
 
 				try {
-					System.out.println("oce");
 					Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-					System.out.println("oce");
 					displayImage(destinationFile, s.lblNewLabel_14);
 					s.v.setLinkAnh("/View/image/" + sourceFile.getName());
 					Sv_dao.Instance().update(s.v);
