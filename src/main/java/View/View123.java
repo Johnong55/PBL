@@ -1,12 +1,14 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,16 +17,24 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 public class View123 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane,pView;
-	private JTable table;
-	public MyButton btnNewButton, btnNewButton1, btnNewButton2, btnNewButton3_1, btnNewButton5;
-	private JLabel lblNewLabel_1;
+	private JPanel contentPane3;
+	private JTextField textNameGv;
+	private JTextField textIdGv;
+	private JTextField textUser;
+	private JTextField textPass;
+	public JFrame l;
 
 	/**
 	 * Launch the application.
@@ -33,7 +43,7 @@ public class View123 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewAdmin frame = new ViewAdmin();
+					View123 frame = new View123();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,115 +57,63 @@ public class View123 extends JFrame {
 	 */
 	public View123() {
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 700);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		l = new JFrame();
+		l.setBounds(100, 100, 407, 391);
+		l.setLocationRelativeTo(null);
+		contentPane3 = new JPanel();
+		contentPane3.setBackground(new Color(255, 255, 255));
+		contentPane3.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(45, 51, 63));
-		panel.setBounds(0, 0, 170, 661);
-		contentPane.add(panel);
-		panel.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel();
-		lblNewLabel.setBounds(45, 11, 75, 70);
-
-		lblNewLabel.setIcon(
-				new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/logo.png"))
-						.getScaledInstance(lblNewLabel.getWidth(), lblNewLabel.getHeight(), Image.SCALE_SMOOTH)));
-
-		panel.add(lblNewLabel);
-
-		btnNewButton = new MyButton("Trang chủ");
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setBounds(10, 90, 137, 37);
-		btnNewButton.setBackground(new Color(45, 51, 63));
-		btnNewButton.setColorClick(new Color(45, 51, 63));
-		btnNewButton.setColorOver(new Color(86, 98, 120));
-		btnNewButton.setRadius(10);
-		btnNewButton.setBorderColor(new Color(45, 51, 63));
-		btnNewButton.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-home-20.png"))));
-		panel.add(btnNewButton);
-
-		btnNewButton1 = new MyButton("Lớp");
-		btnNewButton1.setForeground(new Color(255, 255, 255));
-		btnNewButton1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton1.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton1.setBounds(10, 138, 137, 37);
-		btnNewButton1.setBackground(new Color(45, 51, 63));
-		btnNewButton1.setColorClick(new Color(45, 51, 63));
-		btnNewButton1.setColorOver(new Color(86, 98, 120));
-		btnNewButton1.setRadius(10);
-		btnNewButton1.setBorderColor(new Color(45, 51, 63));
-		btnNewButton1.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-class-20.png"))));
-		panel.add(btnNewButton1);
-
-		btnNewButton2 = new MyButton("Giáo viên");
-		btnNewButton2.setForeground(new Color(255, 255, 255));
-		btnNewButton2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton2.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton2.setBounds(10, 186, 137, 37);
-		btnNewButton2.setBackground(new Color(45, 51, 63));
-		btnNewButton2.setColorClick(new Color(45, 51, 63));
-		btnNewButton2.setColorOver(new Color(86, 98, 120));
-		btnNewButton2.setRadius(10);
-		btnNewButton2.setBorderColor(new Color(45, 51, 63));
-		btnNewButton2.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-result-20.png"))));
-		panel.add(btnNewButton2);
-
-		btnNewButton3_1 = new MyButton("Học sinh");
-		btnNewButton3_1.setRadius(10);
-		btnNewButton3_1.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton3_1.setForeground(Color.WHITE);
-		btnNewButton3_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton3_1.setColorOver(new Color(86, 98, 120));
-		btnNewButton3_1.setColorClick(new Color(45, 51, 63));
-		btnNewButton3_1.setBorderColor(new Color(45, 51, 63));
-		btnNewButton3_1.setBackground(new Color(45, 51, 63));
-		btnNewButton3_1.setBounds(10, 234, 137, 37);
-		btnNewButton3_1.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-student-20.png"))));
-		panel.add(btnNewButton3_1);
-
-		btnNewButton5 = new MyButton("Đăng xuất");
-		btnNewButton5.setForeground(new Color(255, 255, 255));
-		btnNewButton5.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton5.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton5.setBounds(10, 550, 137, 37);
-		btnNewButton5.setBackground(new Color(45, 51, 63));
-		btnNewButton5.setColorClick(new Color(45, 51, 63));
-		btnNewButton5.setColorOver(new Color(86, 98, 120));
-		btnNewButton5.setRadius(10);
-		btnNewButton5.setBorderColor(new Color(45, 51, 63));
-		btnNewButton5.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-logout-20.png"))));
-		panel.add(btnNewButton5);
-
-		//////////////////////////////////////////////////
-
-		pView = new JPanel();
-		pView.setBorder(null);
-		pView.setBackground(Color.WHITE);
-		pView.setBounds(170, 0, 714, 661);
-		contentPane.add(pView);
-		pView.setLayout(null);
+		l.setContentPane(contentPane3);
+		contentPane3.setLayout(null);
 		
-		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(10, 11, 694, 639);
-		lblNewLabel_1.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/homadmin.jpg"))));
-		pView.add(lblNewLabel_1);
+		JLabel lblNewLabel = new JLabel("Mã giáo viên :");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(45, 90, 95, 41);
+		contentPane3.add(lblNewLabel);
+		
+		JLabel lblTnTiKhon = new JLabel("Tên tài khoản :");
+		lblTnTiKhon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTnTiKhon.setBounds(45, 140, 95, 41);
+		contentPane3.add(lblTnTiKhon);
+		
+		JLabel lblMtKhu = new JLabel("Mật khẩu :");
+		lblMtKhu.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMtKhu.setBounds(45, 190, 95, 41);
+		contentPane3.add(lblMtKhu);
+		
+		JLabel lblNewLabel_1 = new JLabel("Tên giáo viên :");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(45, 40, 95, 41);
+		contentPane3.add(lblNewLabel_1);
+		
+		textNameGv = new JTextField();
+		textNameGv.setBounds(168, 52, 86, 20);
+		contentPane3.add(textNameGv);
+		textNameGv.setColumns(10);
+		
+		textIdGv = new JTextField();
+		textIdGv.setBounds(168, 102, 86, 20);
+		contentPane3.add(textIdGv);
+		textIdGv.setColumns(10);
+		
+		textUser = new JTextField();
+		textUser.setBounds(168, 152, 86, 20);
+		contentPane3.add(textUser);
+		textUser.setColumns(10);
+		
+		textPass = new JTextField();
+		textPass.setBounds(168, 202, 86, 20);
+		contentPane3.add(textPass);
+		textPass.setColumns(10);
+		
+		JButton btnNewButton = new JButton("OK");
+		btnNewButton.setBounds(132, 267, 89, 23);
+		contentPane3.add(btnNewButton);
+		
+		l.setVisible(true);
+		
 
-		//////////////////////////////////////////////////
 
 	}
 }

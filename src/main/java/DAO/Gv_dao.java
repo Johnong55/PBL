@@ -112,6 +112,49 @@ public class Gv_dao implements DAO_Interface<Gv> {
 		return null;
 	
 	}
+	
+	public Gv selectbyid(String idgv) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Gv "
+					+ "where id = ?";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idgv);
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					String id = kq.getString("id");
+					String ten = kq.getString("ten");
+					String idtruong= kq.getString("truong");
+					truonghoc truong = new truonghoc();
+					truong.setId(idtruong);
+					truonghoc_dao tr = new truonghoc_dao();
+					Gv u = new Gv();
+					u.setMaGv(id);
+					u.setTen(ten);
+					u.setTruong(tr.selectbyid(truong));
+					u.setDanhsachlop(selectclassbyid(u));
+					Account gv = 	Account_dao.Instance().selectbyid(u);
+
+					u.setLinkAnh(gv.getLinkAnh());
+					u.setPassword(gv.getPassword());
+					u.setMaquyen(gv.maquyen);
+					u.setUsername(gv.getUsername());
+					u.setNH(NganhangDao.Instance().selectbyidgv(u));
+					u.setKithi(KiThi_dao.Instance().selectByIdGv(id));
+				return u;
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	
+	}
 	public Gv selectbyid(Account t) {
 		try {
 			Connection con  = JDBCUtil.getConnection();
@@ -203,20 +246,21 @@ public class Gv_dao implements DAO_Interface<Gv> {
 	}
 	public List<Class> selectclassbyid(Gv gv)
 	{
-		System.out.println(gv.getId());
 		List<Class> result =new ArrayList<Class>();
 		try {
 			Connection con  = JDBCUtil.getConnection();
-			String sql = "select * from class \r\n"
-					+ "inner join giangday on class.idclass = giangday.lop\r\n"
-					+ "where giangday.giaoviendunglop = (select id from gv"
-					+ " where id = ?)";
+			String sql = "SELECT DISTINCT class.*, giangday.* " +
+		             "FROM class " +
+		             "INNER JOIN giangday ON class.idclass = giangday.lop " +
+		             "WHERE giangday.giaoviendunglop = (SELECT id FROM gv WHERE id = ?)";
+
 			
 			PreparedStatement a;
 			
 				a = con.prepareStatement(sql);
 				a.setString(1, gv.getMaGv());
 				ResultSet kq = a.executeQuery();
+				int i =1;
 				while(kq.next())
 				{
 					String id = kq.getString("idclass");
@@ -225,7 +269,8 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					
 					Class u = new Class(id, name, new truonghoc(school));
 					result.add(u);
-					System.out.println(1);
+					System.out.println(i);
+					i++;
 				}
 				con.close();
 			} catch (SQLException e) {

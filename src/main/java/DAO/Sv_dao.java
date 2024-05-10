@@ -255,7 +255,25 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				e.printStackTrace();
 			}
 	}
+	public void deleteSvFromClass(String idsv) {
+		System.out.println(idsv);
+		
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "UPDATE Sv SET lop = NULL WHERE id = ?";
+		
+			PreparedStatement a;
+
+			a = con.prepareStatement(sql);
+			a.setString(1, idsv);
+			a.executeUpdate();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
+	}
 	public Sv selectbyid(Account t) {
 		try {
 			Connection con  = JDBCUtil.getConnection();

@@ -188,6 +188,58 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 		}
 		return null;
 	}
+	
+	public List<KiThi> selectByIdGv(String idgv) {
+		List<KiThi> result = new ArrayList<KiThi>();
+		try {
+			Connection con = JDBCUtil.getConnection();
+			String sql = "select * from KiThi where nguoitao = ? ";
+
+			PreparedStatement a;
+
+			a = con.prepareStatement(sql);
+			a.setString(1, idgv);
+			ResultSet kq = a.executeQuery();
+			while (kq.next()) {
+				String id = kq.getString("id");
+				String mota = kq.getString("mota");
+				String lop = kq.getString("lop");
+				String nguoitao = kq.getString("nguoitao");
+				Time startTime = kq.getTime("thoigianbatdau");
+				int tg = kq.getInt("thoigianlambai");
+				int sl = kq.getInt("sl");
+				Date date = kq.getDate("date");
+				String nganhang = kq.getString("nganhangcauhoi");
+				int socaude = kq.getInt("socauDe");
+				int socaukho = kq.getInt("socaukho");
+				int socautb  = kq.getInt("socautb");
+
+				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
+				Class_dao c = new Class_dao();
+				Gv_dao gvdao = new Gv_dao();
+				Class lop1 = new Class();
+				lop1.setIdclass(lop);
+				Class Lresult = new Class();
+				Gv gv = new Gv();
+				Gv gresult = new Gv();
+				gv.setId(nguoitao);
+				gresult = gvdao.selectbyid(gv);
+				Lresult = c.selectbyid(lop1);
+		
+			KiThi	k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+				k.setSocauDe(socaude);
+				k.setSocaukho(socaukho);
+				k.setSocautb(socautb);
+				
+				result.add(k);
+			}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public boolean insert(KiThi t) {
@@ -203,6 +255,23 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 		}
 
 		return false;
+	}
+	
+	public void updateKithiBeforeDeleteGv(String idGv) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "update KiThi set nguoitao = NULL where nguoitao = (select id from Gv where id = ?)";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idGv);
+				a.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	@Override

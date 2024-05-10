@@ -83,9 +83,9 @@ public class ViewTeacher extends JFrame {
 	public JFrame j;
 	public JPanel pView;
 	public MyButton buttonClass, buttonHome, buttonProfile, buttonExam, buttonNew, buttonLogout, buttonCreateExam,
-			buttonChangePass, NewQuestion, NewExam, buttonDeleteSv, buttonAddExam, buttonDeleteExam, buttonChangeImage,
+			buttonChangePass, NewQuestion, NewExam, buttonAddExam, buttonDeleteExam, buttonChangeImage,
 			buttonTaoCauHoi, buttonLuuCauHoi, buttonExitAddQuestion, buttonHuyUpdateExam, buttonLuuExam,
-			buttonUpdateExam;
+			buttonUpdateExam,buttonHuyCreateExam;
 	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi, comboBoxMucDo, comboBoxTenLop,
 			comboBoxTenNGCH,comboBoxSortSVinClass;
@@ -107,6 +107,7 @@ public class ViewTeacher extends JFrame {
 		System.out.println(g);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
+		setLocationRelativeTo(null);
 		ViewMenu();
 		ViewHome();
 		setVisible(true);
@@ -539,20 +540,6 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_2.setBounds(550, 30, 59, 28);
 		pView.add(lblNewLabel_2);
-
-		buttonDeleteSv = new MyButton("Xóa học sinh");
-		buttonDeleteSv.setRadius(10);
-		buttonDeleteSv.setForeground(Color.WHITE);
-		buttonDeleteSv.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		buttonDeleteSv.setColorOver(new Color(100, 241, 241));
-		buttonDeleteSv.setColorClick(new Color(50, 185, 185));
-		buttonDeleteSv.setColor(new Color(50, 185, 185));
-		buttonDeleteSv.setBorderColor(Color.WHITE);
-		buttonDeleteSv.setBackground(new Color(50, 185, 185));
-		buttonDeleteSv.setBounds(10, 600, 110, 30);
-		pView.add(buttonDeleteSv);
-
-		buttonDeleteSv.addActionListener(actionTeacher);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
@@ -1056,20 +1043,20 @@ public class ViewTeacher extends JFrame {
 
 		panel_3.add(buttonLuuExam);
 
-		buttonHuyUpdateExam = new MyButton("Hủy");
-		buttonHuyUpdateExam.setRadius(10);
-		buttonHuyUpdateExam.setForeground(new Color(50, 185, 185));
-		buttonHuyUpdateExam.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		buttonHuyUpdateExam.setColorOver(new Color(207, 231, 231));
-		buttonHuyUpdateExam.setColorClick(Color.WHITE);
-		buttonHuyUpdateExam.setColor(Color.WHITE);
-		buttonHuyUpdateExam.setBorderColor(new Color(50, 185, 185));
-		buttonHuyUpdateExam.setBackground(Color.white);
-		buttonHuyUpdateExam.setBounds(354, 562, 146, 26);
+		buttonHuyCreateExam = new MyButton("Hủy");
+		buttonHuyCreateExam.setRadius(10);
+		buttonHuyCreateExam.setForeground(new Color(50, 185, 185));
+		buttonHuyCreateExam.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonHuyCreateExam.setColorOver(new Color(207, 231, 231));
+		buttonHuyCreateExam.setColorClick(Color.WHITE);
+		buttonHuyCreateExam.setColor(Color.WHITE);
+		buttonHuyCreateExam.setBorderColor(new Color(50, 185, 185));
+		buttonHuyCreateExam.setBackground(Color.white);
+		buttonHuyCreateExam.setBounds(354, 562, 146, 26);
 
-		buttonHuyUpdateExam.addActionListener(actionTeacher);
+		buttonHuyCreateExam.addActionListener(actionTeacher);
 
-		panel_3.add(buttonHuyUpdateExam);
+		panel_3.add(buttonHuyCreateExam);
 	}
 
 	public void ViewUpdateExam(KiThi kt) {
@@ -1268,7 +1255,7 @@ public class ViewTeacher extends JFrame {
 		buttonUpdateExam.setColor(new Color(50, 185, 185));
 		buttonUpdateExam.setBorderColor(Color.WHITE);
 		buttonUpdateExam.setBackground(new Color(50, 185, 185));
-		buttonUpdateExam.setBounds(520, 560, 110, 30);
+		buttonUpdateExam.setBounds(520, 560, 150, 30);
 
 		buttonUpdateExam.addActionListener(actionTeacher);
 
@@ -1283,7 +1270,7 @@ public class ViewTeacher extends JFrame {
 		buttonHuyUpdateExam.setColor(Color.WHITE);
 		buttonHuyUpdateExam.setBorderColor(new Color(50, 185, 185));
 		buttonHuyUpdateExam.setBackground(Color.white);
-		buttonHuyUpdateExam.setBounds(354, 562, 110, 26);
+		buttonHuyUpdateExam.setBounds(354, 562, 146, 26);
 
 		buttonHuyUpdateExam.addActionListener(actionTeacher);
 
@@ -1541,14 +1528,12 @@ public class ViewTeacher extends JFrame {
 	public DefaultTableModel getModelSv(JTable table, Class c) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
-		int i = 1;
 		for (Sv sv : temp) {
 			int lastIndex = sv.getTen().lastIndexOf(" ");
 			String lastName = sv.getTen().substring(lastIndex + 1);
 
 			Object[] row = { sv.getTen(), "", sv.getId(), sv.getIdclass().getIdclass(), lastName };
 			model.addRow(row);
-			i++;
 		}
 		return model;
 	}

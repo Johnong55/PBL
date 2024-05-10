@@ -63,6 +63,7 @@ public class viewLogin extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1141, 713);
+		setLocationRelativeTo(null);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -231,8 +232,11 @@ public class viewLogin extends JFrame {
 							ViewStudent v = new ViewStudent(u);
 						
 							dispose();
-						}if(q.getMaquyen() == 1) {
+						}else if(q.getMaquyen() == 1) {
 							ViewTeacher v = new ViewTeacher(Gv_dao.Instance().selectbyid(q));
+							dispose();
+						}else if(q.getMaquyen() == 3) {
+							ViewAdmin v = new ViewAdmin();
 							dispose();
 						}
 						return;
