@@ -191,9 +191,10 @@ public class Controller_Student implements ActionListener {
 			
 			if(frame.isDisposed)
 			{
-			s.v.setPassword(frame.password);
-			Sv_dao.Instance().update(s.v);
+				s.v.setPassword(frame.password);
+				Sv_dao.Instance().update(s.v);
 			}
+			
 
 		} else if (e.getSource() == s.BtnChangeImagePer) {
 			JFileChooser saveFile = new JFileChooser();
@@ -207,9 +208,11 @@ public class Controller_Student implements ActionListener {
 						"D:\\study\\PBL\\src\\main\\java\\View\\image\\" + sourceFile.getName());
 
 				try {
+					System.out.println("oce");
 					Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					System.out.println("oce");
 					displayImage(destinationFile, s.lblNewLabel_14);
-					s.v.setLinkAnh("/view/image/" + sourceFile.getName());
+					s.v.setLinkAnh("/View/image/" + sourceFile.getName());
 					Sv_dao.Instance().update(s.v);
 					JOptionPane.showMessageDialog(null, destinationFile.toString());
 				} catch (IOException q) {
