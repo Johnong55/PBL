@@ -122,6 +122,7 @@ public class Class_dao implements DAO_Interface<Class> {
 					b = tr.selectbyid(truong);
 					
 					Class u = new Class(id, name,b);
+					
 				return u;
 				}
 				con.close();
@@ -164,19 +165,22 @@ public class Class_dao implements DAO_Interface<Class> {
 	}
 
 	@Override
+	
 	public boolean deletebyid(Class t) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
 		if(sessionFactory!=null)
 		{
 			Session session = sessionFactory.openSession();
 			Transaction tr = session.beginTransaction();
-			session.delete(t);
+			Class classEntity = session.get(Class.class,t.getIdclass());
+			session.delete(classEntity);
 			tr.commit();
 			session.close();
 			return true;
 		}
 		return false;
 	}
+	
 	/// show hoc vien cua 1 lop
 	public List<Sv> selectSVinclass(Class t)
 	{

@@ -60,6 +60,7 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 			return result;
 		
 	}
+	
 
 	@Override
 	public Giangday selectbyid(Giangday t) {

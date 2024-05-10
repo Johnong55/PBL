@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.Action;
 
 import View.ViewAdmin;
+import View.ViewTeacher;
 import View.viewLogin;
 
 
@@ -22,21 +23,44 @@ public class Controller_Admin implements Action {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getSource() == viewadmin.btnNewButton) {
-	
-		}else if(e.getSource() == viewadmin.btnNewButton1) {
+		if(e.getSource() == viewadmin.btnNewButton1) {
 			this.viewadmin.ViewClass();
-		}else if(e.getSource() == viewadmin.btnNewButton2) {
+		}
+		else if(e.getSource() == viewadmin.btnNewButton2) {
 			this.viewadmin.ViewTeacher();
-		}else if(e.getSource() == viewadmin.btnNewButton3_1) {
+		}
+		else if(e.getSource() == viewadmin.btnNewButton3_1) {
 			this.viewadmin.ViewStudent();
-		}else if(e.getSource() == viewadmin.btnNewButton5) {
+		}
+		else if(e.getSource() == viewadmin.btnNewButton5) {
 			this.viewadmin.setVisible(false);
 			viewLogin v = new viewLogin();
 			v.setVisible(true);
-		}else if(e.getSource() == viewadmin.buttonAddClass) {
-			
-		}else if(e.getSource() == viewadmin.buttonDeleteClass) {
+		}
+		else if(e.getSource() == viewadmin.buttonAddClass) {
+			this.viewadmin.ViewAddClass();
+		}
+		else if(e.getSource() == viewadmin.buttonOkAddClass) {
+			String tenLop = viewadmin.textField.getText();
+			viewadmin.insertClass(tenLop);
+			viewadmin.updateTableClass(viewadmin.table);
+			viewadmin.j.setVisible(false);
+		}
+		else if(e.getSource() == viewadmin.buttonHuyAddClass) {
+			viewadmin.j.setVisible(false);
+		}
+		else if(e.getSource() == viewadmin.buttonDeleteClass) {
+			String idclass =(String) viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 2);
+			System.out.println(idclass);
+			viewadmin.deleteClass(idclass);
+			viewadmin.updateTableClass(viewadmin.table);
+		}
+		else if(e.getSource() == viewadmin.comboBoxSortClass) {
+			String m = (String) viewadmin.comboBoxSortClass.getSelectedItem();
+			viewadmin.SortTable(m);
+		}else if(e.getSource() == viewadmin.comboBoxSortALLSV) {
+			String m = (String) viewadmin.comboBoxSortALLSV.getSelectedItem();
+			viewadmin.SortTable(m);
 			
 		}
 		
