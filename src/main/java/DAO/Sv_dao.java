@@ -291,10 +291,8 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					String id = kq.getString("id");
 					String ten = kq.getString("ten");
 					String lop= kq.getString("lop");
-					Class lop1 = new Class();
-					lop1.setIdclass(lop);
 					Account sv = 	Account_dao.Instance().selectbyid(t);
-					Sv u = new Sv(id, ten, lop1);
+					Sv u = new Sv(id, ten, Class_dao.Instance().selectbyid(lop));
 					u.setLinkAnh(sv.getLinkAnh());
 					u.setPassword(sv.getPassword());
 					u.setMaquyen(sv.maquyen);

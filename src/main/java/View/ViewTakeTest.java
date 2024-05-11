@@ -51,6 +51,7 @@ import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
@@ -73,16 +74,16 @@ public class ViewTakeTest extends JFrame {
 	Color BgPurple = new Color(253, 219, 230);
 	public JTextArea Cauhoi;public BaiLam bailam1;
 
+	public JPanel panel_3 = new JPanel(),panel;
 	public PanelRound panel_1;
 	public MyButton btnCau1, btnExit, btnNext, mbtnCuTrc,btnTL,btnCTL,btnCX;
 	public JLabel lblNewLabel_1,lblNewLabel,lblH,soCauTraLoi;
 	public ButtonGroup group = new ButtonGroup();
 	public RadioButtonCustom btnDapAn_D = new RadioButtonCustom(), btnDapAn_A = new RadioButtonCustom(),
-			
+		
 			btnDapAn_B = new RadioButtonCustom(), btnDapAn_C = new RadioButtonCustom();
 	public String cauhoi, dapanA, dapanB, dapanC, dapanD, dapan;
 	public JScrollPane scrollPane;
-	public JPanel panel_3 = new JPanel();
 	public List<MyButton> listBtnCauhoi = new ArrayList<MyButton>();
 	public int[] checkView;
 	public String[] checkAnswer;
@@ -119,10 +120,12 @@ public class ViewTakeTest extends JFrame {
 
 	}
 
+	
+
 	public ViewTakeTest(Sv sv, KiThi onl) {
-		GraphicsEnvironment graphics =
-			      GraphicsEnvironment.getLocalGraphicsEnvironment();
-			      GraphicsDevice device = graphics.getDefaultScreenDevice();
+        
+			 
+
 		this.v = sv;
 		bailam1 = new BaiLam();
 	 	bailam1.setSv(this.v);
@@ -155,10 +158,14 @@ public class ViewTakeTest extends JFrame {
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 100, 1299, 858);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int frameWidth = 1299, frameHeight =  858;
+        int x = (screenSize.width - frameWidth) / 2;
+        int y = (screenSize.height - frameHeight) / 2;
+		setBounds(x, y, frameWidth, frameHeight);
+		
 		ViewTakeTest1();
 		setVisible(true);
-		 device.setFullScreenWindow(this);
 	}
 
 	/**
@@ -175,14 +182,16 @@ public class ViewTakeTest extends JFrame {
 	 * Create the frame.
 	 */
 	public void ViewTakeTest1() {
-			
+		
+
+				
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		JPanel panel = new JPanel();
+		
+		 panel = new JPanel();
 		panel.setBackground(Blue);
 		panel.setBounds(0, 0, 1286, 122);
 		contentPane.add(panel);

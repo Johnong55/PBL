@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -19,6 +21,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import DAO.Account_dao;
@@ -31,7 +38,7 @@ import View.ViewStudent;
 import View.viewLogin;
 import model.BaiLam;
 
-public class Controller_Student implements ActionListener {
+public class Controller_Student implements ActionListener , MouseListener {
 	private ViewStudent s;
 
 	public Controller_Student(ViewStudent s) {
@@ -77,7 +84,15 @@ public class Controller_Student implements ActionListener {
 			}
 
 	}
+	private static void sortTableByColumn(JTable table, int columnIndex) {
+	    TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+	    table.setRowSorter(sorter);
 
+	    List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+	    sortKeys.add(new RowSorter.SortKey(columnIndex, SortOrder.ASCENDING));
+	    sorter.setSortKeys(sortKeys);
+	    sorter.sort();
+	}
 	public void timkiemtheongaythi(String t) {
 		s.bailamsv = BaiLam_dao.Instance().selectbailambysv(s.v);
 
@@ -115,18 +130,26 @@ public class Controller_Student implements ActionListener {
 		if (selectedColumn == 0) {
 			hienthi();
 			s.textField.setText("");
+			s.lblNewLabel_9.setText("ALL");
+
 			return;
-		}
+		} else
 		if (selectedColumn == 1) {
 			timkiemtheoten(s.textField.getText());
+			s.lblNewLabel_9.setText("Tên kì thi");
+
 			return;
-		}
+		} else
 		if (selectedColumn == 2) {
 			timkiemtheongaythi(s.textField.getText());
+			s.lblNewLabel_9.setText("Ngày thi");
+
 			return;
-		}
+		}else
 		if (selectedColumn == 3) {
 			timkiemtheodiem(s.textField.getText());
+			s.lblNewLabel_9.setText("Điểm");
+
 			return;
 		}
 
@@ -191,9 +214,10 @@ public class Controller_Student implements ActionListener {
 			
 			if(frame.isDisposed)
 			{
-			s.v.setPassword(frame.password);
-			Sv_dao.Instance().update(s.v);
+				s.v.setPassword(frame.password);
+				Sv_dao.Instance().update(s.v);
 			}
+			
 
 		} else if (e.getSource() == s.BtnChangeImagePer) {
 			JFileChooser saveFile = new JFileChooser();
@@ -204,12 +228,12 @@ public class Controller_Student implements ActionListener {
 
 				// Lấy file được chọn để lưu
 				File destinationFile = new File(
-						"D:\\study\\PBL\\src\\main\\java\\View\\image\\" + sourceFile.getName());
+						"C:\\Users\\Admin\\git\\PBL\\src\\main\\java\\View\\image\\" + sourceFile.getName());
 
 				try {
 					Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 					displayImage(destinationFile, s.lblNewLabel_14);
-					s.v.setLinkAnh("/view/image/" + sourceFile.getName());
+					s.v.setLinkAnh("/View/image/" + sourceFile.getName());
 					Sv_dao.Instance().update(s.v);
 					JOptionPane.showMessageDialog(null, destinationFile.toString());
 				} catch (IOException q) {
@@ -220,5 +244,38 @@ public class Controller_Student implements ActionListener {
 		}
 
 		s.panel_4.setBounds(171, 0, 713, 661);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getClickCount() == 1) {
+            int columnIndex = s.table.getColumnModel().getColumnIndexAtX(e.getX());
+            sortTableByColumn(s.table, columnIndex);
+        }
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

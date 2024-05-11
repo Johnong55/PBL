@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,12 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
+import javax.swing.JViewport;
+
 import java.awt.GridBagLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewResult extends JFrame {
 
@@ -219,12 +224,14 @@ public class ViewResult extends JFrame {
 		setContentPane(contentPane);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(0, 0, 1290, 1000);
 		scrollPane.addMouseWheelListener(rs);
 		scrollPane.setBorder(null);
-
+		JViewport viewport = scrollPane.getViewport();
+        viewport.scrollRectToVisible(new Rectangle(0, 0, 1, 1));
+        scrollPane.getVerticalScrollBar().setValue(0);
 		contentPane.add(scrollPane);
 		
 		pn = new JPanel();
@@ -352,9 +359,11 @@ public class ViewResult extends JFrame {
 		panel_3.add(lblNewLabel_4,BorderLayout.CENTER);
 		
 		 btnNewButton = new MyButton("Thoát");
+		 btnNewButton.addActionListener(rs);
 		 btnNewButton.setColorOver(Green);
 		 btnNewButton.setRadius(20);
 		btnNewButton.setBounds(1128, 394, 127, 34);
+	
 		pn.add(btnNewButton);
 		
 		PanelRound panel_1_1 = new PanelRound();
