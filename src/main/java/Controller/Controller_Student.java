@@ -204,7 +204,7 @@ public class Controller_Student implements ActionListener {
 
 				// Lấy file được chọn để lưu
 				File destinationFile = new File(
-						"D:\\study\\PBL\\src\\main\\java\\View\\image\\" + sourceFile.getName());
+						"T:\\jdbc\\hibernate7\\src\\main\\java\\View\\image\\" + sourceFile.getName());
 
 				try {
 					Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -212,9 +212,10 @@ public class Controller_Student implements ActionListener {
 					s.v.setLinkAnh("/view/image/" + sourceFile.getName());
 					Sv_dao.Instance().update(s.v);
 					JOptionPane.showMessageDialog(null, destinationFile.toString());
-				} catch (IOException q) {
-					JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi sao chép file: " + q.getMessage());
+				} catch (Exception q) {
+					System.out.println(q);
 				}
+				
 
 			}
 		}

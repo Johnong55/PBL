@@ -194,9 +194,14 @@ public class Gv_dao implements DAO_Interface<Gv> {
 		{
 			Session session = sessionFactory.openSession();
 			Transaction tr = session.beginTransaction();
-			session.delete(t);
-			tr.commit();
-			session.close();
+			try {
+				session.remove(t);
+				tr.commit();
+				session.close();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		
 			return true;
 		}
 		return false;

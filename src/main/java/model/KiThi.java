@@ -30,7 +30,7 @@ public class KiThi {
 	private int thoigianlambai;
 	private String mota;
 	private Date date;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "nguoitao")
 	private Gv gv;
 	private int sl;

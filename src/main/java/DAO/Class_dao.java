@@ -141,9 +141,14 @@ public class Class_dao implements DAO_Interface<Class> {
 		{
 			Session session = sessionFactory.openSession();
 			Transaction tr = session.beginTransaction();
-			session.save(t);
-			tr.commit();
-			session.close();
+			try {
+				session.save(t);
+				tr.commit();
+				session.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
 			return true;
 		}
 		return false;
