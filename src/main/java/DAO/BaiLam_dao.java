@@ -119,6 +119,46 @@ public class BaiLam_dao implements DAO_Interface<BaiLam> {
 		}
 		return null;
 	}
+	public BaiLam selectbyid(String t) {
+		try {
+			Connection con = JDBCUtil.getConnection();
+			String sql = "select * from bailam where maBailam = ? ";
+
+			PreparedStatement a;
+			a = con.prepareStatement(sql);
+			a.setString(1, t);
+			ResultSet kq = a.executeQuery();
+			while (kq.next()) {
+				String mabailam = kq.getString("maBailam");
+				double  diem = kq.getDouble("diem");
+				Time thoigianbatdau = kq.getTime("thoigianbatdau");
+				Time thoigianketthuc = kq.getTime("thoigianketthuc");
+				String dethi_id = kq.getString("dethi_id");
+				String kithi_id = kq.getString("kithi_id");
+				String sv_id = kq.getString("sv");
+				int socaudung = kq.getInt("socaudung");
+				int socausai = kq.getInt("socausai");
+				DeThi dethi = new DeThi();
+				dethi.setId(dethi_id);
+				KiThi kithi = new KiThi();
+				kithi.setId(kithi_id);
+				Sv sv = new Sv();
+				sv.setId(sv_id);
+			
+				BaiLam u  = new BaiLam(mabailam, Sv_dao.Instance().selectbyid(sv), diem, thoigianbatdau, thoigianketthuc, DeThi_dao.Instance().selectbyid(dethi), KiThi_dao.Instance().selectbyid(kithi), null);
+				u.setCautraloi(CautraloiSinhvien_dao.Instance().selectCautraloisinhvienfromBailam(u));
+				u.setSocaudung(socaudung);
+				u.setSocausai(socausai);
+				return u;
+				
+			}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public boolean insert(BaiLam t) {

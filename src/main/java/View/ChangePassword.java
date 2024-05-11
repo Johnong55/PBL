@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+
+import DAO.Sv_dao;
+import model.Sv;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -48,7 +52,7 @@ public class ChangePassword extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ChangePassword(String mk) {
+	public ChangePassword(Sv v) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 350, 514, 273);
 		contentPane = new JPanel();
@@ -92,20 +96,22 @@ public class ChangePassword extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 password = new String(textField.getPassword());
-
+				
 			
 				
-				if(!password.equals(mk)) 				JOptionPane.showMessageDialog(null, "Thông tin nhập không chính xác ! Vui lòng thử lại.", "Thông báo", JOptionPane.ERROR_MESSAGE);
+				if(!password.equals(v.getPassword())) 				JOptionPane.showMessageDialog(null, "Thông tin nhập không chính xác ! Vui lòng thử lại.", "Thông báo", JOptionPane.ERROR_MESSAGE);
 				else {
 				 int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thay đổi mật khẩu không?", "Xác nhận thay đổi mật khẩu", JOptionPane.YES_NO_OPTION);
 			        
 			        if (choice == JOptionPane.YES_OPTION) {
 			        	
 			            // Xử lý khi người dùng chọn "Yes"
+			        	v.setPassword( new String(textField_1.getPassword()));
+						Sv_dao.Instance().update(v);
 			        	isDisposed = true;
 			        	dispose();
 			        }
-				}
+				}	
 			}
 		});
 		btnNewButton.setRadius(20);
