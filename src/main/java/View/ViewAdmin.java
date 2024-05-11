@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -66,15 +67,18 @@ public class ViewAdmin extends JFrame {
 	public JFrame j,k,l;
 	public JLabel lblNewLabel_1;
 	public String idclass;
-
+	public List<Sv> listSv = new ArrayList<Sv>();
+	public List<Class> listClass = new ArrayList<Class>();
+	public List<Gv> listgv = Gv_dao.Instance().selectall();
 	/**
 	 * Launch the application.
 	 */
 
 	Controller_Admin actionAdmin = new Controller_Admin(this);
 
-	public ViewAdmin() {
-
+	public ViewAdmin(List<Sv> listsv,List<Class> listclass) {
+		this.listSv= listsv;
+		this.listClass = listclass;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 700);
 		setLocationRelativeTo(null);
@@ -850,11 +854,10 @@ public class ViewAdmin extends JFrame {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public DefaultTableModel getModelClasses(JTable table) {
-		List<Class> classes = Class_dao.Instance().selectall();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for (Class c : classes) {
-			List<Sv> listSV = Class_dao.Instance().selectSVinclass(c);
-			Object[] row = { c.getTenlop(),String.valueOf(listSV.size()) , c.getIdclass() };
+		for (Class c : listClass) {
+			
+			Object[] row = { c.getTenlop(),(c.getSvs() == null) ? "0" : String.valueOf(c.getSvs().size()) , c.getIdclass() };
 			model.addRow(row);
 		}
 		return model;
@@ -873,7 +876,6 @@ public class ViewAdmin extends JFrame {
 	}
 
 	public DefaultTableModel getModelTeacher() {
-		List<Gv> listgv = Gv_dao.Instance().selectall();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (Gv g : listgv) {
 			Object[] row = { g.getTen() , g.getId()};
@@ -894,9 +896,8 @@ public class ViewAdmin extends JFrame {
 	}
 
 	public DefaultTableModel getModelStudent(JTable table) {
-		List<Sv> listSV = Sv_dao.Instance().selectall();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for (Sv s : listSV) {
+		for (Sv s : listSv) {
 			int lastIndex = s.getTen().lastIndexOf(" ");
 			String lastName = s.getTen().substring(lastIndex + 1);
 			if(s.getIdclass() != null) {
@@ -912,9 +913,8 @@ public class ViewAdmin extends JFrame {
 	}
 	
 	public DefaultTableModel getModelStudentNoClass(JTable table) {
-		List<Sv> listSV = Sv_dao.Instance().selectall();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for (Sv s : listSV) {
+		for (Sv s : listSv) {
 			if(s.getIdclass() == null) {			
 				int lastIndex = s.getTen().lastIndexOf(" ");
 				String lastName = s.getTen().substring(lastIndex + 1);
@@ -928,8 +928,8 @@ public class ViewAdmin extends JFrame {
 	public DefaultTableModel getModelSVinClass(String idLop) {
 
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		List<Sv> listSV = Sv_dao.Instance().selectall();
-		for (Sv s : listSV) {	
+		
+		for (Sv s : listSv ) {
 			if(s.getIdclass() != null) {
 			if (s.getIdclass().getIdclass().equalsIgnoreCase(idLop)) {
 				int lastIndex = s.getTen().lastIndexOf(" ");
@@ -942,8 +942,7 @@ public class ViewAdmin extends JFrame {
 	}
 
 	public String getIdLopbyName(String m) {
-		List<Class> classes = Class_dao.Instance().selectall();
-		for (Class c : classes) {
+		for (Class c : listClass) {
 			if (c.getTenlop().equalsIgnoreCase(m)) {
 				return c.getIdclass();
 			}
@@ -952,7 +951,6 @@ public class ViewAdmin extends JFrame {
 	}
 
 	public Gv getGvbyName(String m) {
-		List<Gv> listgv = Gv_dao.Instance().selectall();
 		for (Gv g : listgv) {
 			if (g.getTen().equalsIgnoreCase(m)) {
 				return g;
@@ -964,7 +962,6 @@ public class ViewAdmin extends JFrame {
 	public DefaultTableModel getModelClassOfGv(String m) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		Gv g = getGvbyName(m);
-		System.out.println(g);
 
 		List<Giangday> dslop = g.getDanhsachlop();
 		for (Giangday gd : dslop) {
@@ -985,21 +982,63 @@ public class ViewAdmin extends JFrame {
 		column3.setPreferredWidth(0);
 		table.setModel(getModelClassOfGv(g.getTen()));
 	}
+	public Class getClassById(String id) {
+	    for (Class class1 : listClass) {
+	        if (class1.getIdclass().equals(id)) {
+	            return class1;
+	        }
+	    }
+	    return null;
+	}
+
 	public void deleteClass(String idclass) {
+		Class c = getClassById(idclass);
+		listClass.remove(c);
+		for (Sv sv : listSv) {
+			if(sv.getIdclass() != null) {
+				if(sv.getIdclass().getIdclass().equals(idclass)) {
+					sv.setIdclass(null);
+				}
+			}
+		}
+		updateTableClass();
+		JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		Sv_dao.Instance().updateSvBeforeDeleteClass(idclass);
 		Class_dao.Instance().deletebyid(Class_dao.Instance().selectbyid(idclass));
 	}
 	public void deleteSvFromClass(String idsv) {
+		Sv s = getSvById(idsv);
+		String idclass = s.getIdclass().getIdclass();
+		s.setIdclass(null);
+		updateTabelSvinClass(idclass);
+		JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		Sv_dao.Instance().deleteSvFromClass(idsv);
 	}
-	public void addSvinClass(List<String> idSvs) {
-		for (String idsv : idSvs) {
+	public Sv getSvById(String id) {
+		Sv s = new Sv();
+		for (Sv sv : listSv) {
+			if(sv.getIdSv().equals(id)) {
+				s = sv;
+				break;
+			}
+		}
+		return s;
+	}
+	public void addSvinClass(List<String> idSv) {
+		Class c = getClassById(idclass);
+		System.out.println(c);
+		List<Sv> svs = c.getSvs();
+		for (String idsv : idSv) {
 			System.out.println(idsv);
-			Sv s = Sv_dao.Instance().selectbyid(idsv);
-			s.setIdclass(Class_dao.Instance().selectbyid(idclass));
-			System.out.println(s);
+			Sv s = getSvById(idsv);
+			s.setIdclass(c);
+			svs.add(s);
 			Sv_dao.Instance().update(s);
 		}
+		updateTabelSvinClass(idclass);
+		c.setSvs(svs);
+		k.setVisible(false);
+		JOptionPane.showMessageDialog(null, "Thêm học sinh thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void SortTable(String selectedColumn) {
@@ -1013,7 +1052,12 @@ public class ViewAdmin extends JFrame {
 	}
 	public void insertClass(String tenLop) {
 		String id = UUID.randomUUID().toString();
-		Class_dao.Instance().insert(new Class(id,tenLop,truonghoc_dao.Instance().selectbyid("01")));
+		Class c = new Class(id,tenLop,truonghoc_dao.Instance().selectbyid("01"));
+		listClass.add(c);
+		updateTableClass();
+		j.setVisible(false);
+		JOptionPane.showMessageDialog(null, "Tạo lớp thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+		Class_dao.Instance().insert(c);
 	}
 	public void deleteGv(String idgv) {
 		

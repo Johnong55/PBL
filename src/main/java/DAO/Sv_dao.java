@@ -172,6 +172,53 @@ public class Sv_dao implements DAO_Interface<Sv> {
 			}
 			return result;
 	}
+	
+	public List<Sv> selectNoClass() {
+		List<Sv> result = new ArrayList<Sv>();
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Sv where lop is NULL ";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					String id = kq.getString("id");
+					String ten = kq.getString("ten");
+					Sv u = new Sv(id,ten,null);
+					result.add(u);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return result;
+	}
+	public List<String> selectallID() {
+		List<String> result = new ArrayList<String>();
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Sv";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					String id = kq.getString("id");
+					result.add(id);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return result;
+	}
 
 	@Override
 	public Sv selectbyid(Sv t) {
@@ -224,8 +271,8 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					String id = kq.getString("id");
 					String ten = kq.getString("ten");
 					String lop= kq.getString("lop");
-						Class lop1 = new Class();
-						lop1.setIdclass(lop);
+					Class lop1 = new Class();
+					lop1.setIdclass(lop);
 					
 				Sv u = new Sv(id, ten, lop1);
 				

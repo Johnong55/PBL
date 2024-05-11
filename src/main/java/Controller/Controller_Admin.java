@@ -38,9 +38,6 @@ public class Controller_Admin implements Action {
 		} else if (e.getSource() == viewadmin.buttonOkAddClass) {
 			String tenLop = viewadmin.textField.getText();
 			viewadmin.insertClass(tenLop);
-			viewadmin.updateTableClass();
-			viewadmin.j.setVisible(false);
-			JOptionPane.showMessageDialog(null, "Tạo lớp thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		} else if (e.getSource() == viewadmin.buttonHuyAddClass) {
 			viewadmin.j.setVisible(false);
 		} else if (e.getSource() == viewadmin.buttonDeleteClass) {
@@ -50,12 +47,9 @@ public class Controller_Admin implements Action {
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
 						"Yes");
-
 				if (option == JOptionPane.YES_OPTION) {
 					String idclass = (String) viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 2);
 					viewadmin.deleteClass(idclass);
-					viewadmin.updateTableClass();
-					JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
@@ -75,10 +69,7 @@ public class Controller_Admin implements Action {
 						"Yes");
 				if (option == JOptionPane.YES_OPTION) {
 					String idsv = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 2).toString();
-					String idclass = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 3).toString();
 					viewadmin.deleteSvFromClass(idsv);
-					viewadmin.updateTabelSvinClass(idclass);
-					JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 				}
 
 			} else {
@@ -96,8 +87,6 @@ public class Controller_Admin implements Action {
 				}
 				
 				viewadmin.addSvinClass(idSvs);
-				viewadmin.updateTabelSvinClass(viewadmin.idclass);
-				viewadmin.k.setVisible(false);
 			}
 		}
 		else if(e.getSource() == viewadmin.buttonAddGv) {

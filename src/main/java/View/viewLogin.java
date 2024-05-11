@@ -12,10 +12,13 @@ import javax.swing.border.MatteBorder;
 
 import Controller.Controller_Login;
 import DAO.Account_dao;
+import DAO.Class_dao;
 import DAO.Gv_dao;
 import DAO.Sv_dao;
 import model.Account;
 import model.Sv;
+import model.Class;
+
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -31,6 +34,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import Controller.Controller_Login;
 
@@ -40,7 +45,8 @@ public class viewLogin extends JFrame {
 	public JTextField textField;
 	public JPasswordField textField_1;
 	private Controller_Login lg = new Controller_Login(this);
-
+	List<Sv> listSv  =new ArrayList<Sv>();
+	List<Class> listClass = new ArrayList<Class>();
 	/**
 	 * Launch the application.
 	 */
@@ -60,8 +66,19 @@ public class viewLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public viewLogin() {
-
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		listClass = Class_dao.Instance().selectall();
+		for (Class c : listClass) {
+			List<Sv> svs = Class_dao.Instance().selectSVinclass(c);
+			for (Sv sv : svs) {
+				sv.setIdclass(c);
+			}
+			c.setSvs(svs);
+			listSv.addAll(svs);
+		}
+		listSv.addAll(Sv_dao.Instance().selectNoClass());
 		setBounds(100, 100, 1141, 713);
 		setLocationRelativeTo(null);
 
@@ -208,6 +225,7 @@ public class viewLogin extends JFrame {
 				panel_3.setGradientColor(new Color(0,125,255), new Color(0,125,255));
 				panel_3.setBground(new Color(0,125,255));	
 			}
+		
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -232,7 +250,9 @@ public class viewLogin extends JFrame {
 							ViewTeacher v = new ViewTeacher(Gv_dao.Instance().selectbyid(q));
 							dispose();
 						}else if(q.getMaquyen() == 3) {
-							ViewAdmin v = new ViewAdmin();
+						 
+							ViewAdmin v = new ViewAdmin(listSv,listClass);
+							
 							dispose();
 						}
 						return;

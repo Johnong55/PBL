@@ -543,7 +543,8 @@ public class ViewStudent extends JFrame {
 		panel.add(lblNewLabel_15);
 		panel_4.setBounds(171, 0, 713, 661); 
 		
-		view_test();
+		view_home();
+		
 		//-----------------------------------
 		
 		//------------
