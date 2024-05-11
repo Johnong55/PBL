@@ -37,6 +37,7 @@ import javax.swing.table.TableRowSorter;
 import Controller.Controller_Admin;
 import DAO.Cauhoi_Dao;
 import DAO.Class_dao;
+import DAO.DeThi_dao;
 import DAO.Giangday_dao;
 import DAO.Gv_dao;
 import DAO.KiThi_dao;
@@ -45,8 +46,10 @@ import DAO.Sv_dao;
 import DAO.truonghoc_dao;
 import model.Cauhoi;
 import model.Class;
+import model.DeThi;
 import model.Giangday;
 import model.Gv;
+import model.KiThi;
 import model.Nganhangcauhoi;
 import model.Sv;
 import model.truonghoc;
@@ -1015,14 +1018,20 @@ public class ViewAdmin extends JFrame {
 		Sv_dao.Instance().deleteSvFromClass(idsv);
 	}
 	public Sv getSvById(String id) {
-		Sv s = new Sv();
 		for (Sv sv : listSv) {
 			if(sv.getIdSv().equals(id)) {
-				s = sv;
-				break;
+				return sv;
 			}
 		}
-		return s;
+		return null;
+	}
+	public Gv getGvById(String id) {
+		for (Gv gv : listgv) {
+			if(gv.getMaGv().equals(id)) {
+				return gv;
+			}
+		}
+		return null;
 	}
 	public void addSvinClass(List<String> idSv) {
 		Class c = getClassById(idclass);
@@ -1061,7 +1070,7 @@ public class ViewAdmin extends JFrame {
 	}
 	public void deleteGv(String idgv) {
 		
-		Gv g = Gv_dao.Instance().selectbyid(idgv);
+		Gv g = getGvById(idgv);
 		
 		if(g.getDanhsachlop() != null) {
 			Giangday_dao.Instance().updateGiangDayBeforeDeleteGv(idgv);
@@ -1077,28 +1086,69 @@ public class ViewAdmin extends JFrame {
 				}
 			}
 		}
+		List<DeThi> dethi = DeThi_dao.Instance().selectall();
+		for (KiThi kt : g.getKithi()) {
+			for (DeThi deThi2 : dethi) {
+				if(deThi2.getKithi().getId().equals(kt.getId())) {
+					DeThi_dao.Instance().DethiNULLKithiFromGv(kt.getId());
+				}
+			}
+		}
 		if(g.getKithi() != null) {
 			KiThi_dao.Instance().updateKithiBeforeDeleteGv(idgv);
 			if(g.getNH() != null) {
 				NganhangDao.Instance().updateNGCHBeforeDeleteGv(idgv);
 			}
 		}
+		listgv.remove(g);
+		for (Gv gv : listgv) {
+			System.out.println(gv);
+		}
 		Gv_dao.Instance().deletebyid(g);
 	}
 	public void AddGv(String name, String id, String user, String pass) {
-		truonghoc truong = new truonghoc();
-		truong.setId("01");
-		Gv g = new Gv(id,name,truonghoc_dao.Instance().selectbyid(truong));
-		g.setMaquyen(3);
-		g.setId(id);
-		
-		Gv_dao.Instance().insert(g);
+		int i = 1;
+		for (Gv gv : listgv) {
+			if(gv.getId().equals(id)) {
+				i = -1;
+				break;
+			}else if(gv.getUsername().equals(user)) {
+				i = -2;
+				break;
+			}
+		}
+		if(i == 1) {
+			truonghoc truong = new truonghoc();
+			truong.setId("01");
+			Gv g = new Gv(id,name,truonghoc_dao.Instance().selectbyid(truong));
+			g.setMaquyen(1);
+			g.setId(id);
+			g.setUsername(user);
+			listgv.add(g);
+			updateTableTeacher();
+			l.setVisible(false);
+			Gv_dao.Instance().insert(g);
+			JOptionPane.showMessageDialog(null, "Tạo giáo viên thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+		}else if(i == -1) {
+			JOptionPane.showMessageDialog(null, "Mã giáo viên đã tồn tại", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+		}else if(i == -2) {
+			JOptionPane.showMessageDialog(null, "Tên đăng nhập đã tồn tại", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+		}
+
 	}
 	public void AddClassIntoGv() {
 		
 	}
 	public void DeleteClassIntoGv(String idclass, String idgv) {
+		Gv g = getGvById(idgv);
+		List<Giangday> GD = g.getDanhsachlop();
+		for (Giangday gd : GD) {
+			if(gd.getMalop().getIdclass().equals(idclass)) {
+				GD.remove(gd);
+				break;
+			}
+		}
+		g.setGiangDay(GD);
 		Giangday_dao.Instance().deleteClassFromGv(idgv, idclass);
 	}
-
 }

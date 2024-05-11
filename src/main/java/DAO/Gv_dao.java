@@ -58,8 +58,10 @@ public class Gv_dao implements DAO_Interface<Gv> {
 
 					u.setLinkAnh(gv.getLinkAnh());
 					u.setPassword(gv.getPassword());
-					u.setMaquyen(gv.maquyen);
+					u.setMaquyen(1);
 					u.setUsername(gv.getUsername());
+					u.setNH(NganhangDao.Instance().selectbyidgv(u));
+					u.setKithi(KiThi_dao.Instance().selectByIdGv(id));
 					result.add(u);
 				}
 				con.close();

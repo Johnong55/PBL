@@ -99,9 +99,6 @@ public class Controller_Admin implements Action {
 			String pass = viewadmin.textPass.getText();
 			
 			viewadmin.AddGv(NameGv, IdGv, user, pass);
-			viewadmin.updateTableTeacher();
-			viewadmin.l.setVisible(false);
-			JOptionPane.showMessageDialog(null, "Thêm giáo viên thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 		else if(e.getSource() == viewadmin.buttonDeleteGv) {
@@ -131,8 +128,6 @@ public class Controller_Admin implements Action {
 				String idgv = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 1).toString();
 				viewadmin.DeleteClassIntoGv(idclass, idgv);
 				viewadmin.updateTabelClassOfGv(idgv);
-				
-
 				JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else {

@@ -90,6 +90,9 @@ public class Gv extends Account{
 			this.danhsachlop.add(new Giangday(this,i));
 		}
 	}
+	public void setGiangDay(List<Giangday> danhsachlop) {
+		this.danhsachlop = danhsachlop;
+	}
 	public Gv() {
 		super();
 		// TODO Auto-generated constructor stub

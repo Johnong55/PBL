@@ -79,6 +79,24 @@ public class viewLogin extends JFrame {
 			listSv.addAll(svs);
 		}
 		listSv.addAll(Sv_dao.Instance().selectNoClass());
+		List<Account> tk = Account_dao.Instance().selectall();
+		for (Account account : tk) {
+			for (Sv sv : listSv) {
+				if(sv.getIdSv().equals(account.getId())) {
+					if(account.getLinkAnh() != null) {
+						sv.setLinkAnh(account.getLinkAnh());
+						if(account.getUsername() != null) {
+							sv.setUsername(account.getUsername());
+							if(account.getPassword() != null) {
+								sv.setPassword(account.getPassword());
+								sv.setMaquyen(2);
+								sv.setId(account.getId());
+							}
+						}
+					}
+				}
+			}
+		}
 		setBounds(100, 100, 1141, 713);
 		setLocationRelativeTo(null);
 

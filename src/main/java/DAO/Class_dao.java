@@ -16,6 +16,7 @@ import org.hibernate.Transaction;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
+import model.Account;
 import model.Class;
 import model.Gv;
 import model.KiThi;
@@ -220,8 +221,8 @@ public class Class_dao implements DAO_Interface<Class> {
 					String lop= kq.getString("lop");
 					Class lop1 = new Class();
 					lop1.setIdclass(lop);
-					Class Lresult = new Class();
-					Sv u = new Sv(id,ten,Lresult);
+					Sv u = new Sv(id,ten,lop1);
+					
 					result.add(u);
 				}
 				con.close();
