@@ -3,6 +3,8 @@ package test;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -269,7 +271,8 @@ public class Demo {
  		kithi.setGv(gv1);
  		kithi.setThoigianbatdau(new Time(9, 30, 0));
  		kithi.setThoigianlambai(45);
- 		kithi.setDate(new Date(2024 - 1900, 04, 20));
+ 		Date currentDate = new Date(System.currentTimeMillis());
+ 		kithi.setDate(currentDate);
  		kithi.setMota("Van");
  		kithi.setSl(12);
  		kithi.setSocauDe(3);

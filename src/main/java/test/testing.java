@@ -22,6 +22,6 @@ public class testing {
     public static void main(String[] args) {
     	Gv gv =  new Gv();
     	gv.id = "01";
-    	
+    	Gv_dao.Instance().deletebyid(Gv_dao.Instance().selectbyid(gv));
     }
 }

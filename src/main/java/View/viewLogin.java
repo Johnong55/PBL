@@ -224,12 +224,8 @@ public class viewLogin extends JFrame {
 					{
 						if(q.getMaquyen() == 2) {
 							Sv u =  Sv_dao.Instance().selectbyid(q);
-							u.setLinkAnh(q.getLinkAnh());
-							u.setPassword(q.getPassword());
-							u.setMaquyen(q.maquyen);
-							u.setUsername(q.getUsername());
+							
 							ViewStudent v = new ViewStudent(u);
-						
 							dispose();
 						}if(q.getMaquyen() == 1) {
 							ViewTeacher v = new ViewTeacher(Gv_dao.Instance().selectbyid(q));

@@ -56,8 +56,8 @@ public class ViewStudent extends JFrame {
 	Color Green = new Color(44, 173, 167);
 	public JPanel panel_4 = new JPanel();
 	public MyButton BtnHome, btnTests,btnProfile,exit, btnChangePer, BtnChangeImagePer;
-	public MyButton mbtnSetReminder, mbtnBtuLm;
-	public JLabel lblNewLabel_14;
+	public MyButton mbtnBtuLm;
+	public JLabel lblNewLabel_14,lblNewLabel_9;
 	PanelRound panel_1;
 	public JTextField textField;
 	public JComboBox comboBox;
@@ -164,13 +164,13 @@ public class ViewStudent extends JFrame {
 		JLabel lblNewLabel_5_1 = new JLabel("Day :");
 		lblNewLabel_5_1.setForeground(Gray);
 		lblNewLabel_5_1.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblNewLabel_5_1.setBounds(361, 105, 46, 20);
+		lblNewLabel_5_1.setBounds(361, 118, 46, 20);
 		panel_2.add(lblNewLabel_5_1);
 		
 		JLabel lblNewLabel_5_2 = new JLabel("Time :");
 		lblNewLabel_5_2.setForeground(Gray);
 		lblNewLabel_5_2.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblNewLabel_5_2.setBounds(361, 152, 46, 20);
+		lblNewLabel_5_2.setBounds(361, 178, 46, 20);
 		panel_2.add(lblNewLabel_5_2);
 		
 		//----- can thon tin thoi gian cb thi
@@ -181,12 +181,12 @@ public class ViewStudent extends JFrame {
 		
 		JLabel lblNewLabel_6_1 = new JLabel("Không có !");
 		lblNewLabel_6_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel_6_1.setBounds(433, 104, 158, 20);
+		lblNewLabel_6_1.setBounds(433, 117, 158, 20);
 		panel_2.add(lblNewLabel_6_1);
 		
-		JLabel lblNewLabel_6_2 = new JLabel("Không có");
+		JLabel lblNewLabel_6_2 = new JLabel("Không có !");
 		lblNewLabel_6_2.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel_6_2.setBounds(433, 151, 158, 20);
+		lblNewLabel_6_2.setBounds(433, 177, 158, 20);
 		panel_2.add(lblNewLabel_6_2);
 		
 		if(ktsoon.getMota() != null) {
@@ -196,19 +196,6 @@ public class ViewStudent extends JFrame {
 			lblNewLabel_6_2.setText(ktsoon.getThoigianbatdau().toString());
 			
 		}
-		//--------------
-		
-		mbtnSetReminder = new MyButton("");
-		mbtnSetReminder.setText("Cài đặt nhắc nhở");
-		mbtnSetReminder.setRadius(15);
-		mbtnSetReminder.setForeground(Color.WHITE);
-		mbtnSetReminder.setFont(new Font("Tahoma", Font.BOLD, 15));
-		mbtnSetReminder.setColorOver(new Color(88, 141, 220));
-		mbtnSetReminder.setColorClick(new Color(150, 207, 250));
-		mbtnSetReminder.setColor(Green);
-		mbtnSetReminder.setBorderColor(Green);
-		mbtnSetReminder.setBounds(390, 208, 195, 37);
-		panel_2.add(mbtnSetReminder);
 		
 		PanelRound panel_3 = new PanelRound(15);
 		panel_3.setBorderColor(Gray);
@@ -301,7 +288,7 @@ public class ViewStudent extends JFrame {
 		lblNewLabel_8.setBounds(501, 77, 127, 30);
 		panel_4.add(lblNewLabel_8);
 		
-		JLabel lblNewLabel_9 = new JLabel("ALL");
+		lblNewLabel_9 = new JLabel("ALL");
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_9.setBounds(625, 82, 78, 20);
 		panel_4.add(lblNewLabel_9);
@@ -351,14 +338,14 @@ public class ViewStudent extends JFrame {
 		table.setColumnSelectionAllowed(false);
 		table.setModel(model);
 		table.setFont(new Font("Calibri", Font.PLAIN, 20));
-	
+		table.addMouseListener(cl);
 		scrollPane.setViewportView(table);
 		
 		comboBox = new JComboBox();
 		comboBox.setFont(new Font("Calibri", Font.BOLD, 16));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ALL", "Tên kỳ thi", "Ngày thi", "Điểm"}));
 		comboBox.setToolTipText("Tên kỳ thi \r\nNgày thi\r\nThời gian\r\nCâu Đúng\r\nCâu sai\r\nĐiểm\r\nALL");
-		comboBox.setBounds(360, 75, 104, 40);
+		comboBox.setBounds(360, 75, 98, 40);
 		comboBox.addActionListener(cl);
 		panel_4.add(comboBox);
 	}
@@ -556,7 +543,7 @@ public class ViewStudent extends JFrame {
 		panel.add(lblNewLabel_15);
 		panel_4.setBounds(171, 0, 713, 661); 
 		
-		view_home();
+		view_test();
 		//-----------------------------------
 		
 		//------------
