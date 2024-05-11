@@ -127,6 +127,24 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 		return false;
 	}
 
+	public void updateBeforeDeleteGv(String idGv, String idNh) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "update cauhoi set NganHang = NULL where NganHang = (select idNganHang from Nganhangcauhoi where giaovienquanli = ? and idNganHang = ? )";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idGv);
+				a.setString(2, idNh);
+				a.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+
 	@Override
 	public boolean deletebyid(Cauhoi t) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();

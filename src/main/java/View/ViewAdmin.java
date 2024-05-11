@@ -34,6 +34,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import Controller.Controller_Admin;
+import DAO.Cauhoi_Dao;
 import DAO.Class_dao;
 import DAO.Giangday_dao;
 import DAO.Gv_dao;
@@ -41,9 +42,11 @@ import DAO.KiThi_dao;
 import DAO.NganhangDao;
 import DAO.Sv_dao;
 import DAO.truonghoc_dao;
+import model.Cauhoi;
 import model.Class;
 import model.Giangday;
 import model.Gv;
+import model.Nganhangcauhoi;
 import model.Sv;
 import model.truonghoc;
 import net.bytebuddy.asm.Advice.OffsetMapping.Sort;
@@ -577,6 +580,14 @@ public class ViewAdmin extends JFrame {
 			}
 		});
 		table.setModel(getModelTeacher());
+		
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn column = columnModel.getColumn(1);
+		column.setMinWidth(0);
+		column.setMaxWidth(0);
+		column.setWidth(0);
+		column.setPreferredWidth(0);
+		
 		table.setDefaultEditor(Object.class, null);
 
 		scrollPane.setViewportView(table);
@@ -1011,12 +1022,22 @@ public class ViewAdmin extends JFrame {
 		if(g.getDanhsachlop() != null) {
 			Giangday_dao.Instance().updateGiangDayBeforeDeleteGv(idgv);
 		}
-		if(g.getNH() != null) {
-
-			NganhangDao.Instance().updateNGCHBeforeDeleteGv(idgv);
+		for (Cauhoi c : Cauhoi_Dao.Instance().selectall()) {
+			if(c.getNH()!= null) {
+				System.out.println("a");
+				if(c.getNH().getGiaovienquanli() !=null) {
+					if(c.getNH().getGiaovienquanli().getMaGv().equals(idgv)) {
+					System.out.println("aa");
+						Cauhoi_Dao.Instance().updateBeforeDeleteGv(idgv,c.getNH().getIdNganHang());
+					}
+				}
+			}
 		}
 		if(g.getKithi() != null) {
 			KiThi_dao.Instance().updateKithiBeforeDeleteGv(idgv);
+			if(g.getNH() != null) {
+				NganhangDao.Instance().updateNGCHBeforeDeleteGv(idgv);
+			}
 		}
 		Gv_dao.Instance().deletebyid(g);
 	}

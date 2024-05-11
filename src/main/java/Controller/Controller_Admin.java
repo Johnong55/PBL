@@ -123,7 +123,7 @@ public class Controller_Admin implements Action {
 					"Yes");
 			if (option == JOptionPane.YES_OPTION) {
 				String idgv = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 1).toString();
-	//			viewadmin.deleteGv(idgv);
+				viewadmin.deleteGv(idgv);
 				viewadmin.updateTableTeacher();
 				JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 			}

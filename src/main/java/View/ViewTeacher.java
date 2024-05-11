@@ -571,7 +571,7 @@ public class ViewTeacher extends JFrame {
 			}
 		});
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "  Tên học sinh", "  Điểm trung bình", "  Mã học sinh", "  Mã lớp", "  Tên" }));
+				new String[] {"  Mã học sinh", "  Tên học sinh", "  Điểm trung bình", "  Mã học sinh", "  Mã lớp", "  Tên" }));
 
 		table.setModel(getModelSv(table, c));
 		SortTable("  Tên");
@@ -579,7 +579,7 @@ public class ViewTeacher extends JFrame {
 
 		// ẩn cột mã học sinh
 		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn column = columnModel.getColumn(2);
+		TableColumn column = columnModel.getColumn(5);
 		column.setMinWidth(0);
 		column.setMaxWidth(0);
 		column.setWidth(0);
@@ -1532,7 +1532,7 @@ public class ViewTeacher extends JFrame {
 			int lastIndex = sv.getTen().lastIndexOf(" ");
 			String lastName = sv.getTen().substring(lastIndex + 1);
 
-			Object[] row = { sv.getTen(), "", sv.getId(), sv.getIdclass().getIdclass(), lastName };
+			Object[] row = {sv.getIdSv() , sv.getTen(), "", sv.getId(), sv.getIdclass().getIdclass(), lastName };
 			model.addRow(row);
 		}
 		return model;

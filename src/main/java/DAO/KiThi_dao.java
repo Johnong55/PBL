@@ -260,7 +260,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 	public void updateKithiBeforeDeleteGv(String idGv) {
 		try {
 			Connection con  = JDBCUtil.getConnection();
-			String sql = "update KiThi set nguoitao = NULL where nguoitao = (select id from Gv where id = ?)";
+			String sql = "update KiThi set nguoitao = NULL, nganhangcauhoi = NULL where nguoitao = ? ";
 			
 			PreparedStatement a;
 
