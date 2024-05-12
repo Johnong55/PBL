@@ -48,17 +48,23 @@ public class Controller_Admin implements Action {
 			viewadmin.j.setVisible(false);
 		} else if (e.getSource() == viewadmin.buttonDeleteClass) {
 			/// xóa lớp trong giao diện lớp
-			if (viewadmin.table.getSelectedRowCount() == 1) {
+			if (viewadmin.table.getSelectedRowCount() > 0) {
 
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
 						"Yes");
 				if (option == JOptionPane.YES_OPTION) {
-					String idclass = (String) viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 2);
-					viewadmin.deleteClass(idclass);
+					int[] indexRow = viewadmin.table.getSelectedRows();
+					List<String> idclasses = new ArrayList<String>();
+					for (int i : indexRow) {
+						idclasses.add(viewadmin.table.getValueAt(i, 2).toString());
+					}
+					viewadmin.deleteClass(idclasses);
+					viewadmin.updateTableClass();
+					JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else if (e.getSource() == viewadmin.comboBoxSortClass) {
 			// sắp xếp trong giao diện lớp
@@ -70,18 +76,24 @@ public class Controller_Admin implements Action {
 			viewadmin.SortTable(m);
 		} else if (e.getSource() == viewadmin.buttonDeleteSvFromClass) {
 			// xóa sinh viên khỏi lớp
-			if (viewadmin.table.getSelectedRowCount() == 1) {
+			if (viewadmin.table.getSelectedRowCount() > 0) {
 
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
 						"Yes");
 				if (option == JOptionPane.YES_OPTION) {
-					String idsv = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 2).toString();
-					viewadmin.deleteSvFromClass(idsv);
+					int[] indexRow = viewadmin.table.getSelectedRows();
+					List<String> idSvs = new ArrayList<String>();
+					for (int i : indexRow) {
+						idSvs.add(viewadmin.table.getValueAt(i, 2).toString());
+					}
+					viewadmin.deleteSvFromClass(idSvs);
+					viewadmin.updateTabelSvinClass(viewadmin.idclass);
+					JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 				}
 
 			} else {
-				JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else if (e.getSource() == viewadmin.buttonAddSvInClass) {
 			// giao diện thêm sinh viên vào lớp

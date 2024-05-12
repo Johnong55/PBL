@@ -1167,43 +1167,47 @@ public class ViewAdmin extends JFrame {
 	    return null;
 	}
 
-	public void deleteClass(String idclass) {
-		Class c = getClassById(idclass);
-		listClass.remove(c);
+	public void deleteClass(List<String> idclasses) {
+		for (String id : idclasses) {
+			Class c = getClassById(id);
+			listClass.remove(c);
+		
 		for (Sv sv : listSv) {
 			if(sv.getIdclass() != null) {
-				if(sv.getIdclass().getIdclass().equals(idclass)) {
+				if(sv.getIdclass().getIdclass().equals(id)) {
 					sv.setIdclass(null);
 				}
 			}
 		}
 		List<Giangday> GD = Giangday_dao.Instance().selectall();
 		for (Giangday giangday : GD) {
-			if(giangday.getMalop().getIdclass().equals(idclass)) {
+			if(giangday.getMalop().getIdclass().equals(id)) {
 				Giangday_dao.Instance().deletebyid(giangday);
 			}
 		}
 		for (Gv gv : listgv) {
 			List<Giangday> GD1 = gv.getDanhsachlop();
 			for (Giangday giangday : GD1) {
-				if(giangday.getMalop().getIdclass().equals(idclass)) {
+				if(giangday.getMalop().getIdclass().equals(id)) {
 					GD1.remove(giangday);
 					break;
 				}
 			}
 		}
-		updateTableClass();
-		JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-		Sv_dao.Instance().updateSvBeforeDeleteClass(idclass);
-		Class_dao.Instance().deletebyid(Class_dao.Instance().selectbyid(idclass));
+		Sv_dao.Instance().updateSvBeforeDeleteClass(id);
+		Class_dao.Instance().deletebyid(Class_dao.Instance().selectbyid(id));
+		}
 	}
-	public void deleteSvFromClass(String idsv) {
-		Sv s = getSvById(idsv);
-		String idclass = s.getIdclass().getIdclass();
-		s.setIdclass(null);
-		updateTabelSvinClass(idclass);
-		JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-		Sv_dao.Instance().deleteSvFromClass(idsv);
+	public void deleteSvFromClass(List<String> idSvs) {
+		Class c = getClassById(idclass);
+		List<Sv> svs = c.getSvs();
+		for (String idsv : idSvs) {
+			Sv s = getSvById(idsv);
+			s.setIdclass(null);
+			svs.remove(s);
+			Sv_dao.Instance().deleteSvFromClass(idsv);
+		}
+		c.setSvs(svs);
 	}
 	public Sv getSvById(String id) {
 		for (Sv sv : listSv) {
