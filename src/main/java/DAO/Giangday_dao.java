@@ -111,41 +111,6 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 		return false;
 	}
 	
-	public void updateGiangDayBeforeDeleteGv(String idGv) {
-		try {
-			Connection con  = JDBCUtil.getConnection();
-			String sql = "update Giangday set giaoviendunglop = NULL where giaoviendunglop = (select id from Gv where id = ?)";
-			
-			PreparedStatement a;
-
-				a = con.prepareStatement(sql);
-				a.setString(1, idGv);
-				a.executeUpdate();
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}
-	
-	public void deleteClassFromGv(String idGv,String idclass) {
-		try {
-			Connection con  = JDBCUtil.getConnection();
-			String sql = "update Giangday set giaoviendunglop = NULL where lop = ? and giaoviendunglop = ? ";
-			
-			PreparedStatement a;
-
-				a = con.prepareStatement(sql);
-				a.setString(1,idclass);
-				a.setString(2,idGv);
-				a.executeUpdate();
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}
-
 	@Override
 	public boolean update(Giangday t) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();

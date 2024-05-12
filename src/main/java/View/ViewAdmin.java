@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Convert;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -60,16 +61,16 @@ import javax.swing.JComboBox;
 public class ViewAdmin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane, pView,contentPane1,contentPane2,pView1,contentPane3;
-	public MyTable table,table1;
+	private JPanel contentPane, pView,contentPane1,contentPane2,pView1,contentPane3,pView2,contentPane4;
+	public MyTable table,table1,table2;
 	public MyButton btnNewButton1, btnNewButton2, btnNewButton3_1, btnNewButton5,buttonAddClass,
 	buttonDeleteClass,buttonAddSvInClass,buttonHuyAddClass,buttonOkAddClass,buttonDeleteSvFromClass,
-	buttonChonSvAddIntoClass,buttonAddGv,buttonDeleteGv,buttonOkAddGv,buttonDeleteClassInGv,buttonAddClassInGv;
+	buttonChonSvAddIntoClass,buttonAddGv,buttonDeleteGv,buttonOkAddGv,buttonDeleteClassInGv,buttonAddClassInGv,buttonChonClassAddIntoGv;
 	public JComboBox<String> comboBoxSortClass,comboBoxSortALLSV;
 	public JTextField textField,textNameGv,textIdGv,textUser,textPass;
-	public JFrame j,k,l;
+	public JFrame j,k,l,z;
 	public JLabel lblNewLabel_1;
-	public String idclass;
+	public String idclass,tenGv, idGv;
 	public List<Sv> listSv = new ArrayList<Sv>();
 	public List<Class> listClass = new ArrayList<Class>();
 	public List<Gv> listgv = Gv_dao.Instance().selectall();
@@ -614,6 +615,8 @@ public class ViewAdmin extends JFrame {
 	}
 
 	public void ViewClassOfTeacher(String m) {
+		this.tenGv = m;
+		idGv = getGvbyName(m).getMaGv();
 		pView.removeAll();
 		pView.repaint();
 		pView.revalidate();
@@ -699,6 +702,93 @@ public class ViewAdmin extends JFrame {
 		
 		table.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(table);
+	}
+	
+	public void ViewAddClassInGv() {
+		z = new JFrame();
+		z.setBounds(100, 100, 749, 623);
+		z.setLocationRelativeTo(null);
+		
+		contentPane4 = new JPanel();
+		contentPane4.setBackground(new Color(255, 255, 255));
+		contentPane4.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane4.setLayout(null);
+		
+		z.setContentPane(contentPane4);
+
+		pView2 = new JPanel();
+		pView2.setBorder(null);
+		pView2.setBackground(Color.WHITE);
+		pView2.setBounds(10, 11, 714, 562);
+		contentPane4.add(pView2);
+		pView2.setLayout(null);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 695, 500);
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
+
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "  Danh sách lớp", "  Số học sinh", "  Mã lớp" });
+		table2 = new MyTable();
+		table2.setModel(model);
+		table2.setRowHeight(30);
+		table2.setColor1(Color.WHITE);
+		table2.setColor2(Color.WHITE);
+		table2.setGridColor(new Color(201, 201, 201));
+		// table.setShowGrid(false);
+		table2.setColumnAlignment(0, JLabel.LEFT);
+		table2.setCellAlignment(0, JLabel.LEFT);
+
+		JTableHeader header = table2.getTableHeader();
+		header.setDefaultRenderer(new DefaultTableCellRenderer() {
+			private static final long serialVersionUID = 1L;
+
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				comp.setBackground(new Color(45, 51, 63));
+				comp.setForeground(Color.WHITE);
+				setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201, 201, 201)));
+
+				return comp;
+			}
+		});
+
+		table2.setModel(getModelClasses(table2));
+		TableColumnModel columnModel = table2.getColumnModel();
+		TableColumn column = columnModel.getColumn(1);
+		column.setMinWidth(0);
+		column.setMaxWidth(0);
+		column.setWidth(0);
+		column.setPreferredWidth(0);
+		
+		TableColumn column1 = columnModel.getColumn(2);
+		column1.setMinWidth(0);
+		column1.setMaxWidth(0);
+		column1.setWidth(0);
+		column1.setPreferredWidth(0);
+		
+		table2.setDefaultEditor(Object.class, null);
+		scrollPane.setViewportView(table2);
+		pView2.add(scrollPane);
+		
+		buttonChonClassAddIntoGv = new MyButton("Thêm lớp");
+		buttonChonClassAddIntoGv.setRadius(10);
+		buttonChonClassAddIntoGv.setForeground(Color.WHITE);
+		buttonChonClassAddIntoGv.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonChonClassAddIntoGv.setColorOver(new Color(86, 98, 120));
+		buttonChonClassAddIntoGv.setColorClick(new Color(45, 51, 63));
+		buttonChonClassAddIntoGv.setColor(new Color(45, 51, 63));
+		buttonChonClassAddIntoGv.setBorderColor(Color.white);
+		buttonChonClassAddIntoGv.setBackground(new Color(45, 51, 63));
+		buttonChonClassAddIntoGv.setBounds(297, 522, 116, 33);
+
+		pView2.add(buttonChonClassAddIntoGv);
+		
+		buttonChonClassAddIntoGv.addActionListener(actionAdmin);
+		
+		z.setVisible(true);
+		
 	}
 
 	public void ViewStudent() {
@@ -788,6 +878,7 @@ public class ViewAdmin extends JFrame {
 		column.setMaxWidth(0);
 		column.setWidth(0);
 		column.setPreferredWidth(0);
+		
 		table.setDefaultEditor(Object.class, null);
 		SortTable("  Tên");
 		scrollPane.setViewportView(table);
@@ -1004,6 +1095,21 @@ public class ViewAdmin extends JFrame {
 				}
 			}
 		}
+		List<Giangday> GD = Giangday_dao.Instance().selectall();
+		for (Giangday giangday : GD) {
+			if(giangday.getMalop().getIdclass().equals(idclass)) {
+				Giangday_dao.Instance().deletebyid(giangday);
+			}
+		}
+		for (Gv gv : listgv) {
+			List<Giangday> GD1 = gv.getDanhsachlop();
+			for (Giangday giangday : GD1) {
+				if(giangday.getMalop().getIdclass().equals(idclass)) {
+					GD1.remove(giangday);
+					break;
+				}
+			}
+		}
 		updateTableClass();
 		JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		Sv_dao.Instance().updateSvBeforeDeleteClass(idclass);
@@ -1073,7 +1179,9 @@ public class ViewAdmin extends JFrame {
 		Gv g = getGvById(idgv);
 		
 		if(g.getDanhsachlop() != null) {
-			Giangday_dao.Instance().updateGiangDayBeforeDeleteGv(idgv);
+			for (Giangday gd : g.getDanhsachlop()) {
+				Giangday_dao.Instance().deletebyid(gd);
+			}
 		}
 		for (Cauhoi c : Cauhoi_Dao.Instance().selectall()) {
 			if(c.getNH()!= null) {
@@ -1088,10 +1196,14 @@ public class ViewAdmin extends JFrame {
 		}
 		List<DeThi> dethi = DeThi_dao.Instance().selectall();
 		for (KiThi kt : g.getKithi()) {
-			for (DeThi deThi2 : dethi) {
-				if(deThi2.getKithi().getId().equals(kt.getId())) {
-					DeThi_dao.Instance().DethiNULLKithiFromGv(kt.getId());
-				}
+			if(kt.getId() != null) {
+				for (DeThi deThi2 : dethi) {
+					if(deThi2.getKithi().getId() != null) {
+						if(deThi2.getKithi().getId().equals(kt.getId())) {
+							DeThi_dao.Instance().DethiNULLKithiFromGv(kt.getId());
+						}
+					}
+				}	
 			}
 		}
 		if(g.getKithi() != null) {
@@ -1101,9 +1213,6 @@ public class ViewAdmin extends JFrame {
 			}
 		}
 		listgv.remove(g);
-		for (Gv gv : listgv) {
-			System.out.println(gv);
-		}
 		Gv_dao.Instance().deletebyid(g);
 	}
 	public void AddGv(String name, String id, String user, String pass) {
@@ -1136,8 +1245,19 @@ public class ViewAdmin extends JFrame {
 		}
 
 	}
-	public void AddClassIntoGv() {
-		
+	public void AddClassIntoGv(List<String> idClasses) {
+		Gv g = getGvbyName(tenGv);
+		System.out.println(g);
+		List<Giangday> GD = g.getDanhsachlop();
+		for (String idclass : idClasses) {
+			Giangday gd = new Giangday(g, getClassById(idclass));
+			
+			int idGD = Integer.parseInt(g.getMaGv() + idclass);
+			gd.setId(idGD);
+			GD.add(gd);
+			Giangday_dao.Instance().insert(gd);
+		}
+		g.setGiangDay(GD);
 	}
 	public void DeleteClassIntoGv(String idclass, String idgv) {
 		Gv g = getGvById(idgv);
@@ -1145,10 +1265,10 @@ public class ViewAdmin extends JFrame {
 		for (Giangday gd : GD) {
 			if(gd.getMalop().getIdclass().equals(idclass)) {
 				GD.remove(gd);
+				Giangday_dao.Instance().deletebyid(gd);
 				break;
 			}
 		}
 		g.setGiangDay(GD);
-		Giangday_dao.Instance().deleteClassFromGv(idgv, idclass);
 	}
 }

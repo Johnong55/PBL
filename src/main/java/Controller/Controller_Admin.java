@@ -117,8 +117,22 @@ public class Controller_Admin implements Action {
 			JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}else if(e.getSource() == viewadmin.buttonAddClassInGv) {
-			
-		}else if(e.getSource() == viewadmin.buttonDeleteClassInGv) {			
+			viewadmin.ViewAddClassInGv();
+		}else if(e.getSource() == viewadmin.buttonChonClassAddIntoGv) {
+			if(viewadmin.table2.getSelectedRowCount() > 0) {
+				List<String> idClass = new ArrayList<>();
+				
+				int[] indexRow = viewadmin.table2.getSelectedRows();
+				for (int i : indexRow) {
+					idClass.add(viewadmin.table2.getValueAt(i, 2).toString());
+				}				
+				viewadmin.AddClassIntoGv(idClass);
+				viewadmin.updateTabelClassOfGv(viewadmin.idGv);
+				viewadmin.z.setVisible(false);
+				JOptionPane.showMessageDialog(null, "Thêm lớp thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		else if(e.getSource() == viewadmin.buttonDeleteClassInGv) {			
 			if(viewadmin.table.getSelectedRowCount() == 1) {			
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
