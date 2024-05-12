@@ -24,24 +24,30 @@ public class Controller_Admin implements Action {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == viewadmin.btnNewButton1) {
+			// giao diện lớp
 			this.viewadmin.ViewClass();
 		} else if (e.getSource() == viewadmin.btnNewButton2) {
+			// giap diện giáo viên
 			this.viewadmin.ViewTeacher();
 		} else if (e.getSource() == viewadmin.btnNewButton3_1) {
+			// giao diện học sinh
 			this.viewadmin.ViewStudent();
 		} else if (e.getSource() == viewadmin.btnNewButton5) {
+			// đăng suất
 			this.viewadmin.setVisible(false);
 			viewLogin v = new viewLogin();
 			v.setVisible(true);
 		} else if (e.getSource() == viewadmin.buttonAddClass) {
+			// giao diện thêm lớp
 			this.viewadmin.ViewAddClass();
 		} else if (e.getSource() == viewadmin.buttonOkAddClass) {
+			// thêm lớp trong giao diện lớp
 			String tenLop = viewadmin.textField.getText();
 			viewadmin.insertClass(tenLop);
 		} else if (e.getSource() == viewadmin.buttonHuyAddClass) {
 			viewadmin.j.setVisible(false);
 		} else if (e.getSource() == viewadmin.buttonDeleteClass) {
-
+			/// xóa lớp trong giao diện lớp
 			if (viewadmin.table.getSelectedRowCount() == 1) {
 
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
@@ -55,13 +61,15 @@ public class Controller_Admin implements Action {
 				JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else if (e.getSource() == viewadmin.comboBoxSortClass) {
+			// sắp xếp trong giao diện lớp
 			String m = (String) viewadmin.comboBoxSortClass.getSelectedItem();
 			viewadmin.SortTable(m);
 		} else if (e.getSource() == viewadmin.comboBoxSortALLSV) {
+			// sắp xếp trong giao diện học sinh
 			String m = (String) viewadmin.comboBoxSortALLSV.getSelectedItem();
 			viewadmin.SortTable(m);
 		} else if (e.getSource() == viewadmin.buttonDeleteSvFromClass) {
-
+			// xóa sinh viên khỏi lớp
 			if (viewadmin.table.getSelectedRowCount() == 1) {
 
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
@@ -76,8 +84,10 @@ public class Controller_Admin implements Action {
 				JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else if (e.getSource() == viewadmin.buttonAddSvInClass) {
+			// giao diện thêm sinh viên vào lớp
 			viewadmin.ViewAddSvInClass();
 		} else if (e.getSource() == viewadmin.buttonChonSvAddIntoClass) {
+			// thêm sinh viên vào lớp
 			if(viewadmin.table1.getSelectedRowCount() > 0) {
 				List<String> idSvs = new ArrayList<>();
 				
@@ -90,9 +100,11 @@ public class Controller_Admin implements Action {
 			}
 		}
 		else if(e.getSource() == viewadmin.buttonAddGv) {
+			// giao diện thêm giáo viên
 			viewadmin.ViewAddGv();
 			
 		}else if(e.getSource() == viewadmin.buttonOkAddGv) {
+			// thêm giáo viên
 			String NameGv = viewadmin.textNameGv.getText();
 			String IdGv = viewadmin.textIdGv.getText();
 			String user = viewadmin.textUser.getText();
@@ -102,6 +114,7 @@ public class Controller_Admin implements Action {
 		}
 		
 		else if(e.getSource() == viewadmin.buttonDeleteGv) {
+			// xóa giáo viên
 			if(viewadmin.table.getSelectedRowCount() == 1) {
 			
 			int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
@@ -117,8 +130,10 @@ public class Controller_Admin implements Action {
 			JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}else if(e.getSource() == viewadmin.buttonAddClassInGv) {
+			// giao diện thêm lớp cho giáo viên
 			viewadmin.ViewAddClassInGv();
 		}else if(e.getSource() == viewadmin.buttonChonClassAddIntoGv) {
+			// thêm lớp cho giáo viên
 			if(viewadmin.table2.getSelectedRowCount() > 0) {
 				List<String> idClass = new ArrayList<>();
 				
@@ -132,7 +147,8 @@ public class Controller_Admin implements Action {
 				JOptionPane.showMessageDialog(null, "Thêm lớp thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
-		else if(e.getSource() == viewadmin.buttonDeleteClassInGv) {			
+		else if(e.getSource() == viewadmin.buttonDeleteClassInGv) {	
+			// xóa lớp khỏi giáo viên
 			if(viewadmin.table.getSelectedRowCount() == 1) {			
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
@@ -148,6 +164,42 @@ public class Controller_Admin implements Action {
 			JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
+		}else if(e.getSource() == viewadmin.buttonAddSvInStudent) {
+				//// thêm sinh viên trong giao diện sinh viên
+			this.viewadmin.ViewAddSv();
+		}else if(e.getSource() == viewadmin.buttonOkAddSv) {
+			String NameGv = viewadmin.textNameSv.getText();
+			String IdGv = viewadmin.textIdSv.getText();
+			String user = viewadmin.textUserSv.getText();
+			String pass = viewadmin.textPassSv.getText();
+			String tenlop =(String) viewadmin.comboBoxLOP.getSelectedItem();
+			
+			viewadmin.AddSv(NameGv, IdGv, user, pass, tenlop);
+		}
+		else if(e.getSource() == viewadmin.buttonDeleteSvInStudent) {
+				//// xóa sinh viên trong giao diện sinh viên
+			System.out.println("aaaa");
+			if(viewadmin.table.getSelectedRowCount() > 0) {			
+				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
+					"Yes");
+			if (option == JOptionPane.YES_OPTION) {
+				List<String> idSvs = new ArrayList<String>();
+				
+				int[] indexRow = viewadmin.table.getSelectedRows();
+				
+				for (int i : indexRow) {
+					String idclass = viewadmin.table.getValueAt(i, 3).toString();
+					idSvs.add(idclass);
+				}
+				viewadmin.deleteSvInStudent(idSvs);
+				viewadmin.updateTableStudent();
+				
+				JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 
 	}

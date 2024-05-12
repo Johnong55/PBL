@@ -111,6 +111,11 @@ public class View123 extends JFrame {
 		btnNewButton.setBounds(132, 267, 89, 23);
 		contentPane3.add(btnNewButton);
 		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBackground(new Color(255, 255, 255));
+		comboBox.setBounds(293, 51, 65, 22);
+		contentPane3.add(comboBox);
+		
 		l.setVisible(true);
 		
 

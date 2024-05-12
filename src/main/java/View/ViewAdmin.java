@@ -61,14 +61,15 @@ import javax.swing.JComboBox;
 public class ViewAdmin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane, pView,contentPane1,contentPane2,pView1,contentPane3,pView2,contentPane4;
+	private JPanel contentPane, pView,contentPane1,contentPane2,pView1,contentPane3,pView2,contentPane4,contentPane5;
 	public MyTable table,table1,table2;
 	public MyButton btnNewButton1, btnNewButton2, btnNewButton3_1, btnNewButton5,buttonAddClass,
 	buttonDeleteClass,buttonAddSvInClass,buttonHuyAddClass,buttonOkAddClass,buttonDeleteSvFromClass,
-	buttonChonSvAddIntoClass,buttonAddGv,buttonDeleteGv,buttonOkAddGv,buttonDeleteClassInGv,buttonAddClassInGv,buttonChonClassAddIntoGv;
-	public JComboBox<String> comboBoxSortClass,comboBoxSortALLSV;
-	public JTextField textField,textNameGv,textIdGv,textUser,textPass;
-	public JFrame j,k,l,z;
+	buttonChonSvAddIntoClass,buttonAddGv,buttonDeleteGv,buttonOkAddGv,buttonDeleteClassInGv,buttonAddClassInGv,
+	buttonChonClassAddIntoGv,buttonDeleteSvInStudent,buttonAddSvInStudent,buttonOkAddSv;
+	public JComboBox<String> comboBoxSortClass,comboBoxSortALLSV,comboBoxLOP;
+	public JTextField textField,textNameGv,textIdGv,textUser,textPass,textNameSv,textIdSv,textUserSv,textPassSv;
+	public JFrame j,k,l,z,x;
 	public JLabel lblNewLabel_1;
 	public String idclass,tenGv, idGv;
 	public List<Sv> listSv = new ArrayList<Sv>();
@@ -815,37 +816,40 @@ public class ViewAdmin extends JFrame {
 		lblNewLabel_2.setBounds(550, 30, 59, 28);
 		pView.add(lblNewLabel_2);
 
-		MyButton btnNewButton_1_1 = new MyButton("Thêm học sinh");
-		btnNewButton_1_1.setRadius(10);
-		btnNewButton_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1.setColorOver(new Color(86, 98, 120));
-		btnNewButton_1_1.setColorClick(new Color(45, 51, 63));
-		btnNewButton_1_1.setColor(new Color(45, 51, 63));
-		btnNewButton_1_1.setBorderColor(Color.white);
-		btnNewButton_1_1.setBackground(new Color(45, 51, 63));
-		btnNewButton_1_1.setBounds(10, 600, 110, 30);
+		buttonAddSvInStudent = new MyButton("Thêm học sinh");
+		buttonAddSvInStudent.setRadius(10);
+		buttonAddSvInStudent.setForeground(Color.WHITE);
+		buttonAddSvInStudent.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonAddSvInStudent.setColorOver(new Color(86, 98, 120));
+		buttonAddSvInStudent.setColorClick(new Color(45, 51, 63));
+		buttonAddSvInStudent.setColor(new Color(45, 51, 63));
+		buttonAddSvInStudent.setBorderColor(Color.white);
+		buttonAddSvInStudent.setBackground(new Color(45, 51, 63));
+		buttonAddSvInStudent.setBounds(10, 600, 110, 30);
 
-		pView.add(btnNewButton_1_1);
+		pView.add(buttonAddSvInStudent);
+		buttonAddSvInStudent.addActionListener(actionAdmin);
 
-		MyButton btnNewButton_1_1_1 = new MyButton("Xóa học sinh");
-		btnNewButton_1_1_1.setRadius(10);
-		btnNewButton_1_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_1.setColorOver(new Color(86, 98, 120));
-		btnNewButton_1_1_1.setColorClick(new Color(45, 51, 63));
-		btnNewButton_1_1_1.setColor(new Color(45, 51, 63));
-		btnNewButton_1_1_1.setBorderColor(Color.white);
-		btnNewButton_1_1_1.setBackground(new Color(45, 51, 63));
-		btnNewButton_1_1_1.setBounds(130, 600, 110, 30);
-		pView.add(btnNewButton_1_1_1);
+		buttonDeleteSvInStudent = new MyButton("Xóa học sinh");
+		buttonDeleteSvInStudent.setRadius(10);
+		buttonDeleteSvInStudent.setForeground(Color.WHITE);
+		buttonDeleteSvInStudent.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonDeleteSvInStudent.setColorOver(new Color(86, 98, 120));
+		buttonDeleteSvInStudent.setColorClick(new Color(45, 51, 63));
+		buttonDeleteSvInStudent.setColor(new Color(45, 51, 63));
+		buttonDeleteSvInStudent.setBorderColor(Color.white);
+		buttonDeleteSvInStudent.setBackground(new Color(45, 51, 63));
+		buttonDeleteSvInStudent.setBounds(130, 600, 110, 30);
+		pView.add(buttonDeleteSvInStudent);
+		
+		buttonDeleteSvInStudent.addActionListener(actionAdmin);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 89, 695, 500);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
 
-		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "  Tên học sinh", "  Lớp", "  Tên" });
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "  Tên học sinh", "  Lớp", "  Tên", "  Mã học sinh" });
 		table = new MyTable();
 		table.setModel(model);
 		table.setRowHeight(30);
@@ -878,6 +882,12 @@ public class ViewAdmin extends JFrame {
 		column.setMaxWidth(0);
 		column.setWidth(0);
 		column.setPreferredWidth(0);
+		
+		TableColumn column1 = columnModel.getColumn(3);
+		column1.setMinWidth(0);
+		column1.setMaxWidth(0);
+		column1.setWidth(0);
+		column1.setPreferredWidth(0);
 		
 		table.setDefaultEditor(Object.class, null);
 		SortTable("  Tên");
@@ -943,6 +953,72 @@ public class ViewAdmin extends JFrame {
 		
 		l.setVisible(true);
 	}
+	public void ViewAddSv() {
+		x = new JFrame();
+		x.setBounds(100, 100, 407, 391);
+		x.setLocationRelativeTo(null);
+		contentPane5 = new JPanel();
+		contentPane5.setBackground(new Color(255, 255, 255));
+		contentPane5.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		x.setContentPane(contentPane5);
+		contentPane5.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Mã học sinh :");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(45, 90, 95, 41);
+		contentPane5.add(lblNewLabel);
+		
+		JLabel lblTnTiKhon = new JLabel("Tên tài khoản :");
+		lblTnTiKhon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTnTiKhon.setBounds(45, 140, 95, 41);
+		contentPane5.add(lblTnTiKhon);
+		
+		JLabel lblMtKhu = new JLabel("Mật khẩu :");
+		lblMtKhu.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMtKhu.setBounds(45, 190, 95, 41);
+		contentPane5.add(lblMtKhu);
+		
+		JLabel lblNewLabel_1 = new JLabel("Tên học sinh :");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(45, 40, 95, 41);
+		contentPane5.add(lblNewLabel_1);
+		
+		textNameSv = new JTextField();
+		textNameSv.setBounds(168, 52, 86, 20);
+		contentPane5.add(textNameSv);
+		textNameSv.setColumns(10);
+		
+		textIdSv = new JTextField();
+		textIdSv.setBounds(168, 102, 86, 20);
+		contentPane5.add(textIdSv);
+		textIdSv.setColumns(10);
+		
+		textUserSv = new JTextField();
+		textUserSv.setBounds(168, 152, 86, 20);
+		contentPane5.add(textUserSv);
+		textUserSv.setColumns(10);
+		
+		textPassSv = new JTextField();
+		textPassSv.setBounds(168, 202, 86, 20);
+		contentPane5.add(textPassSv);
+		textPassSv.setColumns(10);
+		
+		buttonOkAddSv = new MyButton("OK");
+		buttonOkAddSv.setBounds(132, 267, 89, 23);
+		contentPane5.add(buttonOkAddSv);
+		buttonOkAddSv.addActionListener(actionAdmin);
+		
+		comboBoxLOP = new JComboBox<String>();
+		for (Class c : listClass) {
+			comboBoxLOP.addItem(c.getTenlop());
+		}
+		comboBoxLOP.setBackground(new Color(255, 255, 255));
+		comboBoxLOP.setBounds(293, 51, 65, 22);
+		contentPane5.add(comboBoxLOP);
+		
+		x.setVisible(true);
+	}
 	
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -950,9 +1026,10 @@ public class ViewAdmin extends JFrame {
 	public DefaultTableModel getModelClasses(JTable table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (Class c : listClass) {
-			
-			Object[] row = { c.getTenlop(),(c.getSvs() == null) ? "0" : String.valueOf(c.getSvs().size()) , c.getIdclass() };
-			model.addRow(row);
+			if(!c.getIdclass().equals("00")) {
+				Object[] row = { c.getTenlop(),(c.getSvs() == null) ? "0" : String.valueOf(c.getSvs().size()) , c.getIdclass() };
+				model.addRow(row);
+			}
 		}
 		return model;
 	}
@@ -995,15 +1072,20 @@ public class ViewAdmin extends JFrame {
 			int lastIndex = s.getTen().lastIndexOf(" ");
 			String lastName = s.getTen().substring(lastIndex + 1);
 			if(s.getIdclass() != null) {
-			Object[] row = { s.getTen(), s.getIdclass().getTenlop() ,lastName};
+			Object[] row = { s.getTen(), s.getIdclass().getTenlop() ,lastName,s.getIdSv()};
 			model.addRow(row);
 			}else {
-				Object[] row = { s.getTen(), "Chưa có lớp", lastName };
+				Object[] row = { s.getTen(), "Chưa có lớp", lastName, s.getIdSv() };
 				model.addRow(row);
 			}
 			
 		}
 		return model;
+	}
+	public void updateTableStudent() {
+		DefaultTableModel model =(DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		table.setModel(getModelStudent(table));
 	}
 	
 	public DefaultTableModel getModelStudentNoClass(JTable table) {
@@ -1243,7 +1325,6 @@ public class ViewAdmin extends JFrame {
 		}else if(i == -2) {
 			JOptionPane.showMessageDialog(null, "Tên đăng nhập đã tồn tại", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		}
-
 	}
 	public void AddClassIntoGv(List<String> idClasses) {
 		Gv g = getGvbyName(tenGv);
@@ -1270,5 +1351,48 @@ public class ViewAdmin extends JFrame {
 			}
 		}
 		g.setGiangDay(GD);
+	}
+	public void deleteSvInStudent(List<String> idSvs) {
+		for (String idsv : idSvs) {
+			System.out.println(idsv);
+			Sv s = getSvById(idsv);
+			Sv_dao.Instance().deletebyid(s);
+			listSv.remove(s);
+		}
+	}
+	public void AddSv(String name, String id, String user, String pass, String tenlop) {
+		int i = 1;
+		for (Sv sv : listSv) {
+			if(sv.getId().equals(id)) {
+				i = -1;
+				break;
+			}else if(sv.getUsername() != null) {
+				if(sv.getUsername().equals(user)) {
+					i = -2;
+					break;
+				}
+			}
+		}
+		if(i == 1) {
+			Class c = new Class("00","Chưa có lớp",new truonghoc("01"));
+			for (Class class1 : listClass) {
+				if(class1.getTenlop().equals(tenlop)) {
+					c = class1;
+				}
+			}
+			Sv s = new Sv(id,name,c);
+			s.setMaquyen(2);
+			s.setId(id);
+			s.setUsername(user);
+			listSv.add(s);
+			updateTableStudent();
+			x.setVisible(false);
+			Sv_dao.Instance().insert(s);
+			JOptionPane.showMessageDialog(null, "Tạo giáo viên thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+		}else if(i == -1) {
+			JOptionPane.showMessageDialog(null, "Mã giáo viên đã tồn tại", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+		}else if(i == -2) {
+			JOptionPane.showMessageDialog(null, "Tên đăng nhập đã tồn tại", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 }

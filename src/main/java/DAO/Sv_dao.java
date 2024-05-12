@@ -392,6 +392,11 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		{
 			Session session = sessionFactory.openSession();
 			Transaction tr = session.beginTransaction();
+			
+			if(t.getIdclass() == null) {
+				t.setIdclass(new Class("00","NULL",new truonghoc("01")));
+			}
+			
 			session.delete(t);
 			tr.commit();
 			session.close();
