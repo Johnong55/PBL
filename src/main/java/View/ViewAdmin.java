@@ -1164,6 +1164,7 @@ public class ViewAdmin extends JFrame {
 		List<Giangday> dslop = g.getDanhsachlop();
 		for (Giangday gd : dslop) {
 			Object[] row = {gd.getMalop().getTenlop(), g.getMaGv(),gd.getMalop().getIdclass() };
+			System.out.println(gd.getMalop().getTenlop());
 			model.addRow(row);
 		}
 		return model;
