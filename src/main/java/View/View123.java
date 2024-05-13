@@ -154,7 +154,7 @@ public class View123 extends JFrame {
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-test-20.png"))));
 		panel.add(btnNewButton3_1_1_1);
 		
-		MyButton btnNewButton3_1_1_2 = new MyButton("Câu hỏi");
+		MyButton btnNewButton3_1_1_2 = new MyButton("Kho câu hỏi");
 		btnNewButton3_1_1_2.setRadius(10);
 		btnNewButton3_1_1_2.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton3_1_1_2.setForeground(Color.WHITE);

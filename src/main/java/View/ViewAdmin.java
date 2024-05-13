@@ -185,7 +185,7 @@ public class ViewAdmin extends JFrame {
 		panel.add(buttonTest);
 		buttonTest.addActionListener(actionAdmin);
 		
-		buttonQuestion = new MyButton("Câu hỏi");
+		buttonQuestion = new MyButton("Kho câu hỏi");
 		buttonQuestion.setRadius(10);
 		buttonQuestion.setHorizontalAlignment(SwingConstants.LEFT);
 		buttonQuestion.setForeground(Color.WHITE);
