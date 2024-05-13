@@ -168,7 +168,6 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				a = con.prepareStatement(sql);
 				a.setString(1, t.getId());
 				ResultSet kq = a.executeQuery();
-				System.out.println(a);
 				while(kq.next())
 				{
 					String id = kq.getString("id");
@@ -271,7 +270,6 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					
 					Class u = new Class(id, name, new truonghoc(school));
 					result.add(u);
-					System.out.println(i);
 					i++;
 				}
 				con.close();

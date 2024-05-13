@@ -418,7 +418,6 @@ public class Sv_dao implements DAO_Interface<Sv> {
 
 				a = con.prepareStatement(sql);
 			a.setString(1,t.getIdclass());
-			System.out.println(a);
 				ResultSet kq = a.executeQuery();
 			
 				while(kq.next())

@@ -222,8 +222,37 @@ public class Controller_Admin implements Action {
 		} else {
 			JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
+		}else if(e.getSource() == viewadmin.buttonExam) {
+			// giao diện kì thi
+			this.viewadmin.ViewExam();
 		}
+		else if(e.getSource() == viewadmin.comboBoxExam) {
+			// sắp xếp trong giao diện kì thi
+			String selectedColumn = (String) viewadmin.comboBoxExam.getSelectedItem();
+			this.viewadmin.SortTable(selectedColumn);
+		}else if(e.getSource() == viewadmin.buttonDeleteExam) {
+			// xóa kì thi
+			if(viewadmin.table.getSelectedRowCount() == 1) {
+				
+				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?","Xác nhận", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE,null, new String[] {"Yes", "No"},"Yes");
 
+					if (option == JOptionPane.YES_OPTION) {
+
+						String idkithi =(String) viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 7);
+						viewadmin.deleteExam(idkithi);
+						viewadmin.updateTableExam(viewadmin.table);
+						JOptionPane.showMessageDialog(null, "Xóa thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+					}
+			}else {
+				JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		else if(e.getSource() == viewadmin.buttonTest) {
+			// giao diện bài làm
+		}else if(e.getSource() == viewadmin.buttonQuestion) {
+			// giao diện ngân hàng câu hỏi
+		}
 	}
 
 	@Override
