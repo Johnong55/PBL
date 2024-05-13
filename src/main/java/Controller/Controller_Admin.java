@@ -166,19 +166,24 @@ public class Controller_Admin implements Action {
 		}
 		else if(e.getSource() == viewadmin.buttonDeleteClassInGv) {	
 			// xóa lớp khỏi giáo viên
-			if(viewadmin.table.getSelectedRowCount() == 1) {			
+			if(viewadmin.table.getSelectedRowCount() > 0) {			
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
 					"Yes");
 			if (option == JOptionPane.YES_OPTION) {
-				String idclass = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 2).toString();
+				int[] indexRow = viewadmin.table.getSelectedRows();
+				List<String> idClasses = new ArrayList<String>();
+				for (int i : indexRow) {
+					idClasses.add(viewadmin.table.getValueAt(i, 2).toString());
+				}
+				
 				String idgv = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 1).toString();
-				viewadmin.DeleteClassIntoGv(idclass, idgv);
+				viewadmin.DeleteClassIntoGv(idClasses, idgv);
 				viewadmin.updateTabelClassOfGv(idgv);
 				JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 		}else if(e.getSource() == viewadmin.buttonAddSvInStudent) {

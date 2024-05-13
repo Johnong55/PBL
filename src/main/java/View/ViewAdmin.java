@@ -1371,14 +1371,16 @@ public class ViewAdmin extends JFrame {
 		}
 		g.setGiangDay(GD);
 	}
-	public void DeleteClassIntoGv(String idclass, String idgv) {
+	public void DeleteClassIntoGv(List<String> idClasses, String idgv) {
 		Gv g = getGvById(idgv);
 		List<Giangday> GD = g.getDanhsachlop();
-		for (Giangday gd : GD) {
-			if(gd.getMalop().getIdclass().equals(idclass)) {
-				GD.remove(gd);
-				Giangday_dao.Instance().deletebyid(gd);
-				break;
+		for (String idclass : idClasses) {
+			for (Giangday gd : GD) {
+				if(gd.getMalop().getIdclass().equals(idclass)) {
+					GD.remove(gd);
+					Giangday_dao.Instance().deletebyid(gd);
+					break;
+				}
 			}
 		}
 		g.setGiangDay(GD);
