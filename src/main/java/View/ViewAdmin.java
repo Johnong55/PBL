@@ -755,7 +755,7 @@ public class ViewAdmin extends JFrame {
 			}
 		});
 
-		table2.setModel(getModelClasses(table2));
+		table2.setModel(getModelClassesAdd(table2));
 		TableColumnModel columnModel = table2.getColumnModel();
 		TableColumn column = columnModel.getColumn(1);
 		column.setMinWidth(0);
@@ -1034,6 +1034,28 @@ public class ViewAdmin extends JFrame {
 		return model;
 	}
 	
+	public DefaultTableModel getModelClassesAdd(JTable table) {
+		Gv g = getGvbyName(tenGv);
+		List<Giangday> gd = g.getDanhsachlop();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		int i = 1;
+		for (Class c : listClass) {
+			for (Giangday giangday : gd) {
+				if(giangday.getMalop().getIdclass().equals(c.getIdclass())) {
+					i = -1;
+					break;
+				}
+			}
+			if(!c.getIdclass().equals("00") && i == 1) {
+				Object[] row = { c.getTenlop(),(c.getSvs() == null) ? "0" : String.valueOf(c.getSvs().size()) , c.getIdclass() };
+				model.addRow(row);
+			}else if(i == -1){
+				i = 1;
+			}
+		}
+		return model;
+	}
+	
 	public void updateTableClass() {
 		DefaultTableModel model =(DefaultTableModel) table.getModel();
 		model.setRowCount(0);
@@ -1260,21 +1282,26 @@ public class ViewAdmin extends JFrame {
 		JOptionPane.showMessageDialog(null, "Tạo lớp thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		Class_dao.Instance().insert(c);
 	}
-	public void deleteGv(String idgv) {
-		
-		Gv g = getGvById(idgv);
-		
+	public void deleteGv(List<String> idGvs) {
+		for (String idgv : idGvs) {
+			Gv g = getGvById(idgv);
+			SetupBeforeDelGv(g, idgv);
+			listgv.remove(g);
+			g.setGiangDay(null);
+			Gv_dao.Instance().deletebyid(g);
+		}
+	}
+	public void SetupBeforeDelGv(Gv g, String idgv) {
 		if(g.getDanhsachlop() != null) {
+			System.out.println("123");
 			for (Giangday gd : g.getDanhsachlop()) {
 				Giangday_dao.Instance().deletebyid(gd);
 			}
 		}
 		for (Cauhoi c : Cauhoi_Dao.Instance().selectall()) {
 			if(c.getNH()!= null) {
-				System.out.println("a");
 				if(c.getNH().getGiaovienquanli() !=null) {
 					if(c.getNH().getGiaovienquanli().getMaGv().equals(idgv)) {
-					System.out.println("aa");
 						Cauhoi_Dao.Instance().updateBeforeDeleteGv(idgv,c.getNH().getIdNganHang());
 					}
 				}
@@ -1298,9 +1325,8 @@ public class ViewAdmin extends JFrame {
 				NganhangDao.Instance().updateNGCHBeforeDeleteGv(idgv);
 			}
 		}
-		listgv.remove(g);
-		Gv_dao.Instance().deletebyid(g);
 	}
+	
 	public void AddGv(String name, String id, String user, String pass) {
 		int i = 1;
 		for (Gv gv : listgv) {

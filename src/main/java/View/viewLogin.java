@@ -10,6 +10,10 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import Controller.Controller_Login;
 import DAO.Account_dao;
 import DAO.Class_dao;
@@ -17,6 +21,7 @@ import DAO.Gv_dao;
 import DAO.Sv_dao;
 import model.Account;
 import model.Sv;
+import util.HibernateUtil;
 import model.Class;
 
 
@@ -67,6 +72,12 @@ public class viewLogin extends JFrame {
 	 */
 	public viewLogin() {
 		
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+
+		if (sessionFactory != null) {
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		listClass = Class_dao.Instance().selectall();

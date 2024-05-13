@@ -54,7 +54,8 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setTen(ten);
 					u.setTruong(tr.selectbyid(truong));
 					u.setDanhsachlop(selectclassbyid(u));
-					Account gv = 	Account_dao.Instance().selectbyid(u);
+					u.setGiangDay(Giangday_dao.Instance().selectGiangdayOfGv(id));
+					Account gv = Account_dao.Instance().selectbyid(u);
 
 					u.setLinkAnh(gv.getLinkAnh());
 					u.setPassword(gv.getPassword());

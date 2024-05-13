@@ -127,19 +127,24 @@ public class Controller_Admin implements Action {
 		
 		else if(e.getSource() == viewadmin.buttonDeleteGv) {
 			// xóa giáo viên
-			if(viewadmin.table.getSelectedRowCount() == 1) {
+			if(viewadmin.table.getSelectedRowCount() > 0) {
 			
 			int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
 					"Yes");
 			if (option == JOptionPane.YES_OPTION) {
-				String idgv = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 1).toString();
-				viewadmin.deleteGv(idgv);
+				int[] indexRow = viewadmin.table.getSelectedRows();
+				List<String> idGvs = new ArrayList<String>();
+				for (int i : indexRow) {
+					idGvs.add(viewadmin.table.getValueAt(i, 1).toString());
+				}
+				
+				viewadmin.deleteGv(idGvs);
 				viewadmin.updateTableTeacher();
 				JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}else if(e.getSource() == viewadmin.buttonAddClassInGv) {
 			// giao diện thêm lớp cho giáo viên

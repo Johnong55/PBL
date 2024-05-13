@@ -61,6 +61,39 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 		
 	}
 	
+	public List<Giangday> selectGiangdayOfGv(String idgv) {
+		List<Giangday> result =  new ArrayList<Giangday>();	
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Giangday where giaoviendunglop = ? ";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idgv);
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					int id = kq.getInt("id");
+					String gv = kq.getString("giaoviendunglop");
+					String lop= kq.getString("lop");
+					Gv  gv1 = new Gv();
+					gv1.setMaGv(gv);
+					Class cl = new Class();
+					cl.setIdclass(lop);
+					
+					Giangday u = new Giangday(id, gv1,cl );
+					result.add(u);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return result;
+		
+	}
+	
 
 	@Override
 	public Giangday selectbyid(Giangday t) {
