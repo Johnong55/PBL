@@ -10,7 +10,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JViewport;
+import javax.swing.ScrollPaneConstants;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -24,6 +27,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.MaskFormatter;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -32,6 +36,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -85,10 +90,10 @@ public class ViewTeacher extends JFrame {
 	public MyButton buttonClass, buttonHome, buttonProfile, buttonExam, buttonNew, buttonLogout, buttonCreateExam,
 			buttonChangePass, NewQuestion, NewExam, buttonAddExam, buttonDeleteExam, buttonChangeImage,
 			buttonTaoCauHoi, buttonLuuCauHoi, buttonExitAddQuestion, buttonHuyUpdateExam, buttonLuuExam,
-			buttonUpdateExam,buttonHuyCreateExam;
+			buttonUpdateExam,buttonHuyCreateExam,buttonQuestion,buttonDeleteQuestion,buttonAddQuestion;
 	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi, comboBoxMucDo, comboBoxTenLop,
-			comboBoxTenNGCH,comboBoxSortSVinClass;
+			comboBoxTenNGCH,comboBoxSortSVinClass,comboBoxNHCH;
 	public MyTable table;
 	public JLabel labelImage, labelIdKitThi;
 	public JTextField tenNGCH;
@@ -98,12 +103,18 @@ public class ViewTeacher extends JFrame {
 	public PlaceholderFormattedTextField dateField;
 	public PlaceholderFormattedTextField timeField;
 	public ButtonGroup onechoice;
+	public JScrollPane scrollPane = new JScrollPane();
 	public Gv g;
+	public List<Nganhangcauhoi> NHCHs = new ArrayList<Nganhangcauhoi>();
+	public Nganhangcauhoi NHCH = null;
+	public List<Giangday> dslop = new ArrayList<Giangday>();
 
 	Controller_Teacher actionTeacher = new Controller_Teacher(this);
 
 	public ViewTeacher(Gv gv) {
 		this.g = gv;
+		this.NHCHs = NganhangDao.Instance().selectbyidgv(g);
+		this.dslop = g.getDanhsachlop();
 		System.out.println(g);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
@@ -192,7 +203,7 @@ public class ViewTeacher extends JFrame {
 		buttonProfile.setForeground(new Color(255, 255, 255));
 		buttonProfile.setFont(new Font("Tahoma", Font.BOLD, 15));
 		buttonProfile.setHorizontalAlignment(SwingConstants.LEFT);
-		buttonProfile.setBounds(10, 234, 137, 37);
+		buttonProfile.setBounds(10, 282, 137, 37);
 		buttonProfile.setBackground(new Color(50, 185, 185));
 		buttonProfile.setColorClick(new Color(50, 185, 185));
 		buttonProfile.setColorOver(new Color(100, 241, 241));
@@ -202,21 +213,21 @@ public class ViewTeacher extends JFrame {
 				.createImage(getClass().getResource("/view/image/icons8-male-user-20.png"))));
 		buttonProfile.addActionListener(actionTeacher);
 		panel.add(buttonProfile);
-
-		buttonNew = new MyButton("Tạo mới");
-		buttonNew.setForeground(new Color(255, 255, 255));
-		buttonNew.setFont(new Font("Tahoma", Font.BOLD, 15));
-		buttonNew.setHorizontalAlignment(SwingConstants.LEFT);
-		buttonNew.setBounds(10, 282, 137, 37);
-		buttonNew.setBackground(new Color(50, 185, 185));
-		buttonNew.setColorClick(new Color(50, 185, 185));
-		buttonNew.setColorOver(new Color(100, 241, 241));
-		buttonNew.setRadius(10);
-		buttonNew.setBorderColor(new Color(50, 185, 185));
-		buttonNew.setIcon(new ImageIcon(
-				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-add-new-20.png"))));
-		buttonNew.addActionListener(actionTeacher);
-		panel.add(buttonNew);
+		
+		buttonQuestion = new MyButton("Kho câu hỏi");
+		buttonQuestion.setRadius(10);
+		buttonQuestion.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonQuestion.setForeground(Color.WHITE);
+		buttonQuestion.setFont(new Font("Tahoma", Font.BOLD, 15));
+		buttonQuestion.setColorOver(new Color(100, 241, 241));
+		buttonQuestion.setColorClick(new Color(50, 185, 185));
+		buttonQuestion.setBorderColor(new Color(50, 185, 185));
+		buttonQuestion.setBackground(new Color(50, 185, 185));
+		buttonQuestion.setBounds(10, 234, 137, 37);
+		buttonQuestion.setIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-question-20.png"))));
+		panel.add(buttonQuestion);
+		buttonQuestion.addActionListener(actionTeacher);
 
 		buttonLogout = new MyButton("Đăng xuất");
 		buttonLogout.setForeground(new Color(255, 255, 255));
@@ -810,50 +821,6 @@ public class ViewTeacher extends JFrame {
 
 	}
 
-	public void ViewCreateNew() {
-
-		pView.removeAll();
-		pView.repaint();
-		pView.revalidate();
-
-		JLabel lblNewLabel = new JLabel("TẠO MỚI");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		Dimension size = lblNewLabel.getPreferredSize();
-		lblNewLabel.setBounds(10, 10, (int) size.getWidth() + 1, (int) size.getHeight() + 1);
-
-		pView.add(lblNewLabel);
-
-		NewQuestion = new MyButton("Tạo câu hỏi");
-		NewQuestion.setForeground(new Color(255, 255, 255));
-		NewQuestion.setFont(new Font("Tahoma", Font.BOLD, 14));
-		NewQuestion.setBounds(150, 250, 160, 80);
-		NewQuestion.setBackground(new Color(50, 185, 185));
-		NewQuestion.setRadius(10);
-		NewQuestion.setColor(new Color(50, 185, 185));
-		NewQuestion.setBorderColor(Color.WHITE);
-		NewQuestion.setColorOver(new Color(100, 241, 241));
-		NewQuestion.setColorClick(new Color(50, 185, 185));
-
-		pView.add(NewQuestion);
-
-		NewQuestion.addActionListener(actionTeacher);
-
-		NewExam = new MyButton("Tạo kì thi");
-		NewExam.setRadius(10);
-		NewExam.setForeground(Color.WHITE);
-		NewExam.setFont(new Font("Tahoma", Font.BOLD, 14));
-		NewExam.setColorOver(new Color(100, 241, 241));
-		NewExam.setColorClick(new Color(50, 185, 185));
-		NewExam.setColor(new Color(50, 185, 185));
-		NewExam.setBorderColor(Color.WHITE);
-		NewExam.setBackground(new Color(50, 185, 185));
-		NewExam.setBounds(385, 250, 160, 80);
-
-		pView.add(NewExam);
-
-		NewExam.addActionListener(actionTeacher);
-	}
-
 	public void ViewCreateExam() {
 
 		pView.removeAll();
@@ -887,8 +854,15 @@ public class ViewTeacher extends JFrame {
 		comboBoxTenLop.setBackground(new Color(255, 255, 255));
 		comboBoxTenLop.setBounds(60, 30, 102, 22);
 		panel_3.add(comboBoxTenLop);
+		
+		int size = NHCHs.size();
+		String[] tenNHCH = new String[size];
 
-		comboBoxTenNGCH = new JComboBox<>(getTenMon());
+		for (int i = 0; i < size; i++) {
+		    tenNHCH[i] = NHCHs.get(i).getIdNganHang();
+		}
+
+		comboBoxTenNGCH = new JComboBox<>(tenNHCH);
 		comboBoxTenNGCH.setBackground(new Color(255, 255, 255));
 		comboBoxTenNGCH.setBounds(480, 30, 102, 22);
 		panel_3.add(comboBoxTenNGCH);
@@ -1095,9 +1069,16 @@ public class ViewTeacher extends JFrame {
 		comboBoxTenLop.setBackground(new Color(255, 255, 255));
 		comboBoxTenLop.setBounds(60, 30, 102, 22);
 		panel_3.add(comboBoxTenLop);
+		
+		int size = NHCHs.size();
+		String[] tenNHCH = new String[size];
 
-		comboBoxTenNGCH = new JComboBox<>(getTenMon());
-		comboBoxTenNGCH.setSelectedIndex(getIndexofArray(getTenMon(), kt.getNganhangcauhoi().getIdNganHang()));
+		for (int i = 0; i < size; i++) {
+		    tenNHCH[i] = NHCHs.get(i).getIdNganHang();
+		}
+
+		comboBoxTenNGCH = new JComboBox<>(tenNHCH);
+		comboBoxTenNGCH.setSelectedIndex(getIndexofArray(tenNHCH, kt.getNganhangcauhoi().getIdNganHang()));
 		comboBoxTenNGCH.setBackground(new Color(255, 255, 255));
 		comboBoxTenNGCH.setBounds(480, 30, 102, 22);
 		panel_3.add(comboBoxTenNGCH);
@@ -1309,10 +1290,14 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1_1.setBounds(390, 30, 60, 18);
 		panel_1.add(lblNewLabel_1_1_1);
+		
+		int size = NHCHs.size();
+		String[] tenNHCH = new String[size];
 
-		String[] listNganHang = Arrays.copyOf(getTenMon(), getTenMon().length + 1);
-		listNganHang[listNganHang.length - 1] = "Thêm";
-		comboBoxNganHangCauHoi = new JComboBox<>(listNganHang);
+		for (int i = 0; i < size; i++) {
+		    tenNHCH[i] = NHCHs.get(i).getIdNganHang();
+		}
+		comboBoxNganHangCauHoi = new JComboBox<>(tenNHCH);
 		comboBoxNganHangCauHoi.setBackground(new Color(255, 255, 255));
 		comboBoxNganHangCauHoi.setBounds(180, 30, 102, 22);
 		panel_1.add(comboBoxNganHangCauHoi);
@@ -1486,13 +1471,216 @@ public class ViewTeacher extends JFrame {
 
 		j.setVisible(true);
 	}
+	
+	public void ViewQuestions() {
+		
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+		
+		JLabel lblNewLabel = new JLabel("KHO CÂU HỎI");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel.setBounds(10, 10, 300, 20);
+		
+		int size = NHCHs.size();
+		String[] tenNHCH = new String[size];
+
+		for (int i = 0; i < size; i++) {
+		    tenNHCH[i] = NHCHs.get(i).getIdNganHang();
+		}
+		
+		String[] listNganHang = Arrays.copyOf(tenNHCH, tenNHCH.length + 1);
+		listNganHang[listNganHang.length - 1] = "Thêm";
+		
+		comboBoxNHCH = new JComboBox<>(listNganHang);
+		comboBoxNHCH.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxNHCH);
+		comboBoxNHCH.addActionListener(actionTeacher);
+
+
+		JLabel lblNewLabel_2 = new JLabel("Ngân hàng câu hỏi :");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(478, 30, 131, 28);
+		pView.add(lblNewLabel_2);
+		
+		this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
+		
+		DrawQuestion(30);  // chua co so lieu
+		
+		buttonAddQuestion = new MyButton("Thêm câu hỏi");
+		buttonAddQuestion.setRadius(10);
+		buttonAddQuestion.setForeground(Color.WHITE);
+		buttonAddQuestion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonAddQuestion.setColorOver(new Color(100, 241, 241));
+		buttonAddQuestion.setColorClick(new Color(50, 185, 185));
+		buttonAddQuestion.setColor(new Color(50, 185, 185));
+		buttonAddQuestion.setBorderColor(Color.WHITE);
+		buttonAddQuestion.setBackground(new Color(50, 185, 185));
+		buttonAddQuestion.setBounds(10, 600, 110, 30);
+
+		pView.add(buttonAddQuestion);
+		buttonAddQuestion.addActionListener(actionTeacher);
+
+		buttonDeleteQuestion = new MyButton("Xóa câu hỏi");
+		buttonDeleteQuestion.setRadius(10);
+		buttonDeleteQuestion.setForeground(Color.WHITE);
+		buttonDeleteQuestion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonDeleteQuestion.setColorOver(new Color(100, 241, 241));
+		buttonDeleteQuestion.setColorClick(new Color(50, 185, 185));
+		buttonDeleteQuestion.setColor(new Color(50, 185, 185));
+		buttonDeleteQuestion.setBorderColor(Color.WHITE);
+		buttonDeleteQuestion.setBackground(new Color(50, 185, 185));
+		buttonDeleteQuestion.setBounds(130, 600, 110, 30);
+
+		pView.add(buttonDeleteQuestion);
+		buttonDeleteQuestion.addActionListener(actionTeacher);
+	}
 
 	//////////////////////////////////////////////////////////////
+	
+	public Nganhangcauhoi getNHCHByName(String name) {
+		for (Nganhangcauhoi nganhangcauhoi : NHCHs) {
+			if(nganhangcauhoi.getIdNganHang().equals(name)) {
+				return nganhangcauhoi;
+			}
+		}
+		return null;
+	}
+	
+	public void DrawQuestion(int sl) {
+		
+        JViewport viewport = scrollPane.getViewport();
+        viewport.removeAll();
+		scrollPane.repaint();
+		scrollPane.revalidate();
+		
+		if(sl == 0) {
+			JLabel l = new JLabel("CHƯA CÓ CÂU HỎI");
+			l.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			l.setHorizontalAlignment(SwingConstants.CENTER);
+			l.setBounds(250, 200, 208, 52);
+			pView.add(l);
+		}else {
+			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollPane.getViewport().setBackground(Color.WHITE);
+			scrollPane.setBounds(10, 89, 695, 500);
+			scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
+			pView.add(scrollPane);
+			
+			JPanel panel_1 = new JPanel();
+			scrollPane.setViewportView(panel_1);
+			panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+			
+			for (int i = 0; i < sl; i++) {
+			    JPanel questionPanel = createQuestionPanel(i);
+			    panel_1.add(questionPanel);
+			}
+		}
+	}
+	
+	private JPanel createQuestionPanel(int questionIndex) {
+	    JPanel questionPanel = new JPanel();
+	    questionPanel.setLayout(new GridLayout(0, 1, 10, 10));
+	    questionPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+	    JPanel questionLabelPanel = createQuestionLabelPanel(questionIndex);
+	    JPanel questionContentPanel = createQuestionContentPanel(questionIndex);
+	    JPanel answerPanel = createAnswerPanel(questionIndex);
+
+	    questionPanel.add(questionLabelPanel);
+	    questionPanel.add(questionContentPanel);
+	    questionPanel.add(answerPanel);
+
+	    return questionPanel;
+	}
+
+	private JPanel createQuestionLabelPanel(int questionIndex) {
+	    JPanel questionLabelPanel = new JPanel();
+	    questionLabelPanel.setLayout(new BorderLayout());
+
+	    JLabel questionLabel = new JLabel("Câu hỏi " + (questionIndex + 1));
+	    questionLabel.setFont(new Font("Arial", Font.BOLD, 14));
+	    questionLabelPanel.add(questionLabel, BorderLayout.CENTER);
+	    
+	    JLabel difficultyLabel = new JLabel("Mức độ : " + NHCH.getListcauhoi().get(questionIndex).getMucdo());
+	    difficultyLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+	    questionLabelPanel.add(difficultyLabel, BorderLayout.EAST);
+
+	    return questionLabelPanel;
+	}
+
+	private JPanel createQuestionContentPanel(int questionIndex) {
+	    JPanel questionContentPanel = new JPanel();
+	    questionContentPanel.setLayout(new BorderLayout());
+
+	    JTextArea questionTextArea = new JTextArea();
+	    questionTextArea.setText(NHCH.getListcauhoi().get(questionIndex).getNoidung());
+	    questionTextArea.setLineWrap(true);
+	    questionTextArea.setWrapStyleWord(true);
+	    questionTextArea.setEditable(false);
+
+	    questionContentPanel.add(new JScrollPane(questionTextArea), BorderLayout.CENTER);
+
+	    return questionContentPanel;
+	}
+
+	private JPanel createAnswerPanel(int questionIndex) {
+	    JPanel answerPanel = new JPanel();
+	    answerPanel.setLayout(new GridLayout(4, 1, 5, 5));
+
+	    for (int i = 0; i < 4; i++) {
+	        JPanel answerItemPanel = createAnswerItemPanel(questionIndex, i);
+	        answerPanel.add(answerItemPanel);
+	    }
+
+	    return answerPanel;
+	}
+
+	private JPanel createAnswerItemPanel(int questionIndex, int answerIndex) {
+	    JPanel answerItemPanel = new JPanel();
+	    answerItemPanel.setLayout(new BorderLayout());
+
+	    JLabel answerLabel = new JLabel("Đáp án " + (char)(65 + answerIndex) + ": ");
+	    answerLabel.setFont(new Font("Arial", Font.BOLD, 13));
+
+	    JTextArea answerTextArea = new JTextArea();
+	    String dapan = NHCH.getListcauhoi().get(questionIndex).getDapan();
+	    if(answerIndex == 0) {
+	    	String dapanA = NHCH.getListcauhoi().get(questionIndex).getDapAnA();
+	    	if(dapanA.equals(dapan)) {
+	    		answerTextArea.setForeground(Color.red);
+	    	}
+		    answerTextArea.setText(dapanA);
+	    }else if(answerIndex == 1) {
+	    	String dapanB = NHCH.getListcauhoi().get(questionIndex).getDapAnB();
+	    	if(dapanB.equals(dapan)) {
+	    		answerTextArea.setForeground(Color.red);
+	    	}
+		    answerTextArea.setText(dapanB);	    
+		}else if(answerIndex == 2) {
+	    	String dapanC = NHCH.getListcauhoi().get(questionIndex).getDapAnC();
+	    	if(dapanC.equals(dapan)) {
+	    		answerTextArea.setForeground(Color.red);
+	    	}
+		    answerTextArea.setText(dapanC);	
+	    }else if(answerIndex == 3) {
+	    	String dapanD = NHCH.getListcauhoi().get(questionIndex).getDapAnD();
+	    	if(dapanD.equals(dapan)) {
+	    		answerTextArea.setForeground(Color.red);
+	    	}
+		    answerTextArea.setText(dapanD);	
+	    }
+	    answerTextArea.setLineWrap(true);
+	    answerTextArea.setWrapStyleWord(true);
+	    answerTextArea.setEditable(false);
+
+	    answerItemPanel.add(answerLabel, BorderLayout.WEST);
+	    answerItemPanel.add(new JScrollPane(answerTextArea), BorderLayout.CENTER);
+
+	    return answerItemPanel;
+	}
 
 	public DefaultTableModel getModelClasses(Gv g) {
-		List<Giangday> dslop = g.getDanhsachlop();
-		System.out.println(dslop);
-
 		JTable t = new JTable();
 
 		t.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"  Tên lớp", "  Số học sinh" }));
@@ -1569,20 +1757,8 @@ public class ViewTeacher extends JFrame {
 		return tenlop;
 	}
 
-	public String[] getTenMon() {
-		int i = 0;
-		List<Nganhangcauhoi> NganHangCauHoi = NganhangDao.Instance().selectall();
-		String[] nganhang = new String[NganHangCauHoi.size()];
-		for (Nganhangcauhoi ng : NganHangCauHoi) {
-			nganhang[i] = ng.getIdNganHang();
-			i++;
-		}
-		return nganhang;
-	}
-
 	public Nganhangcauhoi getNganhangcauhoibyName(String name) {
-		List<Nganhangcauhoi> NganHangCauHoi = NganhangDao.Instance().selectall();
-		for (Nganhangcauhoi nganhangcauhoi2 : NganHangCauHoi) {
+		for (Nganhangcauhoi nganhangcauhoi2 : NHCHs) {
 			if (name.equalsIgnoreCase(nganhangcauhoi2.getIdNganHang())) {
 				return nganhangcauhoi2;
 			}
@@ -1730,18 +1906,35 @@ public class ViewTeacher extends JFrame {
 		DapAnC.setText("");
 		DapAnD.setText("");
 		onechoice.clearSelection();
-
+		
+		List<Cauhoi> cauhois = getNganhangcauhoibyName(tenMon).getListcauhoi();
+		cauhois.add(c);
+		
+		for (Nganhangcauhoi nganhangcauhoi : NHCHs) {
+			if(nganhangcauhoi.getIdNganHang().equals(tenMon)) {
+				nganhangcauhoi.setListcauhoi(cauhois);
+				break;
+			}
+		}
 		Cauhoi_Dao.Instance().insert(c);
 	}
 
 	public void updateComboBoxNganHangCauHoi() {
-		String[] listNganHang = Arrays.copyOf(getTenMon(), getTenMon().length + 1);
+		int size = NHCHs.size();
+		String[] tenNHCH = new String[size];
+
+		for (int i = 0; i < size; i++) {
+		    tenNHCH[i] = NHCHs.get(i).getIdNganHang();
+		}
+		
+		String[] listNganHang = Arrays.copyOf(tenNHCH, tenNHCH.length + 1);
 		listNganHang[listNganHang.length - 1] = "Thêm";
-		this.comboBoxNganHangCauHoi.setModel(new DefaultComboBoxModel<String>(listNganHang));
+		this.comboBoxNHCH.setModel(new DefaultComboBoxModel<String>(listNganHang));
 	}
 
 	public void insertNganHangCauHoi(String idNganHang, int soluong) {
 		Nganhangcauhoi c = new Nganhangcauhoi(idNganHang, soluong, g);
+		NHCHs.add(c);
 		NganhangDao.Instance().insert(c);
 	}
 

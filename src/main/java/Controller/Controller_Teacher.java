@@ -48,31 +48,19 @@ public class Controller_Teacher implements Action {
 			// giao diện cá nhân
 			this.viewteacher.ViewProfile();
 		}
-		else if(e.getSource() == viewteacher.buttonNew) {
-			// giao diện tạo mới
-			this.viewteacher.ViewCreateNew();
-		}
 		else if(e.getSource() == viewteacher.buttonLogout) {
 			// đăng suất
 			this.viewteacher.setVisible(false);
 			viewLogin v = new viewLogin();
 			v.setVisible(true);
 		}
-		else if(e.getSource() == viewteacher.buttonCreateExam) {
-			// giao diện chọn tạo câu hỏi hay tạo kì thi
-			this.viewteacher.ViewCreateExam();
-		}
 		else if(e.getSource() == viewteacher.buttonChangePass) {
 			// giao diện thay đổi mật khẩu
 			ViewChangePassword v = new ViewChangePassword(viewteacher.g);
 		}
-		else if(e.getSource() == viewteacher.NewQuestion) {
+		else if(e.getSource() == viewteacher.buttonTaoCauHoi) {
 			// giao diện tạo câu hỏi
 			this.viewteacher.ViewCreateQuestion();
-		}
-		else if(e.getSource() == viewteacher.NewExam) {
-			// giao diện tạo kì thi
-			this.viewteacher.ViewCreateExam();
 		}
 		else if(e.getSource() == viewteacher.comboBoxSortClass) {
 			// sắp xếp trong giao diện lớp
@@ -84,15 +72,8 @@ public class Controller_Teacher implements Action {
 			String selectedColumn = (String) viewteacher.comboBoxExam.getSelectedItem();
 			this.viewteacher.SortTable(selectedColumn);
 		}
-		else if(e.getSource() == viewteacher.comboBoxNganHangCauHoi) {
-			// giao diện thêm ngân hàng câu hỏi trong tạo câu hỏi
-			String check = viewteacher.comboBoxNganHangCauHoi.getSelectedItem().toString();
-			if(check.equals("Thêm")) {
-				this.viewteacher.ViewAddNganHangCauHoi();
-			}
-		}
 		else if(e.getSource() == viewteacher.buttonOK) {
-			// thêm ngân hàng câu hỏi trong giao diện tạo câu hỏi
+			// thêm ngân hàng câu hỏi
 			this.viewteacher.insertNganHangCauHoi(viewteacher.tenNGCH.getText(), 0);
 			this.viewteacher.updateComboBoxNganHangCauHoi();
 			this.viewteacher.j.setVisible(false);
@@ -127,7 +108,7 @@ public class Controller_Teacher implements Action {
 			// đổi ava
 			viewteacher.saveAnh();
 		}
-		else if(e.getSource() == viewteacher.buttonTaoCauHoi) {
+		else if(e.getSource() == viewteacher.buttonAddQuestion) {
 			// giao diện tạo câu hỏi
 			this.viewteacher.ViewCreateQuestion();
 		}
@@ -138,7 +119,7 @@ public class Controller_Teacher implements Action {
 		}
 		else if(e.getSource() == viewteacher.buttonExitAddQuestion) {
 			// hủy lưu câu hỏi
-			this.viewteacher.ViewCreateNew();
+			this.viewteacher.ViewQuestions();
 		}
 		else if(e.getSource() == viewteacher.buttonHuyUpdateExam) {
 			// hủy cập nhật kì thi
@@ -159,8 +140,23 @@ public class Controller_Teacher implements Action {
 			                                                                         //// sort sv in class (đợi bài làm)
 		}
 		else if(e.getSource() == viewteacher.buttonHuyCreateExam) {
-			// giao diện tạo câu hỏi
-			this.viewteacher.ViewCreateNew();
+			// bấm hủy tạo kì thi
+			this.viewteacher.ViewExam();
+		}
+		else if(e.getSource() == viewteacher.buttonQuestion) {
+			// giao diện kho câu hỏi
+			this.viewteacher.ViewQuestions();
+		}
+		else if(e.getSource() == viewteacher.comboBoxNHCH) {
+			// giao diện thêm ngân hàng câu hỏi trong tạo câu hỏi
+			String check = viewteacher.comboBoxNHCH.getSelectedItem().toString();
+			if(check.equals("Thêm")) {
+				this.viewteacher.ViewAddNganHangCauHoi();
+			}else {
+				String idNHCH = (String) viewteacher.comboBoxNHCH.getSelectedItem();
+				this.viewteacher.NHCH = viewteacher.getNHCHByName(idNHCH);
+		//		viewadmin.DrawQuestion(viewadmin.NHCH.getSoluong());
+			}
 		}
 	}
 	
