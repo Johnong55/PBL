@@ -43,8 +43,10 @@ public class NganhangDao implements DAO_Interface<Nganhangcauhoi> {
 				{
 					String id = kq.getString("idNganHang");
 					int sl = kq.getInt("soluong");
-					Gv gv = new Gv(); gv.setMaGv(kq.getString("giaovienquanli")); 
+					Gv gv = new Gv(); 
+					gv.setMaGv(kq.getString("giaovienquanli")); 
 					Nganhangcauhoi u = new Nganhangcauhoi(id,sl,gv);
+					u.setListcauhoi(Cauhoi_Dao.Instance().selectallbyNHCH(id));
 					result.add(u);
 				}
 				con.close();

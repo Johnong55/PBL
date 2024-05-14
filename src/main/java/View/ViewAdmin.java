@@ -1,10 +1,12 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -16,6 +18,7 @@ import java.util.UUID;
 
 import javax.persistence.Convert;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,7 +29,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JViewport;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -68,14 +74,17 @@ public class ViewAdmin extends JFrame {
 	buttonChonSvAddIntoClass,buttonAddGv,buttonDeleteGv,buttonOkAddGv,buttonDeleteClassInGv,buttonAddClassInGv,
 	buttonChonClassAddIntoGv,buttonDeleteSvInStudent,buttonAddSvInStudent,buttonOkAddSv,buttonAddExam,buttonDeleteExam,
 	buttonExam,buttonTest,buttonQuestion;
-	public JComboBox<String> comboBoxSortClass,comboBoxSortALLSV,comboBoxLOP,comboBoxExam;
+	public JComboBox<String> comboBoxSortClass,comboBoxSortALLSV,comboBoxLOP,comboBoxExam,comboBoxNHCH;
 	public JTextField textField,textNameGv,textIdGv,textUser,textPass,textNameSv,textIdSv,textUserSv,textPassSv;
+	public JScrollPane scrollPane = new JScrollPane();
 	public JFrame j,k,l,z,x;
 	public JLabel lblNewLabel_1;
 	public String idclass,tenGv, idGv;
 	public List<Sv> listSv = new ArrayList<Sv>();
 	public List<Class> listClass = new ArrayList<Class>();
 	public List<Gv> listgv = Gv_dao.Instance().selectall();
+	public List<Nganhangcauhoi> NHCHs = NganhangDao.Instance().selectall();
+	public Nganhangcauhoi NHCH = null;
 	/**
 	 * Launch the application.
 	 */
@@ -1153,17 +1162,79 @@ public class ViewAdmin extends JFrame {
 		columnresize.getColumn(2).setPreferredWidth(60);
 		columnresize.getColumn(5).setPreferredWidth(50);
 		columnresize.getColumn(6).setPreferredWidth(50);
+	}
+	
+	public void ViewQuestions() {
+		
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+		
+		int size = NHCHs.size();
+		String[] tenNHCH = new String[size];
 
-		/*
-		 * table.addMouseListener(new MouseAdapter() { public void
-		 * mouseClicked(MouseEvent e) { if (e.getClickCount() == 2) { int i =
-		 * table.getSelectedRow(); String IdKiThi = table.getValueAt(i, 7).toString();
-		 * ViewUpdateExam(getKithibyID(IdKiThi)); } } });
-		 */
+		for (int i = 0; i < size; i++) {
+		    tenNHCH[i] = NHCHs.get(i).getIdNganHang();
+		}
+		
+		comboBoxNHCH = new JComboBox<>(tenNHCH);
+		comboBoxNHCH.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxNHCH);
+		comboBoxNHCH.addActionListener(actionAdmin);
+
+
+		JLabel lblNewLabel_2 = new JLabel("Ngân hàng câu hỏi :");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(478, 30, 131, 28);
+		pView.add(lblNewLabel_2);
+		
+		this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
+		
+		DrawQuestion(20);
 	}
 	
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public Nganhangcauhoi getNHCHByName(String name) {
+		for (Nganhangcauhoi nganhangcauhoi : NHCHs) {
+			if(nganhangcauhoi.getIdNganHang().equals(name)) {
+				return nganhangcauhoi;
+			}
+		}
+		return null;
+	}
+	
+	public void DrawQuestion(int sl) {
+		
+        JViewport viewport = scrollPane.getViewport();
+        viewport.removeAll();
+		scrollPane.repaint();
+		scrollPane.revalidate();
+		
+		if(sl == 0) {
+			JLabel l = new JLabel("CHƯA CÓ CÂU HỎI");
+			l.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			l.setHorizontalAlignment(SwingConstants.CENTER);
+			l.setBounds(250, 200, 208, 52);
+			pView.add(l);
+		}else {
+			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollPane.getViewport().setBackground(Color.WHITE);
+			scrollPane.setBounds(10, 89, 695, 500);
+			scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
+			pView.add(scrollPane);
+			
+			JPanel panel_1 = new JPanel();
+			scrollPane.setViewportView(panel_1);
+			panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+			
+			for (int i = 0; i < sl; i++) {
+			    JPanel questionPanel = createQuestionPanel(i);
+			    panel_1.add(questionPanel);
+			}
+		}
+	}
 	
 	public DefaultTableModel getModelExam() {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -1589,4 +1660,107 @@ public class ViewAdmin extends JFrame {
 		model.setRowCount(0);
 		table.setModel(getModelExam());
 	}
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	private JPanel createQuestionPanel(int questionIndex) {
+	    JPanel questionPanel = new JPanel();
+	    questionPanel.setLayout(new GridLayout(0, 1, 10, 10));
+	    questionPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+	    JPanel questionLabelPanel = createQuestionLabelPanel(questionIndex);
+	    JPanel questionContentPanel = createQuestionContentPanel(questionIndex);
+	    JPanel answerPanel = createAnswerPanel(questionIndex);
+
+	    questionPanel.add(questionLabelPanel);
+	    questionPanel.add(questionContentPanel);
+	    questionPanel.add(answerPanel);
+
+	    return questionPanel;
+	}
+
+	private JPanel createQuestionLabelPanel(int questionIndex) {
+	    JPanel questionLabelPanel = new JPanel();
+	    questionLabelPanel.setLayout(new BorderLayout());
+
+	    JLabel questionLabel = new JLabel("Câu hỏi " + (questionIndex + 1));
+	    questionLabel.setFont(new Font("Arial", Font.BOLD, 14));
+	    questionLabelPanel.add(questionLabel, BorderLayout.CENTER);
+	    
+	    JLabel difficultyLabel = new JLabel("Mức độ : " + NHCH.getListcauhoi().get(questionIndex).getMucdo());
+	    difficultyLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+	    questionLabelPanel.add(difficultyLabel, BorderLayout.EAST);
+
+	    return questionLabelPanel;
+	}
+
+	private JPanel createQuestionContentPanel(int questionIndex) {
+	    JPanel questionContentPanel = new JPanel();
+	    questionContentPanel.setLayout(new BorderLayout());
+
+	    JTextArea questionTextArea = new JTextArea();
+	    questionTextArea.setText(NHCH.getListcauhoi().get(questionIndex).getNoidung());
+	    questionTextArea.setLineWrap(true);
+	    questionTextArea.setWrapStyleWord(true);
+	    questionTextArea.setEditable(false);
+
+	    questionContentPanel.add(new JScrollPane(questionTextArea), BorderLayout.CENTER);
+
+	    return questionContentPanel;
+	}
+
+	private JPanel createAnswerPanel(int questionIndex) {
+	    JPanel answerPanel = new JPanel();
+	    answerPanel.setLayout(new GridLayout(4, 1, 5, 5));
+
+	    for (int i = 0; i < 4; i++) {
+	        JPanel answerItemPanel = createAnswerItemPanel(questionIndex, i);
+	        answerPanel.add(answerItemPanel);
+	    }
+
+	    return answerPanel;
+	}
+
+	private JPanel createAnswerItemPanel(int questionIndex, int answerIndex) {
+	    JPanel answerItemPanel = new JPanel();
+	    answerItemPanel.setLayout(new BorderLayout());
+
+	    JLabel answerLabel = new JLabel("Đáp án " + (char)(65 + answerIndex) + ": ");
+	    answerLabel.setFont(new Font("Arial", Font.BOLD, 13));
+
+	    JTextArea answerTextArea = new JTextArea();
+	    String dapan = NHCH.getListcauhoi().get(questionIndex).getDapan();
+	    if(answerIndex == 0) {
+	    	String dapanA = NHCH.getListcauhoi().get(questionIndex).getDapAnA();
+	    	if(dapanA.equals(dapan)) {
+	    		answerTextArea.setForeground(Color.red);
+	    	}
+		    answerTextArea.setText(dapanA);
+	    }else if(answerIndex == 1) {
+	    	String dapanB = NHCH.getListcauhoi().get(questionIndex).getDapAnB();
+	    	if(dapanB.equals(dapan)) {
+	    		answerTextArea.setForeground(Color.red);
+	    	}
+		    answerTextArea.setText(dapanB);	    
+		}else if(answerIndex == 2) {
+	    	String dapanC = NHCH.getListcauhoi().get(questionIndex).getDapAnC();
+	    	if(dapanC.equals(dapan)) {
+	    		answerTextArea.setForeground(Color.red);
+	    	}
+		    answerTextArea.setText(dapanC);	
+	    }else if(answerIndex == 3) {
+	    	String dapanD = NHCH.getListcauhoi().get(questionIndex).getDapAnD();
+	    	if(dapanD.equals(dapan)) {
+	    		answerTextArea.setForeground(Color.red);
+	    	}
+		    answerTextArea.setText(dapanD);	
+	    }
+	    answerTextArea.setLineWrap(true);
+	    answerTextArea.setWrapStyleWord(true);
+	    answerTextArea.setEditable(false);
+
+	    answerItemPanel.add(answerLabel, BorderLayout.WEST);
+	    answerItemPanel.add(new JScrollPane(answerTextArea), BorderLayout.CENTER);
+
+	    return answerItemPanel;
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

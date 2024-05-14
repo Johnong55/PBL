@@ -1,12 +1,18 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,14 +21,21 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.BoxLayout;
 
 public class View123 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane,pView;
-	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -181,6 +194,113 @@ public class View123 extends JFrame {
 		
 				
         //////////////////////////////////////////////////
+		
+		JComboBox comboBoxExam = new JComboBox<>();
+		comboBoxExam.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxExam);
+
+
+		JLabel lblNewLabel_2 = new JLabel("Ngân hàng câu hỏi :");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(478, 30, 131, 28);
+		pView.add(lblNewLabel_2);
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBounds(10, 89, 695, 500);
+		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
+		pView.add(scrollPane);
+		
+		JPanel panel_1 = new JPanel();
+		scrollPane.setViewportView(panel_1);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+		
+		JLabel lblNewLabel_1 = new JLabel("CHƯA CÓ CÂU HỎI");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(111, 28, 208, 52);
+		pView.add(lblNewLabel_1);
+		
+		for (int i = 0; i < 10; i++) {
+		    JPanel questionPanel = createQuestionPanel(i);
+		    panel_1.add(questionPanel);
+		}
 
 	}
+	private JPanel createQuestionPanel(int questionIndex) {
+	    JPanel questionPanel = new JPanel();
+	    questionPanel.setLayout(new GridLayout(0, 1, 10, 10));
+	    questionPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+	    JPanel questionLabelPanel = createQuestionLabelPanel(questionIndex);
+	    JPanel questionContentPanel = createQuestionContentPanel(questionIndex);
+	    JPanel answerPanel = createAnswerPanel(questionIndex);
+
+	    questionPanel.add(questionLabelPanel);
+	    questionPanel.add(questionContentPanel);
+	    questionPanel.add(answerPanel);
+
+	    return questionPanel;
+	}
+
+	private JPanel createQuestionLabelPanel(int questionIndex) {
+	    JPanel questionLabelPanel = new JPanel();
+	    questionLabelPanel.setLayout(new BorderLayout());
+
+	    JLabel questionLabel = new JLabel("Câu hỏi " + (questionIndex + 1));
+	    questionLabel.setFont(new Font("Arial", Font.BOLD, 14));
+	    questionLabelPanel.add(questionLabel, BorderLayout.CENTER);
+
+	    return questionLabelPanel;
+	}
+
+	private JPanel createQuestionContentPanel(int questionIndex) {
+	    JPanel questionContentPanel = new JPanel();
+	    questionContentPanel.setLayout(new BorderLayout());
+
+	    JTextArea questionTextArea = new JTextArea();
+	    questionTextArea.setText("Nội dung của câu hỏi số " + (questionIndex + 1));
+	    questionTextArea.setLineWrap(true);
+	    questionTextArea.setWrapStyleWord(true);
+	    questionTextArea.setEditable(false);
+
+	    questionContentPanel.add(new JScrollPane(questionTextArea), BorderLayout.CENTER);
+
+	    return questionContentPanel;
+	}
+
+	private JPanel createAnswerPanel(int questionIndex) {
+	    JPanel answerPanel = new JPanel();
+	    answerPanel.setLayout(new GridLayout(4, 1, 5, 5));
+
+	    for (int i = 0; i < 4; i++) {
+	        JPanel answerItemPanel = createAnswerItemPanel(questionIndex, i);
+	        answerPanel.add(answerItemPanel);
+	    }
+
+	    return answerPanel;
+	}
+
+	private JPanel createAnswerItemPanel(int questionIndex, int answerIndex) {
+	    JPanel answerItemPanel = new JPanel();
+	    answerItemPanel.setLayout(new BorderLayout());
+
+	    JLabel answerLabel = new JLabel("Đáp án " + (char)(65 + answerIndex) + ": ");
+	    answerLabel.setFont(new Font("Arial", Font.BOLD, 13));
+
+	    JTextArea answerTextArea = new JTextArea();
+	    answerTextArea.setText("Nội dung của đáp án " + (answerIndex + 1));
+	    answerTextArea.setLineWrap(true);
+	    answerTextArea.setWrapStyleWord(true);
+	    answerTextArea.setEditable(false);
+
+	    answerItemPanel.add(answerLabel, BorderLayout.WEST);
+	    answerItemPanel.add(new JScrollPane(answerTextArea), BorderLayout.CENTER);
+
+	    return answerItemPanel;
+	}
+
+
 }

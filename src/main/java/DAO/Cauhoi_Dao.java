@@ -63,6 +63,40 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 			}
 			return result;
 	}
+	
+	public List<Cauhoi> selectallbyNHCH(String idNHCH) {
+		List<Cauhoi> result =  new ArrayList<Cauhoi>();	
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from cauhoi where NganHang = ? ";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idNHCH);
+				ResultSet kq = a.executeQuery();
+				
+				while(kq.next())
+				{
+					String id  = kq.getString("id");
+					String	noidung  =  kq.getString("Noidung");
+					String dapAnA = kq.getString("dapAnA");
+					String dapAnB = kq.getString("dapAnB");
+					String dapAnC = kq.getString("dapAnC");
+					String dapAnD = kq.getString("dapAnD");
+					String dapAn = kq.getString("dapan");
+					int mucdo = kq.getInt("mucdo");
+					String Nganhang = kq.getString("NganHang");
+					Cauhoi u  = new Cauhoi(id, noidung, dapAnA, dapAnB, dapAnC, dapAnD, mucdo ,dapAn, NganhangDao.Instance().selectbyid(new Nganhangcauhoi(Nganhang,0, null)));					
+					result.add(u);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return result;
+	}
 
 	@Override
 	public Cauhoi selectbyid(Cauhoi t) {

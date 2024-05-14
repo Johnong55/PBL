@@ -252,6 +252,13 @@ public class Controller_Admin implements Action {
 			// giao diện bài làm
 		}else if(e.getSource() == viewadmin.buttonQuestion) {
 			// giao diện ngân hàng câu hỏi
+			this.viewadmin.ViewQuestions();
+		}else if(e.getSource() == viewadmin.comboBoxNHCH) {
+			// thay đổi ngân hàng câu hỏi
+			String idNHCH = (String) viewadmin.comboBoxNHCH.getSelectedItem();
+			this.viewadmin.NHCH = viewadmin.getNHCHByName(idNHCH);
+	//		viewadmin.DrawQuestion(viewadmin.NHCH.getSoluong());
+
 		}
 	}
 
