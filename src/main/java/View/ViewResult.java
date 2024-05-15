@@ -62,7 +62,7 @@ public class ViewResult extends JFrame {
 	 */
 	public ViewResult(Sv sv, KiThi onl, DeThi dt, List<Cauhoi> ls, String[] answer) {
 		this.v = sv;
-		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
+		this.ktOngoing = onl;
 		this.dethi = dt ; this.listCauhoi = ls ; this.checkAnswer = answer;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 150, 1000, 700);

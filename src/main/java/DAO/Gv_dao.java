@@ -123,7 +123,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				a = con.prepareStatement(sql);
 				a.setString(1, t.getId());
 				ResultSet kq = a.executeQuery();
-				System.out.println(a);
+				
 				while(kq.next())
 				{
 					String id = kq.getString("id");
@@ -199,7 +199,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				tr.commit();
 				session.close();
 			} catch (Exception e) {
-				System.out.println(e);
+				
 			}
 		
 			return true;
@@ -208,7 +208,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 	}
 	public List<Class> selectclassbyid(Gv gv)
 	{
-		System.out.println(gv.getId());
+	
 		List<Class> result =new ArrayList<Class>();
 		try {
 			Connection con  = JDBCUtil.getConnection();
@@ -230,7 +230,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					
 					Class u = new Class(id, name, new truonghoc(school));
 					result.add(u);
-					System.out.println(1);
+					
 				}
 				con.close();
 			} catch (SQLException e) {

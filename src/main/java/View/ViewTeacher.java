@@ -104,7 +104,7 @@ public class ViewTeacher extends JFrame {
 
 	public ViewTeacher(Gv gv) {
 		this.g = gv;
-		System.out.println(g);
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
 		ViewMenu();
@@ -770,8 +770,7 @@ public class ViewTeacher extends JFrame {
 		String q = g.getLinkAnh(); // /view/image/ava.jpg
 		labelImage.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(q))
 				.getScaledInstance(labelImage.getWidth(), labelImage.getHeight(), Image.SCALE_SMOOTH)));
-		System.out.println(q);
-
+	
 		pView.add(labelImage);
 
 		buttonChangePass = new MyButton("Thay đổi mật khẩu");
@@ -1215,7 +1214,7 @@ public class ViewTeacher extends JFrame {
 
 		dateField = new PlaceholderFormattedTextField(dateformatter);
 		dateField.setValue(kt.getDate());
-		System.out.println(kt.getDate());
+	
 		dateField.setHorizontalAlignment(SwingConstants.CENTER);
 		dateField.setColumns(10);
 		dateField.setBounds(120, 326, 100, 30);
@@ -1504,8 +1503,7 @@ public class ViewTeacher extends JFrame {
 
 	public DefaultTableModel getModelClasses(Gv g) {
 		List<Giangday> dslop = g.getDanhsachlop();
-		System.out.println(dslop);
-
+	
 		JTable t = new JTable();
 
 		t.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"  Tên lớp", "  Số học sinh" }));

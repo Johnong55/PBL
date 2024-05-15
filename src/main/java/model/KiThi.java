@@ -34,6 +34,8 @@ public class KiThi {
 	@JoinColumn(name = "nguoitao")
 	private Gv gv;
 	private int sl;
+	private String monhoc;
+	
 	@OneToMany(mappedBy = "kithi")
 	private List<DeThi> listdethi;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -69,6 +71,12 @@ public class KiThi {
 	}
 	public void setBailam(List<BaiLam> bailam) {
 		this.bailam = bailam;
+	}
+	public String getMonhoc() {
+		return monhoc;
+	}
+	public void setMonhoc(String monhoc) {
+		this.monhoc = monhoc;
 	}
 	/**
 	 * @param id

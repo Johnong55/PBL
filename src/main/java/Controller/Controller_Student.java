@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -24,21 +25,28 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import DAO.Account_dao;
 import DAO.BaiLam_dao;
+import DAO.CautraloiSinhvien_dao;
 import DAO.KiThi_dao;
 import DAO.Sv_dao;
 import View.ChangePassword;
 import View.GoingTest;
+import View.ViewResult;
 import View.ViewStudent;
 import View.viewLogin;
 import model.BaiLam;
+import model.Cauhoi;
+import model.Cautraloisinhvien;
+import model.Sv;
 
-public class Controller_Student implements ActionListener , MouseListener {
+public class Controller_Student implements ActionListener  , DocumentListener , MouseListener {
 	private ViewStudent s;
 
 	public Controller_Student(ViewStudent s) {
@@ -62,9 +70,10 @@ public class Controller_Student implements ActionListener , MouseListener {
 				String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				String ngay = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
-				s.model.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
+				s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
 						s.bailamsv.get(i).getKiThi().getThoigianlambai(), s.bailamsv.get(i).getSocaudung(),
-						s.bailamsv.get(i).getSocausai(), diem });
+						s.bailamsv.get(i).getSocausai(), diem ,s.bailamsv.get(i).getMaBailam()}
+				);
 			}
 
 	}
@@ -78,9 +87,9 @@ public class Controller_Student implements ActionListener , MouseListener {
 				String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				String ngay = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
-				s.model.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
+				s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
 						s.bailamsv.get(i).getKiThi().getThoigianlambai(), s.bailamsv.get(i).getSocaudung(),
-						s.bailamsv.get(i).getSocausai(), diem });
+						s.bailamsv.get(i).getSocausai(), diem ,s.bailamsv.get(i).getMaBailam()});
 			}
 
 	}
@@ -102,9 +111,9 @@ public class Controller_Student implements ActionListener , MouseListener {
 				String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				String ngay = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
-				s.model.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
+				s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
 						s.bailamsv.get(i).getKiThi().getThoigianlambai(), s.bailamsv.get(i).getSocaudung(),
-						s.bailamsv.get(i).getSocausai(), diem });
+						s.bailamsv.get(i).getSocausai(), diem ,s.bailamsv.get(i).getMaBailam()});
 			}
 
 	}
@@ -118,9 +127,9 @@ public class Controller_Student implements ActionListener , MouseListener {
 			String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			String ngay = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
-			s.model.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
+			s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
 					s.bailamsv.get(i).getKiThi().getThoigianlambai(), s.bailamsv.get(i).getSocaudung(),
-					s.bailamsv.get(i).getSocausai(), diem });
+					s.bailamsv.get(i).getSocausai(), diem ,s.bailamsv.get(i).getMaBailam()});
 		}
 
 	}
@@ -176,7 +185,7 @@ public class Controller_Student implements ActionListener , MouseListener {
 			s.view_home();
 
 		} else if (e.getSource() == s.btnTests) {
-			s.model.setRowCount(0);
+			s.modeltb.setRowCount(0);
 			setPanel_4();
 			hienthi();
 			s.view_test();
@@ -202,22 +211,16 @@ public class Controller_Student implements ActionListener , MouseListener {
 			}
 
 		} else if (e.getSource() == s.comboBox) {
-			s.model.setRowCount(0);
+			s.modeltb.setRowCount(0);
 			timkiem();
 
 		} else if (e.getSource() == s.btnChangePer) {
 
-			ChangePassword frame = new ChangePassword(s.v.getPassword());
+			ChangePassword frame = new ChangePassword(s.v);
 			frame.setVisible(true);
 			// Trong phần tạo form mới
 			frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-			
-			if(frame.isDisposed)
-			{
-				s.v.setPassword(frame.password);
-				Sv_dao.Instance().update(s.v);
-			}
-			
+		
 
 		} else if (e.getSource() == s.BtnChangeImagePer) {
 			JFileChooser saveFile = new JFileChooser();
@@ -248,12 +251,54 @@ public class Controller_Student implements ActionListener , MouseListener {
 	}
 
 	@Override
+	public void insertUpdate(DocumentEvent e) {
+		// TODO Auto-generated method stub
+		if(s.comboBox.getSelectedIndex() != 0)
+		{
+		s.modeltb.setRowCount(0);
+		timkiem();
+		}
+
+	}
+
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public String tendapAn(String q , Cauhoi c) {
+		String k = "0";
+		System.out.println(q + " --- " + c.getId());
+		if(c.getDapAnA().equals(q)) k = "A"; else if(c.getDapAnB().equals(q)) k = "B" ; else if(c.getDapAnC().equals(q)) k = "C"; else if(c.getDapAnD().equals(q)) k = "D";
+		return k;
+	}
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getClickCount() == 1) {
-            int columnIndex = s.table.getColumnModel().getColumnIndexAtX(e.getX());
-            sortTableByColumn(s.table, columnIndex);
-        }
+		if(e.getClickCount() == 2)
+		{
+			int select = s.table.getSelectedRow();
+			String mabailam = s.table.getValueAt(select, 6).toString();
+			BaiLam b = BaiLam_dao.Instance().selectbyid(mabailam);
+			List<Cautraloisinhvien> cautraloi =  CautraloiSinhvien_dao.Instance().selectCautraloisinhvienfromBailam(b);
+			List<Cauhoi>  c = new ArrayList<Cauhoi>();
+			String[] cA;
+			cA = new String[cautraloi.size()]; Arrays.fill(cA,"0");
+			for(int i = 0  ; i<cautraloi.size();i++ )
+			{
+				c.add(cautraloi.get(i).getCauhoi());
+				cA[i] = tendapAn(cautraloi.get(i).getCautraloi(),c.get(i));
+
+			}
+			
+			ViewResult v = new ViewResult(b.getSv(), b.getKiThi(), b.getDethi(), c, cA);
+		}
 	}
 
 	@Override

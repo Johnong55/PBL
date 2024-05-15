@@ -58,17 +58,28 @@ public class ViewStudent extends JFrame {
 	public MyButton BtnHome, btnTests,btnProfile,exit, btnChangePer, BtnChangeImagePer;
 	public MyButton mbtnBtuLm;
 	public JLabel lblNewLabel_14,lblNewLabel_9;
+	public JTableHeader header;
 	PanelRound panel_1;
 	public JTextField textField;
 	public JComboBox comboBox;
-	public MyTable table = new MyTable(); public		
-	DefaultTableModel model = new DefaultTableModel(
+	public boolean isEditable[] = {false, false, false, false, false,false};
+
+	public MyTable table = new MyTable(); 
+	public		
+	DefaultTableModel modeltb = new DefaultTableModel(
+			
 		    new Object[][] {
 		    },
 		    new String[] {
-		        "Tên kỳ thi", "Ngày thi", "Thời gian", "Câu đúng", "Câu sai", "Điểm"
+		        "Tên kỳ thi", "Ngày thi", "Thời gian", "Câu đúng", "Câu sai", "Điểm","Mã kì thi"
 		    }
-		);
+		   
+		)
+	{
+		 public boolean isCellEditable (int row, int column) {
+				return isEditable[column];
+			}
+	};
 
 	
 	public Sv v ; public KiThi ktsoon , ktOngoing;
@@ -279,6 +290,7 @@ public class ViewStudent extends JFrame {
 		textField = new JTextField("");
 		textField.setFont(new Font("Calibri", Font.BOLD, 17));
 		textField.setBounds(10, 75, 340, 40);
+		textField.getDocument().addDocumentListener(cl);
 		panel_4.add(textField);
 		textField.setColumns(10);
 		
@@ -307,8 +319,10 @@ public class ViewStudent extends JFrame {
 		scrollPane.setBounds(0, 57, 693, 467);
 		panel_1.add(scrollPane);
 		
+
+		
 		table = new MyTable();
-		table.setRowHeight(30);
+		table.setRowHeight(40);
 		table.setColor1(Color.WHITE);
 		table.setColor2(Color.WHITE);
 		table.setGridColor(Blue);
@@ -316,7 +330,7 @@ public class ViewStudent extends JFrame {
 		table.setCellAlignment(0, JLabel.CENTER);table.setCellAlignment(1, JLabel.CENTER);table.setCellAlignment(2, JLabel.CENTER);
 		table.setCellAlignment(3, JLabel.CENTER);table.setCellAlignment(4, JLabel.CENTER);table.setCellAlignment(5, JLabel.CENTER);
 		
-        JTableHeader header = table.getTableHeader();
+        header = table.getTableHeader();
         header.setDefaultRenderer(new DefaultTableCellRenderer() {
             private static final long serialVersionUID = 1L;
 
@@ -330,15 +344,22 @@ public class ViewStudent extends JFrame {
                 setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201,201,201)));
                
                 return comp;
+                
             }
+            public boolean isCellEditable(int row, int column) {
+				return isEditable[column];
+			}
         });
 		table.getTableHeader().setBackground(Color.WHITE);
-		table.setRowSelectionAllowed(true);
-		table.setCellSelectionEnabled(false);
-		table.setColumnSelectionAllowed(false);
-		table.setModel(model);
-		table.setFont(new Font("Calibri", Font.PLAIN, 20));
+		
+
+		table.setAutoCreateRowSorter(true);
+		table.setShowVerticalLines(false);
+		table.setModel(modeltb);
+		table.getColumnModel().getColumn(6).setMinWidth(0);
 		table.addMouseListener(cl);
+		table.getColumnModel().getColumn(6).setMaxWidth(0);
+		table.setFont(new Font("Calibri", Font.PLAIN, 20));
 		scrollPane.setViewportView(table);
 		
 		comboBox = new JComboBox();

@@ -68,11 +68,12 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 	public Cauhoi selectbyid(Cauhoi t) {
 		try {
 			Connection con  = JDBCUtil.getConnection();
-			String sql = "select * from cauhoi";
+			String sql = "select * from cauhoi where id = ?";
 			
 			PreparedStatement a;
 
 				a = con.prepareStatement(sql);
+				a.setString(1, t.getId());
 				ResultSet kq = a.executeQuery();
 				
 				while(kq.next())

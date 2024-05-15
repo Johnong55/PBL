@@ -25,7 +25,13 @@ public class Class {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "truong")
 	private truonghoc truong;
-	
+	private int soluong;
+	public int getSoluong() {
+		return soluong;
+	}
+	public void setSoluong(int soluong) {
+		this.soluong = soluong;
+	}
 	/**
 	 * @param idclass
 	 * @param tenlop
