@@ -108,19 +108,6 @@ public class Controller_Teacher implements Action {
 			// đổi ava
 			viewteacher.saveAnh();
 		}
-		else if(e.getSource() == viewteacher.buttonAddQuestion) {
-			// giao diện tạo câu hỏi
-			this.viewteacher.ViewCreateQuestion();
-		}
-		else if(e.getSource() == viewteacher.buttonLuuCauHoi) {
-			// lưu câu hỏi
-			viewteacher.InsertCauhoi();
-			JOptionPane.showMessageDialog(null, "Tạo câu hỏi thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-		}
-		else if(e.getSource() == viewteacher.buttonExitAddQuestion) {
-			// hủy lưu câu hỏi
-			this.viewteacher.ViewQuestions();
-		}
 		else if(e.getSource() == viewteacher.buttonHuyUpdateExam) {
 			// hủy cập nhật kì thi
 			this.viewteacher.ViewExam();
@@ -157,6 +144,29 @@ public class Controller_Teacher implements Action {
 				this.viewteacher.NHCH = viewteacher.getNHCHByName(idNHCH);
 		//		viewadmin.DrawQuestion(viewadmin.NHCH.getSoluong());
 			}
+		}else if(e.getSource() == viewteacher.buttonSelectAllRadiobutton) {
+			// chọn tất cả câu hỏi
+			viewteacher.SelectAllRadiobutton();
+		}else if(e.getSource() == viewteacher.buttonHuyAllRadiobutton) {
+			// hủy chọn tất cả câu hỏi
+			viewteacher.HuyAllRadiobutton();
+		}
+		else if(e.getSource() == viewteacher.buttonAddQuestion) {
+			// giao diện tạo câu hỏi
+			this.viewteacher.ViewCreateQuestion();
+		}
+		else if(e.getSource() == viewteacher.buttonLuuCauHoi) {
+			// lưu câu hỏi
+			viewteacher.InsertCauhoi();
+			JOptionPane.showMessageDialog(null, "Tạo câu hỏi thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+		}
+		else if(e.getSource() == viewteacher.buttonExitAddQuestion) {
+			// hủy lưu câu hỏi
+			this.viewteacher.ViewQuestions();
+		}else if(e.getSource() == viewteacher.buttonDeleteQuestion) {
+			// xóa câu hỏi
+		}else if(e.getSource() == viewteacher.buttonEditQuestion) {
+			// chỉnh sửa câu hỏi
 		}
 	}
 	

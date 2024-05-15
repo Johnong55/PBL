@@ -90,7 +90,8 @@ public class ViewTeacher extends JFrame {
 	public MyButton buttonClass, buttonHome, buttonProfile, buttonExam, buttonNew, buttonLogout, buttonCreateExam,
 			buttonChangePass, NewQuestion, NewExam, buttonAddExam, buttonDeleteExam, buttonChangeImage,
 			buttonTaoCauHoi, buttonLuuCauHoi, buttonExitAddQuestion, buttonHuyUpdateExam, buttonLuuExam,
-			buttonUpdateExam,buttonHuyCreateExam,buttonQuestion,buttonDeleteQuestion,buttonAddQuestion;
+			buttonUpdateExam,buttonHuyCreateExam,buttonQuestion,buttonDeleteQuestion,buttonAddQuestion,
+			buttonSelectAllRadiobutton,buttonHuyAllRadiobutton,buttonEditQuestion;
 	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi, comboBoxMucDo, comboBoxTenLop,
 			comboBoxTenNGCH,comboBoxSortSVinClass,comboBoxNHCH;
@@ -108,6 +109,7 @@ public class ViewTeacher extends JFrame {
 	public List<Nganhangcauhoi> NHCHs = new ArrayList<Nganhangcauhoi>();
 	public Nganhangcauhoi NHCH = null;
 	public List<Giangday> dslop = new ArrayList<Giangday>();
+	public List<JRadioButton> listRadiobutton = new ArrayList<JRadioButton>();
 
 	Controller_Teacher actionTeacher = new Controller_Teacher(this);
 
@@ -1498,7 +1500,7 @@ public class ViewTeacher extends JFrame {
 		comboBoxNHCH.addActionListener(actionTeacher);
 
 
-		JLabel lblNewLabel_2 = new JLabel("Ngân hàng câu hỏi :");
+		JLabel lblNewLabel_2 = new JLabel("Kho câu hỏi :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_2.setBounds(478, 30, 131, 28);
 		pView.add(lblNewLabel_2);
@@ -1506,6 +1508,34 @@ public class ViewTeacher extends JFrame {
 		this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
 		
 		DrawQuestion(30);  // chua co so lieu
+		
+		buttonSelectAllRadiobutton = new MyButton("Chọn tất cả");
+		buttonSelectAllRadiobutton.setRadius(10);
+		buttonSelectAllRadiobutton.setForeground(Color.WHITE);
+		buttonSelectAllRadiobutton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonSelectAllRadiobutton.setColorOver(new Color(100, 241, 241));
+		buttonSelectAllRadiobutton.setColorClick(new Color(50, 185, 185));
+		buttonSelectAllRadiobutton.setColor(new Color(50, 185, 185));
+		buttonSelectAllRadiobutton.setBorderColor(Color.WHITE);
+		buttonSelectAllRadiobutton.setBackground(new Color(50, 185, 185));
+		buttonSelectAllRadiobutton.setBounds(370, 600, 110, 30);
+
+		pView.add(buttonSelectAllRadiobutton);
+		buttonSelectAllRadiobutton.addActionListener(actionTeacher);
+		
+		buttonHuyAllRadiobutton = new MyButton("Hủy chọn");
+		buttonHuyAllRadiobutton.setRadius(10);
+		buttonHuyAllRadiobutton.setForeground(Color.WHITE);
+		buttonHuyAllRadiobutton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonHuyAllRadiobutton.setColorOver(new Color(100, 241, 241));
+		buttonHuyAllRadiobutton.setColorClick(new Color(50, 185, 185));
+		buttonHuyAllRadiobutton.setColor(new Color(50, 185, 185));
+		buttonHuyAllRadiobutton.setBorderColor(Color.WHITE);
+		buttonHuyAllRadiobutton.setBackground(new Color(50, 185, 185));
+		buttonHuyAllRadiobutton.setBounds(490, 600, 110, 30);
+
+		pView.add(buttonHuyAllRadiobutton);
+		buttonHuyAllRadiobutton.addActionListener(actionTeacher);
 		
 		buttonAddQuestion = new MyButton("Thêm câu hỏi");
 		buttonAddQuestion.setRadius(10);
@@ -1534,17 +1564,20 @@ public class ViewTeacher extends JFrame {
 
 		pView.add(buttonDeleteQuestion);
 		buttonDeleteQuestion.addActionListener(actionTeacher);
-	}
+		
+		buttonEditQuestion = new MyButton("Sửa câu hỏi");
+		buttonEditQuestion.setRadius(10);
+		buttonEditQuestion.setForeground(Color.WHITE);
+		buttonEditQuestion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonEditQuestion.setColorOver(new Color(100, 241, 241));
+		buttonEditQuestion.setColorClick(new Color(50, 185, 185));
+		buttonEditQuestion.setColor(new Color(50, 185, 185));
+		buttonEditQuestion.setBorderColor(Color.WHITE);
+		buttonEditQuestion.setBackground(new Color(50, 185, 185));
+		buttonEditQuestion.setBounds(250, 600, 110, 30);
 
-	//////////////////////////////////////////////////////////////
-	
-	public Nganhangcauhoi getNHCHByName(String name) {
-		for (Nganhangcauhoi nganhangcauhoi : NHCHs) {
-			if(nganhangcauhoi.getIdNganHang().equals(name)) {
-				return nganhangcauhoi;
-			}
-		}
-		return null;
+		pView.add(buttonEditQuestion);
+		buttonEditQuestion.addActionListener(actionTeacher);
 	}
 	
 	public void DrawQuestion(int sl) {
@@ -1596,7 +1629,19 @@ public class ViewTeacher extends JFrame {
 
 	private JPanel createQuestionLabelPanel(int questionIndex) {
 	    JPanel questionLabelPanel = new JPanel();
-	    questionLabelPanel.setLayout(new BorderLayout());
+	    questionLabelPanel.setLayout(new BoxLayout(questionLabelPanel, BoxLayout.Y_AXIS));
+	    
+        JRadioButton selectButton = new JRadioButton("Chọn");
+        selectButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        questionLabelPanel.add(selectButton);
+        listRadiobutton.add(selectButton);
+
+        selectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println(questionIndex);
+            }
+        });
 
 	    JLabel questionLabel = new JLabel("Câu hỏi " + (questionIndex + 1));
 	    questionLabel.setFont(new Font("Arial", Font.BOLD, 14));
@@ -1678,6 +1723,28 @@ public class ViewTeacher extends JFrame {
 	    answerItemPanel.add(new JScrollPane(answerTextArea), BorderLayout.CENTER);
 
 	    return answerItemPanel;
+	}
+
+	//////////////////////////////////////////////////////////////
+	
+	public Nganhangcauhoi getNHCHByName(String name) {
+		for (Nganhangcauhoi nganhangcauhoi : NHCHs) {
+			if(nganhangcauhoi.getIdNganHang().equals(name)) {
+				return nganhangcauhoi;
+			}
+		}
+		return null;
+	}
+	
+	public void SelectAllRadiobutton() {
+		for (JRadioButton jR : listRadiobutton) {
+			jR.setSelected(true);
+		}
+	}
+	public void HuyAllRadiobutton() {
+		for (JRadioButton jR : listRadiobutton) {
+			jR.setSelected(false);
+		}
 	}
 
 	public DefaultTableModel getModelClasses(Gv g) {
