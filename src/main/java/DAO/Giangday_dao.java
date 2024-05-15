@@ -79,8 +79,6 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 					String lop= kq.getString("lop");
 					Gv  gv1 = Gv_dao.Instance().selectbyid(idgv);
 					Class cl = Class_dao.Instance().selectbyid(lop);
-					System.out.println(id);
-					System.out.println(gv);System.out.println(lop);
 					Giangday u = new Giangday(id, gv1,cl );
 					result.add(u);
 				}

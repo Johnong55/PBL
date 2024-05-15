@@ -1195,7 +1195,7 @@ public class ViewAdmin extends JFrame {
 		
 		this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
 		
-		DrawQuestion(20);
+		DrawQuestion(NHCHs.get(0).getSoluong());
 	}
 	
 	

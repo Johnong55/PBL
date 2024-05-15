@@ -1507,7 +1507,7 @@ public class ViewTeacher extends JFrame {
 		
 		this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
 		
-		DrawQuestion(30);  // chua co so lieu
+		DrawQuestion(NHCHs.get(0).getSoluong());  // chua co so lieu
 		
 		buttonSelectAllRadiobutton = new MyButton("Chọn tất cả");
 		buttonSelectAllRadiobutton.setRadius(10);

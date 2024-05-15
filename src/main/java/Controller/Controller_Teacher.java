@@ -142,7 +142,7 @@ public class Controller_Teacher implements Action {
 			}else {
 				String idNHCH = (String) viewteacher.comboBoxNHCH.getSelectedItem();
 				this.viewteacher.NHCH = viewteacher.getNHCHByName(idNHCH);
-		//		viewadmin.DrawQuestion(viewadmin.NHCH.getSoluong());
+				viewteacher.DrawQuestion(viewteacher.NHCH.getSoluong());
 			}
 		}else if(e.getSource() == viewteacher.buttonSelectAllRadiobutton) {
 			// chọn tất cả câu hỏi
