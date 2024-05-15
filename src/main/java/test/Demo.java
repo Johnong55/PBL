@@ -331,15 +331,15 @@ public class Demo {
   		Cauhoi q18 = new Cauhoi("q18", "What is the largest mammal in the world?", "Blue Whale", "Elephant", "Giraffe", "Hippopotamus", 3, "Blue Whale", nh);
   		Cauhoi q19 = new Cauhoi("q19", "Who painted 'The Last Supper'?", "Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo", 1, "Leonardo da Vinci", nh);
   		Cauhoi q20 = new Cauhoi("q20", "Which planet is known as the 'Morning Star' or 'Evening Star'?", "Venus", "Mars", "Mercury", "Jupiter", 2, "Venus", nh);
- 
- 
+
+  		
   		CHdao.insert(q10);
   		CHdao.insert(q1);
   		CHdao.insert(q2);
   		CHdao.insert(q3);
   		CHdao.insert(q4);
   		CHdao.insert(q5);
-  		CHdao.insert(q6);
+  		CHdao.insert(q6);	
   		CHdao.insert(q7);
   		CHdao.insert(q8);
   		CHdao.insert(q9);
@@ -390,36 +390,37 @@ public class Demo {
   		Cauhoi q48 = new Cauhoi("q48", "What is the largest island in the world?", "Greenland", "Australia", "Madagascar", "Borneo", 1, "Greenland", nh1);
   		Cauhoi q49 = new Cauhoi("q49", "What is the chemical symbol for gold?", "Ag", "Au", "Cu", "Fe", 1, "Au", nh1);
   		Cauhoi q50 = new Cauhoi("q50", "Who painted 'The Mona Lisa'?", "Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo", 1, "Leonardo da Vinci", nh1);
-  		CHdao.insert(q50);
-  		CHdao.insert(q21);
-  		CHdao.insert(q22);
-  		CHdao.insert(q23);
-  		CHdao.insert(q24);
-  		CHdao.insert(q25);
-  		CHdao.insert(q26);
-  		CHdao.insert(q27);
-  		CHdao.insert(q28);
-  		CHdao.insert(q29);
-  		CHdao.insert(q30);
-  		CHdao.insert(q31);
-  		CHdao.insert(q32);
-  		CHdao.insert(q33);
-  		CHdao.insert(q34);
-  		CHdao.insert(q35);
-  		CHdao.insert(q36);
-  		CHdao.insert(q37);
-  		CHdao.insert(q38);
-  		CHdao.insert(q39);
-  		CHdao.insert(q40);
-  		CHdao.insert(q41);
-  		CHdao.insert(q42);
-  		CHdao.insert(q43);
-  		CHdao.insert(q44);
-  		CHdao.insert(q45);
-  		CHdao.insert(q46);
-  		CHdao.insert(q47);
-  		CHdao.insert(q48);
-  		CHdao.insert(q49);
+  		nh1.addcauhoi(q50);
+  		nh1.addcauhoi(q21);
+  		nh1.addcauhoi(q22);
+  		nh1.addcauhoi(q23);
+  		nh1.addcauhoi(q24);
+  		nh1.addcauhoi(q25);
+  		nh1.addcauhoi(q26);
+  		nh1.addcauhoi(q27);
+  		nh1.addcauhoi(q28);
+  		nh1.addcauhoi(q29);
+  		nh1.addcauhoi(q30);
+  		nh1.addcauhoi(q31);
+  		nh1.addcauhoi(q32);
+  		nh1.addcauhoi(q33);
+  		nh1.addcauhoi(q34);
+  		nh1.addcauhoi(q35);
+  		nh1.addcauhoi(q36);
+  		nh1.addcauhoi(q37);
+  		nh1.addcauhoi(q38);
+  		nh1.addcauhoi(q39);
+  		nh1.addcauhoi(q40);
+  		nh1.addcauhoi(q41);
+  		nh1.addcauhoi(q42);
+  		nh1.addcauhoi(q43);
+  		nh1.addcauhoi(q44);
+  		nh1.addcauhoi(q45);
+  		nh1.addcauhoi(q46);
+  		nh1.addcauhoi(q47);
+  		nh1.addcauhoi(q48);
+  		nh1.addcauhoi(q49);
+  		nhdao.update(nh1);
   		List<Sv> svList = new ArrayList<>();
 ///////////////////////////////////////
   		String[] specialNames = {
@@ -506,7 +507,7 @@ public class Demo {
   			    "Trần Thị Hà", "Lê Văn Hiếu", "Nguyễn Thị Hồng", "Ngô Văn Huy", "Vũ Thị Lan",
   			    "Hoàng Văn Long", "Phan Thị Mai", "Trần Văn Nam", "Phạm Thị Ngọc", "Vũ Văn Phong"
   			};
-  		for (int i = 0; i < 40; i++) {
+  		for (int i = 0; i < 39; i++) {
   		    Sv sinhvien = new Sv();
   		    String id = ""+(102220094+120+i);
   		  sinhvien.setId(id);
@@ -652,7 +653,8 @@ public class Demo {
   	  		sinhvien.setIdclass(cl9);
   	  		    sv.insert(sinhvien);
   	  		}
-  		
+  			nhdao.update(nh1);
+  			nhdao.update(nh);
   		//////
 	}	
 }
