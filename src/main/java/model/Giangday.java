@@ -13,11 +13,11 @@ public class Giangday {
 	@Id
 	@GeneratedValue
 	private int id;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "giaoviendunglop")
 	Gv maGv;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "lop")
 	Class  malop;
 
@@ -50,7 +50,7 @@ public class Giangday {
 		this.maGv = maGv;
 		this.malop = malop;
 	}
-	public Giangday(int id, Gv maGv, Class malop) {
+	public Giangday(int id,Gv maGv, Class malop) {
 		super();
 		this.id = id;
 		this.maGv = maGv;

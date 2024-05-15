@@ -23,20 +23,22 @@ public class KiThi {
 	}
 	@Id
 	private String id;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "lop")
 	private	Class lop; 
 	private Time thoigianbatdau;
 	private int thoigianlambai;
 	private String mota;
 	private Date date;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "nguoitao")
 	private Gv gv;
 	private int sl;
+	private String monhoc;
+	
 	@OneToMany(mappedBy = "kithi")
 	private List<DeThi> listdethi;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "nganhangcauhoi")
 	private Nganhangcauhoi nganhangcauhoi=null;
 	@OneToMany(mappedBy = "kithi")
@@ -69,6 +71,12 @@ public class KiThi {
 	}
 	public void setBailam(List<BaiLam> bailam) {
 		this.bailam = bailam;
+	}
+	public String getMonhoc() {
+		return monhoc;
+	}
+	public void setMonhoc(String monhoc) {
+		this.monhoc = monhoc;
 	}
 	/**
 	 * @param id
