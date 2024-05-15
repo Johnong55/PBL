@@ -12,11 +12,11 @@ import javax.persistence.OneToOne;
 public class Cautraloisinhvien {
 	@Id
 	private String id ;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	private Cauhoi cauhoi;
 	private String cautraloi;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "bailam")
 	private BaiLam bailamsv ;
 	private int kiemtra;

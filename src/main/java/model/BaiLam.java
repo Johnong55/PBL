@@ -23,7 +23,7 @@ import DAO.DeThi_dao;
 public class BaiLam{
 	@Id 
 	private String maBailam;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "Sv")
 	private Sv sv;	
 	private double diem = 0;
@@ -31,7 +31,7 @@ public class BaiLam{
 	private Time thoigianketthuc;
 	@OneToOne(cascade = CascadeType.ALL)
 	private DeThi dethi;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	private KiThi kithi;
 	@OneToMany( mappedBy = "bailamsv",	cascade = CascadeType.ALL)
 	private List<Cautraloisinhvien> cautraloi;

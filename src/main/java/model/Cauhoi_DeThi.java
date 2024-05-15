@@ -12,10 +12,10 @@ public class Cauhoi_DeThi {
 	@Id
 	@GeneratedValue
 	private int id;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "Cauhoi")
 	private Cauhoi cauhoi;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "DeThi")
 	private DeThi deThi;
 	public int getId() {

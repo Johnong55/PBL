@@ -23,7 +23,7 @@ public class KiThi {
 	}
 	@Id
 	private String id;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "lop")
 	private	Class lop; 
 	private Time thoigianbatdau;
@@ -38,7 +38,7 @@ public class KiThi {
 	
 	@OneToMany(mappedBy = "kithi")
 	private List<DeThi> listdethi;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "nganhangcauhoi")
 	private Nganhangcauhoi nganhangcauhoi=null;
 	@OneToMany(mappedBy = "kithi")

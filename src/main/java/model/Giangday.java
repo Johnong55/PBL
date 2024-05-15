@@ -13,11 +13,11 @@ public class Giangday {
 	@Id
 	@GeneratedValue
 	private int id;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "giaoviendunglop")
 	Gv maGv;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "lop")
 	Class  malop;
 
