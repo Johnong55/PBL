@@ -99,6 +99,23 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 		}
 		return false;
 	}
+	
+	public void DethiNULLKithiFromGv(String idKT) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "update dethi set kithi = NULL where id = ? ";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1,idKT);
+				a.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 
 	@Override
 	public boolean deletebyid(DeThi t) {

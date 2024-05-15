@@ -43,8 +43,10 @@ public class NganhangDao implements DAO_Interface<Nganhangcauhoi> {
 				{
 					String id = kq.getString("idNganHang");
 					int sl = kq.getInt("soluong");
-					Gv gv = new Gv(); gv.setMaGv(kq.getString("giaovienquanli")); 
+					Gv gv = new Gv(); 
+					gv.setMaGv(kq.getString("giaovienquanli")); 
 					Nganhangcauhoi u = new Nganhangcauhoi(id,sl,gv);
+					u.setListcauhoi(Cauhoi_Dao.Instance().selectallbyNHCH(id));
 					result.add(u);
 				}
 				con.close();
@@ -58,7 +60,31 @@ public class NganhangDao implements DAO_Interface<Nganhangcauhoi> {
 
 	@Override
 	public Nganhangcauhoi selectbyid(Nganhangcauhoi t) {
-		return null;
+		Nganhangcauhoi nh = null;
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Nganhangcauhoi where idNganHang = ? ";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, t.getIdNganHang());
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					String id = kq.getString("idNganHang");
+					int sl = kq.getInt("soluong");
+					Gv gv = new Gv(); gv.setMaGv(kq.getString("giaovienquanli")); 
+					Nganhangcauhoi u = new Nganhangcauhoi(id,sl,gv);
+					nh = u;
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return nh;
+		// TODO Auto-generated method stub	}
 	}
 	public Nganhangcauhoi selectbyid(String t) {
 		Nganhangcauhoi nh = null;
@@ -87,6 +113,35 @@ public class NganhangDao implements DAO_Interface<Nganhangcauhoi> {
 			return nh;
 		// TODO Auto-generated method stub
 	}
+	
+	public List<Nganhangcauhoi> selectbyidgv(Gv g) {
+		List<Nganhangcauhoi> result =  new ArrayList<Nganhangcauhoi>();	
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Nganhangcauhoi where giaovienquanli = ? ";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, g.getMaGv());
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					String id = kq.getString("idNganHang");
+					int sl = kq.getInt("soluong");
+					Gv gv = new Gv(); gv.setMaGv(kq.getString("giaovienquanli")); 
+					Nganhangcauhoi u = new Nganhangcauhoi(id,sl,gv);
+					u.setListcauhoi(Cauhoi_Dao.Instance().selectallbyNHCH(id));
+					result.add(u);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return result;
+		// TODO Auto-generated method stub
+	}
 
 	@Override
 	public boolean insert(Nganhangcauhoi t) {
@@ -101,6 +156,23 @@ public class NganhangDao implements DAO_Interface<Nganhangcauhoi> {
 			return true;
 		}
 		return false;
+	}
+	
+	public void updateNGCHBeforeDeleteGv(String idGv) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "update Nganhangcauhoi set giaovienquanli = NULL where giaovienquanli = (select id from Gv where id = ?)";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idGv);
+				a.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	@Override

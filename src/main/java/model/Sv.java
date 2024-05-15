@@ -28,7 +28,7 @@ public class Sv extends Account{
 	}
 	@Override
 	public String toString() {
-		return "Sv [idSv=" + this.id+ ", ten=" + ten + ", idclass=" + idclass + "]";
+		return "Sv [idSv=" + id+ ", ten=" + ten + ", idclass=" + idclass.getIdclass() + "]";
 	}
 	public Sv(String idSv, String ten, Class idclass) {
 		super();

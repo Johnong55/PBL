@@ -87,6 +87,10 @@ public class Nganhangcauhoi {
 		return "Nganhangcauhoi [idNganHang=" + idNganHang + ", soluong=" + soluong + ", giaovienquanli="
 				+ giaovienquanli + ", kithi=" + kithi + "]";
 	}
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
 
 
 

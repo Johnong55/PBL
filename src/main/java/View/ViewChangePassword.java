@@ -151,12 +151,12 @@ public class ViewChangePassword extends JFrame {
 		});
 	}
 	public void ChangePassword(Gv g, String o, String n, String c) {
-		System.out.println(o);
-		System.out.println(g.getPassword());
 		if(o.equals(g.getPassword())) {
 			if(n.equals(c)) {
 				g.setPassword(n);
 				Gv_dao.Instance().update(g);
+				setVisible(false);
+				JOptionPane.showMessageDialog(null, "Thay đổi mật khẩu thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
 				
 			}else {
 				JOptionPane.showMessageDialog(null, "Mật khẩu xác nhận không đúng","Lỗi",JOptionPane.INFORMATION_MESSAGE);
