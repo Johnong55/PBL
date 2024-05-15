@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -27,7 +28,7 @@ public class Nganhangcauhoi {
 		this.kithi = kithi;
 	}
 	@OneToMany(mappedBy = "NH")
-	private List<Cauhoi> listcauhoi;
+	private List<Cauhoi> listcauhoi = new ArrayList<Cauhoi>();
 	public List<Cauhoi> getListcauhoi() {
 		return listcauhoi;
 	}
@@ -38,6 +39,7 @@ public class Nganhangcauhoi {
 	public void addcauhoi(Cauhoi c)
 	{
 		this.listcauhoi.add(c);
+		this.soluong++;
 	}
 	/**
 	 * 
@@ -78,6 +80,12 @@ public class Nganhangcauhoi {
 	public void addkithi(KiThi t)
 	{
 		this.kithi.add(t);
+	}
+
+	@Override
+	public String toString() {
+		return "Nganhangcauhoi [idNganHang=" + idNganHang + ", soluong=" + soluong + ", giaovienquanli="
+				+ giaovienquanli + ", kithi=" + kithi + "]";
 	}
 
 

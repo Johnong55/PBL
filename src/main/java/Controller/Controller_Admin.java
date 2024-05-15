@@ -257,8 +257,7 @@ public class Controller_Admin implements Action {
 			// thay đổi ngân hàng câu hỏi
 			String idNHCH = (String) viewadmin.comboBoxNHCH.getSelectedItem();
 			this.viewadmin.NHCH = viewadmin.getNHCHByName(idNHCH);
-	//		viewadmin.DrawQuestion(viewadmin.NHCH.getSoluong());
-
+			viewadmin.DrawQuestion(viewadmin.NHCH.getSoluong());
 		}
 	}
 

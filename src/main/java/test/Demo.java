@@ -331,15 +331,35 @@ public class Demo {
   		Cauhoi q18 = new Cauhoi("q18", "What is the largest mammal in the world?", "Blue Whale", "Elephant", "Giraffe", "Hippopotamus", 3, "Blue Whale", nh);
   		Cauhoi q19 = new Cauhoi("q19", "Who painted 'The Last Supper'?", "Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo", 1, "Leonardo da Vinci", nh);
   		Cauhoi q20 = new Cauhoi("q20", "Which planet is known as the 'Morning Star' or 'Evening Star'?", "Venus", "Mars", "Mercury", "Jupiter", 2, "Venus", nh);
- 
- 
+  		
+  		nh.addcauhoi(q1);
+  		nh.addcauhoi(q2);
+  		nh.addcauhoi(q3);
+  		nh.addcauhoi(q4);
+  		nh.addcauhoi(q5);
+  		nh.addcauhoi(q6);
+  		nh.addcauhoi(q7);
+  		nh.addcauhoi(q8);
+  		nh.addcauhoi(q9);
+  		nh.addcauhoi(q10);
+  		nh.addcauhoi(q11);
+  		nh.addcauhoi(q12);
+  		nh.addcauhoi(q13);
+  		nh.addcauhoi(q14);
+  		nh.addcauhoi(q15);
+  		nh.addcauhoi(q16);
+  		nh.addcauhoi(q17);
+  		nh.addcauhoi(q18);
+  		nh.addcauhoi(q19);
+  		nh.addcauhoi(q20);
+  		
   		CHdao.insert(q10);
   		CHdao.insert(q1);
   		CHdao.insert(q2);
   		CHdao.insert(q3);
   		CHdao.insert(q4);
   		CHdao.insert(q5);
-  		CHdao.insert(q6);
+  		CHdao.insert(q6);	
   		CHdao.insert(q7);
   		CHdao.insert(q8);
   		CHdao.insert(q9);
@@ -380,24 +400,34 @@ public class Demo {
   		Cauhoi q38 = new Cauhoi("q38", "What is the fastest land animal?", "Lion", "Cheetah", "Gazelle", "Leopard", 2, "Cheetah", nh1);
   		Cauhoi q39 = new Cauhoi("q39", "Who painted 'The Scream'?", "Pablo Picasso", "Edvard Munch", "Vincent van Gogh", "Claude Monet", 2, "Edvard Munch", nh1);
   		Cauhoi q40 = new Cauhoi("q40", "Which planet is known as the 'Red Planet'?", "Venus", "Mars", "Mercury", "Jupiter", 2, "Mars", nh1);
-  		Cauhoi q41 = new Cauhoi("q41", "What is the capital of Italy?", "Rome", "Milan", "Naples", "Florence", 1, "Rome", nh1);
-  		Cauhoi q42 = new Cauhoi("q42", "Who wrote 'The Catcher in the Rye'?", "J.D. Salinger", "F. Scott Fitzgerald", "Ernest Hemingway", "Harper Lee", 1, "J.D. Salinger", nh1);
-  		Cauhoi q43 = new Cauhoi("q43", "What is the chemical symbol for potassium?", "Pt", "P", "K", "Po", 1, "K", nh1);
-  		Cauhoi q44 = new Cauhoi("q44", "Who painted 'Starry Night'?", "Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet", 1, "Vincent van Gogh", nh1);
-  		Cauhoi q45 = new Cauhoi("q45", "Which planet is known as the 'Red Planet'?", "Mars", "Venus", "Mercury", "Jupiter", 1, "Mars", nh1);
-  		Cauhoi q46 = new Cauhoi("q46", "What is the currency of Switzerland?", "Pound", "Dollar", "Euro", "Swiss Franc", 1, "Swiss Franc", nh1);
-  		Cauhoi q47 = new Cauhoi("q47", "Who wrote 'Alice's Adventures in Wonderland'?", "J.K. Rowling", "Lewis Carroll", "Roald Dahl", "C.S. Lewis", 1, "Lewis Carroll", nh1);
-  		Cauhoi q48 = new Cauhoi("q48", "What is the largest island in the world?", "Greenland", "Australia", "Madagascar", "Borneo", 1, "Greenland", nh1);
-  		Cauhoi q49 = new Cauhoi("q49", "What is the chemical symbol for gold?", "Ag", "Au", "Cu", "Fe", 1, "Au", nh1);
-  		Cauhoi q50 = new Cauhoi("q50", "Who painted 'The Mona Lisa'?", "Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo", 1, "Leonardo da Vinci", nh1);
-  		CHdao.insert(q50);
+  		nh1.addcauhoi(q21);
+  		nh1.addcauhoi(q22);
+  		nh1.addcauhoi(q23);
+  		nh1.addcauhoi(q24);
+  		nh1.addcauhoi(q25);
+  		nh1.addcauhoi(q26);
+  		nh1.addcauhoi(q27);
+  		nh1.addcauhoi(q28);
+  		nh1.addcauhoi(q29);
+  		nh1.addcauhoi(q30);
+  		nh1.addcauhoi(q31);
+  		nh1.addcauhoi(q32);
+  		nh1.addcauhoi(q33);
+  		nh1.addcauhoi(q34);
+  		nh1.addcauhoi(q35);
+  		nh1.addcauhoi(q36);
+  		nh1.addcauhoi(q37);
+  		nh1.addcauhoi(q38);
+  		nh1.addcauhoi(q39);
+  		nh1.addcauhoi(q40);
+  		
   		CHdao.insert(q21);
   		CHdao.insert(q22);
   		CHdao.insert(q23);
   		CHdao.insert(q24);
   		CHdao.insert(q25);
   		CHdao.insert(q26);
-  		CHdao.insert(q27);
+  		CHdao.insert(q27);	
   		CHdao.insert(q28);
   		CHdao.insert(q29);
   		CHdao.insert(q30);
@@ -411,15 +441,9 @@ public class Demo {
   		CHdao.insert(q38);
   		CHdao.insert(q39);
   		CHdao.insert(q40);
-  		CHdao.insert(q41);
-  		CHdao.insert(q42);
-  		CHdao.insert(q43);
-  		CHdao.insert(q44);
-  		CHdao.insert(q45);
-  		CHdao.insert(q46);
-  		CHdao.insert(q47);
-  		CHdao.insert(q48);
-  		CHdao.insert(q49);
+  		
+  		nhdao.update(nh1);
+  		nhdao.update(nh);
   		List<Sv> svList = new ArrayList<>();
 ///////////////////////////////////////
   		String[] specialNames = {
@@ -652,7 +676,8 @@ public class Demo {
   	  		sinhvien.setIdclass(cl9);
   	  		    sv.insert(sinhvien);
   	  		}
-  		
+  			nhdao.update(nh1);
+  			nhdao.update(nh);
   		//////
 	}	
 }

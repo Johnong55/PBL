@@ -53,7 +53,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setMaGv(id);
 					u.setTen(ten);
 					u.setTruong(tr.selectbyid(truong));
-					u.setDanhsachlop(selectclassbyid(u));
+					u.setGiangDay(Giangday_dao.Instance().selectGiangdayOfGv(id));
 					Account gv = Account_dao.Instance().selectbyid(u);
 
 					u.setLinkAnh(gv.getLinkAnh());
@@ -261,7 +261,6 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				a = con.prepareStatement(sql);
 				a.setString(1, gv.getMaGv());
 				ResultSet kq = a.executeQuery();
-				int i =1;
 				while(kq.next())
 				{
 					String id = kq.getString("idclass");
@@ -270,7 +269,6 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					
 					Class u = new Class(id, name, new truonghoc(school));
 					result.add(u);
-					i++;
 				}
 				con.close();
 			} catch (SQLException e) {

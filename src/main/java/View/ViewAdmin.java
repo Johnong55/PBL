@@ -42,6 +42,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.awt.FlowLayout;
 
 import Controller.Controller_Admin;
 import DAO.Cauhoi_Dao;
@@ -1210,13 +1211,12 @@ public class ViewAdmin extends JFrame {
 	}
 	
 	public void DrawQuestion(int sl) {
-		
         JViewport viewport = scrollPane.getViewport();
         viewport.removeAll();
 		scrollPane.repaint();
 		scrollPane.revalidate();
-		
 		if(sl == 0) {
+			scrollPane.setVisible(false);
 			JLabel l = new JLabel("CHƯA CÓ CÂU HỎI");
 			l.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			l.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1525,7 +1525,9 @@ public class ViewAdmin extends JFrame {
 	}
 	public void SetupBeforeDelGv(Gv g, String idgv) {
 		if(g.getDanhsachlop() != null) {
+			System.out.println("ấ");
 			for (Giangday gd : g.getDanhsachlop()) {
+				System.out.println(gd);
 				Giangday_dao.Instance().deletebyid(gd);
 			}
 		}
@@ -1607,6 +1609,9 @@ public class ViewAdmin extends JFrame {
 			for (Giangday gd : GD) {
 				if(gd.getMalop().getIdclass().equals(idclass)) {
 					GD.remove(gd);
+					System.out.println(gd.getId());
+					System.out.println(gd.getMaGv());
+					System.out.println(gd.getMalop());
 					Giangday_dao.Instance().deletebyid(gd);
 					break;
 				}
