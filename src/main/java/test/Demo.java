@@ -309,8 +309,7 @@ public class Demo {
  		Nganhangcauhoi nh1 = new Nganhangcauhoi();
  		nh1.setIdNganHang("su");
  		nh1.setGiaovienquanli(gv1);
-  		nhdao.insert(nh1);
-  		nhdao.insert(nh);
+  		
   		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 1, "Paris", nh);
   		Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain", 1, "William Shakespeare", nh);
   		Cauhoi q3 = new Cauhoi("q3", "What is the tallest mountain in the world?", "Mount Everest", "K2", "Kangchenjunga", "Lhotse", 3, "Mount Everest", nh);
@@ -331,7 +330,7 @@ public class Demo {
   		Cauhoi q18 = new Cauhoi("q18", "What is the largest mammal in the world?", "Blue Whale", "Elephant", "Giraffe", "Hippopotamus", 3, "Blue Whale", nh);
   		Cauhoi q19 = new Cauhoi("q19", "Who painted 'The Last Supper'?", "Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo", 1, "Leonardo da Vinci", nh);
   		Cauhoi q20 = new Cauhoi("q20", "Which planet is known as the 'Morning Star' or 'Evening Star'?", "Venus", "Mars", "Mercury", "Jupiter", 2, "Venus", nh);
-
+  		
   		nh.addcauhoi(q1);
   		nh.addcauhoi(q2);
   		nh.addcauhoi(q3);
@@ -352,15 +351,12 @@ public class Demo {
   		nh.addcauhoi(q18);
   		nh.addcauhoi(q19);
   		nh.addcauhoi(q20);
-  		nhdao.update(nh);
   		
+  	
  		kithi.setNganhangcauhoi(nh1);
  		kithi1.setNganhangcauhoi(nh1);
  		kithi2.setNganhangcauhoi(nh);
-  		kt.insert(kithi2);
-  		kt.insert(kithi1);
-  		kt.insert(kithi);
-  		
+  	
   		Cauhoi q21 = new Cauhoi("q21", "What is the capital of Japan?", "Kyoto", "Tokyo", "Osaka", "Seoul", 2, "Tokyo", nh1);
   		Cauhoi q22 = new Cauhoi("q22", "Who wrote 'Hamlet'?", "Jane Austen", "William Shakespeare", "Charles Dickens", "Mark Twain", 2, "William Shakespeare", nh1);
   		Cauhoi q23 = new Cauhoi("q23", "What is the deepest ocean in the world?", "Atlantic Ocean", "Pacific Ocean", "Indian Ocean", "Arctic Ocean", 3, "Pacific Ocean", nh1);
@@ -381,18 +377,6 @@ public class Demo {
   		Cauhoi q38 = new Cauhoi("q38", "What is the fastest land animal?", "Lion", "Cheetah", "Gazelle", "Leopard", 2, "Cheetah", nh1);
   		Cauhoi q39 = new Cauhoi("q39", "Who painted 'The Scream'?", "Pablo Picasso", "Edvard Munch", "Vincent van Gogh", "Claude Monet", 2, "Edvard Munch", nh1);
   		Cauhoi q40 = new Cauhoi("q40", "Which planet is known as the 'Red Planet'?", "Venus", "Mars", "Mercury", "Jupiter", 2, "Mars", nh1);
-
-  		Cauhoi q41 = new Cauhoi("q41", "What is the capital of Italy?", "Rome", "Milan", "Naples", "Florence", 1, "Rome", nh1);
-  		Cauhoi q42 = new Cauhoi("q42", "Who wrote 'The Catcher in the Rye'?", "J.D. Salinger", "F. Scott Fitzgerald", "Ernest Hemingway", "Harper Lee", 1, "J.D. Salinger", nh1);
-  		Cauhoi q43 = new Cauhoi("q43", "What is the chemical symbol for potassium?", "Pt", "P", "K", "Po", 1, "K", nh1);
-  		Cauhoi q44 = new Cauhoi("q44", "Who painted 'Starry Night'?", "Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet", 1, "Vincent van Gogh", nh1);
-  		Cauhoi q45 = new Cauhoi("q45", "Which planet is known as the 'Red Planet'?", "Mars", "Venus", "Mercury", "Jupiter", 1, "Mars", nh1);
-  		Cauhoi q46 = new Cauhoi("q46", "What is the currency of Switzerland?", "Pound", "Dollar", "Euro", "Swiss Franc", 1, "Swiss Franc", nh1);
-  		Cauhoi q47 = new Cauhoi("q47", "Who wrote 'Alice's Adventures in Wonderland'?", "J.K. Rowling", "Lewis Carroll", "Roald Dahl", "C.S. Lewis", 1, "Lewis Carroll", nh1);
-  		Cauhoi q48 = new Cauhoi("q48", "What is the largest island in the world?", "Greenland", "Australia", "Madagascar", "Borneo", 1, "Greenland", nh1);
-  		Cauhoi q49 = new Cauhoi("q49", "What is the chemical symbol for gold?", "Ag", "Au", "Cu", "Fe", 1, "Au", nh1);
-  		Cauhoi q50 = new Cauhoi("q50", "Who painted 'The Mona Lisa'?", "Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo", 1, "Leonardo da Vinci", nh1);
-  		nh1.addcauhoi(q50);
   		nh1.addcauhoi(q21);
   		nh1.addcauhoi(q22);
   		nh1.addcauhoi(q23);
@@ -413,19 +397,14 @@ public class Demo {
   		nh1.addcauhoi(q38);
   		nh1.addcauhoi(q39);
   		nh1.addcauhoi(q40);
-  		nh1.addcauhoi(q41);
-  		nh1.addcauhoi(q42);
-  		nh1.addcauhoi(q43);
-  		nh1.addcauhoi(q44);
-  		nh1.addcauhoi(q45);
-  		nh1.addcauhoi(q46);
-  		nh1.addcauhoi(q47);
-  		nh1.addcauhoi(q48);
-  		nh1.addcauhoi(q49);
-  		System.out.println("hihi");
-  		nhdao.update(nh1);
-
+  		
+  		nhdao.insert(nh1);
+  		nhdao.insert(nh);
   		List<Sv> svList = new ArrayList<>();
+  		kt.insert(kithi2);
+  		kt.insert(kithi1);
+  		kt.insert(kithi);
+  	
 ///////////////////////////////////////
   		String[] specialNames = {
   		    "Tran Dang Minh Duc", "Nguyen Thi Anh", "Le Van Tuan", "Pham Minh Ngoc",
@@ -660,5 +639,6 @@ public class Demo {
   			nhdao.update(nh1);
   			nhdao.update(nh);
   		//////
-	}	
+	
+	}
 }

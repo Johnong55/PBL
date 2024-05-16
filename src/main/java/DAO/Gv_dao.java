@@ -97,16 +97,17 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setMaGv(id);
 					u.setTen(ten);
 					u.setTruong(tr.selectbyid(truong));
-					u.setDanhsachlop(selectclassbyid(u));
+					u.setDanhsachlop(selectclassbyid(u));	
 					Account gv = 	Account_dao.Instance().selectbyid(u);
 
 					u.setLinkAnh(gv.getLinkAnh());
 					u.setPassword(gv.getPassword());
 					u.setMaquyen(gv.maquyen);
 					u.setUsername(gv.getUsername());
+					con.close();
 				return u;
 				}
-				con.close();
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -276,9 +277,9 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					
 					Class u = new Class(id, name, new truonghoc(school));
 					result.add(u);
-
-				con.close();
+				
 				}
+				con.close();
 		}
 		catch (SQLException e) {
 				// TODO Auto-generated catch block
