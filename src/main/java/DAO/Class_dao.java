@@ -73,11 +73,7 @@ public class Class_dao implements DAO_Interface<Class> {
 
 				a = con.prepareStatement(sql);
 				ResultSet kq = a.executeQuery();
-<<<<<<< HEAD
-			
-=======
->>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
-				
+
 				while(kq.next())
 				{
 					String id = kq.getString("idclass");

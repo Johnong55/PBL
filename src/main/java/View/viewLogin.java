@@ -22,11 +22,8 @@ import DAO.Sv_dao;
 import model.Account;
 import model.Sv;
 import util.HibernateUtil;
-<<<<<<< HEAD
-=======
 import model.Class;
 
->>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -74,10 +71,7 @@ public class viewLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public viewLogin() {
-<<<<<<< HEAD
-=======
 		
->>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
 
 		if (sessionFactory != null) {

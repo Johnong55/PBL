@@ -168,10 +168,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				a = con.prepareStatement(sql);
 				a.setString(1, t.getId());
 				ResultSet kq = a.executeQuery();
-<<<<<<< HEAD
-				
-=======
->>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
+
 				while(kq.next())
 				{
 					String id = kq.getString("id");
@@ -256,10 +253,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 	}
 	public List<Class> selectclassbyid(Gv gv)
 	{
-<<<<<<< HEAD
-	
-=======
->>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
+
 		List<Class> result =new ArrayList<Class>();
 		try {
 			Connection con  = JDBCUtil.getConnection();
@@ -282,13 +276,11 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					
 					Class u = new Class(id, name, new truonghoc(school));
 					result.add(u);
-<<<<<<< HEAD
-					
-=======
->>>>>>> branch 'master' of https://github.com/Johnong55/PBL.git
-				}
+
 				con.close();
-			} catch (SQLException e) {
+				}
+		}
+		catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

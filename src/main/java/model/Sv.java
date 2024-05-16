@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 public class Sv extends Account{
 
 	private String ten;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "lop")
 	private Class idclass; 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sv")
