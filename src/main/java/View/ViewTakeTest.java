@@ -445,8 +445,8 @@ public class ViewTakeTest extends JFrame {
 	        TimerTask task = new TimerTask() {
 	            @Override
 	            public void run() {
-	            	int hour = timerSeconds/ 3600;
 	        		int minute = timerSeconds / 60;
+	            	int hour = timerSeconds/ 3600;
 	                SwingUtilities.invokeLater(() -> {
 	                	if(hour != 0) lblH.setText(String.valueOf(hour) + " tiếng " + String.valueOf(minute) + " phút") ;
 		        		else lblH.setText(String.valueOf(minute) + " phút");
