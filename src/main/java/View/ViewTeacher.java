@@ -98,6 +98,7 @@ public class ViewTeacher extends JFrame {
 			comboBoxTenNGCH, comboBoxSortSVinClass, comboBoxNHCH;
 	public MyTable table;
 	public JLabel labelImage, labelIdKitThi;
+	public JLabel noques = new JLabel();
 	public JTextField tenNGCH;
 	public JButton buttonOK, buttonHuy;
 	public JTextArea DapAnA, DapAnB, DapAnC, DapAnD, NoiDung;
@@ -1782,13 +1783,15 @@ public class ViewTeacher extends JFrame {
 		scrollPane.repaint();
 		scrollPane.revalidate();
 		listRadiobutton.clear();
+		noques.setText("");
 
 		if (sl == 0) {
-			JLabel l = new JLabel("CHƯA CÓ CÂU HỎI");
-			l.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			l.setHorizontalAlignment(SwingConstants.CENTER);
-			l.setBounds(250, 200, 208, 52);
-			pView.add(l);
+			System.out.println(12);
+			noques.setText("CHƯA CÓ CÂU HỎI");
+			noques.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			noques.setHorizontalAlignment(SwingConstants.CENTER);
+			noques.setBounds(250, 200, 208, 52);
+			pView.add(noques);
 		} else {
 			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollPane.getViewport().setBackground(Color.WHITE);

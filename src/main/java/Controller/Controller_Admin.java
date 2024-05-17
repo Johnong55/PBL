@@ -250,6 +250,7 @@ public class Controller_Admin implements Action {
 		}
 		else if(e.getSource() == viewadmin.buttonTest) {
 			// giao diện bài làm
+			this.viewadmin.ViewTest();
 		}else if(e.getSource() == viewadmin.buttonQuestion) {
 			// giao diện ngân hàng câu hỏi
 			this.viewadmin.ViewQuestions();
