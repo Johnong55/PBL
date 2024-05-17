@@ -249,8 +249,6 @@ public class ViewAdmin extends JFrame {
 		pView.repaint();
 		pView.revalidate();
 		
-		btnNewButton1.setBackground(new Color(86, 98, 120));
-
 		JLabel lblNewLabel = new JLabel("LỚP");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();

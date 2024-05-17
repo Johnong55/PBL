@@ -42,6 +42,11 @@ public class Nganhangcauhoi {
 		this.listcauhoi.add(c);
 		this.soluong++;
 	}
+	public void removecauhoi(Cauhoi c)
+	{
+		this.listcauhoi.remove(c);
+		this.soluong--;
+	}
 	/**
 	 * 
 	 */
