@@ -50,7 +50,7 @@ public class Giangday {
 		this.maGv = maGv;
 		this.malop = malop;
 	}
-	public Giangday(int id, Gv maGv, Class malop) {
+	public Giangday(int id,Gv maGv, Class malop) {
 		super();
 		this.id = id;
 		this.maGv = maGv;
