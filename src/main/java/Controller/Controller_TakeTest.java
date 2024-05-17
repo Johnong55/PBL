@@ -17,6 +17,7 @@ import View.CompleteTest;
 import View.GoingTest;
 import View.MyButton;
 import View.RadioButtonCustom;
+import View.ViewResultwithStudent;
 import View.ViewTakeTest;
 import model.Cauhoi;
 import model.Cautraloisinhvien;
@@ -118,7 +119,7 @@ public class Controller_TakeTest implements ActionListener, MouseWheelListener {
 					  BaiLam_dao.Instance().insert(vt.bailam1);
 					 					  
 					 		            // Xử lý khi người dùng chọn "Yes"
-		        	CompleteTest frame = new CompleteTest(vt.v,vt.ktOngoing,vt.dethi,vt.listCauhoi,vt.checkAnswer);
+		        	ViewResultwithStudent frame = new ViewResultwithStudent(vt.v,vt.ktOngoing,vt.dethi,vt.listCauhoi,vt.checkAnswer);
 					frame.setVisible(true);
 		        	vt.dispose();
 		        }

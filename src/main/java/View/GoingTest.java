@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import DAO.Sv_dao;
@@ -105,8 +106,9 @@ public class GoingTest extends JFrame {
 		btnNewButton = new MyButton("Bắt Đầu");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewTakeTest frame = new ViewTakeTest(v,ktOngoing);
-				frame.setVisible(true);
+//				ViewTakeTest frame = new ViewTakeTest(v,ktOngoing);
+		        SwingUtilities.invokeLater(() -> new ViewTakeTest(v,ktOngoing));
+//				frame.setVisible(true);
 				dispose();
 			}
 		});
