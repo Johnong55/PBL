@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,7 +18,7 @@ public class Nganhangcauhoi {
 	@ManyToOne
 	@JoinColumn(name = "giaovienquanli")
 	private Gv giaovienquanli;
-	@OneToMany(mappedBy = "nganhangcauhoi"	)
+	@OneToMany(mappedBy = "nganhangcauhoi")
 	private List<KiThi> kithi;
 	public List<KiThi> getKithi() {
 		return kithi;
@@ -28,7 +27,7 @@ public class Nganhangcauhoi {
 	public void setKithi(List<KiThi> kithi) {
 		this.kithi = kithi;
 	}
-	@OneToMany(mappedBy = "NH",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "NH")
 	private List<Cauhoi> listcauhoi = new ArrayList<Cauhoi>();
 	public List<Cauhoi> getListcauhoi() {
 		return listcauhoi;
