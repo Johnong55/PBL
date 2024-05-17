@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 import View.ViewChangePassword;
+import View.ViewTakeTest;
 import View.ViewTeacher;
 import View.viewLogin;
 
@@ -165,8 +166,14 @@ public class Controller_Teacher implements Action {
 			this.viewteacher.ViewQuestions();
 		}else if(e.getSource() == viewteacher.buttonDeleteQuestion) {
 			// xóa câu hỏi
+			viewteacher.deleteCauhoi();
+			viewteacher.DrawQuestion(viewteacher.NHCH.getSoluong());
 		}else if(e.getSource() == viewteacher.buttonEditQuestion) {
 			// chỉnh sửa câu hỏi
+			viewteacher.editCauhoi();
+		}else if(e.getSource() == viewteacher.buttonCapNhatCauHoi) {
+			viewteacher.UpdateCauhoi();
+			this.viewteacher.ViewQuestions();
 		}
 	}
 	
@@ -201,7 +208,6 @@ public class Controller_Teacher implements Action {
 		
 	}
 }
-
 
 
 
