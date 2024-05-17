@@ -39,6 +39,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JMenuItem;
 import javax.swing.JToggleButton;
@@ -57,6 +59,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 
 public class ViewTakeTest extends JFrame {
 
@@ -92,7 +95,7 @@ public class ViewTakeTest extends JFrame {
 	public KiThi ktOngoing;
 	public DeThi dethi;
 	public List<Cauhoi> listCauhoi = new ArrayList<Cauhoi>();
-	
+	public int timerSeconds;
 	public int vitriCauhoi = 0 , soCauDaXem = 0;
 
 	public void setMau(int mau, MyButton btn) {
@@ -154,7 +157,8 @@ public class ViewTakeTest extends JFrame {
 		dapanC = listCauhoi.get(0).getDapAnC();
 		dapanD = listCauhoi.get(0).getDapAnD();
 		dapan = listCauhoi.get(0).getDapan();
-		
+		timerSeconds = ktOngoing.getThoigianlambai() * 60;
+
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,9 +167,13 @@ public class ViewTakeTest extends JFrame {
         int x = (screenSize.width - frameWidth) / 2;
         int y = (screenSize.height - frameHeight) / 2;
 		setBounds(x, y, frameWidth, frameHeight);
-		
+        SwingUtilities.invokeLater(() -> setVisible(true));
+
 		ViewTakeTest1();
-		setVisible(true);
+//		setVisible(true);
+
+        // Chạy luồng phụ để đếm ngược thời gian
+        new Thread(this::countdownTimer).start();
 	}
 
 	/**
@@ -182,6 +190,7 @@ public class ViewTakeTest extends JFrame {
 	 * Create the frame.
 	 */
 	public void ViewTakeTest1() {
+
 		
 
 				
@@ -431,4 +440,27 @@ public class ViewTakeTest extends JFrame {
 		contentPane.add(mbtnCuTrc);
 		  
 	}
+	 private void countdownTimer() {
+	        Timer timer = new Timer();
+	        TimerTask task = new TimerTask() {
+	            @Override
+	            public void run() {
+	        		int minute = timerSeconds / 60;
+	            	int hour = timerSeconds/ 3600;
+	                SwingUtilities.invokeLater(() -> {
+	                	if(hour != 0) lblH.setText(String.valueOf(hour) + " tiếng " + String.valueOf(minute) + " phút") ;
+		        		else lblH.setText(String.valueOf(minute) + " phút");
+//	                    lblH.setText("Time remaining: " + timerSeconds + " seconds");
+	                    if (timerSeconds == 0) {
+	                    	btnExit.doClick();
+	                        dispose(); // Đóng JFrame
+	                        timer.cancel(); // Dừng timer
+	                    }
+	                });
+	                timerSeconds--;
+
+	            }
+	        };
+	        timer.scheduleAtFixedRate(task, 1000, 1000); // Chạy mỗi giây
+	    }
 }
