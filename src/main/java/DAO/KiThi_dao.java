@@ -68,12 +68,12 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				gv.setId(nguoitao);
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
-				
+		
 			KiThi	k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
-				k.setMonhoc(kq.getString("monhoc"));
+				
 				result.add(k);
 			}
 			con.close();
@@ -127,7 +127,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
-				k.setMonhoc(kq.getString("monhoc"));
+				
 				
 				return k;
 			}
@@ -179,7 +179,6 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
-				k.setMonhoc(kq.getString("monhoc"));
 				return k;
 			}
 			con.close();
@@ -231,7 +230,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
-				k.setMonhoc(kq.getString("monhoc"));
+				
 				result.add(k);
 			}
 			con.close();

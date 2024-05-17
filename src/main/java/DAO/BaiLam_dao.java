@@ -64,7 +64,7 @@ public class BaiLam_dao implements DAO_Interface<BaiLam> {
 				sv.setId(sv_id);
 			
 				BaiLam u  = new BaiLam(mabailam, Sv_dao.Instance().selectbyid(sv), diem, thoigianbatdau, thoigianketthuc, DeThi_dao.Instance().selectbyid(dethi), KiThi_dao.Instance().selectbyid(kithi), null);
-			
+				u.setCautraloi(CautraloiSinhvien_dao.Instance().selectCautraloisinhvienfromBailam(u));
 				u.setSocaudung(socaudung);
 				u.setSocausai(socausai);
 				result.add(u);
