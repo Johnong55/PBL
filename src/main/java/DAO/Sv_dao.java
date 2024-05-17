@@ -71,7 +71,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 				k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl);
-				k.setMonhoc(kq.getString("monhoc"));
+				
 				return k;
 			}
 			con.close();
@@ -131,7 +131,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
-				k.setMonhoc(kq.getString("monhoc"));
+				
 				return k;
 			}
 			con.close();
@@ -485,7 +485,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					Lresult = c.selectbyid(lop1);
 			
 					KiThi kt = new KiThi(id, Lresult,startTime, tg, mota, date, gv, sl);
-					kt.setMonhoc(kq.getString("monhoc"));
+					
 					result.add(kt);
 					
 				}
