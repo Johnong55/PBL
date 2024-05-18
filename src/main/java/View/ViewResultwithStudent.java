@@ -23,8 +23,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 
 public class ViewResultwithStudent extends JFrame {
 
@@ -153,17 +152,5 @@ public class ViewResultwithStudent extends JFrame {
 		lblNewLabel_2_2_1.setFont(new Font("Calibri", Font.BOLD, 20));
 		lblNewLabel_2_2_1.setBounds(204, 404, 309, 35);
 		contentPane.add(lblNewLabel_2_2_1);
-		
-		MyButton btnNewButton = new MyButton("Thoát");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ViewStudent q = new ViewStudent(v);
-				dispose();
-			}
-		});
-		btnNewButton.setRadius(20);
-		btnNewButton.setColorOver(new Color(44, 173, 167));
-		btnNewButton.setBounds(586, 497, 127, 34);
-		contentPane.add(btnNewButton);
 	}
 }
