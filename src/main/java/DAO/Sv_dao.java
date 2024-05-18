@@ -89,7 +89,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					+ "INNER JOIN sv ON sv.lop =kithi.lop "
 					+ "  where date = ? and thoigianbatdau <= ?"
 					+" and ADDTIME(thoigianbatdau , SEC_TO_TIME(thoigianlambai * 60)) >= ?"
-					+ " and sv.id = ? "
+					+ " and sv.id = ? and kithi.id not in (select kithi_id from bailam where sv=?) "
 					+ "order by date,thoigianbatdau limit 1;" ;
 			PreparedStatement a;
 			LocalTime time =  LocalTime.now();
@@ -100,6 +100,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 			a.setString(2, time.toString());
 			a.setString(3, time.toString());
 			a.setString(4, t.getId());
+			a.setString(5, t.getId());
 			ResultSet kq = a.executeQuery();
 			while (kq.next()) {
 				String id = kq.getString("id");
