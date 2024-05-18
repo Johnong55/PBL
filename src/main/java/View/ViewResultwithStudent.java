@@ -24,7 +24,6 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 
-
 public class ViewResultwithStudent extends JFrame {
 
 	private static final long serialVersionUID = 1L;
