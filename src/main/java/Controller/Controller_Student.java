@@ -39,6 +39,7 @@ import DAO.Sv_dao;
 import View.ChangePassword;
 import View.GoingTest;
 import View.ViewResult;
+import View.ViewResultwithStudent;
 import View.ViewStudent;
 import View.viewLogin;
 import model.BaiLam;
@@ -70,7 +71,7 @@ public class Controller_Student implements ActionListener  , DocumentListener , 
 				String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				String ngay = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
-				s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
+				s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(),s.bailamsv.get(i).getKiThi().getNganhangcauhoi().getIdNganHang(), ngay,
 						s.bailamsv.get(i).getKiThi().getThoigianlambai(), s.bailamsv.get(i).getSocaudung(),
 						s.bailamsv.get(i).getSocausai(), diem ,s.bailamsv.get(i).getMaBailam()}
 				);
@@ -87,7 +88,7 @@ public class Controller_Student implements ActionListener  , DocumentListener , 
 				String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				String ngay = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
-				s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
+				s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(),s.bailamsv.get(i).getKiThi().getNganhangcauhoi().getIdNganHang(), ngay,
 						s.bailamsv.get(i).getKiThi().getThoigianlambai(), s.bailamsv.get(i).getSocaudung(),
 						s.bailamsv.get(i).getSocausai(), diem ,s.bailamsv.get(i).getMaBailam()});
 			}
@@ -111,7 +112,7 @@ public class Controller_Student implements ActionListener  , DocumentListener , 
 				String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				String ngay = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
-				s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
+				s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(),s.bailamsv.get(i).getKiThi().getNganhangcauhoi().getIdNganHang(), ngay,
 						s.bailamsv.get(i).getKiThi().getThoigianlambai(), s.bailamsv.get(i).getSocaudung(),
 						s.bailamsv.get(i).getSocausai(), diem ,s.bailamsv.get(i).getMaBailam()});
 			}
@@ -127,7 +128,7 @@ public class Controller_Student implements ActionListener  , DocumentListener , 
 			String diem = String.format("%.3f", s.bailamsv.get(i).getDiem());
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			String ngay = (sdf.format(s.bailamsv.get(i).getKiThi().getDate()).toString());
-			s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(), ngay,
+			s.modeltb.addRow(new Object[] { s.bailamsv.get(i).getKiThi().getMota(),s.bailamsv.get(i).getKiThi().getNganhangcauhoi().getIdNganHang(), ngay,
 					s.bailamsv.get(i).getKiThi().getThoigianlambai(), s.bailamsv.get(i).getSocaudung(),
 					s.bailamsv.get(i).getSocausai(), diem ,s.bailamsv.get(i).getMaBailam()});
 		}
@@ -293,7 +294,7 @@ public class Controller_Student implements ActionListener  , DocumentListener , 
 				c.add(cautraloi.get(i).getCauhoi());
 				cA[i] = tendapAn(cautraloi.get(i).getCautraloi(),c.get(i));
 			}			
-			ViewResult v = new ViewResult(b.getSv(), b.getKiThi(), b.getDethi(), c, cA);
+			ViewResultwithStudent v = new ViewResultwithStudent(b.getSv(), b.getKiThi(), b.getDethi(), c, cA);
 		}
 	}
 

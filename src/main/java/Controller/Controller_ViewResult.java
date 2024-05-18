@@ -27,7 +27,7 @@ public class Controller_ViewResult implements ActionListener, MouseWheelListener
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == rs.btnNewButton)
 		{
-			ViewStudent v = new ViewStudent(rs.v);
+//			ViewStudent v = new ViewStudent(rs.v);
 			rs.dispose();
 
 		}
