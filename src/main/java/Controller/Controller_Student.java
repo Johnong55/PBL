@@ -242,8 +242,6 @@ public class Controller_Student implements ActionListener  , DocumentListener , 
 				} catch (Exception q) {
 					System.out.println(q);
 				}
-				
-
 			}
 		}
 
@@ -294,9 +292,7 @@ public class Controller_Student implements ActionListener  , DocumentListener , 
 			{
 				c.add(cautraloi.get(i).getCauhoi());
 				cA[i] = tendapAn(cautraloi.get(i).getCautraloi(),c.get(i));
-
-			}
-			
+			}			
 			ViewResult v = new ViewResult(b.getSv(), b.getKiThi(), b.getDethi(), c, cA);
 		}
 	}

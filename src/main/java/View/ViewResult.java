@@ -64,7 +64,6 @@ public class ViewResult extends JFrame {
 		this.v = sv;
 		this.ktOngoing = onl;
 		this.dethi = dt ; this.listCauhoi = ls ; this.checkAnswer = answer;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 150, 1000, 700);
 		ViewResult1();
 		setVisible(true);
@@ -216,7 +215,6 @@ public class ViewResult extends JFrame {
 		
 	}
 	public void ViewResult1() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 100, 1298, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
