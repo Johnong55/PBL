@@ -53,13 +53,15 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setMaGv(id);
 					u.setTen(ten);
 					u.setTruong(tr.selectbyid(truong));
-					u.setDanhsachlop(selectclassbyid(u));
-					Account gv = 	Account_dao.Instance().selectbyid(u);
+					u.setGiangDay(Giangday_dao.Instance().selectGiangdayOfGv(id));
+					Account gv = Account_dao.Instance().selectbyid(u);
 
 					u.setLinkAnh(gv.getLinkAnh());
 					u.setPassword(gv.getPassword());
-					u.setMaquyen(gv.maquyen);
+					u.setMaquyen(1);
 					u.setUsername(gv.getUsername());
+					u.setNH(NganhangDao.Instance().selectbyidgv(u));
+					u.setKithi(KiThi_dao.Instance().selectByIdGv(id));
 					result.add(u);
 				}
 				con.close();
@@ -95,6 +97,48 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setMaGv(id);
 					u.setTen(ten);
 					u.setTruong(tr.selectbyid(truong));
+					u.setDanhsachlop(selectclassbyid(u));	
+					Account gv = 	Account_dao.Instance().selectbyid(u);
+
+					u.setLinkAnh(gv.getLinkAnh());
+					u.setPassword(gv.getPassword());
+					u.setMaquyen(gv.maquyen);
+					u.setUsername(gv.getUsername());
+					con.close();
+				return u;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	
+	}
+	
+	public Gv selectbyid(String idgv) {
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Gv "
+					+ "where id = ?";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idgv);
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					String id = kq.getString("id");
+					String ten = kq.getString("ten");
+					String idtruong= kq.getString("truong");
+					truonghoc truong = new truonghoc();
+					truong.setId(idtruong);
+					truonghoc_dao tr = new truonghoc_dao();
+					Gv u = new Gv();
+					u.setMaGv(id);
+					u.setTen(ten);
+					u.setTruong(tr.selectbyid(truong));
 					u.setDanhsachlop(selectclassbyid(u));
 					Account gv = 	Account_dao.Instance().selectbyid(u);
 
@@ -102,6 +146,8 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					u.setPassword(gv.getPassword());
 					u.setMaquyen(gv.maquyen);
 					u.setUsername(gv.getUsername());
+					u.setNH(NganhangDao.Instance().selectbyidgv(u));
+					u.setKithi(KiThi_dao.Instance().selectByIdGv(id));
 				return u;
 				}
 				con.close();
@@ -123,7 +169,7 @@ public class Gv_dao implements DAO_Interface<Gv> {
 				a = con.prepareStatement(sql);
 				a.setString(1, t.getId());
 				ResultSet kq = a.executeQuery();
-				System.out.println(a);
+
 				while(kq.next())
 				{
 					String id = kq.getString("id");
@@ -194,23 +240,29 @@ public class Gv_dao implements DAO_Interface<Gv> {
 		{
 			Session session = sessionFactory.openSession();
 			Transaction tr = session.beginTransaction();
-			session.delete(t);
-			tr.commit();
-			session.close();
+			try {
+				session.remove(t);
+				tr.commit();
+				session.close();
+			} catch (Exception e) {
+				
+			}
+		
 			return true;
 		}
 		return false;
 	}
 	public List<Class> selectclassbyid(Gv gv)
 	{
-		System.out.println(gv.getId());
+
 		List<Class> result =new ArrayList<Class>();
 		try {
 			Connection con  = JDBCUtil.getConnection();
-			String sql = "select * from class \r\n"
-					+ "inner join giangday on class.idclass = giangday.lop\r\n"
-					+ "where giangday.giaoviendunglop = (select id from gv"
-					+ " where id = ?)";
+			String sql = "SELECT DISTINCT class.*, giangday.* " +
+		             "FROM class " +
+		             "INNER JOIN giangday ON class.idclass = giangday.lop " +
+		             "WHERE giangday.giaoviendunglop = (SELECT id FROM gv WHERE id = ?)";
+
 			
 			PreparedStatement a;
 			
@@ -225,10 +277,11 @@ public class Gv_dao implements DAO_Interface<Gv> {
 					
 					Class u = new Class(id, name, new truonghoc(school));
 					result.add(u);
-					System.out.println(1);
+				
 				}
 				con.close();
-			} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

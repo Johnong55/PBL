@@ -10,12 +10,20 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import Controller.Controller_Login;
 import DAO.Account_dao;
+import DAO.Class_dao;
 import DAO.Gv_dao;
 import DAO.Sv_dao;
 import model.Account;
 import model.Sv;
+import util.HibernateUtil;
+import model.Class;
+
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -31,6 +39,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import Controller.Controller_Login;
 
@@ -40,7 +50,8 @@ public class viewLogin extends JFrame {
 	public JTextField textField;
 	public JPasswordField textField_1;
 	private Controller_Login lg = new Controller_Login(this);
-
+	List<Sv> listSv  =new ArrayList<Sv>();
+	List<Class> listClass = new ArrayList<Class>();
 	/**
 	 * Launch the application.
 	 */
@@ -60,9 +71,45 @@ public class viewLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public viewLogin() {
+		
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
 
+		if (sessionFactory != null) {
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		listClass = Class_dao.Instance().selectall();
+		for (Class c : listClass) {
+			List<Sv> svs = Class_dao.Instance().selectSVinclass(c);
+			for (Sv sv : svs) {
+				sv.setIdclass(c);
+			}
+			c.setSvs(svs);
+			listSv.addAll(svs);
+		}
+		listSv.addAll(Sv_dao.Instance().selectNoClass());
+		List<Account> tk = Account_dao.Instance().selectall();
+		for (Account account : tk) {
+			for (Sv sv : listSv) {
+				if(sv.getIdSv().equals(account.getId())) {
+					if(account.getLinkAnh() != null) {
+						sv.setLinkAnh(account.getLinkAnh());
+						if(account.getUsername() != null) {
+							sv.setUsername(account.getUsername());
+							if(account.getPassword() != null) {
+								sv.setPassword(account.getPassword());
+								sv.setMaquyen(2);
+								sv.setId(account.getId());
+							}
+						}
+					}
+				}
+			}
+		}
 		setBounds(100, 100, 1141, 713);
+		setLocationRelativeTo(null);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -207,6 +254,7 @@ public class viewLogin extends JFrame {
 				panel_3.setGradientColor(new Color(0,125,255), new Color(0,125,255));
 				panel_3.setBground(new Color(0,125,255));	
 			}
+		
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -227,8 +275,13 @@ public class viewLogin extends JFrame {
 							
 							ViewStudent v = new ViewStudent(u);
 							dispose();
-						}if(q.getMaquyen() == 1) {
+						}else if(q.getMaquyen() == 1) {
 							ViewTeacher v = new ViewTeacher(Gv_dao.Instance().selectbyid(q));
+							dispose();
+						}else if(q.getMaquyen() == 3) {
+						 
+							ViewAdmin v = new ViewAdmin(listSv,listClass);
+							
 							dispose();
 						}
 						return;

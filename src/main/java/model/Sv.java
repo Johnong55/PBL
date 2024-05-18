@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 public class Sv extends Account{
 
 	private String ten;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "lop")
 	private Class idclass; 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sv")
@@ -28,7 +28,7 @@ public class Sv extends Account{
 	}
 	@Override
 	public String toString() {
-		return "Sv [idSv=" + this.id+ ", ten=" + ten + ", idclass=" + idclass + "]";
+		return "Sv [idSv=" + id+ ", ten=" + ten + ", idclass=" + idclass.getIdclass() + "]";
 	}
 	public Sv(String idSv, String ten, Class idclass) {
 		super();

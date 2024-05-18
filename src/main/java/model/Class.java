@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,11 +21,17 @@ public class Class {
 	@OneToMany(mappedBy = "idclass", cascade = CascadeType.ALL)
 	private List<Sv> Svs;
 	@OneToMany(mappedBy = "malop", cascade = CascadeType.ALL)
-	private List<Giangday> danhsachgiaovien;
+	private List<Giangday> danhsachgiaovien =  new ArrayList<Giangday>();
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "truong")
 	private truonghoc truong;
-	
+	private int soluong;
+	public int getSoluong() {
+		return soluong;
+	}
+	public void setSoluong(int soluong) {
+		this.soluong = soluong;
+	}
 	/**
 	 * @param idclass
 	 * @param tenlop

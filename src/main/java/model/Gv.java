@@ -21,9 +21,9 @@ public class Gv extends Account{
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "truong")
 	private truonghoc truong;
-	@OneToMany(mappedBy = "giaovienquanli", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "giaovienquanli", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Nganhangcauhoi> NH;
-	@OneToMany(mappedBy = "gv", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "gv",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<KiThi> kithi;
 	public List<KiThi> getKithi() {
 		return kithi;
@@ -89,6 +89,9 @@ public class Gv extends Account{
 		{
 			this.danhsachlop.add(new Giangday(this,i));
 		}
+	}
+	public void setGiangDay(List<Giangday> danhsachlop) {
+		this.danhsachlop = danhsachlop;
 	}
 	public Gv() {
 		super();

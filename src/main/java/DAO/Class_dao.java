@@ -16,6 +16,7 @@ import org.hibernate.Transaction;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
+import model.Account;
 import model.Class;
 import model.Gv;
 import model.KiThi;
@@ -34,6 +35,33 @@ public class Class_dao implements DAO_Interface<Class> {
 		}
 			return _instance;
 	}
+	public int selectsoluonglop(String malop)
+	{
+		int soluong =0 ;
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select count(*) from sv where lop = ?";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, malop);
+				ResultSet kq = a.executeQuery();
+				
+				
+				while(kq.next())
+				{
+					soluong = kq.getInt("count(*)");
+					return soluong;
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return 0;
+		
+	}
 	@Override
 	public List<Class> selectall() {
 		List<Class> result =  new ArrayList<Class>();	
@@ -45,16 +73,43 @@ public class Class_dao implements DAO_Interface<Class> {
 
 				a = con.prepareStatement(sql);
 				ResultSet kq = a.executeQuery();
-				ResultSetMetaData rsmd  = (ResultSetMetaData) kq.getMetaData();
-				
+
 				while(kq.next())
 				{
 					String id = kq.getString("idclass");
 					String name = kq.getString("tenlop");
 					String school= kq.getString("truong");
-				
-					Class u = new Class(id, name, new truonghoc(school));
+					truonghoc truong = new truonghoc();
+					truong.setId(school);
+					truonghoc_dao tr = new truonghoc_dao();
+					truonghoc b = new truonghoc();
+					b = tr.selectbyid(truong);
+					
+					Class u = new Class(id, name,b);
 					result.add(u);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return result;
+	}
+	public List<String> selectallID() {
+		List<String> result =  new ArrayList<String>();	
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from class";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				ResultSet kq = a.executeQuery();
+				
+				while(kq.next())
+				{
+					String id = kq.getString("idclass");
+					result.add(id);
 				}
 				con.close();
 			} catch (SQLException e) {
@@ -82,13 +137,8 @@ public class Class_dao implements DAO_Interface<Class> {
 					String id = kq.getString("idclass");
 					String name = kq.getString("tenlop");
 					String school= kq.getString("truong");
-					truonghoc truong = new truonghoc();
-					truong.setId(school);
-					truonghoc_dao tr = new truonghoc_dao();
-					truonghoc b = new truonghoc();
-					b = tr.selectbyid(truong);
 					
-					Class u = new Class(id, name,b);
+					Class u = new Class(id, name,new truonghoc(school));
 				return u;
 				}
 				con.close();
@@ -141,9 +191,14 @@ public class Class_dao implements DAO_Interface<Class> {
 		{
 			Session session = sessionFactory.openSession();
 			Transaction tr = session.beginTransaction();
-			session.save(t);
-			tr.commit();
-			session.close();
+			try {
+				session.save(t);
+				tr.commit();
+				session.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
 			return true;
 		}
 		return false;
@@ -201,12 +256,10 @@ public class Class_dao implements DAO_Interface<Class> {
 					String id = kq.getString("id");
 					String ten = kq.getString("ten");
 					String lop= kq.getString("lop");
-			Class lop1 = new Class();
-			lop1.setIdclass(lop);
-					Class_dao c = new Class_dao();
-					Class Lresult = new Class();
-					Lresult = c.selectbyid(lop1);
-					Sv u = new Sv(id,ten,Lresult);
+					Class lop1 = new Class();
+					lop1.setIdclass(lop);
+					Sv u = new Sv(id,ten,lop1);
+					
 					result.add(u);
 				}
 				con.close();

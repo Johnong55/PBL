@@ -82,11 +82,12 @@ public class BaiLam_dao implements DAO_Interface<BaiLam> {
 	public BaiLam selectbyid(BaiLam t) {
 		try {
 			Connection con = JDBCUtil.getConnection();
-			String sql = "select * from bailam ";
+			String sql = "select * from bailam where maBailam = ?";
 
 			PreparedStatement a;
 
 			a = con.prepareStatement(sql);
+			a.setString(1, t.getMaBailam());
 			ResultSet kq = a.executeQuery();
 			while (kq.next()) {
 				String mabailam = kq.getString("maBailam");

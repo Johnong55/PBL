@@ -61,6 +61,36 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 		
 	}
 	
+	public List<Giangday> selectGiangdayOfGv(String idgv) {
+		List<Giangday> result =  new ArrayList<Giangday>();	
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "select * from Giangday where giaoviendunglop = ? ";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1, idgv);
+				ResultSet kq = a.executeQuery();
+				while(kq.next())
+				{
+					int id = kq.getInt("id");
+					String gv = kq.getString("giaoviendunglop");
+					String lop= kq.getString("lop");
+					Gv  gv1 = Gv_dao.Instance().selectbyid(idgv);
+					Class cl = Class_dao.Instance().selectbyid(lop);
+					Giangday u = new Giangday(id, gv1,cl );
+					result.add(u);
+				}
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return result;
+		
+	}
+	
 
 	@Override
 	public Giangday selectbyid(Giangday t) {
@@ -110,7 +140,7 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public boolean update(Giangday t) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
@@ -140,5 +170,4 @@ public class Giangday_dao implements DAO_Interface<Giangday> {
 		}
 		return false;
 	}
-
 }
