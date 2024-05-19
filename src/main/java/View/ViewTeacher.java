@@ -93,7 +93,7 @@ public class ViewTeacher extends JFrame {
 			buttonLuuCauHoi, buttonExitAddQuestion, buttonHuyUpdateExam, buttonLuuExam, buttonUpdateExam,
 			buttonHuyCreateExam, buttonQuestion, buttonDeleteQuestion, buttonAddQuestion, buttonSelectAllRadiobutton,
 			buttonHuyAllRadiobutton, buttonEditQuestion, buttonCapNhatCauHoi;
-	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa;
+	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa,textMon;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi, comboBoxMucDo, comboBoxTenLop,
 			comboBoxTenNGCH, comboBoxSortSVinClass, comboBoxNHCH;
 	public MyTable table;
@@ -850,7 +850,7 @@ public class ViewTeacher extends JFrame {
 
 		panel_3.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_1_1 = new JLabel("Ngân hàng câu hỏi :");
+		JLabel lblNewLabel_1_1 = new JLabel("Kho câu hỏi :");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1.setBounds(339, 30, 150, 18);
 		panel_3.add(lblNewLabel_1_1);
@@ -906,6 +906,20 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1_2_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_3.setBounds(10, 450, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3);
+		
+		JLabel lblNewLabel_1_2_4 = new JLabel("Môn :");
+		lblNewLabel_1_2_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_4.setBounds(320, 90, 50, 18);
+		panel_3.add(lblNewLabel_1_2_4);
+		
+		textMon = new JPlaceholderTextField("");
+		textMon.setHorizontalAlignment(SwingConstants.CENTER);
+		textMon.setBounds(370, 86, 100, 30);
+		textMon.setBorder(null);
+		textMon.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
+		textMon.setCornerRadius(20);
+		panel_3.add(textMon);
+		textMon.setColumns(10);
 
 		textField = new JPlaceholderTextField("");
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1122,6 +1136,20 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1_2_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_3.setBounds(10, 450, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3);
+		
+		JLabel lblNewLabel_1_2_4 = new JLabel("Môn :");
+		lblNewLabel_1_2_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_4.setBounds(320, 90, 50, 18);
+		panel_3.add(lblNewLabel_1_2_4);
+		
+		textMon = new JPlaceholderTextField("");
+		textMon.setHorizontalAlignment(SwingConstants.CENTER);
+		textMon.setBounds(370, 86, 100, 30);
+		textMon.setBorder(null);
+		textMon.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
+		textMon.setCornerRadius(20);
+		panel_3.add(textMon);
+		textMon.setColumns(10);
 
 		textField = new JPlaceholderTextField("");
 		textField.setText(String.valueOf(kt.getSocautb()));
@@ -1981,7 +2009,7 @@ public class ViewTeacher extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) t.getModel();
 		for (KiThi k : kthi) {
 			if (idgv.equalsIgnoreCase(k.getGv().getId())) {
-				Object[] row = { k.getLop().getTenlop(), k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
+				Object[] row = { k.getLop().getTenlop(), k.getMonhoc(), k.getMota(),
 						k.getDate(), k.getThoigianbatdau(), k.getThoigianlambai(), k.getSl(), k.getId() };
 				model.addRow(row);
 			}
@@ -2063,7 +2091,8 @@ public class ViewTeacher extends JFrame {
 	public void LuuExam() {
 
 		String tenlop = comboBoxTenLop.getSelectedItem().toString();
-		String tenmon = comboBoxTenNGCH.getSelectedItem().toString();
+		String tenNH = comboBoxTenNGCH.getSelectedItem().toString();
+		String tenmon = textMon.getText();
 		String mota = textMoTa.getText();
 		int total = Integer.parseInt(textField_2.getText());
 		int easy = Integer.parseInt(textField_1.getText());
@@ -2089,8 +2118,8 @@ public class ViewTeacher extends JFrame {
 			l.printStackTrace();
 		}
 		String m = UUID.randomUUID().toString();
-		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard, easy,
-				medium, getNganhangcauhoibyName(tenmon));
+		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g),tenmon, timE, duringtime, mota, datE, g, total, hard, easy,
+				medium, getNganhangcauhoibyName(tenNH));
 
 		textMoTa.setText("");
 		textField.setText("");
@@ -2107,7 +2136,8 @@ public class ViewTeacher extends JFrame {
 	public void CapNhatExam() {
 
 		String tenlop = comboBoxTenLop.getSelectedItem().toString();
-		String tenmon = comboBoxTenNGCH.getSelectedItem().toString();
+		String tenNH = comboBoxTenNGCH.getSelectedItem().toString();
+		String tenmon = textMon.getText();
 		String mota = textMoTa.getText();
 		int total = Integer.parseInt(textField_2.getText());
 		int easy = Integer.parseInt(textField_1.getText());
@@ -2133,8 +2163,8 @@ public class ViewTeacher extends JFrame {
 			l.printStackTrace();
 		}
 		String m = labelIdKitThi.getText();
-		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard, easy,
-				medium, getNganhangcauhoibyName(tenmon));
+		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g),tenmon, timE, duringtime, mota, datE, g, total, hard, easy,
+				medium, getNganhangcauhoibyName(tenNH));
 
 		textMoTa.setText("");
 		textField.setText("");

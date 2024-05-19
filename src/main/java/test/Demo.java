@@ -309,6 +309,8 @@ public class Demo {
  		Nganhangcauhoi nh1 = new Nganhangcauhoi();
  		nh1.setIdNganHang("su");
  		nh1.setGiaovienquanli(gv1);
+  		nhdao.insert(nh1);
+  		nhdao.insert(nh);
   		
   		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 1, "Paris", nh);
   		Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain", 1, "William Shakespeare", nh);
@@ -330,7 +332,26 @@ public class Demo {
   		Cauhoi q18 = new Cauhoi("q18", "What is the largest mammal in the world?", "Blue Whale", "Elephant", "Giraffe", "Hippopotamus", 3, "Blue Whale", nh);
   		Cauhoi q19 = new Cauhoi("q19", "Who painted 'The Last Supper'?", "Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo", 1, "Leonardo da Vinci", nh);
   		Cauhoi q20 = new Cauhoi("q20", "Which planet is known as the 'Morning Star' or 'Evening Star'?", "Venus", "Mars", "Mercury", "Jupiter", 2, "Venus", nh);
-  		
+  		Cauhoi_Dao.Instance().insert(q1);
+  		Cauhoi_Dao.Instance().insert(q2);
+  		Cauhoi_Dao.Instance().insert(q3);
+  		Cauhoi_Dao.Instance().insert(q4);
+  		Cauhoi_Dao.Instance().insert(q5);
+  		Cauhoi_Dao.Instance().insert(q6);
+  		Cauhoi_Dao.Instance().insert(q7);
+  		Cauhoi_Dao.Instance().insert(q8);
+  		Cauhoi_Dao.Instance().insert(q9);
+  		Cauhoi_Dao.Instance().insert(q10);
+  		Cauhoi_Dao.Instance().insert(q11);
+  		Cauhoi_Dao.Instance().insert(q12);
+  		Cauhoi_Dao.Instance().insert(q13);
+  		Cauhoi_Dao.Instance().insert(q14);
+  		Cauhoi_Dao.Instance().insert(q15);
+  		Cauhoi_Dao.Instance().insert(q16);
+  		Cauhoi_Dao.Instance().insert(q17);
+  		Cauhoi_Dao.Instance().insert(q18);
+  		Cauhoi_Dao.Instance().insert(q19);
+  		Cauhoi_Dao.Instance().insert(q20);
   		nh.addcauhoi(q1);
   		nh.addcauhoi(q2);
   		nh.addcauhoi(q3);
@@ -377,6 +398,28 @@ public class Demo {
   		Cauhoi q38 = new Cauhoi("q38", "What is the fastest land animal?", "Lion", "Cheetah", "Gazelle", "Leopard", 2, "Cheetah", nh1);
   		Cauhoi q39 = new Cauhoi("q39", "Who painted 'The Scream'?", "Pablo Picasso", "Edvard Munch", "Vincent van Gogh", "Claude Monet", 2, "Edvard Munch", nh1);
   		Cauhoi q40 = new Cauhoi("q40", "Which planet is known as the 'Red Planet'?", "Venus", "Mars", "Mercury", "Jupiter", 2, "Mars", nh1);
+  		
+  		Cauhoi_Dao.Instance().insert(q21);
+  		Cauhoi_Dao.Instance().insert(q22);
+  		Cauhoi_Dao.Instance().insert(q23);
+  		Cauhoi_Dao.Instance().insert(q24);
+  		Cauhoi_Dao.Instance().insert(q25);
+  		Cauhoi_Dao.Instance().insert(q26);
+  		Cauhoi_Dao.Instance().insert(q27);
+  		Cauhoi_Dao.Instance().insert(q28);
+  		Cauhoi_Dao.Instance().insert(q29);
+  		Cauhoi_Dao.Instance().insert(q30);
+  		Cauhoi_Dao.Instance().insert(q31);
+  		Cauhoi_Dao.Instance().insert(q32);
+  		Cauhoi_Dao.Instance().insert(q33);
+  		Cauhoi_Dao.Instance().insert(q34);
+  		Cauhoi_Dao.Instance().insert(q35);
+  		Cauhoi_Dao.Instance().insert(q36);
+  		Cauhoi_Dao.Instance().insert(q37);
+  		Cauhoi_Dao.Instance().insert(q38);
+  		Cauhoi_Dao.Instance().insert(q39);
+  		Cauhoi_Dao.Instance().insert(q40);
+  		
   		nh1.addcauhoi(q21);
   		nh1.addcauhoi(q22);
   		nh1.addcauhoi(q23);
@@ -397,9 +440,6 @@ public class Demo {
   		nh1.addcauhoi(q38);
   		nh1.addcauhoi(q39);
   		nh1.addcauhoi(q40);
-  		
-  		nhdao.insert(nh1);
-  		nhdao.insert(nh);
   		List<Sv> svList = new ArrayList<>();
   		kt.insert(kithi2);
   		kt.insert(kithi1);

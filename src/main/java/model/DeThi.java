@@ -50,6 +50,13 @@ public class DeThi {
 		this.kithi = kithi;
 		
 	}
+	public DeThi(String id,String mota, KiThi kithi) {
+		
+		this.mota = mota;
+		this.id = id;
+		this.kithi = kithi;
+		
+	}
 	public String getMota() {
 		return mota;
 	}

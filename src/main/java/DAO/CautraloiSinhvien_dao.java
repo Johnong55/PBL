@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import model.BaiLam;
 import model.Cauhoi;
 import model.Cautraloisinhvien;
 import model.Nganhangcauhoi;
+import util.HibernateUtil;
 import util.JDBCUtil;
 
 public class CautraloiSinhvien_dao  {
@@ -50,7 +55,7 @@ public class CautraloiSinhvien_dao  {
 					ch.setId(cauhoi);
 					u.setCauhoi(Cauhoi_Dao.Instance().selectbyid(ch));
 					u.setCautraloi(cautraloi);
-					u.setId(bailamid);
+					u.setId(id);
 					result.add(u);
 				}
 				con.close();
@@ -59,6 +64,19 @@ public class CautraloiSinhvien_dao  {
 				e.printStackTrace();
 			}
 			return result;
+	}
+	public boolean deletebyid(Cautraloisinhvien t) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if(sessionFactory!=null)
+		{
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+			session.delete(t);
+			tr.commit();
+			session.close();
+			return true;
+		}
+		return false;
 	}
 	
 }
