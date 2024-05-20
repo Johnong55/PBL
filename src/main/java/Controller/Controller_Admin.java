@@ -258,6 +258,12 @@ public class Controller_Admin implements Action {
 			String idNHCH = (String) viewadmin.comboBoxNHCH.getSelectedItem();
 			this.viewadmin.NHCH = viewadmin.getNHCHByName(idNHCH);
 			viewadmin.DrawQuestion(viewadmin.NHCH.getSoluong());
+		}else if(e.getSource() == viewadmin.comboBoxSortStudent) {
+			String sort = viewadmin.comboBoxSortStudent.getSelectedItem().toString();
+			viewadmin.SortTable(sort);
+		}else if(e.getSource() == viewadmin.comboBoxSortTeacher) {
+			String sort = viewadmin.comboBoxSortTeacher.getSelectedItem().toString();
+			viewadmin.SortTable(sort);
 		}
 	}
 

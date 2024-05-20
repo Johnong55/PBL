@@ -42,6 +42,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -568,7 +570,7 @@ public class ViewTeacher extends JFrame {
 
 		pView.add(lblNewLabel);
 
-		String[] list = { "  Tên", "  Điểm trung bình" };
+		String[] list = { "  Tên","  Mã học sinh", "  Điểm trung bình" };
 
 		comboBoxSortSVinClass = new JComboBox<>(list);
 		comboBoxSortSVinClass.setBounds(615, 35, 90, 22);
@@ -612,8 +614,8 @@ public class ViewTeacher extends JFrame {
 		});
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Mã học sinh", "  Tên học sinh",
 				"  Điểm trung bình", "  Mã học sinh", "  Mã lớp", "  Tên" }));
-
-		table.setModel(getModelSv(table, c));
+		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
+		table.setModel(getModelSv(temp));
 		SortTable("  Tên");
 		table.setDefaultEditor(Object.class, null);
 
@@ -638,6 +640,35 @@ public class ViewTeacher extends JFrame {
 		column2.setPreferredWidth(0);
 
 		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("Tìm kiếm :");
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2_1.setBounds(20, 40, 100, 28);
+		pView.add(lblNewLabel_2_1);
+		
+		JTextField textFind = new JTextField();
+		textFind.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textFind.setBounds(100,42,100,25);
+		pView.add(textFind);
+		textFind.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// xử lí tìm kiếm
+				String name = textFind.getText();
+				FindStudent(temp,name);
+			}
+		});
+	}
+	public void FindStudent(List<Sv> temp, String name) {
+		List<Sv> afterFind = new ArrayList<Sv>();
+		for (Sv sv : temp) {
+			if(sv.getTen().toLowerCase().contains(name.toLowerCase())) {
+				afterFind.add(sv);
+			}
+		}
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		table.setModel(getModelSv(afterFind));
 	}
 
 	public void ViewExam() {
@@ -2044,23 +2075,24 @@ public class ViewTeacher extends JFrame {
 		return model;
 	}
 
-	public DefaultTableModel getModelSv(JTable table, Class c) {
+	public DefaultTableModel getModelSv(List<Sv> temp) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
 		for (Sv sv : temp) {
 			int lastIndex = sv.getTen().lastIndexOf(" ");
 			String lastName = sv.getTen().substring(lastIndex + 1);
 
-			Object[] row = { sv.getIdSv(), sv.getTen(), sv.getDTB(), sv.getId(), sv.getIdclass().getIdclass(), lastName };
+			Object[] row = { sv.getIdSv(), sv.getTen(), String.valueOf(sv.getDTB()), sv.getId(), sv.getIdclass().getIdclass(), lastName };
 			model.addRow(row);
 		}
 		return model;
 	}
 
-	public void upadteTableSv(JTable table, String id) {
+	public void upadteTableSv(String id) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
-		table.setModel(getModelSv(table, Class_dao.Instance().selectbyid(id)));
+		Class c = Class_dao.Instance().selectbyid(id);
+		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
+		table.setModel(getModelSv(temp));
 	}
 
 	public void updateTableExam(JTable table) {
