@@ -30,7 +30,7 @@ public class Sv extends Account{
 		for (BaiLam baiLam : list) {
 			tong += baiLam.getDiem();
 		}
-		if(tong == 0) {
+		if(tong == 0 || list.size() == 0) {
 			this.DTB = 0;
 		}else {
 			this.DTB = tong/list.size();

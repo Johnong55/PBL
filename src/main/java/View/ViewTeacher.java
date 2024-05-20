@@ -115,6 +115,7 @@ public class ViewTeacher extends JFrame {
 	public List<Giangday> dslop = new ArrayList<Giangday>();
 	public List<JRadioButton> listRadiobutton = new ArrayList<JRadioButton>();
 	public Cauhoi q = null;
+	public List<Sv> svs = new ArrayList<Sv>();
 
 	Controller_Teacher actionTeacher = new Controller_Teacher(this);
 
@@ -122,6 +123,10 @@ public class ViewTeacher extends JFrame {
 		this.g = gv;
 		this.NHCHs = NganhangDao.Instance().selectbyidgv(g);
 		this.dslop = g.getDanhsachlop();
+		for (Giangday giangday : dslop) {
+			List<Sv> temp = Class_dao.Instance().selectSVinclass(giangday.getMalop());
+			svs.addAll(temp);
+		}
 		System.out.println(g);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
@@ -269,13 +274,30 @@ public class ViewTeacher extends JFrame {
 		panel_1.setBground(Color.WHITE);
 		panel_1.setLayout(null);
 		// bỉu do
+		int yeu = 0;
+		int tb = 0;
+		int kha = 0;
+		int gioi = 0;
+		
+		for (Sv sv : svs) {
+			if(sv.getDTB() < 5 ) {
+				yeu += 1;
+			}else if(sv.getDTB() >= 5 && sv.getDTB() < 6.5) {
+				tb += 1;
+			}else if(sv.getDTB() >= 6.5 && sv.getDTB() < 8) {
+				kha += 1;
+			}else if(sv.getDTB() >= 8) {
+				gioi += 1;
+			}
+		}
+		
 		DefaultPieDataset dataset = new DefaultPieDataset();
-		dataset.setValue("Dưới 5 điểm", 15);
-		dataset.setValue("5-6,5 điểm", 10);
-		dataset.setValue("6,5-8 điểm", 66);
-		dataset.setValue("8-10 điểm", 9);
+		dataset.setValue("Dưới 5 điểm", (yeu/svs.size())*100);
+		dataset.setValue("5-6,5 điểm", (tb/svs.size())*100);
+		dataset.setValue("6,5-8 điểm", (kha/svs.size())*100);
+		dataset.setValue("8-10 điểm", (gioi/svs.size())*100);
 
-		JFreeChart chart = ChartFactory.createPieChart("Recent test results", dataset, true, true, true);
+		JFreeChart chart = ChartFactory.createPieChart("Kết quả kiểm tra", dataset, true, true, true);
 		PiePlot pie = (PiePlot) chart.getPlot();
 		pie.setSectionPaint("Dưới 5 điểm", new Color(50, 185, 185));
 		pie.setSectionPaint("5-6,5 điểm", Color.yellow);
