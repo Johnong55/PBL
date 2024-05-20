@@ -1942,7 +1942,12 @@ public class ViewAdmin extends JFrame {
 	public void deleteSvInStudent(List<String> idSvs) {
 		for (String idsv : idSvs) {
 			Sv s = getSvById(idsv);
-			Sv_dao.Instance().deletebyid(s);
+			
+			
+			
+			
+			
+			Sv_dao.Instance().deletebyid(s.getIdSv());
 			listSv.remove(s);
 		}
 	}

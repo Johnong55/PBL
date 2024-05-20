@@ -407,6 +407,20 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		return false;
 	}
 	
+	public boolean deletebyid(String id) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if(sessionFactory!=null)
+		{
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+			Sv classEntity = session.get(Sv.class,id);
+			session.delete(classEntity);
+			tr.commit();
+			session.close();
+			return true;
+		}
+		return false;
+	}
 	
 	public List<Sv> selectbyclass(Class t)
 	{

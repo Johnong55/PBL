@@ -31,8 +31,30 @@ public class CauHoi_DeThi_dao implements DAO_Interface<Cauhoi_DeThi> {
 	}
 	@Override
 	public List<Cauhoi_DeThi> selectall() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Cauhoi_DeThi> cauhois = new ArrayList<Cauhoi_DeThi>();
+		Connection con = JDBCUtil.getConnection();
+		String sql = "select * from cauhoi_dethi";
+		
+		PreparedStatement a;
+		try {
+			a = con.prepareStatement(sql);
+			ResultSet kq = a.executeQuery();
+			System.out.println(2);
+			while(kq.next()){
+				int id = kq.getInt("id");
+				String cauhoi = kq.getString("Cauhoi");
+				String dethi = kq.getString("DeThi");
+				Cauhoi c = Cauhoi_Dao.Instance().selectbyidCauHoi(cauhoi);
+				DeThi dt = DeThi_dao.Instance().selectbyidDeThi(dethi);
+				Cauhoi_DeThi cd = new Cauhoi_DeThi(id,c, dt);
+				cauhois.add(cd);
+				System.out.println(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cauhois;
 	}
 	public List<Cauhoi_DeThi> selectbyIdDeThi(String idDeThi) {
 		List<Cauhoi_DeThi> cauhois = new ArrayList<Cauhoi_DeThi>();

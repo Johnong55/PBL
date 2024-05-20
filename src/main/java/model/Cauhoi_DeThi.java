@@ -54,6 +54,9 @@ public class Cauhoi_DeThi {
 		this.cauhoi = cauhoi;
 		this.deThi = deThi;
 	}
+	public Cauhoi_DeThi() {
+		
+	}
 
 
 }

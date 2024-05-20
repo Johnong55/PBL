@@ -200,7 +200,6 @@ public class Controller_Admin implements Action {
 		}
 		else if(e.getSource() == viewadmin.buttonDeleteSvInStudent) {
 				//// xóa sinh viên trong giao diện sinh viên
-			System.out.println("aaaa");
 			if(viewadmin.table.getSelectedRowCount() > 0) {			
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },

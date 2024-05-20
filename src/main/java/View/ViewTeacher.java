@@ -71,6 +71,7 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import model.Gv;
 import model.KiThi;
 import model.Nganhangcauhoi;
+import DAO.CauHoi_DeThi_dao;
 import DAO.Cauhoi_Dao;
 import DAO.Class_dao;
 import DAO.Gv_dao;
@@ -79,6 +80,7 @@ import DAO.NganhangDao;
 import DAO.Sv_dao;
 import model.Sv;
 import model.Cauhoi;
+import model.Cauhoi_DeThi;
 import model.Class;
 import model.Giangday;
 import Controller.Controller_Teacher;
@@ -2285,23 +2287,35 @@ public class ViewTeacher extends JFrame {
 				break;
 			}
 		}
+		
+		List<Cauhoi_DeThi> chdt = CauHoi_DeThi_dao.Instance().selectall();
+		
 		int j = 0;
 		for (int i = listRadiobutton.size() - 1; i >= 0; i--) {
 			if (listRadiobutton.get(i).isSelected()) {
 				Cauhoi c = nh.getListcauhoi().get(i);
-				nh.removecauhoi(c);
-				Cauhoi_Dao.Instance().deletebyid(c);
-				j = 1;
+				for (Cauhoi_DeThi cauhoi_DeThi : chdt) {
+					System.out.println(123);
+					if(cauhoi_DeThi.getCauhoi().getId().equals(c.getId())) {
+						JOptionPane.showMessageDialog(null, "Không thể xóa câu hỏi số " + (i + 1) + " vì có trong đề thi", "Thông báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						j = -1;
+						break;
+					}
+				}
+				if(j != -1){
+					nh.removecauhoi(c);
+					Cauhoi_Dao.Instance().deletebyid(c);
+					NganhangDao.Instance().update(nh);
+					j = 1;
+				}
 			}
 		}
 		if (j == 0) {
 			JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 câu hỏi để xóa", "Thông báo",
 					JOptionPane.INFORMATION_MESSAGE);
 		}
-		NganhangDao.Instance().update(nh);
-
 	}
-
 	public void editCauhoi() {
 		Nganhangcauhoi nh = null;
 		String tenNH = comboBoxNHCH.getSelectedItem().toString();
