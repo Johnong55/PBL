@@ -1730,10 +1730,13 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_2.setBounds(478, 30, 131, 28);
 		pView.add(lblNewLabel_2);
-
-		this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
-
-		DrawQuestion(NHCHs.get(0).getSoluong()); // chua co so lieu
+		
+		if(!NHCHs.isEmpty()) {
+			this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
+			DrawQuestion(NHCHs.get(0).getSoluong()); 
+		}else {
+			DrawQuestion(0); 
+		}
 
 		buttonSelectAllRadiobutton = new MyButton("Chọn tất cả");
 		buttonSelectAllRadiobutton.setRadius(10);

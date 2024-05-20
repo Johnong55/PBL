@@ -87,6 +87,10 @@ public class Controller_Teacher implements Action {
 			// giao diên tạo kì thi
 			this.viewteacher.ViewCreateExam();
 		}
+		else if(e.getSource() == viewteacher.buttonCreateExam) {
+			// giao diên tạo kì thi
+			this.viewteacher.ViewCreateExam();
+		}
 		else if(e.getSource() == viewteacher.buttonDeleteExam) {
 			// xóa kì thi
 			if(viewteacher.table.getSelectedRowCount() == 1) {
