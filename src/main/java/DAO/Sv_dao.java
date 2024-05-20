@@ -165,6 +165,8 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					Class Lresult = new Class();
 					Lresult = c.selectbyid(lop1);
 					Sv u = new Sv(id,ten,Lresult);
+					u.setList(BaiLam_dao.Instance().selectbyidSV(id));
+					u.setDTB();
 					result.add(u);
 				}
 				con.close();

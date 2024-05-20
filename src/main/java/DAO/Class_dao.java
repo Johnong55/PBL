@@ -259,6 +259,8 @@ public class Class_dao implements DAO_Interface<Class> {
 					Class lop1 = new Class();
 					lop1.setIdclass(lop);
 					Sv u = new Sv(id,ten,lop1);
+					u.setList(BaiLam_dao.Instance().selectbyidSV(id));
+					u.setDTB();
 					
 					result.add(u);
 				}

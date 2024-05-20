@@ -2029,7 +2029,7 @@ public class ViewTeacher extends JFrame {
 			int lastIndex = sv.getTen().lastIndexOf(" ");
 			String lastName = sv.getTen().substring(lastIndex + 1);
 
-			Object[] row = { sv.getIdSv(), sv.getTen(), "", sv.getId(), sv.getIdclass().getIdclass(), lastName };
+			Object[] row = { sv.getIdSv(), sv.getTen(), sv.getDTB(), sv.getId(), sv.getIdclass().getIdclass(), lastName };
 			model.addRow(row);
 		}
 		return model;
