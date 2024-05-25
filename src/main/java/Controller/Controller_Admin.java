@@ -85,7 +85,7 @@ public class Controller_Admin implements Action {
 					int[] indexRow = viewadmin.table.getSelectedRows();
 					List<String> idSvs = new ArrayList<String>();
 					for (int i : indexRow) {
-						idSvs.add(viewadmin.table.getValueAt(i, 2).toString());
+						idSvs.add(viewadmin.table.getValueAt(i, 0).toString());
 					}
 					viewadmin.deleteSvFromClass(idSvs);
 					viewadmin.updateTabelSvinClass(viewadmin.idclass);
@@ -210,7 +210,7 @@ public class Controller_Admin implements Action {
 				int[] indexRow = viewadmin.table.getSelectedRows();
 				
 				for (int i : indexRow) {
-					String idclass = viewadmin.table.getValueAt(i, 3).toString();
+					String idclass = viewadmin.table.getValueAt(i, 0).toString();
 					idSvs.add(idclass);
 				}
 				viewadmin.deleteSvInStudent(idSvs);

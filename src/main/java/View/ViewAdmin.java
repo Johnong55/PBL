@@ -95,8 +95,8 @@ public class ViewAdmin extends JFrame {
 	public String idclass,tenGv, idGv;
 	public List<Sv> listSv = new ArrayList<Sv>();
 	public List<Class> listClass = new ArrayList<Class>();
-	public List<Gv> listgv = Gv_dao.Instance().selectall();
-	public List<Nganhangcauhoi> NHCHs = NganhangDao.Instance().selectall();
+	public List<Gv> listgv = new ArrayList<Gv>();
+	public List<Nganhangcauhoi> NHCHs = new ArrayList<Nganhangcauhoi>();
 	public Nganhangcauhoi NHCH = null;
 	/**
 	 * Launch the application.
@@ -104,9 +104,11 @@ public class ViewAdmin extends JFrame {
 
 	Controller_Admin actionAdmin = new Controller_Admin(this);
 
-	public ViewAdmin(List<Sv> listsv,List<Class> listclass) {
+	public ViewAdmin(List<Sv> listsv,List<Class> listclass, List<Gv> listgv, List<Nganhangcauhoi> NHCHs) {
 		this.listSv= listsv;
 		this.listClass = listclass;
+		this.listgv = listgv;
+		this.NHCHs = NHCHs;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 700);
 		setLocationRelativeTo(null);
@@ -1791,7 +1793,7 @@ public class ViewAdmin extends JFrame {
 			int lastIndex = s.getTen().lastIndexOf(" ");
 			String lastName = s.getTen().substring(lastIndex + 1);
 			if(s.getIdclass() != null) {
-			Object[] row = { s.getIdSv(), s.getTen(), "Chưa có lớp", lastName};
+			Object[] row = { s.getIdSv(), s.getTen(),s.getIdclass().getTenlop(), lastName};
 			model.addRow(row);
 			}else {
 				Object[] row = {s.getIdSv(), s.getTen(), "Chưa có lớp", lastName };
@@ -1918,7 +1920,7 @@ public class ViewAdmin extends JFrame {
 		Class c = getClassById(idclass);
 		List<Sv> svs = c.getSvs();
 		for (String idsv : idSvs) {
-			Sv s = getSvById(idsv);
+			Sv s = getSvById(idsv);			
 			s.setIdclass(null);
 			svs.remove(s);
 			Sv_dao.Instance().deleteSvFromClass(idsv);
@@ -2077,12 +2079,7 @@ public class ViewAdmin extends JFrame {
 	}
 	public void deleteSvInStudent(List<String> idSvs) {
 		for (String idsv : idSvs) {
-			Sv s = getSvById(idsv);
-			
-			
-			
-			
-			
+			Sv s = getSvById(idsv);			
 			Sv_dao.Instance().deletebyid(s.getIdSv());
 			listSv.remove(s);
 		}
