@@ -734,7 +734,7 @@ public class ViewAdmin extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 2) {
 				int i = table.getSelectedRow();
-				String m = table.getValueAt(i, 0).toString();
+				String m = table.getValueAt(i, 1).toString();
 				ViewClassOfTeacher(m);
 				}
 			}
