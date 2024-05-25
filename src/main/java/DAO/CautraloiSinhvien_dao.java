@@ -78,5 +78,18 @@ public class CautraloiSinhvien_dao  {
 		}
 		return false;
 	}
+	public boolean updatebyid(Cautraloisinhvien t) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if(sessionFactory!=null)
+		{
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+			session.update(t);
+			tr.commit();
+			session.close();
+			return true;
+		}
+		return false;
+	}
 	
 }
