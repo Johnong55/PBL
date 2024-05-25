@@ -718,7 +718,7 @@ public class ViewAdmin extends JFrame {
 		table.setModel(getModelTeacher(listgv));
 		
 		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn column = columnModel.getColumn(1);
+		TableColumn column = columnModel.getColumn(2);
 		column.setMinWidth(0);
 		column.setMaxWidth(0);
 		column.setWidth(0);
