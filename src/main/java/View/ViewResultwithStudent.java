@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import DAO.KiThi_dao;
 import DAO.Sv_dao;
 import model.Cauhoi;
 import model.DeThi;
@@ -63,7 +64,7 @@ public class ViewResultwithStudent extends JFrame {
 	 */
 	public ViewResultwithStudent(Sv sv, KiThi onl, DeThi dt, List<Cauhoi> ls, String[] answer) {	
 		this.v = sv;
-		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
+		this.ktOngoing = onl;
 		this.dethi = dt;
 		this.listCauhoi = ls;
 		this.checkAnswer = answer;
@@ -159,8 +160,17 @@ public class ViewResultwithStudent extends JFrame {
 		 btnNewButton.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		ViewStudent frame = new ViewStudent(v);
-		 		frame.setVisible(true);
 		 		dispose();
+		 		frame.setVisible(true);
+		 		frame.view_home();
+		 		frame.panel_4.removeAll();
+				frame.panel_4.revalidate();
+				frame.panel_4.repaint();		
+				frame.cl.s.modeltb.setRowCount(0);
+				frame.cl.setPanel_4();
+				frame.cl.hienthi();
+				frame.view_test();
+
 		 	}
 		 });
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 20));

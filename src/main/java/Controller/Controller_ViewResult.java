@@ -7,6 +7,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JScrollBar;
 
+import View.ViewAdmin;
 import View.ViewResult;
 import View.ViewStudent;
 
@@ -27,9 +28,15 @@ public class Controller_ViewResult implements ActionListener, MouseWheelListener
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == rs.btnNewButton)
 		{
-//			ViewStudent v = new ViewStudent(rs.v);
-			rs.dispose();
 
+			if(ViewAdmin.key == 1) {
+				rs.dispose();
+				ViewAdmin.key = 0;
+			}else {
+				ViewStudent v = new ViewStudent(rs.v);
+				rs.dispose();
+			}
+			
 		}
 	}
 

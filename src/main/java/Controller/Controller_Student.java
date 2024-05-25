@@ -48,7 +48,7 @@ import model.Cautraloisinhvien;
 import model.Sv;
 
 public class Controller_Student implements ActionListener  , DocumentListener , MouseListener {
-	private ViewStudent s;
+	public ViewStudent s;
 
 	public Controller_Student(ViewStudent s) {
 		super();
@@ -283,7 +283,7 @@ public class Controller_Student implements ActionListener  , DocumentListener , 
 		if(e.getClickCount() == 2)
 		{
 			int select = s.table.getSelectedRow();
-			String mabailam = s.table.getValueAt(select, 6).toString();
+			String mabailam = s.table.getValueAt(select, 7).toString();
 			BaiLam b = BaiLam_dao.Instance().selectbyid(mabailam);
 			List<Cautraloisinhvien> cautraloi =  CautraloiSinhvien_dao.Instance().selectCautraloisinhvienfromBailam(b);
 			List<Cauhoi>  c = new ArrayList<Cauhoi>();
@@ -294,6 +294,7 @@ public class Controller_Student implements ActionListener  , DocumentListener , 
 				c.add(cautraloi.get(i).getCauhoi());
 				cA[i] = tendapAn(cautraloi.get(i).getCautraloi(),c.get(i));
 			}			
+			s.dispose();
 			ViewResultwithStudent v = new ViewResultwithStudent(b.getSv(), b.getKiThi(), b.getDethi(), c, cA);
 		}
 	}
