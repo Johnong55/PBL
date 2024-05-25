@@ -98,6 +98,7 @@ public class ViewAdmin extends JFrame {
 	public List<Gv> listgv = new ArrayList<Gv>();
 	public List<Nganhangcauhoi> NHCHs = new ArrayList<Nganhangcauhoi>();
 	public Nganhangcauhoi NHCH = null;
+	public static int key = 0;
 	/**
 	 * Launch the application.
 	 */
@@ -1372,12 +1373,6 @@ public class ViewAdmin extends JFrame {
 		column1.setWidth(0);
 		column1.setPreferredWidth(0);
 		
-		TableColumn column2 = columnModel.getColumn(1);
-		column2.setMinWidth(0);
-		column2.setMaxWidth(0);
-		column2.setWidth(0);
-		column2.setPreferredWidth(0);
-		
 		table.setDefaultEditor(Object.class, null);
 		SortTable("  Tên");
 		scrollPane.setViewportView(table);
@@ -1387,7 +1382,7 @@ public class ViewAdmin extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					// hien thi danh sach hoc sinh trong lop do
-					String idSv = table.getValueAt(table.getSelectedRow(), 2).toString();
+					String idSv = table.getValueAt(table.getSelectedRow(), 0).toString();
 					BaiLam b = BaiLam_dao.Instance().selectbyidSvAndidKithi(idSv, idKiThi);
 					System.out.println(idSv);
 					System.out.println(idKiThi);
@@ -1402,6 +1397,7 @@ public class ViewAdmin extends JFrame {
 						cA[i] = tendapAn(cautraloi.get(i).getCautraloi(),c.get(i));
 					}			
 					ViewResult v = new ViewResult(b.getSv(), b.getKiThi(), b.getDethi(), c, cA);
+					key = 1;
 					}else {
 						JOptionPane.showMessageDialog(null, "Học sinh chưa làm bài","Thông báo",JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -1474,7 +1470,7 @@ public class ViewAdmin extends JFrame {
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
 
-		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "  Tên học sinh", "  Lớp", "  Tên", "  Mã học sinh" });
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] {"  Mã học sinh", "  Tên học sinh", "  Lớp", "  Tên" });
 		table = new MyTable();
 		table.setModel(model);
 		table.setRowHeight(30);
@@ -1502,11 +1498,6 @@ public class ViewAdmin extends JFrame {
 
 		table.setModel(getModelStudent(listSv));
 		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn column = columnModel.getColumn(2);
-		column.setMinWidth(0);
-		column.setMaxWidth(0);
-		column.setWidth(0);
-		column.setPreferredWidth(0);
 		
 		TableColumn column1 = columnModel.getColumn(3);
 		column1.setMinWidth(0);
@@ -1523,7 +1514,8 @@ public class ViewAdmin extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					// hien thi danh sach ki thi hoc sinh da tham gia
-					String idsv = table.getValueAt(table.getSelectedRow(), 3).toString();
+					String idsv = table.getValueAt(table.getSelectedRow(), 0).toString();
+					System.out.println(idsv);
 					ViewTestOfStudent(idsv);
 				}
 			}
@@ -1626,6 +1618,7 @@ public class ViewAdmin extends JFrame {
 						cA[i] = tendapAn(cautraloi.get(i).getCautraloi(),c.get(i));
 					}			
 					ViewResult v = new ViewResult(b.getSv(), b.getKiThi(), b.getDethi(), c, cA);
+					key = 1;
 				}
 			}
 		});
