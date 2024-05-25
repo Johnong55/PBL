@@ -48,6 +48,15 @@ public class Cauhoi_DeThi {
 		this.cauhoi = cauhoi;
 		this.deThi = deThi;
 	}
+	public Cauhoi_DeThi(int id,Cauhoi cauhoi, DeThi deThi) {
+		super();
+		this.id = id;
+		this.cauhoi = cauhoi;
+		this.deThi = deThi;
+	}
+	public Cauhoi_DeThi() {
+		
+	}
 
 
 }

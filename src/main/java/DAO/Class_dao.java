@@ -259,6 +259,8 @@ public class Class_dao implements DAO_Interface<Class> {
 					Class lop1 = new Class();
 					lop1.setIdclass(lop);
 					Sv u = new Sv(id,ten,lop1);
+					u.setList(BaiLam_dao.Instance().selectbyidSV(id));
+					u.setDTB();
 					
 					result.add(u);
 				}
@@ -347,39 +349,6 @@ public class Class_dao implements DAO_Interface<Class> {
 					
 					result.add(kt);
 					
-				}
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return result;
-	}
-	public List<Sv> selectSvfromclass(Class t)
-	{
-		List<Sv> result = new ArrayList<Sv>();
-		try {
-			Connection con  = JDBCUtil.getConnection();
-			String sql = "select * from Sv "
-					+ "where lop  = ?";
-			
-			PreparedStatement a;
-
-				a = con.prepareStatement(sql);
-				a.setString(1, t.getIdclass());
-				ResultSet kq = a.executeQuery();
-				while(kq.next())
-				{
-					String id = kq.getString("id");
-					String ten = kq.getString("ten");
-					String lop= kq.getString("lop");
-					Class lop1 = new Class();
-					lop1.setIdclass(lop);
-					Class_dao c = new Class_dao();
-					Class Lresult = new Class();
-					Lresult = c.selectbyid(lop1);
-					Sv u = new Sv(id,ten,Lresult);
-					result.add(u);
 				}
 				con.close();
 			} catch (SQLException e) {

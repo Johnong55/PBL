@@ -42,6 +42,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -71,6 +73,7 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import model.Gv;
 import model.KiThi;
 import model.Nganhangcauhoi;
+import DAO.CauHoi_DeThi_dao;
 import DAO.Cauhoi_Dao;
 import DAO.Class_dao;
 import DAO.Gv_dao;
@@ -79,6 +82,7 @@ import DAO.NganhangDao;
 import DAO.Sv_dao;
 import model.Sv;
 import model.Cauhoi;
+import model.Cauhoi_DeThi;
 import model.Class;
 import model.Giangday;
 import Controller.Controller_Teacher;
@@ -93,7 +97,7 @@ public class ViewTeacher extends JFrame {
 			buttonLuuCauHoi, buttonExitAddQuestion, buttonHuyUpdateExam, buttonLuuExam, buttonUpdateExam,
 			buttonHuyCreateExam, buttonQuestion, buttonDeleteQuestion, buttonAddQuestion, buttonSelectAllRadiobutton,
 			buttonHuyAllRadiobutton, buttonEditQuestion, buttonCapNhatCauHoi;
-	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa;
+	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa,textMon;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi, comboBoxMucDo, comboBoxTenLop,
 			comboBoxTenNGCH, comboBoxSortSVinClass, comboBoxNHCH;
 	public MyTable table;
@@ -113,6 +117,7 @@ public class ViewTeacher extends JFrame {
 	public List<Giangday> dslop = new ArrayList<Giangday>();
 	public List<JRadioButton> listRadiobutton = new ArrayList<JRadioButton>();
 	public Cauhoi q = null;
+	public List<Sv> svs = new ArrayList<Sv>();
 
 	Controller_Teacher actionTeacher = new Controller_Teacher(this);
 
@@ -120,6 +125,10 @@ public class ViewTeacher extends JFrame {
 		this.g = gv;
 		this.NHCHs = NganhangDao.Instance().selectbyidgv(g);
 		this.dslop = g.getDanhsachlop();
+		for (Giangday giangday : dslop) {
+			List<Sv> temp = Class_dao.Instance().selectSVinclass(giangday.getMalop());
+			svs.addAll(temp);
+		}
 		System.out.println(g);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 150, 900, 700);
@@ -267,13 +276,30 @@ public class ViewTeacher extends JFrame {
 		panel_1.setBground(Color.WHITE);
 		panel_1.setLayout(null);
 		// bỉu do
+		int yeu = 0;
+		int tb = 0;
+		int kha = 0;
+		int gioi = 0;
+		
+		for (Sv sv : svs) {
+			if(sv.getDTB() < 5 ) {
+				yeu += 1;
+			}else if(sv.getDTB() >= 5 && sv.getDTB() < 6.5) {
+				tb += 1;
+			}else if(sv.getDTB() >= 6.5 && sv.getDTB() < 8) {
+				kha += 1;
+			}else if(sv.getDTB() >= 8) {
+				gioi += 1;
+			}
+		}
+		
 		DefaultPieDataset dataset = new DefaultPieDataset();
-		dataset.setValue("Dưới 5 điểm", 15);
-		dataset.setValue("5-6,5 điểm", 10);
-		dataset.setValue("6,5-8 điểm", 66);
-		dataset.setValue("8-10 điểm", 9);
+		dataset.setValue("Dưới 5 điểm", (yeu/svs.size())*100);
+		dataset.setValue("5-6,5 điểm", (tb/svs.size())*100);
+		dataset.setValue("6,5-8 điểm", (kha/svs.size())*100);
+		dataset.setValue("8-10 điểm", (gioi/svs.size())*100);
 
-		JFreeChart chart = ChartFactory.createPieChart("Recent test results", dataset, true, true, true);
+		JFreeChart chart = ChartFactory.createPieChart("Kết quả kiểm tra", dataset, true, true, true);
 		PiePlot pie = (PiePlot) chart.getPlot();
 		pie.setSectionPaint("Dưới 5 điểm", new Color(50, 185, 185));
 		pie.setSectionPaint("5-6,5 điểm", Color.yellow);
@@ -544,7 +570,7 @@ public class ViewTeacher extends JFrame {
 
 		pView.add(lblNewLabel);
 
-		String[] list = { "  Tên", "  Điểm trung bình" };
+		String[] list = { "  Tên","  Mã học sinh", "  Điểm trung bình" };
 
 		comboBoxSortSVinClass = new JComboBox<>(list);
 		comboBoxSortSVinClass.setBounds(615, 35, 90, 22);
@@ -588,8 +614,8 @@ public class ViewTeacher extends JFrame {
 		});
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Mã học sinh", "  Tên học sinh",
 				"  Điểm trung bình", "  Mã học sinh", "  Mã lớp", "  Tên" }));
-
-		table.setModel(getModelSv(table, c));
+		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
+		table.setModel(getModelSv(temp));
 		SortTable("  Tên");
 		table.setDefaultEditor(Object.class, null);
 
@@ -614,6 +640,35 @@ public class ViewTeacher extends JFrame {
 		column2.setPreferredWidth(0);
 
 		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("Tìm kiếm :");
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2_1.setBounds(20, 40, 100, 28);
+		pView.add(lblNewLabel_2_1);
+		
+		JTextField textFind = new JTextField();
+		textFind.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textFind.setBounds(100,42,100,25);
+		pView.add(textFind);
+		textFind.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// xử lí tìm kiếm
+				String name = textFind.getText();
+				FindStudent(temp,name);
+			}
+		});
+	}
+	public void FindStudent(List<Sv> temp, String name) {
+		List<Sv> afterFind = new ArrayList<Sv>();
+		for (Sv sv : temp) {
+			if(sv.getTen().toLowerCase().contains(name.toLowerCase())) {
+				afterFind.add(sv);
+			}
+		}
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		table.setModel(getModelSv(afterFind));
 	}
 
 	public void ViewExam() {
@@ -850,7 +905,7 @@ public class ViewTeacher extends JFrame {
 
 		panel_3.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_1_1 = new JLabel("Ngân hàng câu hỏi :");
+		JLabel lblNewLabel_1_1 = new JLabel("Kho câu hỏi :");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_1.setBounds(339, 30, 150, 18);
 		panel_3.add(lblNewLabel_1_1);
@@ -906,6 +961,20 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1_2_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_3.setBounds(10, 450, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3);
+		
+		JLabel lblNewLabel_1_2_4 = new JLabel("Môn :");
+		lblNewLabel_1_2_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_4.setBounds(320, 90, 50, 18);
+		panel_3.add(lblNewLabel_1_2_4);
+		
+		textMon = new JPlaceholderTextField("");
+		textMon.setHorizontalAlignment(SwingConstants.CENTER);
+		textMon.setBounds(370, 86, 100, 30);
+		textMon.setBorder(null);
+		textMon.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
+		textMon.setCornerRadius(20);
+		panel_3.add(textMon);
+		textMon.setColumns(10);
 
 		textField = new JPlaceholderTextField("");
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1122,6 +1191,20 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_1_2_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_1_2_3_3.setBounds(10, 450, 100, 18);
 		panel_3.add(lblNewLabel_1_2_3_3);
+		
+		JLabel lblNewLabel_1_2_4 = new JLabel("Môn :");
+		lblNewLabel_1_2_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2_4.setBounds(320, 90, 50, 18);
+		panel_3.add(lblNewLabel_1_2_4);
+		
+		textMon = new JPlaceholderTextField("");
+		textMon.setHorizontalAlignment(SwingConstants.CENTER);
+		textMon.setBounds(370, 86, 100, 30);
+		textMon.setBorder(null);
+		textMon.setGradientColors(new Color(50, 185, 185), new Color(50, 185, 185));
+		textMon.setCornerRadius(20);
+		panel_3.add(textMon);
+		textMon.setColumns(10);
 
 		textField = new JPlaceholderTextField("");
 		textField.setText(String.valueOf(kt.getSocautb()));
@@ -1700,10 +1783,13 @@ public class ViewTeacher extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_2.setBounds(478, 30, 131, 28);
 		pView.add(lblNewLabel_2);
-
-		this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
-
-		DrawQuestion(NHCHs.get(0).getSoluong()); // chua co so lieu
+		
+		if(!NHCHs.isEmpty()) {
+			this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
+			DrawQuestion(NHCHs.get(0).getSoluong()); 
+		}else {
+			DrawQuestion(0); 
+		}
 
 		buttonSelectAllRadiobutton = new MyButton("Chọn tất cả");
 		buttonSelectAllRadiobutton.setRadius(10);
@@ -1981,7 +2067,7 @@ public class ViewTeacher extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) t.getModel();
 		for (KiThi k : kthi) {
 			if (idgv.equalsIgnoreCase(k.getGv().getId())) {
-				Object[] row = { k.getLop().getTenlop(), k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
+				Object[] row = { k.getLop().getTenlop(), k.getMonhoc(), k.getMota(),
 						k.getDate(), k.getThoigianbatdau(), k.getThoigianlambai(), k.getSl(), k.getId() };
 				model.addRow(row);
 			}
@@ -1989,23 +2075,24 @@ public class ViewTeacher extends JFrame {
 		return model;
 	}
 
-	public DefaultTableModel getModelSv(JTable table, Class c) {
+	public DefaultTableModel getModelSv(List<Sv> temp) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
 		for (Sv sv : temp) {
 			int lastIndex = sv.getTen().lastIndexOf(" ");
 			String lastName = sv.getTen().substring(lastIndex + 1);
 
-			Object[] row = { sv.getIdSv(), sv.getTen(), "", sv.getId(), sv.getIdclass().getIdclass(), lastName };
+			Object[] row = { sv.getIdSv(), sv.getTen(), String.valueOf(sv.getDTB()), sv.getId(), sv.getIdclass().getIdclass(), lastName };
 			model.addRow(row);
 		}
 		return model;
 	}
 
-	public void upadteTableSv(JTable table, String id) {
+	public void upadteTableSv(String id) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
-		table.setModel(getModelSv(table, Class_dao.Instance().selectbyid(id)));
+		Class c = Class_dao.Instance().selectbyid(id);
+		List<Sv> temp = Class_dao.Instance().selectSVinclass(c);
+		table.setModel(getModelSv(temp));
 	}
 
 	public void updateTableExam(JTable table) {
@@ -2063,7 +2150,8 @@ public class ViewTeacher extends JFrame {
 	public void LuuExam() {
 
 		String tenlop = comboBoxTenLop.getSelectedItem().toString();
-		String tenmon = comboBoxTenNGCH.getSelectedItem().toString();
+		String tenNH = comboBoxTenNGCH.getSelectedItem().toString();
+		String tenmon = textMon.getText();
 		String mota = textMoTa.getText();
 		int total = Integer.parseInt(textField_2.getText());
 		int easy = Integer.parseInt(textField_1.getText());
@@ -2089,8 +2177,8 @@ public class ViewTeacher extends JFrame {
 			l.printStackTrace();
 		}
 		String m = UUID.randomUUID().toString();
-		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard, easy,
-				medium, getNganhangcauhoibyName(tenmon));
+		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g),tenmon, timE, duringtime, mota, datE, g, total, hard, easy,
+				medium, getNganhangcauhoibyName(tenNH));
 
 		textMoTa.setText("");
 		textField.setText("");
@@ -2107,7 +2195,8 @@ public class ViewTeacher extends JFrame {
 	public void CapNhatExam() {
 
 		String tenlop = comboBoxTenLop.getSelectedItem().toString();
-		String tenmon = comboBoxTenNGCH.getSelectedItem().toString();
+		String tenNH = comboBoxTenNGCH.getSelectedItem().toString();
+		String tenmon = textMon.getText();
 		String mota = textMoTa.getText();
 		int total = Integer.parseInt(textField_2.getText());
 		int easy = Integer.parseInt(textField_1.getText());
@@ -2133,8 +2222,8 @@ public class ViewTeacher extends JFrame {
 			l.printStackTrace();
 		}
 		String m = labelIdKitThi.getText();
-		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g), timE, duringtime, mota, datE, g, total, hard, easy,
-				medium, getNganhangcauhoibyName(tenmon));
+		KiThi kt = new KiThi(m, getClassbyNameClass(tenlop, g),tenmon, timE, duringtime, mota, datE, g, total, hard, easy,
+				medium, getNganhangcauhoibyName(tenNH));
 
 		textMoTa.setText("");
 		textField.setText("");
@@ -2255,23 +2344,35 @@ public class ViewTeacher extends JFrame {
 				break;
 			}
 		}
+		
+		List<Cauhoi_DeThi> chdt = CauHoi_DeThi_dao.Instance().selectall();
+		
 		int j = 0;
 		for (int i = listRadiobutton.size() - 1; i >= 0; i--) {
 			if (listRadiobutton.get(i).isSelected()) {
 				Cauhoi c = nh.getListcauhoi().get(i);
-				nh.removecauhoi(c);
-				Cauhoi_Dao.Instance().deletebyid(c);
-				j = 1;
+				for (Cauhoi_DeThi cauhoi_DeThi : chdt) {
+					System.out.println(123);
+					if(cauhoi_DeThi.getCauhoi().getId().equals(c.getId())) {
+						JOptionPane.showMessageDialog(null, "Không thể xóa câu hỏi số " + (i + 1) + " vì có trong đề thi", "Thông báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						j = -1;
+						break;
+					}
+				}
+				if(j != -1){
+					nh.removecauhoi(c);
+					Cauhoi_Dao.Instance().deletebyid(c);
+					NganhangDao.Instance().update(nh);
+					j = 1;
+				}
 			}
 		}
 		if (j == 0) {
 			JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 câu hỏi để xóa", "Thông báo",
 					JOptionPane.INFORMATION_MESSAGE);
 		}
-		NganhangDao.Instance().update(nh);
-
 	}
-
 	public void editCauhoi() {
 		Nganhangcauhoi nh = null;
 		String tenNH = comboBoxNHCH.getSelectedItem().toString();

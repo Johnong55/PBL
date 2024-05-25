@@ -63,10 +63,68 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 		return result;
 	
 	}
+	
+	public List<DeThi> selectbyidKiThi(String idkt) {
+		List<DeThi> result = new ArrayList<DeThi>();
+		try {
+			Connection con = JDBCUtil.getConnection();
+			String sql = "select * from dethi where kithi = ? ";
+
+			PreparedStatement a;
+
+			a = con.prepareStatement(sql);
+			a.setString(1, idkt);
+			ResultSet kq = a.executeQuery();
+			while (kq.next()) {
+				String id = kq.getString("id");	
+				String  kithi = kq.getString("kithi");
+				String mota= kq.getString("mota");
+				KiThi_dao kt = new KiThi_dao();
+				KiThi x  = new KiThi();
+				x.setId(kithi);
+				KiThi_dao kithiDao = new KiThi_dao();
+				DeThi  u  = new DeThi(id,mota,kithiDao.selectbyid(x));
+				result.add(u);
+			}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	
+	}
 
 	@Override
 	public DeThi selectbyid(DeThi t) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	public DeThi selectbyidDeThi(String iddethi) {
+		Connection con = JDBCUtil.getConnection();
+		String sql = "select * from dethi where id = ? ";
+		PreparedStatement a;
+		try {
+			a = con.prepareStatement(sql);
+			a.setString(1, iddethi);
+			ResultSet kq = a.executeQuery();
+			while(kq.next()) {
+				String id = kq.getString("id");	
+				String  kithi = kq.getString("kithi");
+				String mota= kq.getString("mota");
+				KiThi_dao kt = new KiThi_dao();
+				KiThi x  = new KiThi();
+				x.setId(kithi);
+				KiThi_dao kithiDao = new KiThi_dao();
+				DeThi  u  = new DeThi(id,mota,kithiDao.selectbyid(x));
+				return u;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return null;
 	}
 
@@ -100,7 +158,7 @@ public class DeThi_dao implements DAO_Interface<DeThi>{
 		return false;
 	}
 	
-	public void DethiNULLKithiFromGv(String idKT) {
+	public void SetNullIdKiThi(String idKT) {
 		try {
 			Connection con  = JDBCUtil.getConnection();
 			String sql = "update dethi set kithi = NULL where id = ? ";

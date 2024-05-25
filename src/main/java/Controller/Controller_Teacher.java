@@ -87,6 +87,10 @@ public class Controller_Teacher implements Action {
 			// giao diên tạo kì thi
 			this.viewteacher.ViewCreateExam();
 		}
+		else if(e.getSource() == viewteacher.buttonCreateExam) {
+			// giao diên tạo kì thi
+			this.viewteacher.ViewCreateExam();
+		}
 		else if(e.getSource() == viewteacher.buttonDeleteExam) {
 			// xóa kì thi
 			if(viewteacher.table.getSelectedRowCount() == 1) {
@@ -125,7 +129,9 @@ public class Controller_Teacher implements Action {
 			JOptionPane.showMessageDialog(null, "Cập nhật thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if(e.getSource() == viewteacher.comboBoxSortSVinClass) {
-			                                                                         //// sort sv in class (đợi bài làm)
+			// sắp xếp sinh viên trong lớp
+			String sort = viewteacher.comboBoxSortSVinClass.getSelectedItem().toString();
+			viewteacher.SortTable(sort);
 		}
 		else if(e.getSource() == viewteacher.buttonHuyCreateExam) {
 			// bấm hủy tạo kì thi

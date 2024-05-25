@@ -21,6 +21,21 @@ public class Sv extends Account{
 	private Class idclass; 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sv")
 	private List<BaiLam> list;
+	private double DTB;
+	public double getDTB() {
+		return this.DTB;
+	}
+	public void setDTB() {
+		double tong = 0;
+		for (BaiLam baiLam : list) {
+			tong += baiLam.getDiem();
+		}
+		if(tong == 0 || list.size() == 0) {
+			this.DTB = 0;
+		}else {
+			this.DTB = tong/list.size();
+		}
+	}
 	public Sv() {
 		super();
 		list = new ArrayList<BaiLam>();;

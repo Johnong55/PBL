@@ -115,6 +115,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				int socaude = kq.getInt("socauDe");
 				int socaukho = kq.getInt("socaukho");
 				int socautb  = kq.getInt("socautb");
+				String tenmon = kq.getString("monhoc");
 
 				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
@@ -128,7 +129,7 @@ public class Sv_dao implements DAO_Interface<Sv> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 				
-				k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+				k = new KiThi(id, Lresult,tenmon, startTime,tg, mota, date, gv, sl,dataNganHang);
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
@@ -164,6 +165,8 @@ public class Sv_dao implements DAO_Interface<Sv> {
 					Class Lresult = new Class();
 					Lresult = c.selectbyid(lop1);
 					Sv u = new Sv(id,ten,Lresult);
+					u.setList(BaiLam_dao.Instance().selectbyidSV(id));
+					u.setDTB();
 					result.add(u);
 				}
 				con.close();
@@ -406,6 +409,20 @@ public class Sv_dao implements DAO_Interface<Sv> {
 		return false;
 	}
 	
+	public boolean deletebyid(String id) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		if(sessionFactory!=null)
+		{
+			Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
+			Sv classEntity = session.get(Sv.class,id);
+			session.delete(classEntity);
+			tr.commit();
+			session.close();
+			return true;
+		}
+		return false;
+	}
 	
 	public List<Sv> selectbyclass(Class t)
 	{

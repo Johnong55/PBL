@@ -56,6 +56,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				int socaude = kq.getInt("socauDe");
 				int socaukho = kq.getInt("socaukho");
 				int socautb  = kq.getInt("socautb");
+				String tenmon = kq.getString("monhoc");
 
 				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
@@ -69,7 +70,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 		
-			KiThi	k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+			KiThi	k = new KiThi(id, Lresult,tenmon, startTime,tg, mota, date, gv, sl,dataNganHang);
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
@@ -110,6 +111,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				int socaude = kq.getInt("socauDe");
 				int socaukho = kq.getInt("socaukho");
 				int socautb  = kq.getInt("socautb");
+				String tenmon = kq.getString("monhoc");
 
 				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
@@ -123,7 +125,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 		
-				KiThi k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+				KiThi k = new KiThi(id, Lresult,tenmon, startTime,tg, mota, date, gv, sl,dataNganHang);
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
@@ -162,6 +164,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				int socaude = kq.getInt("socauDe");
 				int socaukho = kq.getInt("socaukho");
 				int socautb  = kq.getInt("socautb");
+				String tenmon = kq.getString("monhoc");
 
 				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
@@ -175,7 +178,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 		
-				KiThi k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+				KiThi k = new KiThi(id, Lresult,tenmon, startTime,tg, mota, date, gv, sl,dataNganHang);
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
@@ -213,6 +216,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				int socaude = kq.getInt("socauDe");
 				int socaukho = kq.getInt("socaukho");
 				int socautb  = kq.getInt("socautb");
+				String tenmon = kq.getString("monhoc");
 
 				Nganhangcauhoi dataNganHang= NganhangDao.Instance().selectbyid(nganhang);
 				Class_dao c = new Class_dao();
@@ -226,7 +230,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 				gresult = gvdao.selectbyid(gv);
 				Lresult = c.selectbyid(lop1);
 		
-			KiThi	k = new KiThi(id, Lresult, startTime,tg, mota, date, gv, sl,dataNganHang);
+			KiThi	k = new KiThi(id, Lresult,tenmon, startTime,tg, mota, date, gv, sl,dataNganHang);
 				k.setSocauDe(socaude);
 				k.setSocaukho(socaukho);
 				k.setSocautb(socautb);
@@ -260,7 +264,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 	public void updateKithiBeforeDeleteGv(String idGv) {
 		try {
 			Connection con  = JDBCUtil.getConnection();
-			String sql = "update KiThi set nguoitao = NULL, nganhangcauhoi = NULL where nguoitao = ? ";
+			String sql = "update KiThi set nguoitao = NULL where nguoitao = ? ";
 			
 			PreparedStatement a;
 
@@ -302,7 +306,8 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 			session.close();
 			return true;
 	}	
-	return false;}
+	return false;
+	}
 	
 	public List<BaiLam> showlistbailamsinhvien(String makithi)
 	{

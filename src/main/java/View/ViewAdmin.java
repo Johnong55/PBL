@@ -11,6 +11,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -48,6 +50,7 @@ import java.awt.FlowLayout;
 
 import Controller.Controller_Admin;
 import DAO.BaiLam_dao;
+import DAO.CauHoi_DeThi_dao;
 import DAO.Cauhoi_Dao;
 import DAO.CautraloiSinhvien_dao;
 import DAO.Class_dao;
@@ -60,6 +63,7 @@ import DAO.Sv_dao;
 import DAO.truonghoc_dao;
 import model.BaiLam;
 import model.Cauhoi;
+import model.Cauhoi_DeThi;
 import model.Cautraloisinhvien;
 import model.Class;
 import model.DeThi;
@@ -83,7 +87,7 @@ public class ViewAdmin extends JFrame {
 	buttonChonSvAddIntoClass,buttonAddGv,buttonDeleteGv,buttonOkAddGv,buttonDeleteClassInGv,buttonAddClassInGv,
 	buttonChonClassAddIntoGv,buttonDeleteSvInStudent,buttonAddSvInStudent,buttonOkAddSv,buttonAddExam,buttonDeleteExam,
 	buttonExam,buttonTest,buttonQuestion;
-	public JComboBox<String> comboBoxSortClass,comboBoxSortALLSV,comboBoxLOP,comboBoxExam,comboBoxNHCH;
+	public JComboBox<String> comboBoxSortClass,comboBoxSortALLSV,comboBoxLOP,comboBoxExam,comboBoxNHCH,comboBoxSortStudent,comboBoxSortTeacher;
 	public JTextField textField,textNameGv,textIdGv,textUser,textPass,textNameSv,textIdSv,textUserSv,textPassSv;
 	public JScrollPane scrollPane = new JScrollPane();
 	public JFrame j,k,l,z,x;
@@ -91,8 +95,8 @@ public class ViewAdmin extends JFrame {
 	public String idclass,tenGv, idGv;
 	public List<Sv> listSv = new ArrayList<Sv>();
 	public List<Class> listClass = new ArrayList<Class>();
-	public List<Gv> listgv = Gv_dao.Instance().selectall();
-	public List<Nganhangcauhoi> NHCHs = NganhangDao.Instance().selectall();
+	public List<Gv> listgv = new ArrayList<Gv>();
+	public List<Nganhangcauhoi> NHCHs = new ArrayList<Nganhangcauhoi>();
 	public Nganhangcauhoi NHCH = null;
 	/**
 	 * Launch the application.
@@ -100,9 +104,11 @@ public class ViewAdmin extends JFrame {
 
 	Controller_Admin actionAdmin = new Controller_Admin(this);
 
-	public ViewAdmin(List<Sv> listsv,List<Class> listclass) {
+	public ViewAdmin(List<Sv> listsv,List<Class> listclass, List<Gv> listgv, List<Nganhangcauhoi> NHCHs) {
 		this.listSv= listsv;
 		this.listClass = listclass;
+		this.listgv = listgv;
+		this.NHCHs = NHCHs;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 700);
 		setLocationRelativeTo(null);
@@ -409,6 +415,18 @@ public class ViewAdmin extends JFrame {
 
 		pView.add(lblNewLabel);
 		
+		String[] list = { "  Tên", "  Mã học sinh"};
+
+		comboBoxSortStudent = new JComboBox<>(list);
+		comboBoxSortStudent.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxSortStudent);
+		comboBoxSortStudent.addActionListener(actionAdmin);
+
+		JLabel lblNewLabel_1 = new JLabel("Sắp xếp :");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(550, 30, 59, 28);
+		pView.add(lblNewLabel_1);
+		
 		buttonAddSvInClass = new MyButton("Thêm học sinh");
 		buttonAddSvInClass.setRadius(10);
 		buttonAddSvInClass.setForeground(Color.WHITE);
@@ -466,15 +484,18 @@ public class ViewAdmin extends JFrame {
 				return comp;
 			}
 		});
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"  Danh sách học sinh", "  Tên", " Mã học sinh", " Mã lớp"}));
-		table.setModel(getModelSVinClass(idclass));
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"  Mã học sinh","  Danh sách học sinh", "  Tên", " Mã lớp"}));
+		List<Sv> temp = new ArrayList<Sv>();	
+		for (Sv s : listSv ) {
+			if(s.getIdclass() != null) {
+				if (s.getIdclass().getIdclass().equalsIgnoreCase(idclass)) {
+					temp.add(s);
+				}
+			}
+		}
+		table.setModel(getModelSVinClass(temp));
 		table.setDefaultEditor(Object.class, null);
 		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn column = columnModel.getColumn(1);
-		column.setMinWidth(0);
-		column.setMaxWidth(0);
-		column.setWidth(0);
-		column.setPreferredWidth(0);
 		
 		TableColumn column1 = columnModel.getColumn(2);
 		column1.setMinWidth(0);
@@ -490,6 +511,37 @@ public class ViewAdmin extends JFrame {
 		
 		SortTable("  Tên");	
 		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("Tìm kiếm :");
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2_1.setBounds(20, 40, 100, 28);
+		pView.add(lblNewLabel_2_1);
+		
+		JTextField textFind = new JTextField();
+		textFind.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textFind.setBounds(100,42,100,25);
+		pView.add(textFind);
+		textFind.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// xử lí tìm kiếm
+				String name = textFind.getText();
+				FindStudent(temp,name);
+			}
+		});
+		
+	}
+	
+	public void FindStudent(List<Sv> temp, String name) {
+		List<Sv> afterFind = new ArrayList<Sv>();
+		for (Sv sv : temp) {
+			if(sv.getTen().toLowerCase().contains(name.toLowerCase())) {
+				afterFind.add(sv);
+			}
+		}
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		table.setModel(getModelSVinClass(afterFind));
 	}
 	
 	public void ViewAddSvInClass() {
@@ -590,6 +642,18 @@ public class ViewAdmin extends JFrame {
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth() + 1, (int) size.getHeight() + 1);
 
 		pView.add(lblNewLabel);
+		
+		String[] list = { "  Tên", "  Mã giáo viên"};
+
+		comboBoxSortTeacher = new JComboBox<>(list);
+		comboBoxSortTeacher.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxSortTeacher);
+		comboBoxSortTeacher.addActionListener(actionAdmin);
+
+		JLabel lblNewLabel_1 = new JLabel("Sắp xếp :");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(550, 30, 59, 28);
+		pView.add(lblNewLabel_1);
 
 		buttonAddGv = new MyButton("Thêm giáo viên");
 		buttonAddGv.setRadius(10);
@@ -625,7 +689,7 @@ public class ViewAdmin extends JFrame {
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
 		scrollPane.getViewport().setBackground(Color.WHITE);
 
-		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "  Danh sách giáo viên", "  Mã Gv" });
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] {"  Mã giáo viên", "  Tên giáo viên","  Tên" });
 		table = new MyTable();
 		table.setModel(model);
 		table.setBackground(new Color(255, 255, 255));
@@ -651,10 +715,10 @@ public class ViewAdmin extends JFrame {
 				return comp;
 			}
 		});
-		table.setModel(getModelTeacher());
+		table.setModel(getModelTeacher(listgv));
 		
 		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn column = columnModel.getColumn(1);
+		TableColumn column = columnModel.getColumn(2);
 		column.setMinWidth(0);
 		column.setMaxWidth(0);
 		column.setWidth(0);
@@ -675,7 +739,37 @@ public class ViewAdmin extends JFrame {
 				}
 			}
 		});
+		
+		JLabel lblNewLabel_2_1 = new JLabel("Tìm kiếm :");
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2_1.setBounds(20, 40, 100, 28);
+		pView.add(lblNewLabel_2_1);
+		
+		JTextField textFind = new JTextField();
+		textFind.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textFind.setBounds(100,42,100,25);
+		pView.add(textFind);
+		textFind.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// xử lí tìm kiếm
+				String name = textFind.getText();
+				FindGv(listgv,name);
+			}
+		});
 
+	}
+	
+	public void FindGv(List<Gv> temp, String name) {
+		List<Gv> afterFind = new ArrayList<Gv>();
+		for (Gv gv : temp) {
+			if(gv.getTen().toLowerCase().contains(name.toLowerCase())) {
+				afterFind.add(gv);
+			}
+		}
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		table.setModel(getModelTeacher(afterFind));
 	}
 
 	public void ViewClassOfTeacher(String m) {
@@ -867,7 +961,7 @@ public class ViewAdmin extends JFrame {
 
 		pView.add(lblNewLabel);
 
-		String[] list = { "  Tên", "  Lớp" };
+		String[] list = { "  Tên", "  Lớp", "  Mã học sinh" };
 
 		comboBoxSortALLSV = new JComboBox<>(list);
 		comboBoxSortALLSV.setBounds(615, 35, 90, 22);
@@ -912,7 +1006,7 @@ public class ViewAdmin extends JFrame {
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
 
-		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "  Tên học sinh", "  Lớp", "  Tên", "  Mã học sinh" });
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] {"  Mã học sinh", "  Tên học sinh", "  Lớp", "  Tên" });
 		table = new MyTable();
 		table.setModel(model);
 		table.setRowHeight(30);
@@ -938,14 +1032,8 @@ public class ViewAdmin extends JFrame {
 			}
 		});
 
-		table.setModel(getModelStudent());
-		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn column = columnModel.getColumn(2);
-		column.setMinWidth(0);
-		column.setMaxWidth(0);
-		column.setWidth(0);
-		column.setPreferredWidth(0);
-		
+		table.setModel(getModelStudent(listSv));
+		TableColumnModel columnModel = table.getColumnModel();		
 		TableColumn column1 = columnModel.getColumn(3);
 		column1.setMinWidth(0);
 		column1.setMaxWidth(0);
@@ -956,7 +1044,37 @@ public class ViewAdmin extends JFrame {
 		SortTable("  Tên");
 		scrollPane.setViewportView(table);
 		pView.add(scrollPane);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("Tìm kiếm :");
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2_1.setBounds(20, 40, 100, 28);
+		pView.add(lblNewLabel_2_1);
+		
+		JTextField textFind = new JTextField();
+		textFind.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textFind.setBounds(100,42,100,25);
+		pView.add(textFind);
+		textFind.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// xử lí tìm kiếm
+				String name = textFind.getText();
+				FindStudentAll(listSv,name);
+			}
+		});
 
+	}
+	
+	public void FindStudentAll(List<Sv> temp, String name) {
+		List<Sv> afterFind = new ArrayList<Sv>();
+		for (Sv sv : temp) {
+			if(sv.getTen().toLowerCase().contains(name.toLowerCase())) {
+				afterFind.add(sv);
+			}
+		}
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		table.setModel(getModelStudent(afterFind));
 	}
 	public void ViewAddGv() {
 		l = new JFrame();
@@ -1206,7 +1324,7 @@ public class ViewAdmin extends JFrame {
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
 
-		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "  Tên học sinh", "  Tên", "  Mã học sinh", "  Tên lớp" });
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] {"  Mã học sinh", "  Tên học sinh", "  Tên", "  Tên lớp" });
 		table = new MyTable();
 		table.setModel(model);
 		table.setRowHeight(30);
@@ -1232,7 +1350,15 @@ public class ViewAdmin extends JFrame {
 			}
 		});
 
-		table.setModel(getModelSVinClass(idclass));
+		List<Sv> temp = new ArrayList<Sv>();	
+		for (Sv s : listSv ) {
+			if(s.getIdclass() != null) {
+				if (s.getIdclass().getIdclass().equalsIgnoreCase(idclass)) {
+					temp.add(s);
+				}
+			}
+		}
+		table.setModel(getModelSVinClass(temp));
 		TableColumnModel columnModel = table.getColumnModel();
 		TableColumn column = columnModel.getColumn(2);
 		column.setMinWidth(0);
@@ -1289,6 +1415,12 @@ public class ViewAdmin extends JFrame {
 		pView.removeAll();
 		pView.repaint();
 		pView.revalidate();
+		
+		JLabel lblNewLabel = new JLabel("KHO CÂU HỎI");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Dimension sizea = lblNewLabel.getPreferredSize();
+		lblNewLabel.setBounds(10, 10, (int) sizea.getWidth() + 1, (int) sizea.getHeight() + 1);
+		pView.add(lblNewLabel);
 		
 		int size = NHCHs.size();
 		String[] tenNHCH = new String[size];
@@ -1368,7 +1500,7 @@ public class ViewAdmin extends JFrame {
 			}
 		});
 
-		table.setModel(getModelStudent());
+		table.setModel(getModelStudent(listSv));
 		TableColumnModel columnModel = table.getColumnModel();
 		TableColumn column = columnModel.getColumn(2);
 		column.setMinWidth(0);
@@ -1552,7 +1684,7 @@ public class ViewAdmin extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		List<KiThi> kthi = KiThi_dao.Instance().selectall();
 			for (KiThi k : kthi) {
-					Object[] row = {k.getLop().getTenlop(), k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
+					Object[] row = {k.getLop().getTenlop(), k.getMonhoc(), k.getMota(),
 							k.getDate().toString(), k.getThoigianbatdau().toString(),
 						String.valueOf(k.getThoigianlambai()),String.valueOf(k.getSl()),k.getId() };
 					model.addRow(row);
@@ -1620,14 +1752,26 @@ public class ViewAdmin extends JFrame {
 	public void updateTabelSvinClass(String idClass) {
 		DefaultTableModel model =(DefaultTableModel) table.getModel();
 		model.setRowCount(0);
-		table.setModel(getModelSVinClass(idClass));
+		List<Sv> temp = new ArrayList<Sv>();	
+		for (Sv s : listSv ) {
+			if(s.getIdclass() != null) {
+				if (s.getIdclass().getIdclass().equalsIgnoreCase(idClass)) {
+					temp.add(s);
+				}
+			}
+		}
+		table.setModel(getModelSVinClass(temp));
 	}
 
-	public DefaultTableModel getModelTeacher() {
+	public DefaultTableModel getModelTeacher(List<Gv> listgv) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (Gv g : listgv) {
-			Object[] row = { g.getTen() , g.getId()};
-			model.addRow(row);
+			if(!g.getMaGv().equals("00")) {
+				int lastIndex = g.getTen().lastIndexOf(" ");
+				String lastName = g.getTen().substring(lastIndex + 1);
+				Object[] row = {g.getMaGv(), g.getTen(),lastName};
+				model.addRow(row);
+			}
 		}
 		return model;
 	}
@@ -1640,19 +1784,19 @@ public class ViewAdmin extends JFrame {
 		column3.setMaxWidth(0);
 		column3.setWidth(0);
 		column3.setPreferredWidth(0);
-		table.setModel(getModelTeacher());
+		table.setModel(getModelTeacher(listgv));
 	}
 
-	public DefaultTableModel getModelStudent() {
+	public DefaultTableModel getModelStudent(List<Sv>  listSv) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (Sv s : listSv) {
 			int lastIndex = s.getTen().lastIndexOf(" ");
 			String lastName = s.getTen().substring(lastIndex + 1);
 			if(s.getIdclass() != null) {
-			Object[] row = { s.getTen(), s.getIdclass().getTenlop() ,lastName,s.getIdSv()};
+			Object[] row = { s.getIdSv(), s.getTen(),s.getIdclass().getTenlop(), lastName};
 			model.addRow(row);
 			}else {
-				Object[] row = { s.getTen(), "Chưa có lớp", lastName, s.getIdSv() };
+				Object[] row = {s.getIdSv(), s.getTen(), "Chưa có lớp", lastName };
 				model.addRow(row);
 			}
 			
@@ -1663,7 +1807,7 @@ public class ViewAdmin extends JFrame {
 	public void updateTableStudent() {
 		DefaultTableModel model =(DefaultTableModel) table.getModel();
 		model.setRowCount(0);
-		table.setModel(getModelStudent());
+		table.setModel(getModelStudent(listSv));
 	}
 	
 	public DefaultTableModel getModelStudentNoClass(JTable table) {
@@ -1679,18 +1823,14 @@ public class ViewAdmin extends JFrame {
 		return model;
 	}
 	
-	public DefaultTableModel getModelSVinClass(String idLop) {
+	public DefaultTableModel getModelSVinClass(List<Sv> temp) {
 
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
-		for (Sv s : listSv ) {
-			if(s.getIdclass() != null) {
-			if (s.getIdclass().getIdclass().equalsIgnoreCase(idLop)) {
+		for (Sv s : temp ) {
 				int lastIndex = s.getTen().lastIndexOf(" ");
 				String lastName = s.getTen().substring(lastIndex + 1);
-				model.addRow(new Object[] { s.getTen(), lastName ,s.getId(), idLop});
-			}
-			}
+				model.addRow(new Object[] {s.getId(), s.getTen(), lastName , s.getIdclass().getIdclass()});
 		}
 		return model;
 	}
@@ -1780,7 +1920,7 @@ public class ViewAdmin extends JFrame {
 		Class c = getClassById(idclass);
 		List<Sv> svs = c.getSvs();
 		for (String idsv : idSvs) {
-			Sv s = getSvById(idsv);
+			Sv s = getSvById(idsv);			
 			s.setIdclass(null);
 			svs.remove(s);
 			Sv_dao.Instance().deleteSvFromClass(idsv);
@@ -1854,22 +1994,13 @@ public class ViewAdmin extends JFrame {
 				Giangday_dao.Instance().deletebyid(gd);
 			}
 		}
-		for (Cauhoi c : Cauhoi_Dao.Instance().selectall()) {
-			if(c.getNH()!= null) {
-				if(c.getNH().getGiaovienquanli() !=null) {
-					if(c.getNH().getGiaovienquanli().getMaGv().equals(idgv)) {
-						Cauhoi_Dao.Instance().updateBeforeDeleteGv(idgv,c.getNH().getIdNganHang());
-					}
-				}
-			}
-		}
 		List<DeThi> dethi = DeThi_dao.Instance().selectall();
 		for (KiThi kt : g.getKithi()) {
 			if(kt.getId() != null) {
 				for (DeThi deThi2 : dethi) {
 					if(deThi2.getKithi().getId() != null) {
 						if(deThi2.getKithi().getId().equals(kt.getId())) {
-							DeThi_dao.Instance().DethiNULLKithiFromGv(kt.getId());
+							DeThi_dao.Instance().SetNullIdKiThi(deThi2.getId());
 						}
 					}
 				}	
@@ -1877,8 +2008,12 @@ public class ViewAdmin extends JFrame {
 		}
 		if(g.getKithi() != null) {
 			KiThi_dao.Instance().updateKithiBeforeDeleteGv(idgv);
-			if(g.getNH() != null) {
-				NganhangDao.Instance().updateNGCHBeforeDeleteGv(idgv);
+		}
+		if(g.getNH() != null) {
+			for (Nganhangcauhoi nh : g.getNH()) {
+				Gv n = Gv_dao.Instance().selectbyid("00");
+				nh.setGiaovienquanli(n);
+				NganhangDao.Instance().update(nh);
 			}
 		}
 	}
@@ -1944,8 +2079,8 @@ public class ViewAdmin extends JFrame {
 	}
 	public void deleteSvInStudent(List<String> idSvs) {
 		for (String idsv : idSvs) {
-			Sv s = getSvById(idsv);
-			Sv_dao.Instance().deletebyid(s);
+			Sv s = getSvById(idsv);			
+			Sv_dao.Instance().deletebyid(s.getIdSv());
 			listSv.remove(s);
 		}
 	}
@@ -1985,7 +2120,27 @@ public class ViewAdmin extends JFrame {
 		}
 	}
 	public void deleteExam(String id) {
-		KiThi_dao.Instance().deletebyid(KiThi_dao.Instance().selectbyid(id));
+		KiThi kt = KiThi_dao.Instance().selectbyid(id);
+		kt.setGv(null);
+		kt.setNganhangcauhoi(null);
+		List<BaiLam> bailams = BaiLam_dao.Instance().selectbyidKiThi(id);
+		for (BaiLam baiLam : bailams) {
+			List<Cautraloisinhvien> cs = CautraloiSinhvien_dao.Instance().selectCautraloisinhvienfromBailam(baiLam);
+			for (Cautraloisinhvien c : cs) {
+				CautraloiSinhvien_dao.Instance().deletebyid(c);
+			}
+			BaiLam_dao.Instance().deletebyid(baiLam);
+		}
+		List<DeThi> DeThis = DeThi_dao.Instance().selectbyidKiThi(id);
+		for (DeThi deThi : DeThis) {
+			List<Cauhoi_DeThi> cauhois = CauHoi_DeThi_dao.Instance().selectbyIdDeThi(deThi.getId());
+			for (Cauhoi_DeThi cauhoi_DeThi : cauhois) {
+				System.out.println(cauhoi_DeThi.getId() + 1);
+				CauHoi_DeThi_dao.Instance().deletebyid(cauhoi_DeThi);
+			}
+			DeThi_dao.Instance().deletebyid(deThi);
+		}
+		KiThi_dao.Instance().deletebyid(kt);
 	}
 	public void updateTableExam(JTable table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();

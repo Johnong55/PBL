@@ -85,7 +85,7 @@ public class Controller_Admin implements Action {
 					int[] indexRow = viewadmin.table.getSelectedRows();
 					List<String> idSvs = new ArrayList<String>();
 					for (int i : indexRow) {
-						idSvs.add(viewadmin.table.getValueAt(i, 2).toString());
+						idSvs.add(viewadmin.table.getValueAt(i, 0).toString());
 					}
 					viewadmin.deleteSvFromClass(idSvs);
 					viewadmin.updateTabelSvinClass(viewadmin.idclass);
@@ -200,7 +200,6 @@ public class Controller_Admin implements Action {
 		}
 		else if(e.getSource() == viewadmin.buttonDeleteSvInStudent) {
 				//// xóa sinh viên trong giao diện sinh viên
-			System.out.println("aaaa");
 			if(viewadmin.table.getSelectedRowCount() > 0) {			
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
@@ -211,7 +210,7 @@ public class Controller_Admin implements Action {
 				int[] indexRow = viewadmin.table.getSelectedRows();
 				
 				for (int i : indexRow) {
-					String idclass = viewadmin.table.getValueAt(i, 3).toString();
+					String idclass = viewadmin.table.getValueAt(i, 0).toString();
 					idSvs.add(idclass);
 				}
 				viewadmin.deleteSvInStudent(idSvs);
@@ -259,6 +258,12 @@ public class Controller_Admin implements Action {
 			String idNHCH = (String) viewadmin.comboBoxNHCH.getSelectedItem();
 			this.viewadmin.NHCH = viewadmin.getNHCHByName(idNHCH);
 			viewadmin.DrawQuestion(viewadmin.NHCH.getSoluong());
+		}else if(e.getSource() == viewadmin.comboBoxSortStudent) {
+			String sort = viewadmin.comboBoxSortStudent.getSelectedItem().toString();
+			viewadmin.SortTable(sort);
+		}else if(e.getSource() == viewadmin.comboBoxSortTeacher) {
+			String sort = viewadmin.comboBoxSortTeacher.getSelectedItem().toString();
+			viewadmin.SortTable(sort);
 		}
 	}
 

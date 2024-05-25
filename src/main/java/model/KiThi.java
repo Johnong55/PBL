@@ -89,11 +89,12 @@ public class KiThi {
 	 * @param listdethi
 	 * @param nganhangcauhoi
 	 */
-	public KiThi(String id, Class lop,Time thoigianbatdau, int thoigianlambai, String mota, Date date, Gv gv, int sl, 
+	public KiThi(String id, Class lop,String tenmon,Time thoigianbatdau, int thoigianlambai, String mota, Date date, Gv gv, int sl, 
 			Nganhangcauhoi nganhangcauhoi) {
 		super();
 		this.id = id;
 		this.lop = lop;
+		this.monhoc = tenmon;
 		this.thoigianbatdau = thoigianbatdau;
 		this.thoigianlambai = thoigianlambai;
 		this.mota = mota;
@@ -171,10 +172,11 @@ public class KiThi {
 	 * @param gv
 	 * @param sl
 	 */
-	public KiThi(String id, Class lop,Time thoigianbatdau , int thoigianlambai, String mota, Date date, Gv gv, int sl, int kho, int de, int tb,Nganhangcauhoi nganhangcauhoi ) {
+	public KiThi(String id, Class lop,String tenmon,Time thoigianbatdau , int thoigianlambai, String mota, Date date, Gv gv, int sl, int kho, int de, int tb,Nganhangcauhoi nganhangcauhoi ) {
 		super();
 		this.id = id;
 		this.lop = lop;
+		this.monhoc = tenmon;
 		this.thoigianbatdau = thoigianbatdau;
 		this.thoigianlambai = thoigianlambai;
 		this.mota = mota;

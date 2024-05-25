@@ -18,12 +18,14 @@ import Controller.Controller_Login;
 import DAO.Account_dao;
 import DAO.Class_dao;
 import DAO.Gv_dao;
+import DAO.NganhangDao;
 import DAO.Sv_dao;
 import model.Account;
 import model.Sv;
 import util.HibernateUtil;
 import model.Class;
-
+import model.Gv;
+import model.Nganhangcauhoi;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -50,8 +52,10 @@ public class viewLogin extends JFrame {
 	public JTextField textField;
 	public JPasswordField textField_1;
 	private Controller_Login lg = new Controller_Login(this);
-	List<Sv> listSv  =new ArrayList<Sv>();
-	List<Class> listClass = new ArrayList<Class>();
+	public List<Sv> listSv  =new ArrayList<Sv>();
+	public List<Class> listClass = new ArrayList<Class>();
+	public List<Gv> listgv = new ArrayList<Gv>();
+	public List<Nganhangcauhoi> NHCHs = new ArrayList<Nganhangcauhoi>();
 	/**
 	 * Launch the application.
 	 */
@@ -108,6 +112,8 @@ public class viewLogin extends JFrame {
 				}
 			}
 		}
+		listgv = Gv_dao.Instance().selectall();
+		NHCHs = NganhangDao.Instance().selectall();
 		setBounds(100, 100, 1141, 713);
 		setLocationRelativeTo(null);
 
@@ -280,7 +286,7 @@ public class viewLogin extends JFrame {
 							dispose();
 						}else if(q.getMaquyen() == 3) {
 						 
-							ViewAdmin v = new ViewAdmin(listSv,listClass);
+							ViewAdmin v = new ViewAdmin(listSv,listClass,listgv,NHCHs);
 							
 							dispose();
 						}
