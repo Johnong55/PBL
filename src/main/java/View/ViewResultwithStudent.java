@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import DAO.KiThi_dao;
 import DAO.Sv_dao;
 import model.Cauhoi;
 import model.DeThi;
@@ -23,6 +24,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewResultwithStudent extends JFrame {
 
@@ -31,6 +34,7 @@ public class ViewResultwithStudent extends JFrame {
 	Color Blue=  new Color(17, 49, 123);
 	Color Gray = new Color(122, 122, 129);
 	Color Green = new Color(44, 173, 167);
+	public MyButton btnNewButton;
 	public Sv v;
 	public KiThi ktOngoing;
 	public String[] checkAnswer;
@@ -60,7 +64,7 @@ public class ViewResultwithStudent extends JFrame {
 	 */
 	public ViewResultwithStudent(Sv sv, KiThi onl, DeThi dt, List<Cauhoi> ls, String[] answer) {	
 		this.v = sv;
-		this.ktOngoing = Sv_dao.Instance().findKithiOnl(v);
+		this.ktOngoing = onl;
 		this.dethi = dt;
 		this.listCauhoi = ls;
 		this.checkAnswer = answer;
@@ -121,7 +125,7 @@ public class ViewResultwithStudent extends JFrame {
 		lblNewLabel_4.setVerticalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setForeground(new Color(44, 173, 167));
-		lblNewLabel_4.setFont(new Font("Calibri", Font.BOLD, 32));
+		lblNewLabel_4.setFont(new Font("Calibri", Font.BOLD, 40));
 		panel_3.add(lblNewLabel_4, BorderLayout.CENTER);
 		
 		JLabel lblNewLabel_2 = new JLabel("Kì thi :");
@@ -151,5 +155,28 @@ public class ViewResultwithStudent extends JFrame {
 		lblNewLabel_2_2_1.setFont(new Font("Calibri", Font.BOLD, 20));
 		lblNewLabel_2_2_1.setBounds(204, 404, 309, 35);
 		contentPane.add(lblNewLabel_2_2_1);
+		
+		 btnNewButton = new MyButton("Thoát");
+		 btnNewButton.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		ViewStudent frame = new ViewStudent(v);
+		 		dispose();
+		 		frame.setVisible(true);
+		 		frame.view_home();
+		 		frame.panel_4.removeAll();
+				frame.panel_4.revalidate();
+				frame.panel_4.repaint();		
+				frame.cl.s.modeltb.setRowCount(0);
+				frame.cl.setPanel_4();
+				frame.cl.hienthi();
+				frame.view_test();
+
+		 	}
+		 });
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnNewButton.setRadius(20);
+		btnNewButton.setColorOver(new Color(44, 173, 167));
+		btnNewButton.setBounds(586, 510, 127, 34);
+		contentPane.add(btnNewButton);
 	}
 }

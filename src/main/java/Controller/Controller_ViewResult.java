@@ -28,6 +28,7 @@ public class Controller_ViewResult implements ActionListener, MouseWheelListener
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == rs.btnNewButton)
 		{
+
 			if(ViewAdmin.key == 1) {
 				rs.dispose();
 				ViewAdmin.key = 0;

@@ -71,7 +71,7 @@ public class ViewStudent extends JFrame {
 		    new Object[][] {
 		    },
 		    new String[] {
-		        "Tên kỳ thi", "Ngày thi", "Thời gian", "Câu đúng", "Câu sai", "Điểm","Mã kì thi"
+		        "Tên kỳ thi","Môn", "Ngày thi", "Thời gian", "Câu đúng", "Câu sai", "Điểm","Mã kì thi"
 		    }
 		   
 		)
@@ -329,6 +329,7 @@ public class ViewStudent extends JFrame {
 	//	table.setShowGrid(false);
 		table.setCellAlignment(0, JLabel.CENTER);table.setCellAlignment(1, JLabel.CENTER);table.setCellAlignment(2, JLabel.CENTER);
 		table.setCellAlignment(3, JLabel.CENTER);table.setCellAlignment(4, JLabel.CENTER);table.setCellAlignment(5, JLabel.CENTER);
+		table.setCellAlignment(6, JLabel.CENTER);
 		
         header = table.getTableHeader();
         header.setDefaultRenderer(new DefaultTableCellRenderer() {
@@ -356,9 +357,10 @@ public class ViewStudent extends JFrame {
 		table.setAutoCreateRowSorter(true);
 		table.setShowVerticalLines(false);
 		table.setModel(modeltb);
-		table.getColumnModel().getColumn(6).setMinWidth(0);
+		table.getColumnModel().getColumn(7).setMinWidth(0);
+		table.getColumnModel().getColumn(7).setMaxWidth(0);
 		table.addMouseListener(cl);
-		table.getColumnModel().getColumn(6).setMaxWidth(0);
+		table.getColumnModel().getColumn(2).setPreferredWidth(120);
 		table.setFont(new Font("Calibri", Font.PLAIN, 20));
 		scrollPane.setViewportView(table);
 		
