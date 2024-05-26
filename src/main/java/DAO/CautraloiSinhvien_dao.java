@@ -91,5 +91,23 @@ public class CautraloiSinhvien_dao  {
 		}
 		return false;
 	}
-	
+	public boolean updatewhendelete(String id)
+	{
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "update cautraloisinhvien set cauhoi_id = \"cauhoitrong\" where cauhoi_id = ?";
+			
+			PreparedStatement a;
+
+				a = con.prepareStatement(sql);
+				a.setString(1,id);
+				int kq = a.executeUpdate();
+				return true;
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+	}
 }

@@ -134,5 +134,23 @@ public class CauHoi_DeThi_dao implements DAO_Interface<Cauhoi_DeThi> {
 		}
 		return false;
 	}
+	public boolean updatewhendelete(String id)
+	{
+		try {
+			Connection con  = JDBCUtil.getConnection();
+			String sql = "update cauhoi_dethi set cauhoi = \"cauhoitrong\" where cauhoi = ?";
+			
+			PreparedStatement a;
 
+				a = con.prepareStatement(sql);
+				a.setString(1,id);
+				int kq = a.executeUpdate();
+				return true;
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+	}
 }

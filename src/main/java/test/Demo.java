@@ -55,6 +55,7 @@ public class Demo {
  		KiThi_dao kt = new KiThi_dao();
  		DeThi_dao dt = new DeThi_dao();
  		Cauhoi_Dao CHdao = new Cauhoi_Dao();
+ 	
  		truonghoc truong1 = new truonghoc();
  		truong1.setId("01");
  		truong1.setTentruong("THPT HOA VANG");
@@ -311,7 +312,11 @@ public class Demo {
  		nh1.setGiaovienquanli(gv1);
   		nhdao.insert(nh1);
   		nhdao.insert(nh);
-  		
+  		Nganhangcauhoi nh2 = new Nganhangcauhoi();
+ 		nh2.setIdNganHang("Daxoa");
+ 		Cauhoi cauhoitrong = new Cauhoi("cauhoitrong","Câu hỏi đã bị xóa","đáp án A","đáp án B","Đáp án C","Đáp án D",0,"Đáp án",nh2);
+ 		nh2.addcauhoi(cauhoitrong);
+ 		nhdao.insert(nh2);
   		Cauhoi q1 = new Cauhoi("q1", "What is the capital of France?", "Paris", "London", "Berlin", "Madrid", 1, "Paris", nh);
   		Cauhoi q2 = new Cauhoi("q2", "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain", 1, "William Shakespeare", nh);
   		Cauhoi q3 = new Cauhoi("q3", "What is the tallest mountain in the world?", "Mount Everest", "K2", "Kangchenjunga", "Lhotse", 3, "Mount Everest", nh);
