@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 import DAO.Account_dao;
+import DAO.Cauhoi_Dao;
 import DAO.Gv_dao;
 import DAO.NganhangDao;
 import DAO.request_dao;
@@ -23,6 +24,9 @@ import model.request;
 
 public class testing {
     public static void main(String[] args) {
-System.out.println(NganhangDao.Instance().selectbyid("su"));
+    	Cauhoi c = new Cauhoi();
+    	c = Cauhoi_Dao.Instance().selectbyidCauHoi("q23");
+    	c.setDapan("Berlin");
+    	Cauhoi_Dao.Instance().deletebyid(c);
     }
 }

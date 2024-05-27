@@ -183,6 +183,7 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 	@Override
 	public boolean update(Cauhoi t) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		
 		if(sessionFactory!=null)
 		{
 			Session session = sessionFactory.openSession();
@@ -216,10 +217,13 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 	@Override
 	public boolean deletebyid(Cauhoi t) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+		CautraloiSinhvien_dao.Instance().updatewhendelete(t.getId());
+		CauHoi_DeThi_dao.Instance().updatewhendelete(t.getId());
 		if(sessionFactory!=null)
 		{
 			Session session = sessionFactory.openSession();
 			Transaction tr = session.beginTransaction();
+			
 			session.delete(t);
 			tr.commit();
 			session.close();
@@ -227,5 +231,5 @@ public class Cauhoi_Dao implements DAO_Interface<Cauhoi> {
 		}
 		return false;
 	}
-
+	
 }

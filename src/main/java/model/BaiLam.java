@@ -164,6 +164,8 @@ public class BaiLam{
 	{
 
 		double dd = (double) 10 /  cautraloi.size();
+		socaudung = 0;
+		socausai = 0;
 		for(Cautraloisinhvien i : cautraloi)
 		{
 			if(i.getKiemtra()==1)
