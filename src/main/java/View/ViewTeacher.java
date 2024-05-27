@@ -75,6 +75,7 @@ import model.KiThi;
 import model.Nganhangcauhoi;
 import DAO.CauHoi_DeThi_dao;
 import DAO.Cauhoi_Dao;
+import DAO.CautraloiSinhvien_dao;
 import DAO.Class_dao;
 import DAO.Gv_dao;
 import DAO.KiThi_dao;
@@ -83,6 +84,7 @@ import DAO.Sv_dao;
 import model.Sv;
 import model.Cauhoi;
 import model.Cauhoi_DeThi;
+import model.Cautraloisinhvien;
 import model.Class;
 import model.Giangday;
 import Controller.Controller_Teacher;
@@ -2352,20 +2354,18 @@ public class ViewTeacher extends JFrame {
 			if (listRadiobutton.get(i).isSelected()) {
 				Cauhoi c = nh.getListcauhoi().get(i);
 				for (Cauhoi_DeThi cauhoi_DeThi : chdt) {
-					System.out.println(123);
 					if(cauhoi_DeThi.getCauhoi().getId().equals(c.getId())) {
-						JOptionPane.showMessageDialog(null, "Không thể xóa câu hỏi số " + (i + 1) + " vì có trong đề thi", "Thông báo",
-								JOptionPane.INFORMATION_MESSAGE);
-						j = -1;
-						break;
+						CauHoi_DeThi_dao.Instance().updatewhendelete(cauhoi_DeThi.getCauhoi().getId());
 					}
 				}
-				if(j != -1){
-					nh.removecauhoi(c);
-					Cauhoi_Dao.Instance().deletebyid(c);
-					NganhangDao.Instance().update(nh);
-					j = 1;
+				List<Cautraloisinhvien> ctlsv = CautraloiSinhvien_dao.Instance().selectByIdCauhoi(c.getId());
+				for (Cautraloisinhvien cautraloisinhvien : ctlsv) {
+					CautraloiSinhvien_dao.Instance().updatewhendelete(cautraloisinhvien.getCauhoi().getId());
 				}
+				nh.removecauhoi(c);
+				Cauhoi_Dao.Instance().deletebyid(c);
+				NganhangDao.Instance().update(nh);
+				j = 1;
 			}
 		}
 		if (j == 0) {

@@ -173,6 +173,7 @@ public class Controller_Teacher implements Action {
 		}else if(e.getSource() == viewteacher.buttonDeleteQuestion) {
 			// xóa câu hỏi
 			viewteacher.deleteCauhoi();
+			JOptionPane.showMessageDialog(null, "Xóa câu hỏi thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
 			viewteacher.DrawQuestion(viewteacher.NHCH.getSoluong());
 		}else if(e.getSource() == viewteacher.buttonEditQuestion) {
 			// chỉnh sửa câu hỏi
