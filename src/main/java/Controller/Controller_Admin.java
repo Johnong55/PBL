@@ -64,7 +64,8 @@ public class Controller_Admin implements Action {
 					JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else if (e.getSource() == viewadmin.comboBoxSortClass) {
 			// sắp xếp trong giao diện lớp
@@ -93,175 +94,176 @@ public class Controller_Admin implements Action {
 				}
 
 			} else {
-				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else if (e.getSource() == viewadmin.buttonAddSvInClass) {
 			// giao diện thêm sinh viên vào lớp
 			viewadmin.ViewAddSvInClass();
 		} else if (e.getSource() == viewadmin.buttonChonSvAddIntoClass) {
 			// thêm sinh viên vào lớp
-			if(viewadmin.table1.getSelectedRowCount() > 0) {
+			if (viewadmin.table1.getSelectedRowCount() > 0) {
 				List<String> idSvs = new ArrayList<>();
-				
+
 				int[] indexRow = viewadmin.table1.getSelectedRows();
 				for (int i : indexRow) {
 					idSvs.add(viewadmin.table1.getValueAt(i, 2).toString());
 				}
-				
+
 				viewadmin.addSvinClass(idSvs);
 			}
-		}
-		else if(e.getSource() == viewadmin.buttonAddGv) {
+		} else if (e.getSource() == viewadmin.buttonAddGv) {
 			// giao diện thêm giáo viên
 			viewadmin.ViewAddGv();
-			
-		}else if(e.getSource() == viewadmin.buttonOkAddGv) {
+
+		} else if (e.getSource() == viewadmin.buttonOkAddGv) {
 			// thêm giáo viên
 			String NameGv = viewadmin.textNameGv.getText();
 			String IdGv = viewadmin.textIdGv.getText();
 			String user = viewadmin.textUser.getText();
 			String pass = viewadmin.textPass.getText();
-			
+
 			viewadmin.AddGv(NameGv, IdGv, user, pass);
 		}
-		
-		else if(e.getSource() == viewadmin.buttonDeleteGv) {
+
+		else if (e.getSource() == viewadmin.buttonDeleteGv) {
 			// xóa giáo viên
-			if(viewadmin.table.getSelectedRowCount() > 0) {
-			
-			int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
-					"Yes");
-			if (option == JOptionPane.YES_OPTION) {
-				int[] indexRow = viewadmin.table.getSelectedRows();
-				List<String> idGvs = new ArrayList<String>();
-				for (int i : indexRow) {
-					idGvs.add(viewadmin.table.getValueAt(i, 1).toString());
+			if (viewadmin.table.getSelectedRowCount() > 0) {
+
+				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
+						"Yes");
+				if (option == JOptionPane.YES_OPTION) {
+					int[] indexRow = viewadmin.table.getSelectedRows();
+					List<String> idGvs = new ArrayList<String>();
+					for (int i : indexRow) {
+						idGvs.add(viewadmin.table.getValueAt(i, 1).toString());
+					}
+
+					viewadmin.deleteGv(idGvs);
+					viewadmin.updateTableTeacher();
+					JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 				}
-				
-				viewadmin.deleteGv(idGvs);
-				viewadmin.updateTableTeacher();
-				JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
-			}
-		}else if(e.getSource() == viewadmin.buttonAddClassInGv) {
+		} else if (e.getSource() == viewadmin.buttonAddClassInGv) {
 			// giao diện thêm lớp cho giáo viên
 			viewadmin.ViewAddClassInGv();
-		}else if(e.getSource() == viewadmin.buttonChonClassAddIntoGv) {
+		} else if (e.getSource() == viewadmin.buttonChonClassAddIntoGv) {
 			// thêm lớp cho giáo viên
-			if(viewadmin.table2.getSelectedRowCount() > 0) {
+			if (viewadmin.table2.getSelectedRowCount() > 0) {
 				List<String> idClass = new ArrayList<>();
-				
+
 				int[] indexRow = viewadmin.table2.getSelectedRows();
 				for (int i : indexRow) {
 					idClass.add(viewadmin.table2.getValueAt(i, 2).toString());
-				}				
+				}
 				viewadmin.AddClassIntoGv(idClass);
 				viewadmin.updateTabelClassOfGv(viewadmin.idGv);
 				viewadmin.z.setVisible(false);
-				JOptionPane.showMessageDialog(null, "Thêm lớp thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Thêm lớp thành công", "Thông báo",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
-		}
-		else if(e.getSource() == viewadmin.buttonDeleteClassInGv) {	
+		} else if (e.getSource() == viewadmin.buttonDeleteClassInGv) {
 			// xóa lớp khỏi giáo viên
-			if(viewadmin.table.getSelectedRowCount() > 0) {			
+			if (viewadmin.table.getSelectedRowCount() > 0) {
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
-					"Yes");
-			if (option == JOptionPane.YES_OPTION) {
-				int[] indexRow = viewadmin.table.getSelectedRows();
-				List<String> idClasses = new ArrayList<String>();
-				for (int i : indexRow) {
-					idClasses.add(viewadmin.table.getValueAt(i, 2).toString());
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
+						"Yes");
+				if (option == JOptionPane.YES_OPTION) {
+					int[] indexRow = viewadmin.table.getSelectedRows();
+					List<String> idClasses = new ArrayList<String>();
+					for (int i : indexRow) {
+						idClasses.add(viewadmin.table.getValueAt(i, 2).toString());
+					}
+
+					String idgv = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 1).toString();
+					viewadmin.DeleteClassIntoGv(idClasses, idgv);
+					viewadmin.updateTabelClassOfGv(idgv);
+					JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 				}
-				
-				String idgv = viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 1).toString();
-				viewadmin.DeleteClassIntoGv(idClasses, idgv);
-				viewadmin.updateTabelClassOfGv(idgv);
-				JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
-			}
-			
-		}else if(e.getSource() == viewadmin.buttonAddSvInStudent) {
-				//// thêm sinh viên trong giao diện sinh viên
+
+		} else if (e.getSource() == viewadmin.buttonAddSvInStudent) {
+			//// thêm sinh viên trong giao diện sinh viên
 			this.viewadmin.ViewAddSv();
-		}else if(e.getSource() == viewadmin.buttonOkAddSv) {
+		} else if (e.getSource() == viewadmin.buttonOkAddSv) {
 			String NameGv = viewadmin.textNameSv.getText();
 			String IdGv = viewadmin.textIdSv.getText();
 			String user = viewadmin.textUserSv.getText();
 			String pass = viewadmin.textPassSv.getText();
-			String tenlop =(String) viewadmin.comboBoxLOP.getSelectedItem();
-			
+			String tenlop = (String) viewadmin.comboBoxLOP.getSelectedItem();
+
 			viewadmin.AddSv(NameGv, IdGv, user, pass, tenlop);
-		}
-		else if(e.getSource() == viewadmin.buttonDeleteSvInStudent) {
-				//// xóa sinh viên trong giao diện sinh viên
-			if(viewadmin.table.getSelectedRowCount() > 0) {			
+		} else if (e.getSource() == viewadmin.buttonDeleteSvInStudent) {
+			//// xóa sinh viên trong giao diện sinh viên
+			if (viewadmin.table.getSelectedRowCount() > 0) {
 				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
-					"Yes");
-			if (option == JOptionPane.YES_OPTION) {
-				List<String> idSvs = new ArrayList<String>();
-				
-				int[] indexRow = viewadmin.table.getSelectedRows();
-				
-				for (int i : indexRow) {
-					String idclass = viewadmin.table.getValueAt(i, 0).toString();
-					idSvs.add(idclass);
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
+						"Yes");
+				if (option == JOptionPane.YES_OPTION) {
+					List<String> idSvs = new ArrayList<String>();
+
+					int[] indexRow = viewadmin.table.getSelectedRows();
+
+					for (int i : indexRow) {
+						String idclass = viewadmin.table.getValueAt(i, 0).toString();
+						idSvs.add(idclass);
+					}
+					viewadmin.deleteSvInStudent(idSvs);
+					viewadmin.updateTableStudent();
+
+					JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 				}
-				viewadmin.deleteSvInStudent(idSvs);
-				viewadmin.updateTableStudent();
-				
-				JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
-			}
-		}else if(e.getSource() == viewadmin.buttonExam) {
+		} else if (e.getSource() == viewadmin.buttonExam) {
 			// giao diện kì thi
 			this.viewadmin.ViewExam();
-		}
-		else if(e.getSource() == viewadmin.comboBoxExam) {
+		} else if (e.getSource() == viewadmin.comboBoxExam) {
 			// sắp xếp trong giao diện kì thi
 			String selectedColumn = (String) viewadmin.comboBoxExam.getSelectedItem();
 			this.viewadmin.SortTable(selectedColumn);
-		}else if(e.getSource() == viewadmin.buttonDeleteExam) {
+		} else if (e.getSource() == viewadmin.buttonDeleteExam) {
 			// xóa kì thi
-			if(viewadmin.table.getSelectedRowCount() == 1) {
-				
-				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?","Xác nhận", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE,null, new String[] {"Yes", "No"},"Yes");
+			if (viewadmin.table.getSelectedRowCount() == 1) {
 
-					if (option == JOptionPane.YES_OPTION) {
+				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
+						"Yes");
 
-						String idkithi =(String) viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 7);
-						viewadmin.deleteExam(idkithi);
-						viewadmin.updateTableExam(viewadmin.table);
-						JOptionPane.showMessageDialog(null, "Xóa thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-					}
-			}else {
-				JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa","Lỗi",JOptionPane.INFORMATION_MESSAGE);
+				if (option == JOptionPane.YES_OPTION) {
+
+					String idkithi = (String) viewadmin.table.getValueAt(viewadmin.table.getSelectedRow(), 7);
+					viewadmin.deleteExam(idkithi);
+					viewadmin.updateTableExam(viewadmin.table);
+					JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Chọn 1 dòng để xóa", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 			}
-		}
-		else if(e.getSource() == viewadmin.buttonTest) {
+		} else if (e.getSource() == viewadmin.buttonTest) {
 			// giao diện bài làm
 			this.viewadmin.ViewTest();
-		}else if(e.getSource() == viewadmin.buttonQuestion) {
+		} else if (e.getSource() == viewadmin.buttonQuestion) {
 			// giao diện ngân hàng câu hỏi
 			this.viewadmin.ViewQuestions();
-		}else if(e.getSource() == viewadmin.comboBoxNHCH) {
+		} else if (e.getSource() == viewadmin.comboBoxNHCH) {
 			// thay đổi ngân hàng câu hỏi
 			String idNHCH = (String) viewadmin.comboBoxNHCH.getSelectedItem();
 			this.viewadmin.NHCH = viewadmin.getNHCHByName(idNHCH);
 			viewadmin.DrawQuestion(viewadmin.NHCH.getSoluong());
-		}else if(e.getSource() == viewadmin.comboBoxSortStudent) {
+		} else if (e.getSource() == viewadmin.comboBoxSortStudent) {
 			String sort = viewadmin.comboBoxSortStudent.getSelectedItem().toString();
 			viewadmin.SortTable(sort);
-		}else if(e.getSource() == viewadmin.comboBoxSortTeacher) {
+		} else if (e.getSource() == viewadmin.comboBoxSortTeacher) {
 			String sort = viewadmin.comboBoxSortTeacher.getSelectedItem().toString();
 			viewadmin.SortTable(sort);
 		}
