@@ -1431,10 +1431,13 @@ public class ViewAdmin extends JFrame {
 		pView.add(lblNewLabel);
 
 		int size = NHCHs.size();
-		String[] tenNHCH = new String[size];
-
+		String[] tenNHCH = new String[size-1];
+		int j = 0;
 		for (int i = 0; i < size; i++) {
-			tenNHCH[i] = NHCHs.get(i).getIdNganHang();
+			if(!NHCHs.get(i).getIdNganHang().equals("Daxoa")){
+				tenNHCH[j] = NHCHs.get(i).getIdNganHang();
+				j++;
+			}
 		}
 
 		comboBoxNHCH = new JComboBox<>(tenNHCH);
@@ -1447,9 +1450,10 @@ public class ViewAdmin extends JFrame {
 		lblNewLabel_2.setBounds(478, 30, 131, 28);
 		pView.add(lblNewLabel_2);
 
-		this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
-
-		DrawQuestion(NHCHs.get(0).getSoluong());
+		if (!NHCHs.isEmpty()) {
+			this.NHCH = getNHCHByName(comboBoxNHCH.getSelectedItem().toString());
+			DrawQuestion(NHCH.getSoluong());
+		}
 	}
 
 	public void ViewTest() {
@@ -1464,7 +1468,7 @@ public class ViewAdmin extends JFrame {
 
 		pView.add(lblNewLabel);
 
-		String[] list = { "  Tên", "  Lớp" };
+		String[] list = { "  Tên", "  Lớp", "  Mã học sinh" };
 
 		comboBoxSortALLSV = new JComboBox<>(list);
 		comboBoxSortALLSV.setBounds(615, 35, 90, 22);
@@ -1677,6 +1681,7 @@ public class ViewAdmin extends JFrame {
 			l.setBounds(250, 200, 208, 52);
 			pView.add(l);
 		} else {
+			scrollPane.setVisible(true);
 			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollPane.getViewport().setBackground(Color.WHITE);
 			scrollPane.setBounds(10, 89, 695, 500);

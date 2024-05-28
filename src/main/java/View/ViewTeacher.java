@@ -1790,8 +1790,6 @@ public class ViewTeacher extends JFrame {
 		if (!NHCHs.isEmpty()) {
 			this.NHCH = getNHCHByName(NHCHs.get(0).getIdNganHang());
 			DrawQuestion(NHCHs.get(0).getSoluong());
-		} else {
-			DrawQuestion(0);
 		}
 
 		buttonSelectAllRadiobutton = new MyButton("Chọn tất cả");
@@ -1875,6 +1873,7 @@ public class ViewTeacher extends JFrame {
 		noques.setText("");
 
 		if (sl == 0) {
+			scrollPane.setVisible(false);
 			System.out.println(12);
 			noques.setText("CHƯA CÓ CÂU HỎI");
 			noques.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -1882,6 +1881,7 @@ public class ViewTeacher extends JFrame {
 			noques.setBounds(250, 200, 208, 52);
 			pView.add(noques);
 		} else {
+			scrollPane.setVisible(true);
 			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollPane.getViewport().setBackground(Color.WHITE);
 			scrollPane.setBounds(10, 89, 695, 500);
