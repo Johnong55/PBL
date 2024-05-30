@@ -16,6 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -29,6 +31,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -1802,12 +1805,6 @@ public class ViewAdmin extends JFrame {
 	public void updateTableTeacher() {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
-		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn column3 = columnModel.getColumn(1);
-		column3.setMinWidth(0);
-		column3.setMaxWidth(0);
-		column3.setWidth(0);
-		column3.setPreferredWidth(0);
 		table.setModel(getModelTeacher(listgv));
 	}
 
@@ -2028,12 +2025,14 @@ public class ViewAdmin extends JFrame {
 			}
 		}
 		List<DeThi> dethi = DeThi_dao.Instance().selectall();
-		for (KiThi kt : g.getKithi()) {
-			if (kt.getId() != null) {
-				for (DeThi deThi2 : dethi) {
-					if (deThi2.getKithi().getId() != null) {
-						if (deThi2.getKithi().getId().equals(kt.getId())) {
-							DeThi_dao.Instance().SetNullIdKiThi(deThi2.getId());
+		if(g.getKithi()!= null) {
+			for (KiThi kt : g.getKithi()) {
+				if (kt.getId() != null) {
+					for (DeThi deThi2 : dethi) {
+						if (deThi2.getKithi().getId() != null) {
+							if (deThi2.getKithi().getId().equals(kt.getId())) {
+								DeThi_dao.Instance().SetNullIdKiThi(deThi2.getId());
+							}
 						}
 					}
 				}
@@ -2089,9 +2088,6 @@ public class ViewAdmin extends JFrame {
 		List<Giangday> GD = g.getDanhsachlop();
 		for (String idclass : idClasses) {
 			Giangday gd = new Giangday(g, getClassById(idclass));
-
-			int idGD = Integer.parseInt(g.getMaGv() + idclass);
-			gd.setId(idGD);
 			GD.add(gd);
 			Giangday_dao.Instance().insert(gd);
 		}

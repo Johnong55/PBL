@@ -137,7 +137,7 @@ public class Controller_Admin implements Action {
 					int[] indexRow = viewadmin.table.getSelectedRows();
 					List<String> idGvs = new ArrayList<String>();
 					for (int i : indexRow) {
-						idGvs.add(viewadmin.table.getValueAt(i, 1).toString());
+						idGvs.add(viewadmin.table.getValueAt(i, 0).toString());
 					}
 
 					viewadmin.deleteGv(idGvs);

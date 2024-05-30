@@ -71,6 +71,9 @@ public class Class {
 		this.tenlop = tenlop;
 	}
 	public List<Sv> getSvs() {
+		if(Svs==null) {
+			return new ArrayList<Sv>();
+		}
 		return Svs;
 	}
 	public void setSvs(List<Sv> svs) {
