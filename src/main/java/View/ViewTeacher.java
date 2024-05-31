@@ -761,22 +761,13 @@ public class ViewTeacher extends JFrame {
 				"  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi", "  Mã kì thi" }));
 		table.setModel(getModelExam(g));
 		table.setDefaultEditor(Object.class, null);
-		// ẩn mã kì thi
-		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn column = columnModel.getColumn(7);
-		column.setMinWidth(0);
-		column.setMaxWidth(0);
-		column.setWidth(0);
-		column.setPreferredWidth(0);
 		scrollPane.setViewportView(table);
-
 		TableColumnModel columnresize = table.getColumnModel();
 		columnresize.getColumn(0).setPreferredWidth(30);
 		columnresize.getColumn(1).setPreferredWidth(40);
 		columnresize.getColumn(2).setPreferredWidth(60);
 		columnresize.getColumn(5).setPreferredWidth(50);
 		columnresize.getColumn(6).setPreferredWidth(50);
-
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
@@ -1201,6 +1192,7 @@ public class ViewTeacher extends JFrame {
 		panel_3.add(lblNewLabel_1_2_4);
 
 		textMon = new JPlaceholderTextField("");
+		textMon.setText(kt.getMonhoc());
 		textMon.setHorizontalAlignment(SwingConstants.CENTER);
 		textMon.setBounds(370, 86, 100, 30);
 		textMon.setBorder(null);
@@ -1766,6 +1758,7 @@ public class ViewTeacher extends JFrame {
 		JLabel lblNewLabel = new JLabel("KHO CÂU HỎI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(10, 10, 300, 20);
+		pView.add(lblNewLabel);
 
 		int size = NHCHs.size();
 		String[] tenNHCH = new String[size];
@@ -2075,6 +2068,13 @@ public class ViewTeacher extends JFrame {
 				model.addRow(row);
 			}
 		}
+		// ẩn mã kì thi
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn column = columnModel.getColumn(7);
+		column.setMinWidth(0);
+		column.setMaxWidth(0);
+		column.setWidth(0);
+		column.setPreferredWidth(0);
 		return model;
 	}
 
@@ -2103,6 +2103,12 @@ public class ViewTeacher extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
 		table.setModel(getModelExam(g));
+		TableColumnModel columnresize = table.getColumnModel();
+		columnresize.getColumn(0).setPreferredWidth(30);
+		columnresize.getColumn(1).setPreferredWidth(40);
+		columnresize.getColumn(2).setPreferredWidth(60);
+		columnresize.getColumn(5).setPreferredWidth(50);
+		columnresize.getColumn(6).setPreferredWidth(50);
 	}
 
 	public Class getClassbyNameClass(String m, Gv g) {

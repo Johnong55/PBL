@@ -108,7 +108,6 @@ public class Controller_Teacher implements Action {
 				JOptionPane.showMessageDialog(null, "Tạo kì thi thất bại", "Thông báo",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
-			this.viewteacher.ViewExam();
 		} else if (e.getSource() == viewteacher.buttonUpdateExam) {
 			// cập nhật kì thi
 			if (viewteacher.CapNhatExam()) {
