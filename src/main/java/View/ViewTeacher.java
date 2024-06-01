@@ -73,19 +73,23 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import model.Gv;
 import model.KiThi;
 import model.Nganhangcauhoi;
+import DAO.BaiLam_dao;
 import DAO.CauHoi_DeThi_dao;
 import DAO.Cauhoi_Dao;
 import DAO.CautraloiSinhvien_dao;
 import DAO.Class_dao;
+import DAO.DeThi_dao;
 import DAO.Gv_dao;
 import DAO.KiThi_dao;
 import DAO.NganhangDao;
 import DAO.Sv_dao;
 import model.Sv;
+import model.BaiLam;
 import model.Cauhoi;
 import model.Cauhoi_DeThi;
 import model.Cautraloisinhvien;
 import model.Class;
+import model.DeThi;
 import model.Giangday;
 import Controller.Controller_Teacher;
 
@@ -129,7 +133,7 @@ public class ViewTeacher extends JFrame {
 		this.dslop = g.getDanhsachlop();
 		for (Giangday giangday : dslop) {
 			List<Sv> temp = Class_dao.Instance().selectSVinclass(giangday.getMalop());
-			svs.addAll(temp);
+			this.svs.addAll(temp);
 		}
 		System.out.println(g);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -2153,10 +2157,6 @@ public class ViewTeacher extends JFrame {
 		return -1;
 	}
 
-	public void InsertExam(KiThi k) {
-		KiThi_dao.Instance().insert(k);
-	}
-
 	public KiThi SetKiThi(int k) {
 		String tenlop = comboBoxTenLop.getSelectedItem().toString();
 		String tenNH = comboBoxTenNGCH.getSelectedItem().toString();
@@ -2321,14 +2321,10 @@ public class ViewTeacher extends JFrame {
 		q.setDapAnD(dapanD);
 		q.setDapan(dapanDung);
 		q.setMucdo(mucdo);
-		System.out.println(q.getNH());
-		System.out.println(nh);
 
 		if (q.getNH().getIdNganHang().equals(nh.getIdNganHang())) {
 			Cauhoi_Dao.Instance().update(q);
-			System.out.println(1);
 		} else if (q.getNH().getIdNganHang().equals(nh.getIdNganHang())) {
-			System.out.println(2);
 			q.setNH(nh);
 			q.setId(UUID.randomUUID().toString());
 			nh.addcauhoi(q);
@@ -2399,7 +2395,6 @@ public class ViewTeacher extends JFrame {
 				c = nh.getListcauhoi().get(i);
 				j++;
 			}
-			System.err.println(i);
 			i++;
 		}
 		if (j != 1) {
@@ -2429,10 +2424,6 @@ public class ViewTeacher extends JFrame {
 		NganhangDao.Instance().insert(c);
 	}
 
-	public void deleteSv(String id) {
-		Sv_dao.Instance().deletebyid(Sv_dao.Instance().selectbyid(id));
-	}
-
 	public void SortTable(String selectedColumn) {
 		TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
 		table.setRowSorter(sorter);
@@ -2444,7 +2435,27 @@ public class ViewTeacher extends JFrame {
 	}
 
 	public void deleteExam(String id) {
-		KiThi_dao.Instance().deletebyid(KiThi_dao.Instance().selectbyid(id));
+		KiThi kt = KiThi_dao.Instance().selectbyid(id);
+		kt.setGv(null);
+		kt.setNganhangcauhoi(null);
+		List<BaiLam> bailams = BaiLam_dao.Instance().selectbyidKiThi(id);
+		for (BaiLam baiLam : bailams) {
+			List<Cautraloisinhvien> cs = CautraloiSinhvien_dao.Instance().selectCautraloisinhvienfromBailam(baiLam);
+			for (Cautraloisinhvien c : cs) {
+				CautraloiSinhvien_dao.Instance().deletebyid(c);
+			}
+			BaiLam_dao.Instance().deletebyid(baiLam);
+		}
+		List<DeThi> DeThis = DeThi_dao.Instance().selectbyidKiThi(id);
+		for (DeThi deThi : DeThis) {
+			List<Cauhoi_DeThi> cauhois = CauHoi_DeThi_dao.Instance().selectbyIdDeThi(deThi.getId());
+			for (Cauhoi_DeThi cauhoi_DeThi : cauhois) {
+				System.out.println(cauhoi_DeThi.getId() + 1);
+				CauHoi_DeThi_dao.Instance().deletebyid(cauhoi_DeThi);
+			}
+			DeThi_dao.Instance().deletebyid(deThi);
+		}
+		KiThi_dao.Instance().deletebyid(kt);
 	}
 
 	public void displayImage(File imageFile, JLabel label) {
