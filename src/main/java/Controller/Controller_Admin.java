@@ -266,6 +266,48 @@ public class Controller_Admin implements Action {
 		} else if (e.getSource() == viewadmin.comboBoxSortTeacher) {
 			String sort = viewadmin.comboBoxSortTeacher.getSelectedItem().toString();
 			viewadmin.SortTable(sort);
+		} else if(e.getSource() == viewadmin.buttonResetPWGV) {
+			// cấp lại mật khẩu giáo viên
+			if (viewadmin.table.getSelectedRowCount() > 0) {
+
+				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
+						"Yes");
+				if (option == JOptionPane.YES_OPTION) {
+					int[] indexRow = viewadmin.table.getSelectedRows();
+					List<String> idGvs = new ArrayList<String>();
+					for (int i : indexRow) {
+						idGvs.add(viewadmin.table.getValueAt(i, 0).toString());
+					}
+
+					viewadmin.resetPWGV(idGvs);
+					JOptionPane.showMessageDialog(null, "Cấp lại mật khẩu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để thực hiện", "Lỗi",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		} else if(e.getSource() == viewadmin.buttonResetPWSV) {
+			// cấp lại mật khẩu sinh viên
+			if (viewadmin.table.getSelectedRowCount() > 0) {
+
+				int option = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục không?", "Xác nhận",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Yes", "No" },
+						"Yes");
+				if (option == JOptionPane.YES_OPTION) {
+					int[] indexRow = viewadmin.table.getSelectedRows();
+					List<String> idSvs = new ArrayList<String>();
+					for (int i : indexRow) {
+						idSvs.add(viewadmin.table.getValueAt(i, 0).toString());
+					}
+
+					viewadmin.resetPWSV(idSvs);
+					JOptionPane.showMessageDialog(null, "Cấp lại mật khẩu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Chọn ít nhất 1 dòng để thực hiện", "Lỗi",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 

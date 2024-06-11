@@ -20,6 +20,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +35,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.CellEditorListener;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -45,6 +47,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -52,6 +56,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.FlowLayout;
 
 import Controller.Controller_Admin;
+import DAO.Account_dao;
 import DAO.BaiLam_dao;
 import DAO.CauHoi_DeThi_dao;
 import DAO.Cauhoi_Dao;
@@ -90,7 +95,7 @@ public class ViewAdmin extends JFrame {
 			buttonAddSvInClass, buttonHuyAddClass, buttonOkAddClass, buttonDeleteSvFromClass, buttonChonSvAddIntoClass,
 			buttonAddGv, buttonDeleteGv, buttonOkAddGv, buttonDeleteClassInGv, buttonAddClassInGv,
 			buttonChonClassAddIntoGv, buttonDeleteSvInStudent, buttonAddSvInStudent, buttonOkAddSv, buttonAddExam,
-			buttonDeleteExam, buttonExam, buttonTest, buttonQuestion;
+			buttonDeleteExam, buttonExam, buttonTest, buttonQuestion,buttonResetPWGV,buttonResetPWSV;
 	public JComboBox<String> comboBoxSortClass, comboBoxSortALLSV, comboBoxLOP, comboBoxExam, comboBoxNHCH,
 			comboBoxSortStudent, comboBoxSortTeacher;
 	public JTextField textField, textNameGv, textIdGv, textUser, textPass, textNameSv, textIdSv, textUserSv, textPassSv;
@@ -690,6 +695,20 @@ public class ViewAdmin extends JFrame {
 		pView.add(buttonDeleteGv);
 
 		buttonDeleteGv.addActionListener(actionAdmin);
+		
+		buttonResetPWGV = new MyButton("Cấp lại mật khẩu");
+		buttonResetPWGV.setRadius(10);
+		buttonResetPWGV.setForeground(Color.WHITE);
+		buttonResetPWGV.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonResetPWGV.setColorOver(new Color(86, 98, 120));
+		buttonResetPWGV.setColorClick(new Color(45, 51, 63));
+		buttonResetPWGV.setColor(new Color(45, 51, 63));
+		buttonResetPWGV.setBorderColor(Color.white);
+		buttonResetPWGV.setBackground(new Color(45, 51, 63));
+		buttonResetPWGV.setBounds(250, 600, 110, 30);
+		pView.add(buttonResetPWGV);
+
+		buttonResetPWGV.addActionListener(actionAdmin);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 89, 695, 500);
@@ -1010,6 +1029,20 @@ public class ViewAdmin extends JFrame {
 		pView.add(buttonDeleteSvInStudent);
 
 		buttonDeleteSvInStudent.addActionListener(actionAdmin);
+		
+		buttonResetPWSV = new MyButton("Cấp lại mật khẩu");
+		buttonResetPWSV.setRadius(10);
+		buttonResetPWSV.setForeground(Color.WHITE);
+		buttonResetPWSV.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonResetPWSV.setColorOver(new Color(86, 98, 120));
+		buttonResetPWSV.setColorClick(new Color(45, 51, 63));
+		buttonResetPWSV.setColor(new Color(45, 51, 63));
+		buttonResetPWSV.setBorderColor(Color.white);
+		buttonResetPWSV.setBackground(new Color(45, 51, 63));
+		buttonResetPWSV.setBounds(250, 600, 110, 30);
+		pView.add(buttonResetPWSV);
+
+		buttonResetPWSV.addActionListener(actionAdmin);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 89, 695, 500);
@@ -1325,7 +1358,7 @@ public class ViewAdmin extends JFrame {
 		pView.repaint();
 		pView.revalidate();
 
-		JLabel lblNewLabel = new JLabel("HỌC SINH");
+		JLabel lblNewLabel = new JLabel("BÀI THI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth() + 1, (int) size.getHeight() + 1);
@@ -1464,7 +1497,7 @@ public class ViewAdmin extends JFrame {
 		pView.repaint();
 		pView.revalidate();
 
-		JLabel lblNewLabel = new JLabel("HỌC SINH");
+		JLabel lblNewLabel = new JLabel("BÀI THI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth() + 1, (int) size.getHeight() + 1);
@@ -1795,7 +1828,7 @@ public class ViewAdmin extends JFrame {
 			if (!g.getMaGv().equals("00")) {
 				int lastIndex = g.getTen().lastIndexOf(" ");
 				String lastName = g.getTen().substring(lastIndex + 1);
-				Object[] row = { g.getMaGv(), g.getTen(), lastName };
+				Object[] row = { g.getMaGv(), g.getTen(), lastName};
 				model.addRow(row);
 			}
 		}
@@ -2187,6 +2220,26 @@ public class ViewAdmin extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
 		table.setModel(getModelExam());
+	}
+	public void resetPWGV(List<String> idGvs) {
+		for (Gv gv : listgv) {
+			for (String id : idGvs) {
+				if(gv.getMaGv().equals(id)) {
+					gv.setPassword("12345");
+					Account_dao.Instance().update(gv);
+				}
+			}
+		}
+	}
+	public void resetPWSV(List<String> idSvs) {
+		for (Sv sv : listSv ) {
+			for (String id : idSvs) {
+				if(sv.getIdSv().equals(id)) {
+					sv.setPassword("12345");
+					Account_dao.Instance().update(sv);
+				}
+			}
+		}
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
