@@ -247,16 +247,23 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 
 	@Override
 	public boolean insert(KiThi t) {
-		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
-		if (sessionFactory != null) {
-			Session session = sessionFactory.openSession();
-			Transaction tr = session.beginTransaction();
-
-			session.save(t);
-			tr.commit();
-			session.close();
-			return true;
+		if(checkthoigian(t)>0)
+		{
+			return false;
 		}
+		else {
+			SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
+			if (sessionFactory != null) {
+				Session session = sessionFactory.openSession();
+				Transaction tr = session.beginTransaction();
+
+				session.save(t);
+				tr.commit();
+				session.close();
+				return true;
+			}
+		}
+		
 
 		return false;
 	}
@@ -280,6 +287,10 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 
 	@Override
 	public boolean update(KiThi t) {
+		if(checkthoigian(t)>0)
+		{
+			return false;
+		} else {
 		SessionFactory sessionFactory = HibernateUtil.getSessionfacFactory();
 		if (sessionFactory != null) {
 			Session session = sessionFactory.openSession();
@@ -290,7 +301,7 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 			session.close();
 			return true;
 		}
-
+		}
 		return false;
 	}
 
@@ -316,6 +327,36 @@ public class KiThi_dao implements DAO_Interface<KiThi> {
 		
 		
 		return result;
+	}
+	public int checkthoigian(KiThi t)
+	{
+		try {
+			Connection con = JDBCUtil.getConnection();
+			String sql = "select count(*) from kithi \r\n"
+					+ "where lop = ?   and date_add(kithi.thoigianbatdau,interval kithi.thoigianlambai minute)> ? or date_add(?,Interval ? minute)> kithi.thoigianbatdau and date =  ?;";
+
+			PreparedStatement a;
+
+			a = con.prepareStatement(sql);
+			a.setString(1, t.getLop().getIdclass());
+			a.setTime(2, t.getThoigianbatdau());
+			a.setTime(3, t.getThoigianbatdau());
+			a.setInt(4, t.getThoigianlambai());
+			a.setDate(5, t.getDate() );
+			
+			ResultSet kq = a.executeQuery();
+			while (kq.next()) {
+				System.out.println(kq.getInt(1));
+				return kq.getInt(1);
+			}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
 	}
 }
 	
