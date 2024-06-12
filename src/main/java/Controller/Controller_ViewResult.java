@@ -10,6 +10,8 @@ import javax.swing.JScrollBar;
 import View.ViewAdmin;
 import View.ViewResult;
 import View.ViewStudent;
+import View.ViewTakeTest;
+import View.ViewTeacher;
 
 public class Controller_ViewResult implements ActionListener, MouseWheelListener{
 
@@ -32,7 +34,11 @@ public class Controller_ViewResult implements ActionListener, MouseWheelListener
 			if(ViewAdmin.key == 1) {
 				rs.dispose();
 				ViewAdmin.key = 0;
-			}else {
+			} else if(ViewTeacher.key == 1) {
+				rs.dispose();
+				ViewTeacher.key = 0;
+			}
+			else {
 				ViewStudent v = new ViewStudent(rs.v);
 				rs.dispose();
 			}

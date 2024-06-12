@@ -102,10 +102,10 @@ public class ViewTeacher extends JFrame {
 			buttonChangePass, NewQuestion, NewExam, buttonAddExam, buttonDeleteExam, buttonChangeImage, buttonTaoCauHoi,
 			buttonLuuCauHoi, buttonExitAddQuestion, buttonHuyUpdateExam, buttonLuuExam, buttonUpdateExam,
 			buttonHuyCreateExam, buttonQuestion, buttonDeleteQuestion, buttonAddQuestion, buttonSelectAllRadiobutton,
-			buttonHuyAllRadiobutton, buttonEditQuestion, buttonCapNhatCauHoi;
+			buttonHuyAllRadiobutton, buttonEditQuestion, buttonCapNhatCauHoi,buttonTest;
 	public JPlaceholderTextField textField, textField_1, textField_2, textField_3, textField_4, textMoTa, textMon;
 	public JComboBox<String> comboBoxSortClass, comboBoxExam, comboBoxNganHangCauHoi, comboBoxMucDo, comboBoxTenLop,
-			comboBoxTenNGCH, comboBoxSortSVinClass, comboBoxNHCH;
+			comboBoxTenNGCH, comboBoxSortSVinClass, comboBoxNHCH,comboBoxSortALLSV;
 	public MyTable table;
 	public JLabel labelImage, labelIdKitThi;
 	public JLabel noques = new JLabel();
@@ -125,6 +125,7 @@ public class ViewTeacher extends JFrame {
 	public Cauhoi q = null;
 	public List<Sv> svs = new ArrayList<Sv>();
 	public List<KiThi> kthi = KiThi_dao.Instance().selectall();
+	public static int key = 0;
 
 	Controller_Teacher actionTeacher = new Controller_Teacher(this);
 
@@ -219,12 +220,27 @@ public class ViewTeacher extends JFrame {
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-result-20.png"))));
 		buttonExam.addActionListener(actionTeacher);
 		panel.add(buttonExam);
+		
+		buttonTest = new MyButton("Bài làm");
+		buttonTest.setForeground(new Color(255, 255, 255));
+		buttonTest.setFont(new Font("Tahoma", Font.BOLD, 15));
+		buttonTest.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonTest.setBounds(10, 234, 137, 37);
+		buttonTest.setBackground(new Color(50, 185, 185));
+		buttonTest.setColorClick(new Color(50, 185, 185));
+		buttonTest.setColorOver(new Color(100, 241, 241));
+		buttonTest.setRadius(10);
+		buttonTest.setBorderColor(new Color(50, 185, 185));
+		buttonTest.setIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-result-20.png"))));
+		buttonTest.addActionListener(actionTeacher);
+		panel.add(buttonTest);
 
 		buttonProfile = new MyButton("Cá nhân");
 		buttonProfile.setForeground(new Color(255, 255, 255));
 		buttonProfile.setFont(new Font("Tahoma", Font.BOLD, 15));
 		buttonProfile.setHorizontalAlignment(SwingConstants.LEFT);
-		buttonProfile.setBounds(10, 282, 137, 37);
+		buttonProfile.setBounds(10, 330, 137, 37);
 		buttonProfile.setBackground(new Color(50, 185, 185));
 		buttonProfile.setColorClick(new Color(50, 185, 185));
 		buttonProfile.setColorOver(new Color(100, 241, 241));
@@ -244,7 +260,7 @@ public class ViewTeacher extends JFrame {
 		buttonQuestion.setColorClick(new Color(50, 185, 185));
 		buttonQuestion.setBorderColor(new Color(50, 185, 185));
 		buttonQuestion.setBackground(new Color(50, 185, 185));
-		buttonQuestion.setBounds(10, 234, 137, 37);
+		buttonQuestion.setBounds(10, 282, 137, 37);
 		buttonQuestion.setIcon(new ImageIcon(
 				Toolkit.getDefaultToolkit().createImage(getClass().getResource("/view/image/icons8-question-20.png"))));
 		panel.add(buttonQuestion);
@@ -1354,6 +1370,240 @@ public class ViewTeacher extends JFrame {
 		labelIdKitThi = new JLabel();
 		labelIdKitThi.setText(kt.getId());
 
+	}
+	
+	public void ViewTest() {
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+
+		JLabel lblNewLabel = new JLabel("BÀI THI");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Dimension size = lblNewLabel.getPreferredSize();
+		lblNewLabel.setBounds(10, 10, (int) size.getWidth() + 1, (int) size.getHeight() + 1);
+
+		pView.add(lblNewLabel);
+
+		String[] list = { "  Tên", "  Lớp", "  Mã học sinh" };
+
+		comboBoxSortALLSV = new JComboBox<>(list);
+		comboBoxSortALLSV.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxSortALLSV);
+		comboBoxSortALLSV.addActionListener(actionTeacher);
+
+		JLabel lblNewLabel_2 = new JLabel("Sắp xếp :");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(550, 30, 59, 28);
+		pView.add(lblNewLabel_2);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 89, 695, 500);
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
+
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
+				new String[] { "  Mã học sinh", "  Tên học sinh", "  Lớp", "  Tên" });
+		table = new MyTable();
+		table.setModel(model);
+		table.setRowHeight(30);
+		table.setColor1(Color.WHITE);
+		table.setColor2(Color.WHITE);
+		table.setGridColor(new Color(201, 201, 201));
+		// table.setShowGrid(false);
+		table.setColumnAlignment(0, JLabel.LEFT);
+		table.setCellAlignment(0, JLabel.LEFT);
+
+		JTableHeader header = table.getTableHeader();
+		header.setDefaultRenderer(new DefaultTableCellRenderer() {
+			private static final long serialVersionUID = 1L;
+
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				comp.setBackground(new Color(50, 185, 185));
+				comp.setForeground(Color.WHITE);
+				setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201, 201, 201)));
+
+				return comp;
+			}
+		});
+
+		table.setModel(getModelStudent(svs));
+		TableColumnModel columnModel = table.getColumnModel();
+
+		TableColumn column1 = columnModel.getColumn(3);
+		column1.setMinWidth(0);
+		column1.setMaxWidth(0);
+		column1.setWidth(0);
+		column1.setPreferredWidth(0);
+
+		table.setDefaultEditor(Object.class, null);
+		SortTable("  Tên");
+		scrollPane.setViewportView(table);
+		pView.add(scrollPane);
+
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					// hien thi danh sach ki thi hoc sinh da tham gia
+					String idsv = table.getValueAt(table.getSelectedRow(), 0).toString();
+					System.out.println(idsv);
+					ViewTestOfStudent(idsv);
+				}
+			}
+		});
+	}
+	public DefaultTableModel getModelStudent(List<Sv> listSv) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		for (Sv s : listSv) {
+			int lastIndex = s.getTen().lastIndexOf(" ");
+			String lastName = s.getTen().substring(lastIndex + 1);
+			if (s.getIdclass() != null) {
+				Object[] row = { s.getIdSv(), s.getTen(), s.getIdclass().getTenlop(), lastName };
+				model.addRow(row);
+			} else {
+				Object[] row = { s.getIdSv(), s.getTen(), "Chưa có lớp", lastName };
+				model.addRow(row);
+			}
+
+		}
+		return model;
+	}
+	public void ViewTestOfStudent(String idSv) {
+		pView.removeAll();
+		pView.repaint();
+		pView.revalidate();
+
+		JLabel lblNewLabel = new JLabel("BÀI LÀM");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Dimension size = lblNewLabel.getPreferredSize();
+		lblNewLabel.setBounds(10, 10, (int) size.getWidth() + 1, (int) size.getHeight() + 1);
+
+		pView.add(lblNewLabel);
+
+		String[] list = { "  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi",
+				"  Số câu hỏi" };
+
+		comboBoxExam = new JComboBox<>(list);
+		comboBoxExam.setBounds(615, 35, 90, 22);
+		pView.add(comboBoxExam);
+
+		comboBoxExam.addActionListener(actionTeacher);
+
+		JLabel lblNewLabel_2 = new JLabel("Sắp xếp :");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(550, 30, 59, 28);
+		pView.add(lblNewLabel_2);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBounds(10, 89, 695, 500);
+		scrollPane.setBorder(BorderFactory.createLineBorder(new Color(201, 201, 201)));
+		pView.add(scrollPane);
+
+		table = new MyTable();
+		table.setRowHeight(30);
+		table.setColor1(Color.WHITE);
+		table.setColor2(Color.WHITE);
+		table.setGridColor(new Color(201, 201, 201));
+		// table.setShowGrid(false);
+		table.setColumnAlignment(0, JLabel.LEFT);
+		table.setCellAlignment(0, JLabel.LEFT);
+
+		JTableHeader header = table.getTableHeader();
+		header.setDefaultRenderer(new DefaultTableCellRenderer() {
+			private static final long serialVersionUID = 1L;
+
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				comp.setBackground(new Color(50, 185, 185));
+				comp.setForeground(Color.WHITE);
+				setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(201, 201, 201)));
+
+				return comp;
+			}
+		});
+		table.setModel(
+				new DefaultTableModel(new Object[][] {}, new String[] { "  Lớp", "  Môn", "  Tên kì thi", "  Ngày thi",
+						"  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi", "  Mã kì thi", "  Ma bai lam" }));
+		table.setModel(getModelExamOfStudent(idSv));
+		table.setDefaultEditor(Object.class, null);
+		// ẩn mã kì thi
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn column = columnModel.getColumn(7);
+		column.setMinWidth(0);
+		column.setMaxWidth(0);
+		column.setWidth(0);
+		column.setPreferredWidth(0);
+		scrollPane.setViewportView(table);
+
+		TableColumn column1 = columnModel.getColumn(8);
+		column1.setMinWidth(0);
+		column1.setMaxWidth(0);
+		column1.setWidth(0);
+		column1.setPreferredWidth(0);
+		scrollPane.setViewportView(table);
+
+		TableColumnModel columnresize = table.getColumnModel();
+		columnresize.getColumn(0).setPreferredWidth(30);
+		columnresize.getColumn(1).setPreferredWidth(40);
+		columnresize.getColumn(2).setPreferredWidth(60);
+		columnresize.getColumn(5).setPreferredWidth(50);
+		columnresize.getColumn(6).setPreferredWidth(50);
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					// hien thi bai lam
+					String mabailam = table.getValueAt(table.getSelectedRow(), 8).toString();
+					BaiLam b = BaiLam_dao.Instance().selectbyid(mabailam);
+					List<Cautraloisinhvien> cautraloi = CautraloiSinhvien_dao.Instance()
+							.selectCautraloisinhvienfromBailam(b);
+					List<Cauhoi> c = new ArrayList<Cauhoi>();
+					String[] cA;
+					cA = new String[cautraloi.size()];
+					Arrays.fill(cA, "0");
+					for (int i = 0; i < cautraloi.size(); i++) {
+						c.add(cautraloi.get(i).getCauhoi());
+						cA[i] = tendapAn(cautraloi.get(i).getCautraloi(), c.get(i));
+					}
+					ViewResult v = new ViewResult(b.getSv(), b.getKiThi(), b.getDethi(), c, cA);
+					key = 1;
+				}
+			}
+		});
+	}
+	public DefaultTableModel getModelExamOfStudent(String idSv) {
+		List<BaiLam> listBailam = BaiLam_dao.Instance().selectbyidSV(idSv);
+		List<KiThi> kthi = new ArrayList<KiThi>();
+		List<String> mabailam = new ArrayList<String>();
+		for (BaiLam baiLam : listBailam) {
+			kthi.add(baiLam.getKiThi());
+			mabailam.add(baiLam.getMaBailam());
+		}
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		int i = 0;
+		for (KiThi k : kthi) {
+			Object[] row = { k.getLop().getTenlop(), k.getNganhangcauhoi().getIdNganHang(), k.getMota(),
+					k.getDate().toString(), k.getThoigianbatdau().toString(), String.valueOf(k.getThoigianlambai()),
+					String.valueOf(k.getSl()), k.getId(), mabailam.get(i) };
+			model.addRow(row);
+			i++;
+		}
+		return model;
+	}
+	public String tendapAn(String q, Cauhoi c) {
+		String k = "0";
+		System.out.println(q + " --- " + c.getId());
+		if (c.getDapAnA().equals(q))
+			k = "A";
+		else if (c.getDapAnB().equals(q))
+			k = "B";
+		else if (c.getDapAnC().equals(q))
+			k = "C";
+		else if (c.getDapAnD().equals(q))
+			k = "D";
+		return k;
 	}
 
 	public void ViewCreateQuestion() {

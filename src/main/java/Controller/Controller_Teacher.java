@@ -39,7 +39,11 @@ public class Controller_Teacher implements Action {
 		} else if (e.getSource() == viewteacher.buttonExam) {
 			// giao diện kì thi
 			this.viewteacher.ViewExam();
-		} else if (e.getSource() == viewteacher.buttonProfile) {
+		} else if(e.getSource() == viewteacher.buttonTest) {
+			// giao diện bài làm
+			this.viewteacher.ViewTest();
+		}
+		else if (e.getSource() == viewteacher.buttonProfile) {
 			// giao diện cá nhân
 			this.viewteacher.ViewProfile();
 		} else if (e.getSource() == viewteacher.buttonLogout) {
