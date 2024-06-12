@@ -124,6 +124,7 @@ public class ViewTeacher extends JFrame {
 	public List<JRadioButton> listRadiobutton = new ArrayList<JRadioButton>();
 	public Cauhoi q = null;
 	public List<Sv> svs = new ArrayList<Sv>();
+	public List<KiThi> kthi = KiThi_dao.Instance().selectall();
 
 	Controller_Teacher actionTeacher = new Controller_Teacher(this);
 
@@ -772,6 +773,12 @@ public class ViewTeacher extends JFrame {
 		columnresize.getColumn(2).setPreferredWidth(60);
 		columnresize.getColumn(5).setPreferredWidth(50);
 		columnresize.getColumn(6).setPreferredWidth(50);
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn column = columnModel.getColumn(7);
+		column.setMinWidth(0);
+		column.setMaxWidth(0);
+		column.setWidth(0);
+		column.setPreferredWidth(0);
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
@@ -2057,9 +2064,7 @@ public class ViewTeacher extends JFrame {
 	}
 
 	public DefaultTableModel getModelExam(Gv g) {
-		List<KiThi> kthi = KiThi_dao.Instance().selectall();
 		String idgv = g.getId();
-
 		JTable t = new JTable();
 		t.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "  Lớp", "  Môn", "  Tên kì thi",
 				"  Ngày thi", "  Thời gian bắt đầu", "  Thời gian thi", "  Số câu hỏi", "  Mã kì thi" }));
@@ -2191,6 +2196,7 @@ public class ViewTeacher extends JFrame {
 		} else if (k == -1) {
 			m = labelIdKitThi.getText();
 		}
+		
 		// check số lượng câu hỏi
 		Nganhangcauhoi nh = getNganhangcauhoibyName(tenNH);
 		if (total > nh.getSoluong()) {
@@ -2225,8 +2231,13 @@ public class ViewTeacher extends JFrame {
 		dateField.setText("");
 		timeField.setText("");
 		if (kt != null) {
-			KiThi_dao.Instance().insert(kt);
-			return true;
+			if(KiThi_dao.Instance().insert(kt)) {
+				kthi.add(kt);
+				return true;
+			} else {
+				JOptionPane.showMessageDialog(null, "Đã có kì thi khác diễn ra trong thời gian này",
+						"Thông báo", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		return false;
 	}
@@ -2244,8 +2255,18 @@ public class ViewTeacher extends JFrame {
 		dateField.setText("");
 		timeField.setText("");
 		if (kt != null) {
-			KiThi_dao.Instance().update(kt);
-			return true;
+			if(KiThi_dao.Instance().update(kt)) {
+				for (KiThi kithi : kthi) {
+					if(kithi.getId().equals(kt.getId())) {
+						kthi.remove(kithi);
+						kthi.add(kt);
+						return true;
+					}
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Đã có kì thi khác diễn ra trong thời gian này",
+						"Thông báo", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		return false;
 	}
@@ -2456,6 +2477,7 @@ public class ViewTeacher extends JFrame {
 			DeThi_dao.Instance().deletebyid(deThi);
 		}
 		KiThi_dao.Instance().deletebyid(kt);
+		kthi.remove(kt);
 	}
 
 	public void displayImage(File imageFile, JLabel label) {
