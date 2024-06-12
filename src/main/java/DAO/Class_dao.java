@@ -256,8 +256,7 @@ public class Class_dao implements DAO_Interface<Class> {
 					String id = kq.getString("id");
 					String ten = kq.getString("ten");
 					String lop= kq.getString("lop");
-					Class lop1 = new Class();
-					lop1.setIdclass(lop);
+					Class lop1 = Class_dao.Instance().selectbyid(lop);
 					Sv u = new Sv(id,ten,lop1);
 					u.setList(BaiLam_dao.Instance().selectbyidSV(id));
 					u.setDTB();

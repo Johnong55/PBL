@@ -1579,7 +1579,7 @@ public class ViewAdmin extends JFrame {
 		pView.repaint();
 		pView.revalidate();
 
-		JLabel lblNewLabel = new JLabel("KÌ THI");
+		JLabel lblNewLabel = new JLabel("BÀI LÀM");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Dimension size = lblNewLabel.getPreferredSize();
 		lblNewLabel.setBounds(10, 10, (int) size.getWidth() + 1, (int) size.getHeight() + 1);
