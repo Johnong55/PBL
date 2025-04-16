@@ -12,8 +12,6 @@ PBL là một ứng dụng Java sử dụng Hibernate ORM để quản lý dữ 
 - Hibernate ORM
 - Maven
 - MySQL
-- [Thêm các công nghệ khác nếu có, ví dụ: Spring Boot, JPA, v.v.]
-
 ## Cài đặt
 
 ### Yêu cầu hệ thống
