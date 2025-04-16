@@ -1,66 +1,70 @@
-PBL – Quản lý [Tên Dự Án]
-Giới thiệu
+
+
+# PBL – Quản lý Kì Thi Trắc nghiệm
+
+## Giới thiệu
+
 PBL là một ứng dụng Java sử dụng Hibernate ORM để quản lý dữ liệu trong cơ sở dữ liệu quan hệ. Dự án này được phát triển nhằm mục đích [mô tả mục tiêu dự án, ví dụ: quản lý sinh viên, sản phẩm, v.v.].
 
-Công nghệ sử dụng
-Java 8 trở lên
+## Công nghệ sử dụng
 
-Hibernate ORM
+- Java 8 trở lên
+- Hibernate ORM
+- Maven
+- MySQL
+- [Thêm các công nghệ khác nếu có, ví dụ: Spring Boot, JPA, v.v.]
 
-Maven
+## Cài đặt
 
-MySQL
+### Yêu cầu hệ thống
 
-[Thêm các công nghệ khác nếu có, ví dụ: Spring Boot, JPA, v.v.]
+- JDK 8 trở lên
+- Maven
+- MySQL Server
 
-Cài đặt
-Yêu cầu hệ thống
-JDK 8 trở lên
+### Hướng dẫn cài đặt
 
-Maven
+1. **Clone repository:**
 
-MySQL Server
+   ```bash
+   git clone https://github.com/Johnong55/PBL.git
+   cd PBL
+   ```
 
-Hướng dẫn cài đặt
-Clone repository:
+2. **Cấu hình cơ sở dữ liệu:**
 
-bash
-Copy
-Edit
-git clone https://github.com/Johnong55/PBL.git
-cd PBL
-Cấu hình cơ sở dữ liệu:
+   - Tạo cơ sở dữ liệu MySQL với tên phù hợp.
+   - Cập nhật thông tin kết nối trong tệp `hibernate.cfg.xml` hoặc `application.properties` (nếu sử dụng Spring Boot).
 
-Tạo cơ sở dữ liệu MySQL với tên phù hợp.
+3. **Build và chạy ứng dụng:**
 
-Cập nhật thông tin kết nối trong tệp hibernate.cfg.xml hoặc application.properties (nếu sử dụng Spring Boot).
+   ```bash
+   mvn clean install
+   mvn exec:java
+   ```
 
-Build và chạy ứng dụng:
+   Hoặc nếu sử dụng Spring Boot:
 
-bash
-Copy
-Edit
-mvn clean install
-mvn exec:java
-Hoặc nếu sử dụng Spring Boot:
+   ```bash
+   mvn spring-boot:run
+   ```
 
-bash
-Copy
-Edit
-mvn spring-boot:run
-Cấu trúc dự án
-src/main/java: Mã nguồn Java
+## Cấu trúc dự án
 
-src/main/resources: Tệp cấu hình Hibernate và tài nguyên khác
+- `src/main/java`: Mã nguồn Java
+- `src/main/resources`: Tệp cấu hình Hibernate và tài nguyên khác
+- `pom.xml`: Tệp cấu hình Maven
 
-pom.xml: Tệp cấu hình Maven
+## Tính năng
 
-Tính năng
-[Liệt kê các tính năng chính của ứng dụng, ví dụ: thêm/sửa/xóa dữ liệu, tìm kiếm, v.v.]
+- [Liệt kê các tính năng chính của ứng dụng, ví dụ: thêm/sửa/xóa dữ liệu, tìm kiếm, v.v.]
 
-Đóng góp
+## Đóng góp
+
 Chúng tôi hoan nghênh mọi đóng góp từ cộng đồng. Vui lòng tạo pull request hoặc mở issue để thảo luận thêm.
 
-Giấy phép
+## Giấy phép
+
 Dự án này được cấp phép theo [Tên giấy phép, ví dụ: MIT License].
 
+---
