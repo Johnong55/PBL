@@ -4,7 +4,8 @@
 
 ## Giới thiệu
 
-PBL là một ứng dụng Java sử dụng Hibernate ORM để quản lý dữ liệu trong cơ sở dữ liệu quan hệ. Dự án này được phát triển nhằm mục đích [mô tả mục tiêu dự án, ví dụ: quản lý sinh viên, sản phẩm, v.v.].
+PBL là một ứng dụng desktop Java dùng để quản lý các kỳ thi trắc nghiệm. Ứng dụng cho phép quản lý hệ thống câu hỏi, tạo và quản lý các kỳ thi, lập lịch thi đúng hẹn và phân lớp chính xác theo yêu cầu. Đây là công cụ hỗ trợ hiệu quả cho việc tổ chức và kiểm soát kỳ thi trắc nghiệm trong các cơ sở giáo dục.
+
 
 ## Công nghệ sử dụng
 
@@ -54,15 +55,13 @@ PBL là một ứng dụng Java sử dụng Hibernate ORM để quản lý dữ 
 - `pom.xml`: Tệp cấu hình Maven
 
 ## Tính năng
-
-- [Liệt kê các tính năng chính của ứng dụng, ví dụ: thêm/sửa/xóa dữ liệu, tìm kiếm, v.v.]
+- Quản lý danh sách câu hỏi trắc nghiệm với các loại câu hỏi đa dạng  
+- Tạo mới và chỉnh sửa các kỳ thi trắc nghiệm  
+- Lập lịch thi chính xác theo thời gian, lớp học và môn thi  
+- Quản lý danh sách thí sinh tham gia kỳ thi  
+- Quản lý sự tiến bộ của lớp thông qua việc kiểm tra
 
 ## Đóng góp
 
 Chúng tôi hoan nghênh mọi đóng góp từ cộng đồng. Vui lòng tạo pull request hoặc mở issue để thảo luận thêm.
 
-## Giấy phép
-
-Dự án này được cấp phép theo [Tên giấy phép, ví dụ: MIT License].
-
----
